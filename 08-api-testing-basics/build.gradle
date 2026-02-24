@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.bharata'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // TestNG dependency
+    testImplementation group: 'org.testng', name: 'testng', version: '7.5'
+
+    // Apache dependency
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+}
+
+
+test {
+    useTestNG {
+        suites "src/test/resources/testng.xml"
+    }
+
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED"
+    }
+}

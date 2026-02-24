@@ -1,0 +1,66 @@
+# OS Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencies
+node_modules/
+vendor/
+venv/
+env/
+
+# Build outputs
+dist/
+build/
+target/
+*.class
+*.jar
+*.war
+
+# Test outputs
+test-output/
+allure-results/
+allure-report/
+screenshots/
+reports/
+
+# Sensitive data (extra safety)
+**/secrets/
+**/credentials/
+**/*-secret.*
+**/*-credential.*
+*.key
+*.pem
+*.p12
+*.jks
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+
+# Session & command history (keep in repo for portfolio context)
+# SESSION-NOTES-*.md
+# COMMAND-HISTORY.md
+# RESUME-TOMORROW.md
+
+# Audit files (keep for transparency)
+# REPO-AUDIT-REPORT.md
+# MERGE-COMPLETE.md
+# GITHUB-REPOS-MERGE-SUMMARY.md
+# UPDATE-*.md

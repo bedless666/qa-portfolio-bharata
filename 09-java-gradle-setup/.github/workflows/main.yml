@@ -1,0 +1,64 @@
+name: Automation Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  api-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Give execution permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      
+      - name: Install dependencies
+        run: ./gradlew dependencies
+      
+      - name: Run API tests
+        run: ./gradlew test --tests "api.*"
+      
+      - name: Upload API test reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-test-reports
+          path: build/reports/tests/test/
+
+  ui-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Give execution permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      
+      - name: Install dependencies
+        run: ./gradlew dependencies
+      
+      - name: Run UI tests
+        run: ./gradlew test --tests "ui.*"
+      
+      - name: Upload UI test reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-test-reports
+          path: build/reports/tests/test/
