@@ -12,6 +12,15 @@ A clean, focused UI automation framework built with Cucumber, Java, Gradle, and 
 
 ---
 
+## 🎓 Project Context
+
+> **Learning Project Notice**  
+> This project was developed as part of a professional QA bootcamp training program to build foundational automation skills. While it demonstrates technical capabilities and best practices learned during the training, it represents educational work rather than production implementation from professional employment.
+> 
+> **Value Proposition**: Showcases ability to learn and implement BDD testing methodology, master Cucumber framework, and apply Page Object Model design pattern in a structured learning environment.
+
+---
+
 ## 🎯 Key Features
 
 - ✅ **BDD with Cucumber**: Gherkin syntax for readable test scenarios

@@ -1,19 +1,23 @@
 # QA Portfolio - Bharata Aryaseta
 
+[![GitHub](https://img.shields.io/badge/GitHub-bedless666-181717?logo=github)](https://github.com/bedless666)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-aryaseta666-0077B5?logo=linkedin)](https://linkedin.com/in/aryaseta666)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Live-success)](https://github.com/bedless666/qa-portfolio-bharata)
+
 > **AI-Augmented QA Engineer** specializing in test automation, regression testing, and AI-powered QA solutions
 
 ---
 
 ## 👋 About This Portfolio
 
-This portfolio showcases 3+ years of QA engineering work across **e-commerce** and **fintech** domains. Projects demonstrate expertise in:
+This portfolio showcases **3+ years of QA engineering work** across **e-commerce** and **fintech** domains. Projects demonstrate expertise in:
 
 - **Test Automation** (API, Web, Mobile)
 - **Process Optimization** (CI/CD, Dashboards, Notifications)
 - **Technical Documentation** (Guides, Standards, Templates)
 - **AI-Assisted Testing** (Cursor AI, ChatGPT integration)
 
-**Note:** Company and product names have been anonymized where necessary to respect confidentiality agreements. Technical implementations and problem-solving approaches are presented for educational purposes.
+**Note:** Company and product names have been anonymized where necessary to respect confidentiality agreements.
 
 ---
 
@@ -158,34 +162,15 @@ Basic Java + Gradle project setup demonstrating build configuration and dependen
 
 ---
 
-## 📝 Portfolio Status
+## 📚 Documentation
 
-| Project | Status | Code Samples |
-|---------|--------|--------------|
-| 01. Regression Automation | ✅ Complete | ✅ Available |
-| 02. JIRA Optimization | 🚧 In Progress | ⏳ Coming soon |
-| 03. Documentation Samples | ✅ Complete | ✅ Available |
-| 04. Test Templates | 🚧 In Progress | ⏳ Coming soon |
-| 05. Web + API Framework | ✅ Complete | ✅ Full codebase |
-| 06. Cucumber UI Framework | ✅ Complete | ✅ Full codebase |
-| 07. Final Project Framework | ✅ Complete | ✅ Full codebase |
-| 08. API Testing Basics | ✅ Complete | ✅ Full codebase |
-| 09. Java Gradle Setup | ✅ Complete | ✅ Full codebase |
-
-**Overall Progress**: 78% Complete (7/9 projects ready)
-
----
-
-## 🚀 Next Steps
-
-- [ ] Complete JIRA Optimization sanitization
-- [ ] Complete Test Templates sanitization
-- [ ] Add visual examples (diagrams, screenshots)
-- [ ] Initialize git repository
-- [ ] Publish to GitHub
-- [ ] Setup Notion page
+- **[Quick Start Guide](./QUICK-START.md)** - Get started with this portfolio
+- **[Interactive Guide](./INTERACTIVE-GUIDE.md)** - Portfolio management system
+- **[Portfolio Stats](./PROJECT-PROGRESS.md)** - Detailed achievements & metrics
+- **[Internal Docs](./.docs/)** - Session notes, audit reports, setup guides
 
 ---
 
 **Last Updated:** February 24, 2026  
-**Total Projects:** 9 (4 professional work + 5 learning projects)
+**Total Projects:** 9 (4 professional work + 5 learning projects)  
+**Portfolio Status:** ✅ Published & Active

@@ -12,6 +12,15 @@ An advanced automation test framework combining **Web UI Testing** and **API Tes
 
 ---
 
+## 🎓 Project Context
+
+> **Learning Project Notice**  
+> This project was developed as the capstone project of a professional QA bootcamp training program, representing the culmination of automation testing skills acquired during the course. While it demonstrates production-ready code quality and comprehensive testing practices, it represents educational work rather than implementation from professional employment.
+> 
+> **Value Proposition**: Showcases ability to architect complex test frameworks, integrate multiple testing layers (UI + API), implement advanced error handling, and deliver production-quality code in a structured learning environment. This project demonstrates readiness for professional test automation roles.
+
+---
+
 ## 🎯 Key Features
 
 ### Framework Architecture

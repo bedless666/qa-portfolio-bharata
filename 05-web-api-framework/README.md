@@ -12,6 +12,15 @@ A comprehensive automation test framework that integrates **Web UI Testing** and
 
 ---
 
+## 🎓 Project Context
+
+> **Learning Project Notice**  
+> This project was developed as part of a professional QA bootcamp training program to build foundational automation skills. While it demonstrates technical capabilities and best practices learned during the training, it represents educational work rather than production implementation from professional employment.
+> 
+> **Value Proposition**: Showcases ability to learn and implement modern test automation frameworks, understand BDD methodology, and apply industry-standard tools and patterns in a structured learning environment.
+
+---
+
 ## 🎯 Key Features
 
 ### Framework Capabilities
