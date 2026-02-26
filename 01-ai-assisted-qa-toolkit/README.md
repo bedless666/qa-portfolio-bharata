@@ -18,7 +18,7 @@ This project showcases **AI-assisted QA engineering** capabilities through two d
 
 ## 🎯 Sub-Projects
 
-### 1. [Japanese N5 Learning Presentations](./02-japanese-n5-learning/)
+### 1. [Japanese N5 Learning Presentations](./01-japanese-n5-learning/)
 **Interactive language learning tool created entirely through AI prompting**
 
 - **Purpose:** Self-paced Japanese language learning with interactive presentations
@@ -32,7 +32,21 @@ This project showcases **AI-assisted QA engineering** capabilities through two d
 - ✅ Responsive design for multiple devices
 - ✅ Created through iterative AI prompting and refinement
 
-### 2. [HTML Prompting Interfaces](./03-html-prompting-interfaces/)
+### 2. [N5 Quiz Tools](./02-n5-quiz-tools/)
+**Interactive quiz and drill tools for Japanese N5 learning**
+
+- **Purpose:** Practice and assessment tools for Japanese N5 vocabulary and grammar
+- **Technology:** HTML5, CSS3, JavaScript (AI-generated)
+- **Content:** Custom quiz interface and drill tool
+- **QA Relevance:** Shows ability to create interactive test tools and assessment interfaces
+
+**Key Features:**
+- ✅ Custom quiz generation with configurable parameters
+- ✅ Drill tool for repetitive practice
+- ✅ Fully self-contained with no external dependencies
+- ✅ Created through AI-assisted development
+
+### 3. [HTML Prompting Interfaces](./03-html-prompting-interfaces/)
 **Themed interactive interfaces showcasing AI-driven UI generation**
 
 - **Purpose:** Demonstrate AI's capability to generate complex, themed user interfaces
@@ -91,12 +105,11 @@ Ability to quickly create:
 ```
 01-ai-assisted-qa-toolkit/
 ├── README.md (this file)
-├── 02-japanese-n5-learning/
-│   ├── presentations/          # 23 interactive HTML presentations
-│   └── README.md              # Project-specific documentation
+├── 01-japanese-n5-learning/    # 23 interactive HTML presentations
+├── 02-n5-quiz-tools/           # Quiz & drill tools
 └── 03-html-prompting-interfaces/
-    ├── html/                  # 5 themed interfaces
-    └── README.md              # Project-specific documentation
+    ├── html/                   # 5 themed interfaces
+    └── README.md               # Project-specific documentation
 ```
 
 ---
