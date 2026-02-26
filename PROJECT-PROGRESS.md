@@ -7,12 +7,18 @@
 ## 📊 Portfolio Overview
 
 **Status:** ✅ Published & Active  
-**Last Updated:** February 24, 2026  
-**Total Projects:** 9 (4 professional + 5 learning)
+**Last Updated:** February 18, 2026  
+**Total Projects:** 10 (1 AI-assisted + 4 professional + 5 learning)
 
 ---
 
 ## 🎯 Key Achievements
+
+### AI Innovation
+- ✅ **28 interactive HTML interfaces** created via AI prompting
+- ✅ **Zero-dependency applications** showcasing prompt engineering
+- ✅ **Rapid prototyping** of learning tools and themed UIs
+- ✅ **100% AI-generated code** demonstrating modern QA capabilities
 
 ### Professional Impact
 - ✅ **30% reduction** in regression cycle time through AI automation
@@ -32,9 +38,34 @@
 
 ## 📂 Project Breakdown
 
+### AI-Assisted QA Innovation (1)
+
+#### 1. AI-Assisted QA Toolkit
+**Domain:** AI-Powered Testing & Learning  
+**Duration:** 2024 - Present  
+**Impact:** Demonstrating modern AI-augmented QA capabilities
+
+**Key Features:**
+- 28 interactive HTML interfaces (23 learning + 5 themed)
+- 100% AI-generated code (Cursor AI, ChatGPT)
+- Zero external dependencies
+- Advanced prompt engineering showcase
+
+**Sub-Projects:**
+- Japanese N5 Learning (23 presentations)
+- HTML Prompting Interfaces (5 themed UIs)
+
+**Metrics:**
+- 28 fully functional HTML files
+- 100% self-contained applications
+- 5 unique themed interfaces
+- 40 Japanese language lessons covered
+
+---
+
 ### Professional Work Projects (4)
 
-#### 1. Regression Automation System
+#### 2. Regression Automation System
 **Domain:** E-commerce Marketplace  
 **Duration:** June 2024 - Present  
 **Impact:** 30% cycle time reduction
@@ -52,7 +83,7 @@
 
 ---
 
-#### 2. JIRA Workflow Optimization
+#### 3. JIRA Workflow Optimization
 **Domain:** E-commerce Marketplace  
 **Duration:** June 2024 - Present  
 **Impact:** Streamlined QA workflow
@@ -70,7 +101,7 @@
 
 ---
 
-#### 3. Technical Documentation
+#### 4. Technical Documentation
 **Domain:** Multi-domain  
 **Duration:** Oct 2022 - Present  
 **Impact:** Faster onboarding
@@ -88,7 +119,7 @@
 
 ---
 
-#### 4. E-commerce Test Templates
+#### 5. E-commerce Test Templates
 **Domain:** E-commerce Marketplace  
 **Duration:** June 2024 - Present  
 **Impact:** Improved test data quality
@@ -108,7 +139,7 @@
 
 ### Learning & Skill Development Projects (5)
 
-#### 5. Web + API Automation Framework
+#### 6. Web + API Automation Framework
 **Context:** Bootcamp capstone project  
 **Tech Stack:** Selenium, Rest Assured, Cucumber, GitHub Actions
 
@@ -120,7 +151,7 @@
 
 ---
 
-#### 6. Cucumber UI Framework
+#### 7. Cucumber UI Framework
 **Context:** Bootcamp training project  
 **Tech Stack:** Cucumber, Selenium, TestNG
 
@@ -132,7 +163,7 @@
 
 ---
 
-#### 7. Final Project Framework
+#### 8. Final Project Framework
 **Context:** Bootcamp final project  
 **Tech Stack:** Selenium, TestNG, Maven
 
@@ -144,7 +175,7 @@
 
 ---
 
-#### 8. API Testing Basics
+#### 9. API Testing Basics
 **Context:** Bootcamp foundation project  
 **Tech Stack:** TestNG, Apache HTTP Client
 
@@ -156,7 +187,7 @@
 
 ---
 
-#### 9. Java Gradle Setup
+#### 10. Java Gradle Setup
 **Context:** Bootcamp setup project  
 **Tech Stack:** Java, Gradle, TestNG
 

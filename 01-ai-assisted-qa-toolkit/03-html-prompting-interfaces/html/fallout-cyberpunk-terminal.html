@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAULT-TEC Terminal 2287 | Post-Nuclear Interface</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-cyan: #00F0FF;
+            --neon-magenta: #FF00C8;
+            --radioactive-green: #B8FF3F;
+            --dull-gold: #C9B15A;
+            --deep-black: #0a0a0a;
+            --dark-gray: #1a1a1a;
+            --rust-orange: #FF6B35;
+            --terminal-green: #33FF33;
+            --crt-glow: rgba(0, 240, 255, 0.4);
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--deep-black);
+            color: var(--neon-cyan);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Background Layers */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            overflow: hidden;
+        }
+
+        .bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Apocalyptic Sky */
+        .bg-sky {
+            background: linear-gradient(
+                180deg,
+                #1a0a0a 0%,
+                #2d1810 30%,
+                #4a2818 60%,
+                #ff6b35 100%
+            );
+        }
+
+        /* Ruined City Silhouette (CSS) */
+        .bg-city {
+            background: 
+                linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, transparent 40%),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 80px,
+                    rgba(0, 0, 0, 0.3) 80px,
+                    rgba(0, 0, 0, 0.3) 120px
+                );
+            opacity: 0.6;
+        }
+
+        /* Radioactive Fog */
+        .bg-fog {
+            background: radial-gradient(
+                ellipse at 50% 100%,
+                rgba(184, 255, 63, 0.15) 0%,
+                rgba(201, 177, 90, 0.1) 40%,
+                transparent 70%
+            );
+            animation: fog-drift 20s ease-in-out infinite;
+        }
+
+        @keyframes fog-drift {
+            0%, 100% { transform: translateX(0) scale(1); opacity: 0.3; }
+            50% { transform: translateX(30px) scale(1.1); opacity: 0.5; }
+        }
+
+        /* Grain/Noise Overlay */
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.08;
+            animation: noise-anim 0.2s infinite;
+        }
+
+        @keyframes noise-anim {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(-10%, 5%); }
+            30% { transform: translate(5%, -10%); }
+            40% { transform: translate(-5%, 15%); }
+            50% { transform: translate(-10%, 5%); }
+            60% { transform: translate(15%, 0); }
+            70% { transform: translate(0, 10%); }
+            80% { transform: translate(-15%, 0); }
+            90% { transform: translate(10%, 5%); }
+        }
+
+        /* Vignette */
+        .bg-vignette {
+            background: radial-gradient(
+                ellipse at center,
+                transparent 0%,
+                rgba(0, 0, 0, 0.4) 60%,
+                rgba(0, 0, 0, 0.8) 100%
+            );
+        }
+
+        /* Scanlines */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 240, 255, 0.03) 2px,
+                rgba(0, 240, 255, 0.03) 4px
+            );
+            pointer-events: none;
+            z-index: 1000;
+            animation: scanline-move 8s linear infinite;
+        }
+
+        @keyframes scanline-move {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(20px); }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            position: relative;
+        }
+
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            text-shadow: 
+                0 0 10px var(--neon-cyan),
+                0 0 20px var(--neon-cyan),
+                0 0 40px var(--neon-cyan),
+                0 0 80px rgba(0, 240, 255, 0.5);
+            letter-spacing: 8px;
+            margin-bottom: 0.5rem;
+            animation: flicker 3s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            94%, 96% { opacity: 0.8; }
+            95% { opacity: 0.9; }
+        }
+
+        .subtitle {
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            color: var(--radioactive-green);
+            text-shadow: 0 0 10px var(--radioactive-green);
+            letter-spacing: 3px;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 10px;
+            box-shadow: 
+                0 0 20px rgba(0, 240, 255, 0.3),
+                inset 0 0 20px rgba(0, 240, 255, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--dull-gold);
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.2), transparent);
+            animation: scan-sweep 3s infinite;
+        }
+
+        @keyframes scan-sweep {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .stat-label {
+            font-family: 'VT323', monospace;
+            font-size: 1rem;
+            color: var(--dull-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--neon-cyan);
+            font-weight: 700;
+            margin-top: 0.5rem;
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .stat-value.warning {
+            color: var(--rust-orange);
+            text-shadow: 0 0 10px var(--rust-orange);
+            animation: pulse-warning 1s infinite;
+        }
+
+        @keyframes pulse-warning {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .stat-value.critical {
+            color: var(--neon-magenta);
+            text-shadow: 0 0 10px var(--neon-magenta);
+            animation: pulse-critical 0.5s infinite;
+        }
+
+        @keyframes pulse-critical {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        /* Main Grid Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Terminal Container - Pip-Boy Style */
+        .terminal-container {
+            background: rgba(10, 10, 10, 0.9);
+            border: 4px solid var(--dull-gold);
+            border-radius: 20px;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 
+                0 0 30px rgba(201, 177, 90, 0.4),
+                inset 0 0 30px rgba(0, 0, 0, 0.8);
+            grid-column: 2;
+        }
+
+        /* CRT Frame Effect */
+        .terminal-container::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid rgba(0, 240, 255, 0.2);
+            border-radius: 15px;
+            pointer-events: none;
+        }
+
+        /* Terminal Header */
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 1rem;
+        }
+
+        .terminal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--terminal-green);
+            text-shadow: 0 0 10px var(--terminal-green);
+            letter-spacing: 2px;
+        }
+
+        .mode-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .mode-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-family: 'VT323', monospace;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mode-btn:hover {
+            background: var(--neon-cyan);
+            color: var(--deep-black);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .mode-btn.active {
+            background: var(--radioactive-green);
+            color: var(--deep-black);
+            border-color: var(--radioactive-green);
+            box-shadow: 0 0 20px var(--radioactive-green);
+        }
+
+        /* Terminal Screen */
+        .terminal-screen {
+            background: rgba(0, 20, 0, 0.9);
+            border: 2px solid var(--terminal-green);
+            border-radius: 0 0 10px 10px;
+            padding: 1.5rem;
+            min-height: 500px;
+            max-height: 600px;
+            overflow-y: auto;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--terminal-green);
+            text-shadow: 0 0 5px var(--terminal-green);
+            position: relative;
+            box-shadow: inset 0 0 50px rgba(0, 255, 0, 0.1);
+        }
+
+        /* CRT Curvature Effect */
+        .terminal-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                ellipse at center,
+                transparent 0%,
+                rgba(0, 0, 0, 0.3) 100%
+            );
+            pointer-events: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* CRT Bloom Effect */
+        .terminal-screen::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(0, 255, 0, 0.05) 0%,
+                transparent 50%,
+                rgba(0, 255, 0, 0.05) 100%
+            );
+            pointer-events: none;
+            animation: crt-flicker 0.15s infinite;
+        }
+
+        @keyframes crt-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
+        }
+
+        .terminal-line {
+            margin-bottom: 0.5rem;
+            word-wrap: break-word;
+        }
+
+        .terminal-prompt {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        .terminal-error {
+            color: var(--neon-magenta);
+            text-shadow: 0 0 5px var(--neon-magenta);
+        }
+
+        .terminal-warning {
+            color: var(--rust-orange);
+            text-shadow: 0 0 5px var(--rust-orange);
+        }
+
+        .terminal-success {
+            color: var(--radioactive-green);
+            text-shadow: 0 0 5px var(--radioactive-green);
+        }
+
+        /* Input Line */
+        .input-line {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .terminal-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--terminal-green);
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            outline: none;
+            text-shadow: 0 0 5px var(--terminal-green);
+            caret-color: var(--terminal-green);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--terminal-green);
+            animation: cursor-blink 1s infinite;
+            margin-left: 5px;
+            box-shadow: 0 0 10px var(--terminal-green);
+        }
+
+        @keyframes cursor-blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Side Panels */
+        .side-panel {
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid var(--neon-magenta);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 0 20px rgba(255, 0, 200, 0.3);
+        }
+
+        .panel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--neon-magenta);
+            text-shadow: 0 0 10px var(--neon-magenta);
+            margin-bottom: 1rem;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Minimap */
+        .minimap {
+            width: 100%;
+            aspect-ratio: 1;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .minimap-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(0, 240, 255, 0.2) 19px, rgba(0, 240, 255, 0.2) 20px),
+                repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(0, 240, 255, 0.2) 19px, rgba(0, 240, 255, 0.2) 20px);
+        }
+
+        .minimap-marker {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--radioactive-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--radioactive-green);
+            animation: marker-pulse 2s infinite;
+        }
+
+        @keyframes marker-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.6; }
+        }
+
+        /* Data Stream */
+        .data-stream {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 5px;
+            padding: 1rem;
+            height: 150px;
+            overflow: hidden;
+            font-family: 'VT323', monospace;
+            font-size: 0.9rem;
+            color: var(--neon-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .data-line {
+            opacity: 0.7;
+            animation: fade-in 0.5s ease-in;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 0.7; transform: translateY(0); }
+        }
+
+        /* Hardware Info */
+        .hardware-list {
+            list-style: none;
+        }
+
+        .hardware-item {
+            background: rgba(0, 0, 0, 0.6);
+            border-left: 3px solid var(--radioactive-green);
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            font-family: 'VT323', monospace;
+            font-size: 1rem;
+            color: var(--dull-gold);
+        }
+
+        .hardware-label {
+            color: var(--neon-cyan);
+            font-weight: bold;
+        }
+
+        .hardware-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hardware-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--radioactive-green), var(--neon-cyan));
+            box-shadow: 0 0 10px var(--radioactive-green);
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .hardware-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: bar-shine 2s infinite;
+        }
+
+        @keyframes bar-shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 1rem 0;
+        }
+
+        .progress-label {
+            font-family: 'VT323', monospace;
+            color: var(--neon-cyan);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            box-shadow: 0 0 20px var(--neon-cyan);
+            transition: width 0.3s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            animation: glitch-anim 0.3s infinite;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Day/Night Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .theme-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+
+        .theme-btn:hover {
+            background: var(--neon-cyan);
+            color: var(--deep-black);
+            box-shadow: 0 0 30px var(--neon-cyan);
+        }
+
+        /* Night Mode */
+        body.night-mode {
+            --neon-cyan: #0088cc;
+            --radioactive-green: #66cc66;
+        }
+
+        body.night-mode .bg-sky {
+            background: linear-gradient(
+                180deg,
+                #000000 0%,
+                #0a0a1a 50%,
+                #1a1a2e 100%
+            );
+        }
+
+        body.night-mode .bg-fog {
+            opacity: 0.3;
+        }
+
+        /* Scrollbar */
+        .terminal-screen::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .terminal-screen::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 5px;
+        }
+
+        .terminal-screen::-webkit-scrollbar-thumb {
+            background: var(--neon-cyan);
+            border-radius: 5px;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .terminal-container {
+                grid-column: 1;
+            }
+
+            .main-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .main-title {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .status-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .terminal-screen {
+                min-height: 400px;
+                font-size: 1rem;
+            }
+
+            .mode-toggle {
+                flex-direction: column;
+            }
+        }
+
+        /* Audio Indicator */
+        .audio-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .audio-indicator:hover {
+            background: var(--neon-cyan);
+            box-shadow: 0 0 30px var(--neon-cyan);
+        }
+
+        .audio-indicator i {
+            color: var(--neon-cyan);
+            font-size: 1.5rem;
+        }
+
+        .audio-indicator:hover i {
+            color: var(--deep-black);
+        }
+
+        /* HUD Mode Styles */
+        .hud-mode .terminal-screen {
+            background: rgba(0, 0, 0, 0.95);
+            border-color: var(--neon-cyan);
+        }
+
+        .hud-mode .terminal-line {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        .hud-glyph {
+            display: inline-block;
+            color: var(--radioactive-green);
+            text-shadow: 0 0 10px var(--radioactive-green);
+            font-weight: bold;
+        }
+
+        /* Loading Animation */
+        .loading-dots::after {
+            content: '...';
+            animation: loading-dots 1.5s infinite;
+        }
+
+        @keyframes loading-dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Layers -->
+    <div class="background-container">
+        <div class="bg-layer bg-sky"></div>
+        <div class="bg-layer bg-city"></div>
+        <div class="bg-layer bg-fog"></div>
+        <div class="bg-layer bg-noise"></div>
+        <div class="bg-layer bg-vignette"></div>
+    </div>
+
+    <!-- Scanlines Overlay -->
+    <div class="scanlines"></div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-btn" id="themeToggle">
+            <span id="themeIcon">☀️</span> DAY/NIGHT
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 class="main-title">VAULT-TEC SYSTEMS</h1>
+            <p class="subtitle">POST-NUCLEAR TERMINAL INTERFACE v2.87</p>
+        </header>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="stat-item">
+                <div class="stat-label">RADIATION</div>
+                <div class="stat-value warning" id="radiationValue">0.86 Sv</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">POWER</div>
+                <div class="stat-value" id="powerValue">73%</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">FUEL CELLS</div>
+                <div class="stat-value" id="fuelValue">12/20</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">CORE TEMP</div>
+                <div class="stat-value critical" id="tempValue">342°C</div>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Left Panel: Minimap & Data Stream -->
+            <div class="side-panel">
+                <h3 class="panel-title">SECTOR MAP</h3>
+                <div class="minimap">
+                    <div class="minimap-grid"></div>
+                    <div class="minimap-marker" style="top: 30%; left: 40%;"></div>
+                    <div class="minimap-marker" style="top: 60%; left: 70%;"></div>
+                    <div class="minimap-marker" style="top: 80%; left: 20%;"></div>
+                </div>
+                
+                <h3 class="panel-title">DATA STREAM</h3>
+                <div class="data-stream" id="dataStream">
+                    <div class="data-line">0x4A2F 0x8B3C 0x1D9E 0x7F4A</div>
+                    <div class="data-line">0x2C8F 0x9A1B 0x5E3D 0x6F2C</div>
+                    <div class="data-line">0x8D4E 0x3F7A 0xB2C9 0x1A5F</div>
+                </div>
+            </div>
+
+            <!-- Center: Terminal -->
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-title">◉ MAIN TERMINAL</div>
+                    <div class="mode-toggle">
+                        <button class="mode-btn active" id="hudMode">HUD MODE</button>
+                        <button class="mode-btn" id="bashMode">BASH MODE</button>
+                    </div>
+                </div>
+                <div class="terminal-screen" id="terminalScreen">
+                    <div class="terminal-line terminal-success">╔══════════════════════════════════════════════════╗</div>
+                    <div class="terminal-line terminal-success">║   VAULT-TEC UNIFIED OPERATING SYSTEM v2.87      ║</div>
+                    <div class="terminal-line terminal-success">║   POST-NUCLEAR WASTELAND EDITION                ║</div>
+                    <div class="terminal-line terminal-success">╚══════════════════════════════════════════════════╝</div>
+                    <div class="terminal-line"></div>
+                    <div class="terminal-line terminal-prompt">&gt; BOOT SEQUENCE INITIALIZED</div>
+                    <div class="terminal-line">CORE TEMP: 342°C | RADIATION: 0.86 Sv | ERROR LOG: 12</div>
+                    <div class="terminal-line terminal-warning">WARNING: Elevated radiation levels detected</div>
+                    <div class="terminal-line terminal-success">SYSTEM STATUS: OPERATIONAL</div>
+                    <div class="terminal-line"></div>
+                    <div class="terminal-line">Available commands: <span class="terminal-success">status</span>, <span class="terminal-success">scan</span>, <span class="terminal-success">hack</span>, <span class="terminal-success">map</span>, <span class="terminal-success">help</span>, <span class="terminal-success">clear</span></div>
+                    <div class="terminal-line"></div>
+                    <div class="input-line">
+                        <span class="terminal-prompt">&gt;&gt;</span>
+                        <input type="text" class="terminal-input" id="terminalInput" autocomplete="off" spellcheck="false">
+                        <span class="cursor"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Hardware Info -->
+            <div class="side-panel">
+                <h3 class="panel-title">HARDWARE STATUS</h3>
+                <ul class="hardware-list">
+                    <li class="hardware-item">
+                        <div><span class="hardware-label">CPU:</span> QUANTUM CORE X9</div>
+                        <div class="hardware-bar">
+                            <div class="hardware-bar-fill" style="width: 87%;"></div>
+                        </div>
+                    </li>
+                    <li class="hardware-item">
+                        <div><span class="hardware-label">VACUUM TUBE:</span> SERIES-7</div>
+                        <div class="hardware-bar">
+                            <div class="hardware-bar-fill" style="width: 62%;"></div>
+                        </div>
+                    </li>
+                    <li class="hardware-item">
+                        <div><span class="hardware-label">NUCLEAR CORE:</span> FUSION MK-II</div>
+                        <div class="hardware-bar">
+                            <div class="hardware-bar-fill" style="width: 94%;"></div>
+                        </div>
+                    </li>
+                    <li class="hardware-item">
+                        <div><span class="hardware-label">MEMORY:</span> 2048 MB RAM</div>
+                        <div class="hardware-bar">
+                            <div class="hardware-bar-fill" style="width: 45%;"></div>
+                        </div>
+                    </li>
+                    <li class="hardware-item">
+                        <div><span class="hardware-label">STORAGE:</span> HOLOTAPE DRIVE</div>
+                        <div class="hardware-bar">
+                            <div class="hardware-bar-fill" style="width: 73%;"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Indicator (Visual Only) -->
+    <div class="audio-indicator" id="audioToggle" title="Toggle Ambient Sound">
+        <span id="audioIcon">🔊</span>
+    </div>
+
+    <script>
+        // Terminal State
+        let terminalHistory = [];
+        let historyIndex = -1;
+        let isHudMode = true;
+        let isAudioOn = false;
+        let commandInProgress = false;
+
+        // DOM Elements
+        const terminalScreen = document.getElementById('terminalScreen');
+        const terminalInput = document.getElementById('terminalInput');
+        const hudModeBtn = document.getElementById('hudMode');
+        const bashModeBtn = document.getElementById('bashMode');
+        const themeToggle = document.getElementById('themeToggle');
+        const audioToggle = document.getElementById('audioToggle');
+        const dataStream = document.getElementById('dataStream');
+
+        // Focus input on load
+        window.addEventListener('load', () => {
+            terminalInput.focus();
+        });
+
+        // Keep focus on terminal
+        terminalScreen.addEventListener('click', () => {
+            terminalInput.focus();
+        });
+
+        // Mode Toggle
+        hudModeBtn.addEventListener('click', () => {
+            isHudMode = true;
+            hudModeBtn.classList.add('active');
+            bashModeBtn.classList.remove('active');
+            terminalScreen.classList.add('hud-mode');
+            addTerminalLine('MODE SWITCHED: HUD INTERFACE ACTIVE', 'success');
+            playBeep();
+        });
+
+        bashModeBtn.addEventListener('click', () => {
+            isHudMode = false;
+            bashModeBtn.classList.add('active');
+            hudModeBtn.classList.remove('active');
+            terminalScreen.classList.remove('hud-mode');
+            addTerminalLine('MODE SWITCHED: BASH TERMINAL ACTIVE', 'success');
+            playBeep();
+        });
+
+        // Theme Toggle
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('night-mode');
+            const icon = document.getElementById('themeIcon');
+            icon.textContent = document.body.classList.contains('night-mode') ? '🌙' : '☀️';
+            playBeep();
+        });
+
+        // Audio Toggle (Visual feedback only)
+        audioToggle.addEventListener('click', () => {
+            isAudioOn = !isAudioOn;
+            const icon = document.getElementById('audioIcon');
+            icon.textContent = isAudioOn ? '🔊' : '🔇';
+            audioToggle.style.borderColor = isAudioOn ? 'var(--radioactive-green)' : 'var(--neon-cyan)';
+            
+            if (isAudioOn) {
+                addTerminalLine('AUDIO: Ambient sound enabled (simulated)', 'success');
+            } else {
+                addTerminalLine('AUDIO: Ambient sound disabled', 'warning');
+            }
+        });
+
+        // Terminal Input Handler
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const command = terminalInput.value.trim();
+                
+                if (command) {
+                    terminalHistory.push(command);
+                    historyIndex = terminalHistory.length;
+                    processCommand(command);
+                    terminalInput.value = '';
+                }
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    terminalInput.value = terminalHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < terminalHistory.length - 1) {
+                    historyIndex++;
+                    terminalInput.value = terminalHistory[historyIndex];
+                } else {
+                    historyIndex = terminalHistory.length;
+                    terminalInput.value = '';
+                }
+            }
+        });
+
+        // Process Commands
+        async function processCommand(command) {
+            if (commandInProgress) {
+                addTerminalLine('ERROR: Command already in progress', 'error');
+                return;
+            }
+
+            addTerminalLine(`>> ${command}`, 'prompt');
+            commandInProgress = true;
+
+            const cmd = command.toLowerCase().split(' ')[0];
+
+            switch (cmd) {
+                case 'status':
+                    await commandStatus();
+                    break;
+                case 'scan':
+                    await commandScan(command);
+                    break;
+                case 'hack':
+                    await commandHack();
+                    break;
+                case 'map':
+                    await commandMap();
+                    break;
+                case 'help':
+                    commandHelp();
+                    break;
+                case 'clear':
+                    clearTerminal();
+                    break;
+                case 'glitch':
+                    triggerGlitch();
+                    break;
+                default:
+                    addTerminalLine(`ERROR: Unknown command '${cmd}'`, 'error');
+                    addTerminalLine('Type "help" for available commands', 'warning');
+            }
+
+            commandInProgress = false;
+            scrollToBottom();
+        }
+
+        // Command: Status
+        async function commandStatus() {
+            addTerminalLine('SYSTEM DIAGNOSTICS INITIATED<span class="loading-dots"></span>', 'success');
+            await sleep(800);
+            
+            if (isHudMode) {
+                addTerminalLine('╔════════════════════════════════════════╗');
+                addTerminalLine('║  <span class="hud-glyph">◉</span> SYSTEM STATUS REPORT           ║');
+                addTerminalLine('╠════════════════════════════════════════╣');
+                addTerminalLine('║  CORE TEMP:     342°C  <span class="terminal-error">[CRITICAL]</span> ║');
+                addTerminalLine('║  RADIATION:     0.86 Sv <span class="terminal-warning">[WARNING]</span> ║');
+                addTerminalLine('║  POWER LEVEL:   73%     <span class="terminal-success">[NOMINAL]</span>  ║');
+                addTerminalLine('║  FUEL CELLS:    12/20   <span class="terminal-success">[NOMINAL]</span>  ║');
+                addTerminalLine('║  NETWORK:       ONLINE  <span class="terminal-success">[ACTIVE]</span>   ║');
+                addTerminalLine('║  DEFENSE GRID:  ARMED   <span class="terminal-success">[ACTIVE]</span>   ║');
+                addTerminalLine('╚════════════════════════════════════════╝');
+            } else {
+                addTerminalLine('System Status: OPERATIONAL');
+                addTerminalLine('Core Temperature: 342°C [CRITICAL]');
+                addTerminalLine('Radiation Level: 0.86 Sv [WARNING]');
+                addTerminalLine('Power: 73% [NOMINAL]');
+                addTerminalLine('Fuel Cells: 12/20 [NOMINAL]');
+                addTerminalLine('Network Status: ONLINE');
+                addTerminalLine('Defense Grid: ARMED');
+            }
+            
+            playBeep();
+        }
+
+        // Command: Scan
+        async function commandScan(command) {
+            const args = command.split(' ');
+            const area = args[1] ? args[1] : 'Sector-7B';
+            
+            addTerminalLine(`INITIATING SCAN: ${area}<span class="loading-dots"></span>`, 'success');
+            await sleep(1000);
+            
+            addTerminalLine('Scanning for anomalies...', 'success');
+            await sleep(800);
+            
+            const anomalies = Math.floor(Math.random() * 10) + 3;
+            addTerminalLine(`SCAN COMPLETE: ${anomalies} anomalies detected`, 'warning');
+            await sleep(500);
+            
+            if (isHudMode) {
+                addTerminalLine('╔════════════════════════════════════════╗');
+                addTerminalLine('║  <span class="hud-glyph">▲</span> ANOMALY MAP                   ║');
+                addTerminalLine('╠════════════════════════════════════════╣');
+                for (let i = 0; i < anomalies; i++) {
+                    const x = Math.floor(Math.random() * 100);
+                    const y = Math.floor(Math.random() * 100);
+                    const type = ['RADIATION', 'HOSTILE', 'RESOURCE', 'UNKNOWN'][Math.floor(Math.random() * 4)];
+                    addTerminalLine(`║  [${i + 1}] ${type.padEnd(12)} @ (${x},${y})     ║`);
+                    await sleep(200);
+                }
+                addTerminalLine('╚════════════════════════════════════════╝');
+            } else {
+                for (let i = 0; i < anomalies; i++) {
+                    const x = Math.floor(Math.random() * 100);
+                    const y = Math.floor(Math.random() * 100);
+                    const type = ['RADIATION', 'HOSTILE', 'RESOURCE', 'UNKNOWN'][Math.floor(Math.random() * 4)];
+                    addTerminalLine(`[${i + 1}] ${type} detected at coordinates (${x}, ${y})`);
+                    await sleep(200);
+                }
+            }
+            
+            addTerminalLine('Generating tactical map...', 'success');
+            await sleep(500);
+            addTerminalLine('MAP DATA UPLOADED TO MINIMAP', 'success');
+            playBeep();
+        }
+
+        // Command: Hack
+        async function commandHack() {
+            addTerminalLine('INITIATING SECURITY BYPASS PROTOCOL<span class="loading-dots"></span>', 'success');
+            await sleep(1000);
+            
+            addTerminalLine('Analyzing encryption...', 'warning');
+            await sleep(800);
+            
+            // Progress bar simulation
+            const progressId = 'hack-progress-' + Date.now();
+            addTerminalLine(`<div class="progress-container">
+                <div class="progress-label">DECRYPTION PROGRESS</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="${progressId}" style="width: 0%;"></div>
+                </div>
+            </div>`);
+            
+            for (let i = 0; i <= 100; i += 10) {
+                await sleep(200);
+                const progressBar = document.getElementById(progressId);
+                if (progressBar) {
+                    progressBar.style.width = i + '%';
+                }
+                if (i % 30 === 0) {
+                    playBeep();
+                }
+            }
+            
+            await sleep(500);
+            
+            if (Math.random() > 0.3) {
+                addTerminalLine('HACK SUCCESSFUL: Access granted', 'success');
+                addTerminalLine('Retrieved data: [CLASSIFIED]', 'success');
+                addTerminalLine('Security level: COMPROMISED', 'warning');
+            } else {
+                addTerminalLine('HACK FAILED: Security detected intrusion', 'error');
+                addTerminalLine('Initiating countermeasures...', 'error');
+                triggerGlitch();
+            }
+            
+            playBeep();
+        }
+
+        // Command: Map
+        async function commandMap() {
+            addTerminalLine('LOADING TACTICAL MAP<span class="loading-dots"></span>', 'success');
+            await sleep(1000);
+            
+            if (isHudMode) {
+                addTerminalLine('╔════════════════════════════════════════╗');
+                addTerminalLine('║     WASTELAND TACTICAL MAP v2.3       ║');
+                addTerminalLine('╠════════════════════════════════════════╣');
+                addTerminalLine('║  [█] VAULT LOCATION                   ║');
+                addTerminalLine('║  [▲] HOSTILE TERRITORY                ║');
+                addTerminalLine('║  [◆] RESOURCE NODE                    ║');
+                addTerminalLine('║  [☢] RADIATION ZONE                   ║');
+                addTerminalLine('║  [?] UNEXPLORED AREA                  ║');
+                addTerminalLine('╠════════════════════════════════════════╣');
+                addTerminalLine('║                                       ║');
+                addTerminalLine('║  ░░░░▲░░░░░░☢░░░░░░◆░░░░░░░░         ║');
+                addTerminalLine('║  ░░░░░░░░▲░░░░░░░░░░░░?░░░░░         ║');
+                addTerminalLine('║  ░░☢░░░░░░░░░░█░░░░░░░░░░░░░         ║');
+                addTerminalLine('║  ░░░░░░◆░░░░░░░░░░▲░░░░░░☢░         ║');
+                addTerminalLine('║  ░░░░░░░░░░?░░░░░░░░░░░░░░░░         ║');
+                addTerminalLine('║                                       ║');
+                addTerminalLine('╚════════════════════════════════════════╝');
+            } else {
+                addTerminalLine('Wasteland Tactical Map v2.3');
+                addTerminalLine('Legend:');
+                addTerminalLine('  [█] Vault Location');
+                addTerminalLine('  [▲] Hostile Territory');
+                addTerminalLine('  [◆] Resource Node');
+                addTerminalLine('  [☢] Radiation Zone');
+                addTerminalLine('  [?] Unexplored Area');
+                addTerminalLine('');
+                addTerminalLine('Map data displayed on minimap panel');
+            }
+            
+            playBeep();
+        }
+
+        // Command: Help
+        function commandHelp() {
+            addTerminalLine('╔════════════════════════════════════════╗');
+            addTerminalLine('║        AVAILABLE COMMANDS             ║');
+            addTerminalLine('╠════════════════════════════════════════╣');
+            addTerminalLine('║  status  - System diagnostics         ║');
+            addTerminalLine('║  scan    - Scan for anomalies         ║');
+            addTerminalLine('║  hack    - Security bypass protocol   ║');
+            addTerminalLine('║  map     - Display tactical map       ║');
+            addTerminalLine('║  help    - Show this help message     ║');
+            addTerminalLine('║  clear   - Clear terminal screen      ║');
+            addTerminalLine('║  glitch  - Trigger system glitch      ║');
+            addTerminalLine('╚════════════════════════════════════════╝');
+            playBeep();
+        }
+
+        // Clear Terminal
+        function clearTerminal() {
+            const inputLine = terminalScreen.querySelector('.input-line');
+            terminalScreen.innerHTML = '';
+            terminalScreen.appendChild(inputLine);
+            addTerminalLine('TERMINAL CLEARED', 'success');
+            playBeep();
+        }
+
+        // Trigger Glitch Effect
+        function triggerGlitch() {
+            terminalScreen.classList.add('glitch');
+            addTerminalLine('█▓▒░ SYSTEM MALFUNCTION ░▒▓█', 'error');
+            addTerminalLine('0x4A2F 0xERROR 0x1D9E 0xCRASH', 'error');
+            
+            setTimeout(() => {
+                terminalScreen.classList.remove('glitch');
+                addTerminalLine('System stabilized', 'success');
+            }, 1500);
+        }
+
+        // Add Terminal Line
+        function addTerminalLine(text, type = '') {
+            const inputLine = terminalScreen.querySelector('.input-line');
+            const line = document.createElement('div');
+            line.className = `terminal-line ${type ? 'terminal-' + type : ''}`;
+            line.innerHTML = text;
+            terminalScreen.insertBefore(line, inputLine);
+        }
+
+        // Scroll to Bottom
+        function scrollToBottom() {
+            terminalScreen.scrollTop = terminalScreen.scrollHeight;
+        }
+
+        // Sleep Function
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Play Beep (Visual feedback)
+        function playBeep() {
+            // Visual feedback instead of actual sound
+            terminalScreen.style.borderColor = 'var(--radioactive-green)';
+            setTimeout(() => {
+                terminalScreen.style.borderColor = 'var(--terminal-green)';
+            }, 100);
+        }
+
+        // Data Stream Animation
+        function updateDataStream() {
+            const hexChars = '0123456789ABCDEF';
+            const generateHex = () => {
+                let hex = '0x';
+                for (let i = 0; i < 4; i++) {
+                    hex += hexChars[Math.floor(Math.random() * 16)];
+                }
+                return hex;
+            };
+
+            const line = document.createElement('div');
+            line.className = 'data-line';
+            line.textContent = `${generateHex()} ${generateHex()} ${generateHex()} ${generateHex()}`;
+            
+            dataStream.appendChild(line);
+            
+            // Keep only last 10 lines
+            while (dataStream.children.length > 10) {
+                dataStream.removeChild(dataStream.firstChild);
+            }
+        }
+
+        // Update data stream every 2 seconds
+        setInterval(updateDataStream, 2000);
+
+        // Random stat updates
+        function updateStats() {
+            const radiation = document.getElementById('radiationValue');
+            const power = document.getElementById('powerValue');
+            const fuel = document.getElementById('fuelValue');
+            const temp = document.getElementById('tempValue');
+
+            // Random fluctuations
+            const radValue = (0.80 + Math.random() * 0.15).toFixed(2);
+            const powerValue = Math.floor(70 + Math.random() * 10);
+            const fuelValue = Math.floor(10 + Math.random() * 5);
+            const tempValue = Math.floor(335 + Math.random() * 15);
+
+            radiation.textContent = `${radValue} Sv`;
+            power.textContent = `${powerValue}%`;
+            fuel.textContent = `${fuelValue}/20`;
+            temp.textContent = `${tempValue}°C`;
+        }
+
+        // Update stats every 5 seconds
+        setInterval(updateStats, 5000);
+
+        // Welcome animation
+        window.addEventListener('load', async () => {
+            await sleep(1000);
+            addTerminalLine('Welcome to VAULT-TEC Terminal System', 'success');
+            await sleep(500);
+            addTerminalLine('Type "help" for available commands', 'success');
+            scrollToBottom();
+        });
+
+        // Random glitch effect
+        setInterval(() => {
+            if (Math.random() > 0.95) {
+                const lines = terminalScreen.querySelectorAll('.terminal-line');
+                if (lines.length > 5) {
+                    const randomLine = lines[Math.floor(Math.random() * lines.length)];
+                    randomLine.classList.add('glitch');
+                    setTimeout(() => {
+                        randomLine.classList.remove('glitch');
+                    }, 300);
+                }
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Classic Adventure - Kanto & Hoenn Region</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Fire Red Colors */
+            --fire-red: #FF4422;
+            --fire-orange: #FF8844;
+            
+            /* Leaf Green Colors */
+            --leaf-green: #44DD44;
+            --leaf-light: #88FF88;
+            
+            /* Water Blue Colors */
+            --water-blue: #3366FF;
+            --water-light: #66AAFF;
+            
+            /* Ruby Colors */
+            --ruby-red: #CC0033;
+            --ruby-pink: #FF6699;
+            
+            /* Sapphire Colors */
+            --sapphire-blue: #0066CC;
+            --sapphire-light: #3399FF;
+            
+            /* Game Boy Colors */
+            --gb-cream: #E0D0A0;
+            --gb-dark: #2B2B2B;
+            --gb-border: #8B7355;
+            --text-shadow: #000000;
+            
+            /* Pokémon Yellow */
+            --pikachu-yellow: #FFD700;
+            --pikachu-dark: #FFA500;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: linear-gradient(135deg, var(--water-blue) 0%, var(--sapphire-blue) 50%, var(--ruby-red) 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Pokéballs */
+        .pokeball-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-pokeball {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            opacity: 0.1;
+            animation: float-pokeball 20s infinite linear;
+        }
+
+        @keyframes float-pokeball {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .main-logo {
+            background: linear-gradient(135deg, var(--pikachu-yellow), var(--fire-orange), var(--fire-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5rem;
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px var(--pikachu-yellow));
+            }
+            50% {
+                filter: drop-shadow(0 0 20px var(--fire-orange));
+            }
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: white;
+            text-shadow: 2px 2px 0 var(--text-shadow);
+            letter-spacing: 3px;
+        }
+
+        /* Game Selection */
+        .game-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .game-btn {
+            padding: 1rem 2rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            border: 4px solid var(--gb-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: left 0.3s ease;
+        }
+
+        .game-btn:hover::before {
+            left: 100%;
+        }
+
+        .game-btn.fire-red {
+            background: linear-gradient(135deg, var(--fire-red), var(--fire-orange));
+            color: white;
+            box-shadow: 0 5px 0 var(--ruby-red), 0 8px 20px rgba(255, 68, 34, 0.4);
+        }
+
+        .game-btn.fire-red:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 var(--ruby-red), 0 12px 25px rgba(255, 68, 34, 0.6);
+        }
+
+        .game-btn.leaf-green {
+            background: linear-gradient(135deg, var(--leaf-green), var(--leaf-light));
+            color: white;
+            box-shadow: 0 5px 0 #228822, 0 8px 20px rgba(68, 221, 68, 0.4);
+        }
+
+        .game-btn.leaf-green:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #228822, 0 12px 25px rgba(68, 221, 68, 0.6);
+        }
+
+        .game-btn.water-blue {
+            background: linear-gradient(135deg, var(--water-blue), var(--water-light));
+            color: white;
+            box-shadow: 0 5px 0 #1144CC, 0 8px 20px rgba(51, 102, 255, 0.4);
+        }
+
+        .game-btn.water-blue:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #1144CC, 0 12px 25px rgba(51, 102, 255, 0.6);
+        }
+
+        .game-btn.ruby {
+            background: linear-gradient(135deg, var(--ruby-red), var(--ruby-pink));
+            color: white;
+            box-shadow: 0 5px 0 #880022, 0 8px 20px rgba(204, 0, 51, 0.4);
+        }
+
+        .game-btn.ruby:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #880022, 0 12px 25px rgba(204, 0, 51, 0.6);
+        }
+
+        .game-btn.sapphire {
+            background: linear-gradient(135deg, var(--sapphire-blue), var(--sapphire-light));
+            color: white;
+            box-shadow: 0 5px 0 #003388, 0 8px 20px rgba(0, 102, 204, 0.4);
+        }
+
+        .game-btn.sapphire:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #003388, 0 12px 25px rgba(0, 102, 204, 0.6);
+        }
+
+        .game-btn.active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 var(--gb-dark), 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Character Grid */
+        .character-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: white;
+            text-shadow: 3px 3px 0 var(--text-shadow);
+            margin-bottom: 2rem;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 3px solid var(--pikachu-yellow);
+        }
+
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Character Card - Game Boy Style */
+        .character-card {
+            background: var(--gb-cream);
+            border: 6px solid var(--gb-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 
+                0 10px 0 var(--gb-dark),
+                0 15px 30px rgba(0, 0, 0, 0.5),
+                inset 0 2px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .character-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .character-card:hover::before {
+            left: 100%;
+        }
+
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 15px 0 var(--gb-dark),
+                0 20px 40px rgba(0, 0, 0, 0.6),
+                inset 0 2px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .character-card.active {
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Character Image Placeholder */
+        .character-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667788, #445566);
+            border: 4px solid var(--gb-dark);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .character-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.1) 2px,
+                rgba(0, 0, 0, 0.1) 4px
+            );
+            pointer-events: none;
+        }
+
+        /* Character Info */
+        .character-name {
+            font-size: 1rem;
+            color: var(--gb-dark);
+            margin-bottom: 0.5rem;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .character-role {
+            font-size: 0.6rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-family: 'VT323', monospace;
+            letter-spacing: 1px;
+        }
+
+        .character-type {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .type-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.5rem;
+            color: white;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .type-fire { background: linear-gradient(135deg, #FF4422, #FF8844); }
+        .type-water { background: linear-gradient(135deg, #3366FF, #66AAFF); }
+        .type-grass { background: linear-gradient(135deg, #44DD44, #88FF88); }
+        .type-electric { background: linear-gradient(135deg, #FFD700, #FFA500); }
+        .type-psychic { background: linear-gradient(135deg, #FF00AA, #FF66CC); }
+        .type-dragon { background: linear-gradient(135deg, #7038F8, #A890F0); }
+        .type-normal { background: linear-gradient(135deg, #A8A878, #C6C6A7); }
+        .type-fighting { background: linear-gradient(135deg, #C03028, #FF6666); }
+        .type-flying { background: linear-gradient(135deg, #A890F0, #C6B7F5); }
+        .type-ground { background: linear-gradient(135deg, #E0C068, #F0D080); }
+        .type-rock { background: linear-gradient(135deg, #B8A038, #D0C050); }
+        .type-dark { background: linear-gradient(135deg, #705848, #A29288); }
+
+        .character-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px dashed var(--gb-dark);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.5rem;
+            color: #666;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-value {
+            font-size: 0.8rem;
+            color: var(--gb-dark);
+            font-weight: bold;
+        }
+
+        /* Pokémon Team Display */
+        .pokemon-team {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .pokemon-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gb-dark);
+            border: 2px solid var(--gb-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .pokemon-icon:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(255, 255, 255, 0.9);
+            border: 4px solid var(--gb-dark);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-title {
+            font-size: 1rem;
+            color: var(--gb-dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .info-text {
+            font-size: 0.6rem;
+            color: #333;
+            line-height: 1.8;
+            font-family: 'VT323', monospace;
+            text-align: center;
+        }
+
+        /* Battle Stats Display */
+        .battle-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-bar {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 0.5rem;
+        }
+
+        .stat-bar-label {
+            font-size: 0.5rem;
+            color: var(--gb-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-bar-fill {
+            height: 8px;
+            background: var(--gb-dark);
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-bar-inner {
+            height: 100%;
+            background: linear-gradient(90deg, var(--leaf-green), var(--pikachu-yellow));
+            border-radius: 5px;
+            transition: width 1s ease;
+            position: relative;
+        }
+
+        .stat-bar-inner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            animation: stat-shine 2s infinite;
+        }
+
+        @keyframes stat-shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: white;
+            font-size: 0.6rem;
+            text-shadow: 2px 2px 0 var(--text-shadow);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-logo {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.6rem;
+            }
+
+            .game-btn {
+                font-size: 0.5rem;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1rem;
+            }
+
+            .character-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .character-name {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Pixel Art Effect */
+        .pixel-art {
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+
+        /* Dialogue Box */
+        .dialogue-box {
+            background: white;
+            border: 4px solid var(--gb-dark);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .dialogue-box::before {
+            content: '▼';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 1rem;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .dialogue-text {
+            font-size: 0.7rem;
+            color: var(--gb-dark);
+            line-height: 1.8;
+            font-family: 'VT323', monospace;
+        }
+
+        /* Region Badge */
+        .region-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--pikachu-yellow), var(--fire-orange));
+            border: 3px solid var(--gb-dark);
+            border-radius: 20px;
+            font-size: 0.6rem;
+            color: white;
+            text-shadow: 1px 1px 0 var(--text-shadow);
+            margin: 0.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Pokéballs Background -->
+    <div class="pokeball-bg" id="pokeballBg"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 class="main-logo">POKÉMON CLASSIC</h1>
+            <p class="subtitle">Kanto & Hoenn Adventures</p>
+        </header>
+
+        <!-- Game Selection -->
+        <div class="game-selector">
+            <button class="game-btn fire-red active" data-game="fire-red">Fire Red</button>
+            <button class="game-btn leaf-green" data-game="leaf-green">Leaf Green</button>
+            <button class="game-btn water-blue" data-game="water-blue">Water Blue</button>
+            <button class="game-btn ruby" data-game="ruby">Ruby</button>
+            <button class="game-btn sapphire" data-game="sapphire">Sapphire</button>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <h2 class="info-title">Welcome to the Pokémon World!</h2>
+            <p class="info-text">
+                Choose your game version above to explore iconic trainers, gym leaders, and legendary Pokémon from the Kanto and Hoenn regions. Each character has their unique team and battle style!
+            </p>
+        </div>
+
+        <!-- Kanto Region Characters -->
+        <section class="character-section" id="kantoSection">
+            <h2 class="section-title">
+                🔥 KANTO REGION 🌿
+                <span class="region-badge">Fire Red / Leaf Green</span>
+            </h2>
+            
+            <div class="character-grid">
+                <!-- Red -->
+                <div class="character-card" data-region="kanto">
+                    <div class="character-image" style="background: linear-gradient(135deg, #FF4422, #FF8844);">
+                        🧢
+                    </div>
+                    <h3 class="character-name">Red</h3>
+                    <p class="character-role">Champion Trainer</p>
+                    <div class="character-type">
+                        <span class="type-badge type-fire">Fire</span>
+                        <span class="type-badge type-water">Water</span>
+                        <span class="type-badge type-grass">Grass</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🔥</div>
+                        <div class="pokemon-icon">💧</div>
+                        <div class="pokemon-icon">⚡</div>
+                        <div class="pokemon-icon">🌿</div>
+                        <div class="pokemon-icon">❄️</div>
+                        <div class="pokemon-icon">💤</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">88</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">BADGES</div>
+                            <div class="stat-value">16</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">WINS</div>
+                            <div class="stat-value">999</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blue/Gary -->
+                <div class="character-card" data-region="kanto">
+                    <div class="character-image" style="background: linear-gradient(135deg, #3366FF, #66AAFF);">
+                        😎
+                    </div>
+                    <h3 class="character-name">Blue (Gary)</h3>
+                    <p class="character-role">Rival & Gym Leader</p>
+                    <div class="character-type">
+                        <span class="type-badge type-normal">Normal</span>
+                        <span class="type-badge type-flying">Flying</span>
+                        <span class="type-badge type-dragon">Dragon</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🦅</div>
+                        <div class="pokemon-icon">🐉</div>
+                        <div class="pokemon-icon">💧</div>
+                        <div class="pokemon-icon">🌿</div>
+                        <div class="pokemon-icon">🔥</div>
+                        <div class="pokemon-icon">👻</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">85</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">BADGES</div>
+                            <div class="stat-value">8</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">WINS</div>
+                            <div class="stat-value">876</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professor Oak -->
+                <div class="character-card" data-region="kanto">
+                    <div class="character-image" style="background: linear-gradient(135deg, #A8A878, #C6C6A7);">
+                        👨‍🔬
+                    </div>
+                    <h3 class="character-name">Prof. Oak</h3>
+                    <p class="character-role">Pokémon Professor</p>
+                    <div class="character-type">
+                        <span class="type-badge type-normal">Research</span>
+                        <span class="type-badge type-grass">Starter</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🔥</div>
+                        <div class="pokemon-icon">💧</div>
+                        <div class="pokemon-icon">🌿</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">AGE</div>
+                            <div class="stat-value">60+</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">RESEARCH</div>
+                            <div class="stat-value">150+</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">FAME</div>
+                            <div class="stat-value">★★★</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brock -->
+                <div class="character-card" data-region="kanto">
+                    <div class="character-image" style="background: linear-gradient(135deg, #B8A038, #D0C050);">
+                        🪨
+                    </div>
+                    <h3 class="character-name">Brock</h3>
+                    <p class="character-role">Pewter Gym Leader</p>
+                    <div class="character-type">
+                        <span class="type-badge type-rock">Rock</span>
+                        <span class="type-badge type-ground">Ground</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🪨</div>
+                        <div class="pokemon-icon">⛰️</div>
+                        <div class="pokemon-icon">🗿</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">14</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">TYPE</div>
+                            <div class="stat-value">ROCK</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">BADGE</div>
+                            <div class="stat-value">🪨</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Misty -->
+                <div class="character-card" data-region="kanto">
+                    <div class="character-image" style="background: linear-gradient(135deg, #3366FF, #66AAFF);">
+                        🌊
+                    </div>
+                    <h3 class="character-name">Misty</h3>
+                    <p class="character-role">Cerulean Gym Leader</p>
+                    <div class="character-type">
+                        <span class="type-badge type-water">Water</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">⭐</div>
+                        <div class="pokemon-icon">💧</div>
+                        <div class="pokemon-icon">🌊</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">21</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">TYPE</div>
+                            <div class="stat-value">WATER</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">BADGE</div>
+                            <div class="stat-value">💧</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lt. Surge -->
+                <div class="character-card" data-region="kanto">
+                    <div class="character-image" style="background: linear-gradient(135deg, #FFD700, #FFA500);">
+                        ⚡
+                    </div>
+                    <h3 class="character-name">Lt. Surge</h3>
+                    <p class="character-role">Vermilion Gym Leader</p>
+                    <div class="character-type">
+                        <span class="type-badge type-electric">Electric</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">⚡</div>
+                        <div class="pokemon-icon">🔋</div>
+                        <div class="pokemon-icon">💥</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">28</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">TYPE</div>
+                            <div class="stat-value">ELEC</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">BADGE</div>
+                            <div class="stat-value">⚡</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Giovanni -->
+                <div class="character-card" data-region="kanto">
+                    <div class="character-image" style="background: linear-gradient(135deg, #705848, #A29288);">
+                        😈
+                    </div>
+                    <h3 class="character-name">Giovanni</h3>
+                    <p class="character-role">Team Rocket Boss</p>
+                    <div class="character-type">
+                        <span class="type-badge type-ground">Ground</span>
+                        <span class="type-badge type-dark">Dark</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🦏</div>
+                        <div class="pokemon-icon">⛰️</div>
+                        <div class="pokemon-icon">🐭</div>
+                        <div class="pokemon-icon">🦂</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">50</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">ROLE</div>
+                            <div class="stat-value">BOSS</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">BADGE</div>
+                            <div class="stat-value">🌍</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mewtwo -->
+                <div class="character-card" data-region="kanto">
+                    <div class="character-image" style="background: linear-gradient(135deg, #FF00AA, #FF66CC);">
+                        🧬
+                    </div>
+                    <h3 class="character-name">Mewtwo</h3>
+                    <p class="character-role">Legendary Pokémon</p>
+                    <div class="character-type">
+                        <span class="type-badge type-psychic">Psychic</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🧠</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">70</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">POWER</div>
+                            <div class="stat-value">MAX</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">RARE</div>
+                            <div class="stat-value">★★★</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hoenn Region Characters -->
+        <section class="character-section" id="hoennSection">
+            <h2 class="section-title">
+                💎 HOENN REGION 🌊
+                <span class="region-badge">Ruby / Sapphire</span>
+            </h2>
+            
+            <div class="character-grid">
+                <!-- Brendan -->
+                <div class="character-card" data-region="hoenn">
+                    <div class="character-image" style="background: linear-gradient(135deg, #CC0033, #FF6699);">
+                        🧑
+                    </div>
+                    <h3 class="character-name">Brendan</h3>
+                    <p class="character-role">Hoenn Protagonist</p>
+                    <div class="character-type">
+                        <span class="type-badge type-fire">Fire</span>
+                        <span class="type-badge type-water">Water</span>
+                        <span class="type-badge type-grass">Grass</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🐔</div>
+                        <div class="pokemon-icon">🦎</div>
+                        <div class="pokemon-icon">🌊</div>
+                        <div class="pokemon-icon">⚡</div>
+                        <div class="pokemon-icon">🦅</div>
+                        <div class="pokemon-icon">🐉</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">75</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">BADGES</div>
+                            <div class="stat-value">8</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">WINS</div>
+                            <div class="stat-value">654</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- May -->
+                <div class="character-card" data-region="hoenn">
+                    <div class="character-image" style="background: linear-gradient(135deg, #0066CC, #3399FF);">
+                        👧
+                    </div>
+                    <h3 class="character-name">May</h3>
+                    <p class="character-role">Hoenn Protagonist</p>
+                    <div class="character-type">
+                        <span class="type-badge type-fire">Fire</span>
+                        <span class="type-badge type-water">Water</span>
+                        <span class="type-badge type-grass">Grass</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🦎</div>
+                        <div class="pokemon-icon">🐊</div>
+                        <div class="pokemon-icon">🌿</div>
+                        <div class="pokemon-icon">🦋</div>
+                        <div class="pokemon-icon">⭐</div>
+                        <div class="pokemon-icon">🐋</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">75</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">BADGES</div>
+                            <div class="stat-value">8</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">WINS</div>
+                            <div class="stat-value">642</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professor Birch -->
+                <div class="character-card" data-region="hoenn">
+                    <div class="character-image" style="background: linear-gradient(135deg, #44DD44, #88FF88);">
+                        👨‍🔬
+                    </div>
+                    <h3 class="character-name">Prof. Birch</h3>
+                    <p class="character-role">Hoenn Professor</p>
+                    <div class="character-type">
+                        <span class="type-badge type-grass">Research</span>
+                        <span class="type-badge type-normal">Field</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🐔</div>
+                        <div class="pokemon-icon">🦎</div>
+                        <div class="pokemon-icon">🐊</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">AGE</div>
+                            <div class="stat-value">45+</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">RESEARCH</div>
+                            <div class="stat-value">135+</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">FAME</div>
+                            <div class="stat-value">★★★</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Steven Stone -->
+                <div class="character-card" data-region="hoenn">
+                    <div class="character-image" style="background: linear-gradient(135deg, #B8B8D0, #D0D0E8);">
+                        💎
+                    </div>
+                    <h3 class="character-name">Steven</h3>
+                    <p class="character-role">Hoenn Champion</p>
+                    <div class="character-type">
+                        <span class="type-badge type-rock">Rock</span>
+                        <span class="type-badge type-psychic">Psychic</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🪨</div>
+                        <div class="pokemon-icon">💎</div>
+                        <div class="pokemon-icon">🦾</div>
+                        <div class="pokemon-icon">🦖</div>
+                        <div class="pokemon-icon">⚙️</div>
+                        <div class="pokemon-icon">🌟</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">78</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">ROLE</div>
+                            <div class="stat-value">CHAMP</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">WINS</div>
+                            <div class="stat-value">999</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maxie -->
+                <div class="character-card" data-region="hoenn">
+                    <div class="character-image" style="background: linear-gradient(135deg, #CC0033, #FF4422);">
+                        🔥
+                    </div>
+                    <h3 class="character-name">Maxie</h3>
+                    <p class="character-role">Team Magma Leader</p>
+                    <div class="character-type">
+                        <span class="type-badge type-fire">Fire</span>
+                        <span class="type-badge type-ground">Ground</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🐺</div>
+                        <div class="pokemon-icon">🐪</div>
+                        <div class="pokemon-icon">🔥</div>
+                        <div class="pokemon-icon">🌋</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">45</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">TEAM</div>
+                            <div class="stat-value">MAGMA</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">GOAL</div>
+                            <div class="stat-value">LAND</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Archie -->
+                <div class="character-card" data-region="hoenn">
+                    <div class="character-image" style="background: linear-gradient(135deg, #0066CC, #3366FF);">
+                        🌊
+                    </div>
+                    <h3 class="character-name">Archie</h3>
+                    <p class="character-role">Team Aqua Leader</p>
+                    <div class="character-type">
+                        <span class="type-badge type-water">Water</span>
+                        <span class="type-badge type-dark">Dark</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🦈</div>
+                        <div class="pokemon-icon">🐙</div>
+                        <div class="pokemon-icon">💧</div>
+                        <div class="pokemon-icon">🌊</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">45</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">TEAM</div>
+                            <div class="stat-value">AQUA</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">GOAL</div>
+                            <div class="stat-value">SEA</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Groudon -->
+                <div class="character-card" data-region="hoenn">
+                    <div class="character-image" style="background: linear-gradient(135deg, #CC0033, #FF4422);">
+                        🌋
+                    </div>
+                    <h3 class="character-name">Groudon</h3>
+                    <p class="character-role">Legendary Pokémon</p>
+                    <div class="character-type">
+                        <span class="type-badge type-ground">Ground</span>
+                        <span class="type-badge type-fire">Fire</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🌋</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">70</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">POWER</div>
+                            <div class="stat-value">MAX</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">RARE</div>
+                            <div class="stat-value">★★★</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kyogre -->
+                <div class="character-card" data-region="hoenn">
+                    <div class="character-image" style="background: linear-gradient(135deg, #0066CC, #3399FF);">
+                        🐋
+                    </div>
+                    <h3 class="character-name">Kyogre</h3>
+                    <p class="character-role">Legendary Pokémon</p>
+                    <div class="character-type">
+                        <span class="type-badge type-water">Water</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🌊</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">70</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">POWER</div>
+                            <div class="stat-value">MAX</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">RARE</div>
+                            <div class="stat-value">★★★</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rayquaza -->
+                <div class="character-card" data-region="hoenn">
+                    <div class="character-image" style="background: linear-gradient(135deg, #44DD44, #88FF88);">
+                        🐉
+                    </div>
+                    <h3 class="character-name">Rayquaza</h3>
+                    <p class="character-role">Sky High Pokémon</p>
+                    <div class="character-type">
+                        <span class="type-badge type-dragon">Dragon</span>
+                        <span class="type-badge type-flying">Flying</span>
+                    </div>
+                    <div class="pokemon-team">
+                        <div class="pokemon-icon">🐉</div>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">LVL</div>
+                            <div class="stat-value">70</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">POWER</div>
+                            <div class="stat-value">MAX</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">RARE</div>
+                            <div class="stat-value">★★★</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dialogue Box -->
+        <div class="dialogue-box">
+            <p class="dialogue-text">
+                Professor Oak: Welcome to the world of Pokémon! This world is inhabited by creatures called Pokémon! For some people, Pokémon are pets. Others use them for fights. Myself... I study Pokémon as a profession.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2024 Pokémon Classic Adventure | Gotta Catch 'Em All!</p>
+            <p>Fire Red • Leaf Green • Ruby • Sapphire • Water Blue</p>
+        </footer>
+    </div>
+
+    <script>
+        // Create floating Pokéballs
+        function createFloatingPokeballs() {
+            const container = document.getElementById('pokeballBg');
+            const pokeballCount = 15;
+
+            for (let i = 0; i < pokeballCount; i++) {
+                const pokeball = document.createElement('div');
+                pokeball.className = 'floating-pokeball';
+                pokeball.textContent = '⚪';
+                pokeball.style.left = Math.random() * 100 + '%';
+                pokeball.style.animationDelay = Math.random() * 10 + 's';
+                pokeball.style.animationDuration = (15 + Math.random() * 10) + 's';
+                pokeball.style.fontSize = (20 + Math.random() * 30) + 'px';
+                container.appendChild(pokeball);
+            }
+        }
+
+        // Game selector functionality
+        const gameButtons = document.querySelectorAll('.game-btn');
+        gameButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                gameButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Play sound effect (visual feedback)
+                this.style.transform = 'translateY(3px)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+
+                // Filter characters based on game selection
+                const game = this.dataset.game;
+                filterCharacters(game);
+            });
+        });
+
+        // Filter characters
+        function filterCharacters(game) {
+            const kantoSection = document.getElementById('kantoSection');
+            const hoennSection = document.getElementById('hoennSection');
+
+            if (game === 'fire-red' || game === 'leaf-green' || game === 'water-blue') {
+                kantoSection.style.display = 'block';
+                hoennSection.style.display = 'none';
+                kantoSection.style.animation = 'slideDown 0.5s ease-out';
+            } else if (game === 'ruby' || game === 'sapphire') {
+                kantoSection.style.display = 'none';
+                hoennSection.style.display = 'block';
+                hoennSection.style.animation = 'slideDown 0.5s ease-out';
+            }
+        }
+
+        // Character card click animation
+        const characterCards = document.querySelectorAll('.character-card');
+        characterCards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.add('active');
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 500);
+
+                // Animate stat bars
+                const statBars = this.querySelectorAll('.stat-bar-inner');
+                statBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            });
+        });
+
+        // Animate stat bars on page load
+        window.addEventListener('load', () => {
+            createFloatingPokeballs();
+            
+            // Animate all stat bars
+            const statBars = document.querySelectorAll('.stat-bar-inner');
+            statBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.width = bar.style.width || '75%';
+                }, index * 100);
+            });
+        });
+
+        // Pokémon icon hover effect
+        const pokemonIcons = document.querySelectorAll('.pokemon-icon');
+        pokemonIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.3) rotate(15deg)';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        });
+
+        // Type badge hover effect
+        const typeBadges = document.querySelectorAll('.type-badge');
+        typeBadges.forEach(badge => {
+            badge.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1)';
+                this.style.transition = 'transform 0.2s ease';
+            });
+            
+            badge.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        });
+
+        // Random stat updates (simulate battle)
+        function updateRandomStats() {
+            const statValues = document.querySelectorAll('.stat-value');
+            const randomStat = statValues[Math.floor(Math.random() * statValues.length)];
+            
+            if (randomStat && !isNaN(parseInt(randomStat.textContent))) {
+                const currentValue = parseInt(randomStat.textContent);
+                const newValue = currentValue + Math.floor(Math.random() * 3);
+                
+                randomStat.style.transform = 'scale(1.2)';
+                randomStat.style.color = 'var(--fire-red)';
+                
+                setTimeout(() => {
+                    randomStat.textContent = newValue;
+                    randomStat.style.transform = '';
+                    randomStat.style.color = '';
+                }, 300);
+            }
+        }
+
+        // Update stats every 5 seconds
+        setInterval(updateRandomStats, 5000);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                const activeButton = document.querySelector('.game-btn.active');
+                const buttons = Array.from(gameButtons);
+                const currentIndex = buttons.indexOf(activeButton);
+                
+                let newIndex;
+                if (e.key === 'ArrowLeft') {
+                    newIndex = currentIndex > 0 ? currentIndex - 1 : buttons.length - 1;
+                } else {
+                    newIndex = currentIndex < buttons.length - 1 ? currentIndex + 1 : 0;
+                }
+                
+                buttons[newIndex].click();
+            }
+        });
+
+        // Easter egg: Konami code
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                alert('🎮 Cheat Code Activated! You found the secret! 🎮');
+                document.body.style.animation = 'rainbow 2s infinite';
+            }
+        });
+
+        // Rainbow animation for easter egg
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rainbow {
+                0% { filter: hue-rotate(0deg); }
+                100% { filter: hue-rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
+

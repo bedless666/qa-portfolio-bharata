@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>朝ごはん - アニタ＆アリョ</title>
+  <style>
+  body {
+    font-family: 'Meiryo', 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(180deg, #fffbe9 0%, #f7faff 100%);
+    color: #4a3f2a;
+    font-size: 18px;
+    line-height: 2;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    overflow: hidden;
+  }
+  body.page-loaded {
+    opacity: 1;
+    transform: translateY(0);
+    overflow-y: auto;
+  }
+  #preloader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, #fffbe9 60%, #ffe7b2 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+  }
+  #startBtn {
+    background: linear-gradient(90deg, #ffe066, #ffb347);
+    color: #fff;
+    border: none;
+    font-size: 1.4em;
+    padding: 0.8em 1.5em;
+    border-radius: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 16px rgba(255, 200, 80, 0.15);
+    transition: opacity 0.6s, transform 0.2s;
+    margin-top: 1.5em;
+    letter-spacing: 1px;
+  }
+  #startBtn:hover {
+    transform: scale(1.07);
+    background: linear-gradient(90deg, #ffe066, #ffb347, #ffd580);
+  }
+  #cat {
+    position: absolute;
+    bottom: 60px;
+    right: -110px;
+    width: 100px;
+    z-index: 10000;
+    transition: transform 10s linear;
+    filter: drop-shadow(0 4px 12px #ffe06644);
+  }
+  #callout {
+    position: absolute;
+    bottom: 160px;
+    right: -200px;
+    background: #fffbe9;
+    border: 2px solid #ffe066;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #b88b2a;
+    box-shadow: 2px 2px 12px #ffe06633;
+    transition: transform 10s linear;
+    z-index: 10001;
+  }
+  #main-content {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    padding: 0 20px 40px 20px;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: repeating-linear-gradient(0deg, #ffe06622, #ffe06622 1px, transparent 1px, transparent 3px);
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 1;
+    animation: scanline-fadeout 1.5s ease-out forwards;
+  }
+  @keyframes scanline-fadeout {
+    0% { opacity: 1; transform: scaleY(1.2); filter: brightness(1.2) contrast(1.2); }
+    100% { opacity: 0; transform: scaleY(1); filter: none; }
+  }
+  details {
+    margin-bottom: 32px;
+    border: none;
+    border-radius: 12px;
+    background: #fffef7;
+    box-shadow: 0 2px 12px #ffe06622;
+    overflow: hidden;
+  }
+  details[open] section {
+    animation: fadeSlideIn 0.5s ease-in-out both;
+  }
+  @keyframes fadeSlideIn {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  summary {
+    cursor: pointer;
+    padding: 18px 28px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #b88b2a;
+    background: linear-gradient(to right, #fffbe9, #ffe066);
+    border: 1px solid #ffe066;
+    border-radius: 10px;
+    margin: 0;
+    transition: background 0.3s, box-shadow 0.2s;
+    display: block;
+    box-shadow: 0 1px 6px #ffe06622;
+  }
+  summary:hover {
+    background: linear-gradient(to right, #fffbe9, #ffe066, #ffd580);
+    box-shadow: 0 0 12px #ffe06633;
+  }
+  summary::marker { display: none; }
+  summary::after {
+    content: '☀️';
+    float: right;
+    font-size: 1.1em;
+    margin-left: 10px;
+    transition: transform 0.2s;
+  }
+  details[open] summary::after {
+    transform: rotate(180deg);
+    content: '🌅';
+  }
+  h1 {
+    text-align: center;
+    color: #b88b2a;
+    margin-bottom: 2em;
+    font-size: 2em;
+    background: linear-gradient(to right, #fffbe9, #ffe066, #ffd580);
+    padding: 0.7em;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px #ffe06633;
+    letter-spacing: 1px;
+  }
+  section {
+    background: #fffef7;
+    padding: 28px 32px;
+    margin-bottom: 44px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px #ffe06622;
+    border-left: 10px solid #ffe066;
+  }
+  h2 {
+    font-size: 1.3em;
+    color: #b88b2a;
+    border-left: 8px solid #ffd580;
+    padding-left: 14px;
+    margin-bottom: 1em;
+    background: linear-gradient(to right, #fffbe9, #fff7d1);
+    border-radius: 6px;
+  }
+  h3 {
+    font-size: 1.1em;
+    color: #e6a23c;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px dashed #ffe066;
+    padding-bottom: 4px;
+  }
+  p, ul {
+    margin-bottom: 1.2em;
+    text-align: justify;
+  }
+  ruby rt {
+    font-size: 0.7em;
+    color: #e6a23c;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5em;
+    background: #fffbe9;
+    border: 1px solid #ffe066;
+    font-size: 1em;
+    box-shadow: 0 2px 8px #ffe06622;
+  }
+  th {
+    background: #ffe066;
+    color: #b88b2a;
+    padding: 12px;
+    border: 1px solid #ffd580;
+    font-weight: bold;
+  }
+  td {
+    padding: 10px 12px;
+    border: 1px solid #ffe7b2;
+    background: #fffef7;
+  }
+  .romaji {
+    font-style: italic;
+    color: #e6a23c;
+  }
+  .translation {
+    color: #b88b2a;
+  }
+  strong {
+    color: #e6a23c;
+  }
+  ul.romaji li,
+  ul.translation li {
+    margin-bottom: 0.5em;
+  }
+  </style>
+</head>
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+      <img id="cat" src="https://media.tenor.com/QOu7BsEBzC8AAAAi/cat-roll.gif" alt="Cat" />
+      <div id="callout">こんにちは！</div>
+      <button id="startBtn">こんにちは！</button>
+  </div>
+
+  <!-- Audio: Sapaan -->
+  <audio id="helloAudio" src="https://www.myinstants.com/media/sounds/yuru-camp-konnichiwa.mp3" preload="auto"></audio>
+  <!-- Audio: Suara efek kucing rolling -->
+  <audio id="meowAudio" src="https://cdn.pixabay.com/download/audio/2025/06/01/audio_1beeb1dd37.mp3?filename=cute-cat-352656.mp3" preload="auto"></audio>
+
+  <div id="main-content" style="opacity:0; overflow-x:hidden;">
+    <h1><ruby>朝ごはん<rt>あさごはん</rt></ruby> - ユニット8</h1>
+
+    <!-- Audio untuk membuka -->
+    <audio id="openSound" src="https://cdn.pixabay.com/download/audio/2025/05/05/audio_31c3ec2ec0.mp3?filename=video-game-select-337214.mp3" preload="auto"></audio>
+    <!-- Audio untuk menutup -->
+    <audio id="closeSound" src="https://cdn.pixabay.com/download/audio/2025/06/13/audio_c26d6e1573.mp3?filename=ui-sounds-pack-3-14-359717.mp3" preload="auto"></audio>
+
+    <!--bagian 1-->
+<details>
+      <summary>① <ruby>言葉<rt>ことば</rt></ruby> - Kotoba (Kosakata)</summary>
+     <section>
+  <h2>① <ruby>言葉<rt>ことば</rt></ruby> (Kotoba - Kosakata)</h2>
+  <table>
+    <tr><th>【日本語】</th><th>【ローマ字】</th><th>【インドネシア語】</th></tr>
+    <tr><td>トースト</td><td>toosuto</td><td>roti panggang</td></tr>
+    <tr><td><ruby>冷<rt>つめ</rt></ruby>たい</td><td>tsumetai</td><td>dingin</td></tr>
+    <tr><td><ruby>熱<rt>あつ</rt></ruby>い</td><td>atsui</td><td>panas</td></tr>
+    <tr><td><ruby>大変<rt>たいへん</rt></ruby>な</td><td>taihen na</td><td>sulit / repot</td></tr>
+    <tr><td>パンケーキ</td><td>pankeeki</td><td>pancake</td></tr>
+    <tr><td><ruby>目玉焼<rt>めだまや</rt></ruby>き</td><td>medamayaki</td><td>telur mata sapi</td></tr>
+    <tr><td><ruby>妻<rt>つま</rt></ruby></td><td>tsuma</td><td>istri</td></tr>
+    <tr><td><ruby>お茶<rt>おちゃ</rt></ruby></td><td>ocha</td><td>teh</td></tr>
+    <tr><td>カフェ</td><td>kafe</td><td>kafe</td></tr>
+    <tr><td><ruby>素敵<rt>すてき</rt></ruby>な</td><td>sutekina</td><td>menyenangkan</td></tr>
+    <tr><td>コーヒー</td><td>koohii</td><td>kopi</td></tr>
+    <tr><td><ruby>ご飯<rt>ごはん</rt></ruby></td><td>gohan</td><td>nasi</td></tr>
+    <tr><td><ruby>家<rt>いえ</rt></ruby></td><td>ie</td><td>rumah</td></tr>
+    <tr><td><ruby>静<rt>しず</rt></ruby>かな</td><td>shizukana</td><td>tenang</td></tr>
+    <tr><td><ruby>牛乳<rt>ぎゅうにゅう</rt></ruby></td><td>gyuunyuu</td><td>susu</td></tr>
+    <tr><td><ruby>のり</ruby></td><td>nori</td><td>rumput laut</td></tr>
+    <tr><td><ruby>作<rt>つく</rt></ruby>ります</td><td>tsukurimasu</td><td>membuat</td></tr>
+    <tr><td>サンドイッチ</td><td>sandoicchi</td><td>sandwich</td></tr>
+    <tr><td><ruby>飲<rt>の</rt></ruby>みます</td><td>nomimasu</td><td>minum</td></tr>
+    <tr><td><ruby>味噌汁<rt>みそしる</rt></ruby></td><td>misoshiru</td><td>soup miso</td></tr>
+    <tr><td><ruby>入<rt>い</rt></ruby>れます</td><td>iremasu</td><td>menuangkan</td></tr>
+    <tr><td><ruby>注文<rt>ちゅうもん</rt></ruby>します</td><td>chuumon shimasu</td><td>memesan</td></tr>
+  </table>
+</section>
+</details>
+
+
+
+
+<!--bagian 2-->
+<details>
+  <summary>② <ruby>チン<rt>ちん</rt></ruby>さんの<ruby>ストーリー</ruby> - Cerita Utama</summary>
+  <section>
+  <h2>② <ruby>岡田<rt>おかだ</rt></ruby>さんの<ruby>ストーリー<rt>すとーりー</rt></ruby> (Okada-san no Sutoorii)</h2>
+
+  <h3>【日本語】- nihon go</h3>
+  <p>
+    <ruby>私<rt>わたし</rt></ruby>は7<ruby>時<rt>じ</rt></ruby>に<ruby>朝ごはん<rt>あさごはん</rt></ruby>を<ruby>食<rt>た</rt></ruby>べます。<ruby>トースト<rt>とーすと</rt></ruby>と<ruby>目玉焼<rt>めだまや</rt></ruby>きと<ruby>コーヒー<rt>こーひー</rt></ruby>です。<ruby>時々<rt>ときどき</rt></ruby><ruby>温<rt>あたた</rt></ruby>かい<ruby>牛乳<rt>ぎゅうにゅう</rt></ruby>を<ruby>飲<rt>の</rt></ruby>みます。<ruby>冷<rt>つめ</rt></ruby>たい<ruby>牛乳<rt>ぎゅうにゅう</rt></ruby>は<ruby>飲<rt>の</rt></ruby>みません。
+  </p>
+  <p>
+    <ruby>妻<rt>つま</rt></ruby>の<ruby>朝ごはん<rt>あさごはん</rt></ruby>は、<ruby>パン<rt>ぱん</rt></ruby>じゃありません。いつも<ruby>ご飯<rt>ごはん</rt></ruby>と<ruby>のり</ruby>と<ruby>味噌汁<rt>みそしる</rt></ruby>です。そして、<ruby>熱<rt>あつ</rt></ruby>い<ruby>お茶<rt>おちゃ</rt></ruby>を<ruby>飲<rt>の</rt></ruby>みます。
+  </p>
+  <p>
+    いつも<ruby>家<rt>いえ</rt></ruby>で<ruby>朝ごはん<rt>あさごはん</rt></ruby>を<ruby>食<rt>た</rt></ruby>べます。<ruby>私<rt>わたし</rt></ruby>は<ruby>毎朝<rt>まいあさ</rt></ruby>、<ruby>トースト<rt>とーすと</rt></ruby>と<ruby>目玉焼<rt>めだまや</rt></ruby>きと<ruby>ご飯<rt>ごはん</rt></ruby>と<ruby>味噌汁<rt>みそしる</rt></ruby>を<ruby>作<rt>つく</rt></ruby>ります。そして、<ruby>お茶<rt>おちゃ</rt></ruby>と<ruby>コーヒー<rt>こーひー</rt></ruby>を<ruby>淹<rt>い</rt></ruby>れます。<ruby>大変<rt>たいへん</rt></ruby>です。
+  </p>
+  <p>
+    <ruby>時々<rt>ときどき</rt></ruby><ruby>カフェ<rt>かふぇ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。<ruby>静<rt>しず</rt></ruby>かな<ruby>カフェ<rt>かふぇ</rt></ruby>です。<ruby>私<rt>わたし</rt></ruby>は<ruby>サンドイッチ<rt>さんどいっち</rt></ruby>を<ruby>注文<rt>ちゅうもん</rt></ruby>します。<ruby>妻<rt>つま</rt></ruby>は<ruby>パンケーキ<rt>ぱんけーき</rt></ruby>を<ruby>注文<rt>ちゅうもん</rt></ruby>します。そして、<ruby>美味<rt>おい</rt></ruby>しい<ruby>コーヒー<rt>こーひー</rt></ruby>を<ruby>飲<rt>の</rt></ruby>みます。<ruby>素敵<rt>すてき</rt></ruby>な<ruby>朝ごはん<rt>あさごはん</rt></ruby>です。
+  </p>
+
+  <h3>【ローマ字】- Romaji</h3>
+  <p class="romaji">
+    Watashi wa shichiji ni asagohan o tabemasu. Toosuto to medamayaki to koohii desu. Tokidoki atatakai gyuunyuu o nomimasu. Tsumetai gyuunyuu wa nomimasen.
+  </p>
+  <p class="romaji">
+    Tsuma no asagohan wa, pan ja arimasen. Itsumo gohan to nori to misoshiru desu. Soshite, atsui ocha o nomimasu.
+  </p>
+  <p class="romaji">
+    Itsumo ie de asagohan o tabemasu. Watashi wa mai asa, toosuto to medamayaki to gohan to misoshiru o tsukurimasu. Soshite, ocha to koohii o iremasu. Taihen desu.
+  </p>
+  <p class="romaji">
+    Tokidoki kafe e ikimasu. Shizuka na kafe desu. Watashi wa sandoicchi o chuumon shimasu. Tsuma wa pankēki o chuumon shimasu. Soshite, oishii koohii o nomimasu. Suteki na asagohan desu.
+  </p>
+
+  <h3>【インドネシア語】Indonesia go</h3>
+  <p class="translation">
+    Saya makan sarapan jam tujuh. Roti panggang, telur mata sapi, dan kopi. Kadang saya minum susu hangat. Saya tidak minum susu dingin.
+  </p>
+  <p class="translation">
+    Sarapan istri saya bukan roti. Biasanya nasi, nori, dan sup miso. Lalu minum teh panas.
+  </p>
+  <p class="translation">
+    Kami selalu sarapan di rumah. Setiap pagi saya memasak roti panggang, telur mata sapi, nasi, dan sup miso. Lalu saya menyeduh teh dan kopi. Ini merepotkan.
+  </p>
+  <p class="translation">
+    Kadang kami pergi ke kafe. Kafenya tenang. Saya memesan sandwich. Istri saya memesan pancake. Lalu kami minum kopi yang enak. Sarapan yang menyenangkan.
+  </p>
+</section>
+</details>
+
+
+<!--bagian 3 -->
+<details>
+  <summary>③ Q＆A</summary>
+  <section>
+  <h2>③ Q&A</h2>
+
+  <h3>【日本語】- nihon go</h3>
+  <p><ruby>Q1</ruby>：<ruby>岡田<rt>おかだ</rt></ruby>さんの<ruby>朝ごはん<rt>あさごはん</rt></ruby>は、なんですか。</p>
+  <p><ruby>A1</ruby>：<ruby>トースト</ruby>と<ruby>目玉焼<rt>めだまや</rt></ruby>きと<ruby>コーヒー</ruby>です。<ruby>時々<rt>ときどき</rt></ruby><ruby>温<rt>あたた</rt></ruby>かい<ruby>牛乳<rt>ぎゅうにゅう</rt></ruby>を<ruby>飲<rt>の</rt></ruby>みます。</p>
+
+  <p><ruby>Q2</ruby>：<ruby>岡田</ruby>さんの<ruby>奥<rt>おく</rt></ruby>さんの<ruby>朝ごはん</ruby>も、<ruby>パン</ruby>ですか。</p>
+  <p><ruby>A2</ruby>：いいえ、<ruby>パン</ruby>しゃありません。<ruby>ご飯</ruby>と<ruby>のり</ruby>と<ruby>味噌汁<rt>みそしる</rt></ruby>です。<ruby>熱<rt>あつ</rt></ruby>い<ruby>お茶<rt>おちゃ</rt></ruby>も<ruby>飲</ruby>みます。</p>
+
+  <p><ruby>Q3</ruby>：<ruby>岡田</ruby>さんは<ruby>いつも</ruby><ruby>どこ</ruby>で<ruby>朝ごはん</ruby>を<ruby>食<rt>た</rt></ruby>べますか。</p>
+  <p><ruby>A3</ruby>：<ruby>家<rt>いえ</rt></ruby>で<ruby>食</ruby>べます。<ruby>岡田</ruby>さんが<ruby>作<rt>つく</rt></ruby>ります。</p>
+
+  <p><ruby>Q4</ruby>：<ruby>岡田</ruby>さんと<ruby>奥</ruby>さんは<ruby>時々</ruby><ruby>カフェ</ruby>へ<ruby>行<rt>い</rt></ruby>きます。どんな<ruby>カフェ</ruby>ですか。</p>
+  <p><ruby>A4</ruby>：<ruby>静<rt>しず</rt></ruby>かな<ruby>カフェ</ruby>です。</p>
+
+  <p><ruby>Q5</ruby>：<ruby>岡田</ruby>さんと<ruby>奥</ruby>さんは<ruby>カフェ</ruby>で<ruby>何</ruby>を<ruby>注文<rt>ちゅうもん</rt></ruby>しますか。</p>
+  <p><ruby>A5</ruby>：<ruby>岡田</ruby>さんは<ruby>サンドイッチ</ruby>を<ruby>注文</ruby>します。<ruby>奥</ruby>さんは<ruby>パンケーキ</ruby>を<ruby>注文</ruby>します。</p>
+
+  <h3>【ローマ字】- Romaji</h3>
+  <p>Q1: Okada-san no asagohan wa nan desu ka.</p>
+  <p>A1: Toosuto to medamayaki to koohii desu. Tokidoki atatakai gyuunyuu o nomimasu.</p>
+
+  <p>Q2: Okada-san no okusan no asagohan mo pan desu ka.</p>
+  <p>A2: Iie, pan ja arimasen. Gohan to nori to misoshiru desu. Atsui ocha mo nomimasu.</p>
+
+  <p>Q3: Okada-san wa itsumo doko de asagohan o tabemasu ka.</p>
+  <p>A3: Ie de tabemasu. Okada-san ga tsukurimasu.</p>
+
+  <p>Q4: Okada-san to okusan wa tokidoki kafe e ikimasu. Donna kafe desu ka.</p>
+  <p>A4: Shizuka na kafe desu.</p>
+
+  <p>Q5: Okada-san to okusan wa kafe de nani o chuumon shimasu ka.</p>
+  <p>A5: Okada-san wa sandoicchi o chuumon shimasu. Okusan wa pankēki o chuumon shimasu.</p>
+
+  <h3>【インドネシア語】Indonesia go</h3>
+  <p>Q1: Apa sarapan Okada-san?</p>
+  <p>A1: Roti panggang, telur mata sapi, dan kopi. Kadang minum susu hangat.</p>
+
+  <p>Q2: Apakah sarapan istrinya juga roti?</p>
+  <p>A2: Tidak, bukan roti. Nasi, nori, dan sup miso. Juga minum teh panas.</p>
+
+  <p>Q3: Di mana biasanya Okada-san makan sarapan?</p>
+  <p>A3: Di rumah. Okada-san yang memasak.</p>
+
+  <p>Q4: Seperti apa kafe yang mereka kunjungi?</p>
+  <p>A4: Kafe yang tenang.</p>
+
+  <p>Q5: Apa yang mereka pesan di kafe?</p>
+  <p>A5: Okada-san memesan sandwich, istrinya memesan pancake.</p>
+</section>
+</details>
+
+
+
+
+<!--bagian 4-->
+<details>
+  <summary>④ <ruby>質問<rt>しつもん</rt></ruby>に<ruby>答<rt>こた</rt></ruby>えましょう</summary>
+<section>
+  <h2>④ <ruby>質問<rt>しつもん</rt></ruby>に<ruby>答<rt>こた</rt></ruby>えましょう (Jawaban Pribadi)</h2>
+
+  <h3>【日本語】- nihon go</h3>
+  <p>１。あなたの<ruby>朝ごはん<rt>あさごはん</rt></ruby>はどんな<ruby>朝ごはん</ruby>ですか。</p>
+  <p><strong>答：</strong> <ruby>美味<rt>おい</rt></ruby>しい<ruby>朝ごはん</ruby>です。<ruby>妻<rt>つま</rt></ruby>は<ruby>チーズ</ruby>の<ruby>卵<rt>たまご</rt></ruby>を<ruby>作<rt>つく</rt></ruby>りました。</p>
+
+  <p>２。<ruby>何<rt>なに</rt></ruby>を<ruby>飲<rt>の</rt></ruby>みますか。</p>
+  <p><strong>答：</strong> <ruby>まちゃラテ</ruby>か<ruby>薄茶<rt>うすちゃ</rt></ruby>を<ruby>飲</ruby>みます。</p>
+
+  <h3>【ローマ字】- Romaji</h3>
+  <p>1. Anata no asagohan wa donna asagohan desu ka.</p>
+  <p><strong>Jawaban:</strong> Oishii asagohan desu. Tsuma wa chiizu no tamago o tsukurimashita.</p>
+
+  <p>2. Nani o nomimasu ka.</p>
+  <p><strong>Jawaban:</strong> Macha rate ka usucha o nomimasu.</p>
+
+  <h3>【インドネシア語】Indonesia go</h3>
+  <p>1. Seperti apa sarapanmu?</p>
+  <p><strong>Jawaban:</strong> Sarapan yang enak. Istriku memasak telur keju.</p>
+
+  <p>2. Kamu minum apa?</p>
+  <p><strong>Jawaban:</strong> Saya minum matcha latte atau teh hijau ringan.</p>
+</section>
+</details>
+
+<!--bagian 5-->
+<details>
+  <summary>⑤ <ruby>話<rt>はな</rt></ruby>しましょう・<ruby>書<rt>か</rt></ruby>きましょう</summary>
+<section>
+  <h2>⑤ <ruby>話<rt>はな</rt></ruby>しましょう・<ruby>書<rt>か</rt></ruby>きましょう (Hanasimashou / Kakimashou - Mari bercerita / menulis)</h2>
+
+  <h3>【日本語】- nihon go</h3>
+  <p>
+    <ruby>私<rt>わたし</rt></ruby>と<ruby>妻<rt>つま</rt></ruby>の<ruby>朝ごはん<rt>あさごはん</rt></ruby>は<ruby>卵<rt>たまご</rt></ruby>と<ruby>抹茶<rt>まっちゃ</rt></ruby>です。<ruby>私</ruby>は<ruby>抹茶</ruby>を<ruby>作<rt>つく</rt></ruby>ります。<ruby>妻</ruby>は<ruby>卵</ruby>を<ruby>作</ruby>ります。とても<ruby>美味<rt>おい</rt></ruby>しい<ruby>朝ごはん</ruby>です。
+  </p>
+
+  <h3>【ローマ字】- Romaji</h3>
+  <p class="romaji">
+    Watashi to tsuma no asagohan wa tamago to matcha desu. Watashi wa matcha o tsukurimasu. Tsuma wa tamago o tsukurimasu. Totemo oishii asagohan desu.
+  </p>
+
+  <h3>【インドネシア語】Indonesia go</h3>
+  <p class="translation">
+    Sarapan saya dan istri adalah telur dan matcha. Saya membuat matcha. Istri saya memasak telur. Sarapan yang sangat enak.
+  </p>
+</section>
+</details>
+
+
+<!--bagian 6-->
+<details>
+  <summary>⑥ <ruby>ちょっと</ruby><ruby>文法<rt>ぶんぽう</summary>
+<section>
+  <h2>⑥ ちょっと<ruby>文法<rt>ぶんぽう</rt></ruby> (Chotto Bunpou - Tata Bahasa)</h2>
+
+  <h3>【日本語】- nihon go</h3>
+  <ul>
+    <li><ruby>朝ごはん<rt>あさごはん</rt></ruby>は<ruby>ご飯<rt>ごはん</rt></ruby>と<ruby>味噌汁<rt>みそしる</rt></ruby>です。 / <ruby>パン</ruby>しゃありません。</li>
+    <li><ruby>ご飯</ruby>と<ruby>味噌汁</ruby></li>
+    <li><ruby>温<rt>あたた</rt></ruby>かい<ruby>牛乳<rt>ぎゅうにゅう</rt></ruby> / <ruby>素敵<rt>すてき</rt></ruby>な<ruby>カフェ</ruby></li>
+  </ul>
+
+  <h3>【ローマ字】- Romaji</h3>
+  <ul class="romaji">
+    <li>Asagohan wa gohan to misoshiru desu. / Pan ja arimasen.</li>
+    <li>Gohan to misoshiru</li>
+    <li>Atatakai gyuunyuu / Suteki na kafe</li>
+  </ul>
+
+  <h3>【インドネシア語】Indonesia go</h3>
+  <ul class="translation">
+    <li>Sarapan adalah nasi dan sup miso. / Bukan roti.</li>
+    <li>Nasi dan sup miso</li>
+    <li>Susu hangat / Kafe yang menyenangkan</li>
+  </ul>
+</section>
+</details>
+
+
+
+<!-- Script -->
+<script>
+  window.onerror = function(msg, src, line, col, err) {
+    alert('JS Error: ' + msg + '\n' + src + ':' + line + ':' + col);
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const openSound = document.getElementById("openSound");
+    const closeSound = document.getElementById("closeSound");
+
+    document.querySelectorAll("details").forEach(detail => {
+      let wasOpen = detail.open;
+
+      detail.querySelector("summary").addEventListener("click", () => {
+        setTimeout(() => {
+          const isOpen = detail.open;
+          if (isOpen && !wasOpen) {
+            openSound.currentTime = 0;
+            openSound.play().catch(e => console.warn("Open audio error:", e));
+          } else if (!isOpen && wasOpen) {
+            closeSound.currentTime = 0;
+            closeSound.play().catch(e => console.warn("Close audio error:", e));
+          }
+          wasOpen = isOpen;
+        }, 10);
+      });
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("details").forEach(detail => {
+      detail.addEventListener("toggle", () => {
+        const section = detail.querySelector("section");
+        if (detail.open && section) {
+          section.style.animation = "none";
+          void section.offsetWidth;
+          section.style.animation = "fadeSlideIn 0.5s ease-in-out both";
+        }
+      });
+    });
+  });
+
+  window.addEventListener("load", () => {
+    document.body.classList.add("page-loaded");
+  });
+
+  const startBtn = document.getElementById("startBtn");
+  const audioHello = document.getElementById("helloAudio");
+  const audioMeow = document.getElementById("meowAudio");
+  const preloader = document.getElementById("preloader");
+  const mainContent = document.getElementById("main-content");
+  const cat = document.getElementById("cat");
+  const callout = document.getElementById("callout");
+
+  function hidePreloader() {
+    preloader.style.opacity = 0;
+    setTimeout(() => {
+      preloader.style.display = "none";
+      mainContent.style.opacity = 1;
+      mainContent.style.display = "block";
+      mainContent.style.visibility = "visible";
+      document.body.style.overflow = "hidden";
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "auto";
+      document.documentElement.style.overflowX = "hidden";
+      document.documentElement.style.overflowY = "auto";
+      window.scrollTo({top: 0, left: 0, behavior: "auto"});
+    }, 500);
+  }
+
+  function startSequence() {
+    startBtn.style.opacity = "0";
+    startBtn.style.pointerEvents = "none";
+    window.scrollTo({top: 0, left: 0, behavior: "auto"});
+    setTimeout(() => {
+      audioHello.play().catch(err => console.warn("hello audio blocked:", err));
+    }, 1500);
+    setTimeout(() => {
+      audioMeow.play().catch(err => console.warn("meow audio blocked:", err));
+    }, 500);
+    cat.style.transform = "translateX(-120vw)";
+    callout.style.transform = "translateX(-120vw)";
+    setTimeout(hidePreloader, 3000);
+  }
+
+  // Event click & touchend agar pasti jalan di iOS
+  startBtn.addEventListener("click", startSequence);
+  startBtn.addEventListener("touchend", function(e) {
+    e.preventDefault();
+    startSequence();
+  }, {passive: false});
+
+  // Fallback: jika audio gagal, tetap hilangkan preloader setelah 5 detik
+  setTimeout(() => {
+    if (preloader.style.display !== "none") {
+      hidePreloader();
+    }
+  }, 10000);
+</script>
+</body>
+</html>
+

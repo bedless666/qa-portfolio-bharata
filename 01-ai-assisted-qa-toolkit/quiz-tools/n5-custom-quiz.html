@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N5 Custom Quiz - Input Soal Sendiri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --accent-red: #e94560;
+            --accent-gold: #f4a261;
+            --accent-teal: #2ec4b6;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6b6b80;
+            --success: #4ade80;
+            --error: #f87171;
+            --border: #2a2a4a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', 'Noto Sans JP', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(233, 69, 96, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(46, 196, 182, 0.1) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        .nav-tab:hover {
+            border-color: var(--accent-teal);
+            color: var(--accent-teal);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-gold));
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Input Section */
+        .input-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .input-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+        }
+
+        .input-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-gold));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-teal);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--bg-primary);
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Questions List */
+        .questions-list {
+            margin-top: 20px;
+        }
+
+        .question-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .question-item .q-text {
+            flex: 1;
+        }
+
+        .question-item .q-number {
+            font-weight: 600;
+            color: var(--accent-gold);
+            min-width: 30px;
+        }
+
+        .question-item .q-type {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .question-item .q-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .question-item button {
+            padding: 8px 12px;
+            font-size: 0.85rem;
+        }
+
+        /* Quiz Mode */
+        .quiz-container {
+            text-align: center;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-family: 'Space Grotesk', monospace;
+        }
+
+        .progress-text {
+            color: var(--text-secondary);
+        }
+
+        .score-display {
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        .quiz-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin-bottom: 30px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .question-text {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .question-text.japanese {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 2.5rem;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .option-btn {
+            padding: 20px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .option-btn:hover {
+            border-color: var(--accent-teal);
+            transform: translateY(-2px);
+        }
+
+        .option-btn.correct {
+            background: rgba(74, 222, 128, 0.2);
+            border-color: var(--success);
+        }
+
+        .option-btn.incorrect {
+            background: rgba(248, 113, 113, 0.2);
+            border-color: var(--error);
+        }
+
+        .option-btn.disabled {
+            pointer-events: none;
+        }
+
+        .answer-input {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+        }
+
+        .feedback.correct {
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .feedback.incorrect {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
+        }
+
+        /* Results */
+        .results-container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .results-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 30px;
+        }
+
+        .results-score {
+            font-size: 5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .results-detail {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .results-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .breakdown-item {
+            text-align: center;
+        }
+
+        .breakdown-item .number {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .breakdown-item .label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .breakdown-item.correct .number { color: var(--success); }
+        .breakdown-item.incorrect .number { color: var(--error); }
+        .breakdown-item.time .number { color: var(--accent-gold); }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-teal);
+        }
+
+        .stat-item .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Import/Export */
+        .import-export {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-card {
+                padding: 30px 20px;
+            }
+
+            .question-text {
+                font-size: 1.5rem;
+            }
+
+            .question-text.japanese {
+                font-size: 2rem;
+            }
+
+            .results-breakdown {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">📝</div>
+            <h1>N5 Custom Quiz</h1>
+            <p class="subtitle">Input soal dari PDF kamu sendiri, lalu drill sampai hafal!</p>
+        </header>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="input">➕ Input Soal</button>
+            <button class="nav-tab" data-tab="list">📋 Daftar Soal <span id="questionCount">(0)</span></button>
+            <button class="nav-tab" data-tab="quiz">🎯 Mulai Quiz</button>
+        </nav>
+
+        <!-- INPUT SECTION -->
+        <section id="input" class="section active">
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="value" id="totalQuestions">0</div>
+                    <div class="label">Total Soal</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value" id="vocabCount">0</div>
+                    <div class="label">Vocabulary</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value" id="grammarCount">0</div>
+                    <div class="label">Grammar</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value" id="readingCount">0</div>
+                    <div class="label">Reading</div>
+                </div>
+            </div>
+
+            <div class="import-export">
+                <button class="btn btn-secondary" onclick="exportQuestions()">📤 Export Soal</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">📥 Import Soal</button>
+                <input type="file" id="importFile" class="file-input" accept=".json" onchange="importQuestions(event)">
+                <button class="btn btn-danger" onclick="clearAllQuestions()">🗑️ Hapus Semua</button>
+            </div>
+
+            <div class="input-card">
+                <h3>📌 Tambah Soal Baru</h3>
+                
+                <div class="input-group">
+                    <label>Tipe Soal</label>
+                    <select id="questionType" onchange="updateInputForm()">
+                        <option value="vocab">Vocabulary (Kanji/Hiragana → Arti)</option>
+                        <option value="grammar">Grammar (Pilihan Ganda)</option>
+                        <option value="reading">Reading Comprehension</option>
+                        <option value="kanji">Kanji → Reading</option>
+                    </select>
+                </div>
+
+                <div id="vocabForm" class="question-form">
+                    <div class="input-group">
+                        <label>Kata dalam Jepang (Kanji/Hiragana)</label>
+                        <input type="text" id="vocabWord" placeholder="例: 食べる、たべる">
+                    </div>
+                    <div class="input-group">
+                        <label>Reading (Hiragana) - Opsional</label>
+                        <input type="text" id="vocabReading" placeholder="例: たべる">
+                    </div>
+                    <div class="input-group">
+                        <label>Arti dalam Indonesia/English</label>
+                        <input type="text" id="vocabMeaning" placeholder="例: makan / to eat">
+                    </div>
+                </div>
+
+                <div id="grammarForm" class="question-form" style="display: none;">
+                    <div class="input-group">
+                        <label>Pertanyaan</label>
+                        <textarea id="grammarQuestion" placeholder="例: わたし＿＿がくせいです。"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>Pilihan Jawaban (4 pilihan)</label>
+                        <div class="options-grid">
+                            <input type="text" id="grammarOpt1" placeholder="Pilihan 1">
+                            <input type="text" id="grammarOpt2" placeholder="Pilihan 2">
+                            <input type="text" id="grammarOpt3" placeholder="Pilihan 3">
+                            <input type="text" id="grammarOpt4" placeholder="Pilihan 4">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Jawaban Benar (1-4)</label>
+                        <select id="grammarCorrect">
+                            <option value="0">Pilihan 1</option>
+                            <option value="1">Pilihan 2</option>
+                            <option value="2">Pilihan 3</option>
+                            <option value="3">Pilihan 4</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="readingForm" class="question-form" style="display: none;">
+                    <div class="input-group">
+                        <label>Teks Bacaan</label>
+                        <textarea id="readingText" placeholder="Paste teks bacaan di sini..." rows="5"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>Pertanyaan</label>
+                        <input type="text" id="readingQuestion" placeholder="Pertanyaan tentang teks...">
+                    </div>
+                    <div class="input-group">
+                        <label>Pilihan Jawaban (4 pilihan)</label>
+                        <div class="options-grid">
+                            <input type="text" id="readingOpt1" placeholder="Pilihan 1">
+                            <input type="text" id="readingOpt2" placeholder="Pilihan 2">
+                            <input type="text" id="readingOpt3" placeholder="Pilihan 3">
+                            <input type="text" id="readingOpt4" placeholder="Pilihan 4">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Jawaban Benar (1-4)</label>
+                        <select id="readingCorrect">
+                            <option value="0">Pilihan 1</option>
+                            <option value="1">Pilihan 2</option>
+                            <option value="2">Pilihan 3</option>
+                            <option value="3">Pilihan 4</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="kanjiForm" class="question-form" style="display: none;">
+                    <div class="input-group">
+                        <label>Kanji</label>
+                        <input type="text" id="kanjiChar" placeholder="例: 日本">
+                    </div>
+                    <div class="input-group">
+                        <label>Reading (Hiragana)</label>
+                        <input type="text" id="kanjiReading" placeholder="例: にほん">
+                    </div>
+                    <div class="input-group">
+                        <label>Arti (Opsional)</label>
+                        <input type="text" id="kanjiMeaning" placeholder="例: Jepang / Japan">
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="addQuestion()">➕ Tambah Soal</button>
+                    <button class="btn btn-secondary" onclick="clearForm()">🔄 Reset Form</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- LIST SECTION -->
+        <section id="list" class="section">
+            <div class="input-card">
+                <h3>📋 Daftar Soal yang Sudah Diinput</h3>
+                
+                <div class="input-group">
+                    <label>Filter berdasarkan tipe:</label>
+                    <select id="filterType" onchange="renderQuestionsList()">
+                        <option value="all">Semua Tipe</option>
+                        <option value="vocab">Vocabulary</option>
+                        <option value="grammar">Grammar</option>
+                        <option value="reading">Reading</option>
+                        <option value="kanji">Kanji</option>
+                    </select>
+                </div>
+
+                <div id="questionsList" class="questions-list">
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <p>Belum ada soal. Tambahkan soal di tab "Input Soal"!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ SECTION -->
+        <section id="quiz" class="section">
+            <div id="quizSetup" class="input-card">
+                <h3>⚙️ Pengaturan Quiz</h3>
+                
+                <div class="input-group">
+                    <label>Tipe Soal</label>
+                    <select id="quizType">
+                        <option value="all">Semua Tipe</option>
+                        <option value="vocab">Vocabulary</option>
+                        <option value="grammar">Grammar</option>
+                        <option value="reading">Reading</option>
+                        <option value="kanji">Kanji</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Jumlah Soal</label>
+                    <select id="quizCount">
+                        <option value="10">10 Soal</option>
+                        <option value="20">20 Soal</option>
+                        <option value="30">30 Soal</option>
+                        <option value="50">50 Soal</option>
+                        <option value="all">Semua Soal</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Mode Quiz</label>
+                    <select id="quizMode">
+                        <option value="normal">Normal (Pilihan Ganda)</option>
+                        <option value="typing">Typing (Ketik Jawaban)</option>
+                        <option value="flashcard">Flashcard Mode</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Timer per Soal</label>
+                    <select id="quizTimer">
+                        <option value="0">Tanpa Timer</option>
+                        <option value="10">10 detik</option>
+                        <option value="15">15 detik</option>
+                        <option value="30" selected>30 detik</option>
+                        <option value="60">60 detik</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Shuffle Soal?</label>
+                    <select id="quizShuffle">
+                        <option value="yes">Ya, acak urutannya</option>
+                        <option value="no">Tidak, urutan asli</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" onclick="startQuiz()" style="width: 100%; margin-top: 20px;">
+                    🚀 Mulai Quiz!
+                </button>
+            </div>
+
+            <div id="quizActive" class="quiz-container" style="display: none;">
+                <div class="quiz-header">
+                    <div class="timer" id="timerDisplay">00:30</div>
+                    <div class="progress-text">Soal <span id="currentQ">1</span> / <span id="totalQ">10</span></div>
+                    <div class="score-display">Score: <span id="liveScore">0</span></div>
+                </div>
+
+                <div class="quiz-card fade-in" id="quizCard">
+                    <div class="question-text japanese" id="questionDisplay">
+                        Loading...
+                    </div>
+                    <div id="answerArea">
+                        <!-- Dynamic content -->
+                    </div>
+                    <div id="feedbackArea" style="display: none;"></div>
+                </div>
+
+                <div class="btn-group" style="justify-content: center;">
+                    <button class="btn btn-secondary" id="skipBtn" onclick="skipQuestion()">⏭️ Skip</button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display: none;">Lanjut →</button>
+                </div>
+            </div>
+
+            <div id="quizResults" class="results-container" style="display: none;">
+                <div class="results-card">
+                    <h2>🎉 Quiz Selesai!</h2>
+                    <div class="results-score" id="finalScore">85%</div>
+                    <div class="results-detail" id="scoreDetail">17 benar dari 20 soal</div>
+                    
+                    <div class="results-breakdown">
+                        <div class="breakdown-item correct">
+                            <div class="number" id="correctCount">17</div>
+                            <div class="label">Benar</div>
+                        </div>
+                        <div class="breakdown-item incorrect">
+                            <div class="number" id="incorrectCount">3</div>
+                            <div class="label">Salah</div>
+                        </div>
+                        <div class="breakdown-item time">
+                            <div class="number" id="totalTime">5:32</div>
+                            <div class="label">Waktu</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group" style="justify-content: center;">
+                    <button class="btn btn-primary" onclick="startQuiz()">🔄 Ulangi Quiz</button>
+                    <button class="btn btn-secondary" onclick="showSection('input')">📝 Tambah Soal</button>
+                    <button class="btn btn-secondary" onclick="reviewMistakes()">📖 Review Kesalahan</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Data Storage
+        let questions = JSON.parse(localStorage.getItem('n5_custom_questions') || '[]');
+        let currentQuiz = {
+            questions: [],
+            currentIndex: 0,
+            score: 0,
+            mistakes: [],
+            startTime: null,
+            timerInterval: null,
+            timeLeft: 0
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStats();
+            renderQuestionsList();
+            
+            // Tab navigation
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.dataset.tab;
+                    showSection(tabId);
+                });
+            });
+        });
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelector(`[data-tab="${sectionId}"]`).classList.add('active');
+
+            if (sectionId === 'quiz') {
+                document.getElementById('quizSetup').style.display = 'block';
+                document.getElementById('quizActive').style.display = 'none';
+                document.getElementById('quizResults').style.display = 'none';
+            }
+        }
+
+        function updateInputForm() {
+            const type = document.getElementById('questionType').value;
+            document.querySelectorAll('.question-form').forEach(f => f.style.display = 'none');
+            document.getElementById(type + 'Form').style.display = 'block';
+        }
+
+        function addQuestion() {
+            const type = document.getElementById('questionType').value;
+            let question = { type, id: Date.now() };
+
+            if (type === 'vocab') {
+                const word = document.getElementById('vocabWord').value.trim();
+                const reading = document.getElementById('vocabReading').value.trim();
+                const meaning = document.getElementById('vocabMeaning').value.trim();
+                
+                if (!word || !meaning) {
+                    alert('Kata dan arti harus diisi!');
+                    return;
+                }
+                
+                question = { ...question, word, reading, meaning };
+            } else if (type === 'grammar') {
+                const q = document.getElementById('grammarQuestion').value.trim();
+                const options = [
+                    document.getElementById('grammarOpt1').value.trim(),
+                    document.getElementById('grammarOpt2').value.trim(),
+                    document.getElementById('grammarOpt3').value.trim(),
+                    document.getElementById('grammarOpt4').value.trim()
+                ];
+                const correct = parseInt(document.getElementById('grammarCorrect').value);
+                
+                if (!q || options.some(o => !o)) {
+                    alert('Pertanyaan dan semua pilihan harus diisi!');
+                    return;
+                }
+                
+                question = { ...question, question: q, options, correct };
+            } else if (type === 'reading') {
+                const text = document.getElementById('readingText').value.trim();
+                const q = document.getElementById('readingQuestion').value.trim();
+                const options = [
+                    document.getElementById('readingOpt1').value.trim(),
+                    document.getElementById('readingOpt2').value.trim(),
+                    document.getElementById('readingOpt3').value.trim(),
+                    document.getElementById('readingOpt4').value.trim()
+                ];
+                const correct = parseInt(document.getElementById('readingCorrect').value);
+                
+                if (!text || !q || options.some(o => !o)) {
+                    alert('Teks, pertanyaan, dan semua pilihan harus diisi!');
+                    return;
+                }
+                
+                question = { ...question, text, question: q, options, correct };
+            } else if (type === 'kanji') {
+                const kanji = document.getElementById('kanjiChar').value.trim();
+                const reading = document.getElementById('kanjiReading').value.trim();
+                const meaning = document.getElementById('kanjiMeaning').value.trim();
+                
+                if (!kanji || !reading) {
+                    alert('Kanji dan reading harus diisi!');
+                    return;
+                }
+                
+                question = { ...question, kanji, reading, meaning };
+            }
+
+            questions.push(question);
+            saveQuestions();
+            updateStats();
+            clearForm();
+            
+            // Show success feedback
+            const btn = document.querySelector('.btn-primary');
+            btn.textContent = '✅ Berhasil!';
+            btn.classList.add('btn-success');
+            setTimeout(() => {
+                btn.textContent = '➕ Tambah Soal';
+                btn.classList.remove('btn-success');
+            }, 1500);
+        }
+
+        function clearForm() {
+            document.querySelectorAll('.question-form input, .question-form textarea').forEach(el => {
+                el.value = '';
+            });
+            document.querySelectorAll('.question-form select').forEach(el => {
+                el.selectedIndex = 0;
+            });
+        }
+
+        function saveQuestions() {
+            localStorage.setItem('n5_custom_questions', JSON.stringify(questions));
+        }
+
+        function updateStats() {
+            const total = questions.length;
+            const vocab = questions.filter(q => q.type === 'vocab').length;
+            const grammar = questions.filter(q => q.type === 'grammar').length;
+            const reading = questions.filter(q => q.type === 'reading').length + questions.filter(q => q.type === 'kanji').length;
+            
+            document.getElementById('totalQuestions').textContent = total;
+            document.getElementById('vocabCount').textContent = vocab;
+            document.getElementById('grammarCount').textContent = grammar;
+            document.getElementById('readingCount').textContent = reading;
+            document.getElementById('questionCount').textContent = `(${total})`;
+        }
+
+        function renderQuestionsList() {
+            const filter = document.getElementById('filterType').value;
+            const filtered = filter === 'all' ? questions : questions.filter(q => q.type === filter);
+            const container = document.getElementById('questionsList');
+            
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <p>Belum ada soal${filter !== 'all' ? ' untuk tipe ini' : ''}. Tambahkan soal di tab "Input Soal"!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map((q, i) => {
+                let display = '';
+                let typeLabel = '';
+                
+                if (q.type === 'vocab') {
+                    display = `${q.word} → ${q.meaning}`;
+                    typeLabel = 'Vocab';
+                } else if (q.type === 'grammar') {
+                    display = q.question.substring(0, 50) + (q.question.length > 50 ? '...' : '');
+                    typeLabel = 'Grammar';
+                } else if (q.type === 'reading') {
+                    display = q.question.substring(0, 50) + (q.question.length > 50 ? '...' : '');
+                    typeLabel = 'Reading';
+                } else if (q.type === 'kanji') {
+                    display = `${q.kanji} → ${q.reading}`;
+                    typeLabel = 'Kanji';
+                }
+
+                return `
+                    <div class="question-item fade-in">
+                        <span class="q-number">${i + 1}</span>
+                        <span class="q-text">${display}</span>
+                        <span class="q-type">${typeLabel}</span>
+                        <div class="q-actions">
+                            <button class="btn btn-danger" onclick="deleteQuestion(${q.id})">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function deleteQuestion(id) {
+            if (confirm('Hapus soal ini?')) {
+                questions = questions.filter(q => q.id !== id);
+                saveQuestions();
+                updateStats();
+                renderQuestionsList();
+            }
+        }
+
+        function clearAllQuestions() {
+            if (confirm('Hapus SEMUA soal? Ini tidak bisa dibatalkan!')) {
+                questions = [];
+                saveQuestions();
+                updateStats();
+                renderQuestionsList();
+            }
+        }
+
+        function exportQuestions() {
+            if (questions.length === 0) {
+                alert('Tidak ada soal untuk di-export!');
+                return;
+            }
+            
+            const data = JSON.stringify(questions, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'n5_questions_' + new Date().toISOString().split('T')[0] + '.json';
+            a.click();
+        }
+
+        function importQuestions(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported)) {
+                        const newQuestions = imported.map(q => ({ ...q, id: Date.now() + Math.random() }));
+                        questions = [...questions, ...newQuestions];
+                        saveQuestions();
+                        updateStats();
+                        renderQuestionsList();
+                        alert(`Berhasil import ${newQuestions.length} soal!`);
+                    }
+                } catch (err) {
+                    alert('File tidak valid!');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // Quiz Functions
+        function startQuiz() {
+            const type = document.getElementById('quizType').value;
+            const countSetting = document.getElementById('quizCount').value;
+            const shuffle = document.getElementById('quizShuffle').value === 'yes';
+            const timer = parseInt(document.getElementById('quizTimer').value);
+            
+            let available = type === 'all' ? [...questions] : questions.filter(q => q.type === type);
+            
+            if (available.length === 0) {
+                alert('Tidak ada soal yang tersedia untuk tipe ini!');
+                return;
+            }
+
+            if (shuffle) {
+                available = available.sort(() => Math.random() - 0.5);
+            }
+
+            const count = countSetting === 'all' ? available.length : Math.min(parseInt(countSetting), available.length);
+            
+            currentQuiz = {
+                questions: available.slice(0, count),
+                currentIndex: 0,
+                score: 0,
+                mistakes: [],
+                startTime: Date.now(),
+                timerInterval: null,
+                timePerQuestion: timer,
+                mode: document.getElementById('quizMode').value
+            };
+
+            document.getElementById('quizSetup').style.display = 'none';
+            document.getElementById('quizActive').style.display = 'block';
+            document.getElementById('quizResults').style.display = 'none';
+            document.getElementById('totalQ').textContent = count;
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = currentQuiz.questions[currentQuiz.currentIndex];
+            const card = document.getElementById('quizCard');
+            const questionDisplay = document.getElementById('questionDisplay');
+            const answerArea = document.getElementById('answerArea');
+            const feedbackArea = document.getElementById('feedbackArea');
+            
+            card.classList.remove('fade-in');
+            void card.offsetWidth;
+            card.classList.add('fade-in');
+
+            document.getElementById('currentQ').textContent = currentQuiz.currentIndex + 1;
+            document.getElementById('liveScore').textContent = currentQuiz.score;
+            feedbackArea.style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('skipBtn').style.display = 'inline-block';
+
+            // Start timer
+            if (currentQuiz.timerInterval) {
+                clearInterval(currentQuiz.timerInterval);
+            }
+            
+            if (currentQuiz.timePerQuestion > 0) {
+                currentQuiz.timeLeft = currentQuiz.timePerQuestion;
+                updateTimerDisplay();
+                currentQuiz.timerInterval = setInterval(() => {
+                    currentQuiz.timeLeft--;
+                    updateTimerDisplay();
+                    if (currentQuiz.timeLeft <= 0) {
+                        clearInterval(currentQuiz.timerInterval);
+                        handleTimeout();
+                    }
+                }, 1000);
+            } else {
+                document.getElementById('timerDisplay').textContent = '∞';
+            }
+
+            // Display question based on type
+            if (q.type === 'vocab') {
+                questionDisplay.innerHTML = q.word;
+                questionDisplay.classList.add('japanese');
+                
+                if (currentQuiz.mode === 'typing') {
+                    answerArea.innerHTML = `
+                        <input type="text" class="answer-input" id="typingAnswer" placeholder="Ketik artinya..." autofocus>
+                        <button class="btn btn-primary" onclick="checkTypingAnswer('${q.meaning}')" style="margin-top: 15px;">Check</button>
+                    `;
+                } else if (currentQuiz.mode === 'flashcard') {
+                    answerArea.innerHTML = `
+                        <button class="btn btn-secondary" onclick="showFlashcardAnswer('vocab', '${q.meaning}', '${q.reading || ''}')">
+                            👁️ Lihat Jawaban
+                        </button>
+                    `;
+                } else {
+                    const options = generateVocabOptions(q);
+                    answerArea.innerHTML = `
+                        <div class="options-container">
+                            ${options.map((opt, i) => `
+                                <button class="option-btn" onclick="checkAnswer(${i}, ${options.indexOf(q.meaning)})">${opt}</button>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+            } else if (q.type === 'grammar' || q.type === 'reading') {
+                if (q.type === 'reading') {
+                    questionDisplay.innerHTML = `
+                        <div style="font-size: 1rem; text-align: left; margin-bottom: 20px; padding: 15px; background: var(--bg-secondary); border-radius: 10px;">
+                            ${q.text}
+                        </div>
+                        <div style="font-size: 1.3rem;">${q.question}</div>
+                    `;
+                } else {
+                    questionDisplay.innerHTML = q.question;
+                }
+                questionDisplay.classList.add('japanese');
+                
+                answerArea.innerHTML = `
+                    <div class="options-container">
+                        ${q.options.map((opt, i) => `
+                            <button class="option-btn" onclick="checkAnswer(${i}, ${q.correct})">${opt}</button>
+                        `).join('')}
+                    </div>
+                `;
+            } else if (q.type === 'kanji') {
+                questionDisplay.innerHTML = q.kanji;
+                questionDisplay.classList.add('japanese');
+                
+                if (currentQuiz.mode === 'typing') {
+                    answerArea.innerHTML = `
+                        <input type="text" class="answer-input" id="typingAnswer" placeholder="Ketik reading-nya..." autofocus>
+                        <button class="btn btn-primary" onclick="checkTypingAnswer('${q.reading}')" style="margin-top: 15px;">Check</button>
+                    `;
+                } else if (currentQuiz.mode === 'flashcard') {
+                    answerArea.innerHTML = `
+                        <button class="btn btn-secondary" onclick="showFlashcardAnswer('kanji', '${q.reading}', '${q.meaning || ''}')">
+                            👁️ Lihat Jawaban
+                        </button>
+                    `;
+                } else {
+                    const options = generateKanjiOptions(q);
+                    answerArea.innerHTML = `
+                        <div class="options-container">
+                            ${options.map((opt, i) => `
+                                <button class="option-btn" onclick="checkAnswer(${i}, ${options.indexOf(q.reading)})">${opt}</button>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function generateVocabOptions(q) {
+            const vocabQuestions = questions.filter(x => x.type === 'vocab' && x.id !== q.id);
+            let options = [q.meaning];
+            
+            while (options.length < 4 && vocabQuestions.length > 0) {
+                const randomIndex = Math.floor(Math.random() * vocabQuestions.length);
+                const randomQ = vocabQuestions.splice(randomIndex, 1)[0];
+                if (!options.includes(randomQ.meaning)) {
+                    options.push(randomQ.meaning);
+                }
+            }
+            
+            // Fill with dummy options if not enough
+            const dummyOptions = ['makan', 'minum', 'pergi', 'tidur', 'belajar', 'bekerja', 'melihat', 'mendengar'];
+            while (options.length < 4) {
+                const dummy = dummyOptions[Math.floor(Math.random() * dummyOptions.length)];
+                if (!options.includes(dummy)) options.push(dummy);
+            }
+            
+            return options.sort(() => Math.random() - 0.5);
+        }
+
+        function generateKanjiOptions(q) {
+            const kanjiQuestions = questions.filter(x => x.type === 'kanji' && x.id !== q.id);
+            let options = [q.reading];
+            
+            while (options.length < 4 && kanjiQuestions.length > 0) {
+                const randomIndex = Math.floor(Math.random() * kanjiQuestions.length);
+                const randomQ = kanjiQuestions.splice(randomIndex, 1)[0];
+                if (!options.includes(randomQ.reading)) {
+                    options.push(randomQ.reading);
+                }
+            }
+            
+            // Fill with dummy options
+            const dummyOptions = ['にほん', 'がっこう', 'せんせい', 'ともだち', 'たべる', 'のむ', 'いく', 'みる'];
+            while (options.length < 4) {
+                const dummy = dummyOptions[Math.floor(Math.random() * dummyOptions.length)];
+                if (!options.includes(dummy)) options.push(dummy);
+            }
+            
+            return options.sort(() => Math.random() - 0.5);
+        }
+
+        function updateTimerDisplay() {
+            const display = document.getElementById('timerDisplay');
+            const minutes = Math.floor(currentQuiz.timeLeft / 60);
+            const seconds = currentQuiz.timeLeft % 60;
+            display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (currentQuiz.timeLeft <= 5) {
+                display.style.color = 'var(--error)';
+            } else {
+                display.style.color = 'var(--accent-gold)';
+            }
+        }
+
+        function handleTimeout() {
+            const q = currentQuiz.questions[currentQuiz.currentIndex];
+            currentQuiz.mistakes.push(q);
+            showFeedback(false, getCorrectAnswer(q));
+        }
+
+        function getCorrectAnswer(q) {
+            if (q.type === 'vocab') return q.meaning;
+            if (q.type === 'kanji') return q.reading;
+            if (q.type === 'grammar' || q.type === 'reading') return q.options[q.correct];
+            return '';
+        }
+
+        function checkAnswer(selected, correct) {
+            clearInterval(currentQuiz.timerInterval);
+            
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach((btn, i) => {
+                btn.classList.add('disabled');
+                if (i === correct) btn.classList.add('correct');
+                if (i === selected && selected !== correct) btn.classList.add('incorrect');
+            });
+
+            const isCorrect = selected === correct;
+            if (isCorrect) {
+                currentQuiz.score++;
+            } else {
+                currentQuiz.mistakes.push(currentQuiz.questions[currentQuiz.currentIndex]);
+            }
+
+            showFeedback(isCorrect, buttons[correct].textContent);
+        }
+
+        function checkTypingAnswer(correct) {
+            clearInterval(currentQuiz.timerInterval);
+            
+            const input = document.getElementById('typingAnswer');
+            const answer = input.value.trim().toLowerCase();
+            const correctLower = correct.toLowerCase();
+            
+            const isCorrect = answer === correctLower || answer.includes(correctLower) || correctLower.includes(answer);
+            
+            if (isCorrect) {
+                currentQuiz.score++;
+            } else {
+                currentQuiz.mistakes.push(currentQuiz.questions[currentQuiz.currentIndex]);
+            }
+
+            showFeedback(isCorrect, correct);
+        }
+
+        function showFlashcardAnswer(type, answer, extra) {
+            const answerArea = document.getElementById('answerArea');
+            answerArea.innerHTML = `
+                <div style="font-size: 1.5rem; margin-bottom: 20px;">
+                    <strong>${answer}</strong>
+                    ${extra ? `<br><span style="color: var(--text-muted); font-size: 1rem;">${extra}</span>` : ''}
+                </div>
+                <div class="btn-group" style="justify-content: center;">
+                    <button class="btn btn-success" onclick="markFlashcard(true)">✅ Tahu</button>
+                    <button class="btn btn-danger" onclick="markFlashcard(false)">❌ Tidak Tahu</button>
+                </div>
+            `;
+        }
+
+        function markFlashcard(knew) {
+            if (knew) {
+                currentQuiz.score++;
+            } else {
+                currentQuiz.mistakes.push(currentQuiz.questions[currentQuiz.currentIndex]);
+            }
+            nextQuestion();
+        }
+
+        function showFeedback(isCorrect, correctAnswer) {
+            const feedbackArea = document.getElementById('feedbackArea');
+            feedbackArea.style.display = 'block';
+            feedbackArea.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedbackArea.innerHTML = isCorrect 
+                ? '✅ Benar! Lanjutkan!'
+                : `❌ Salah! Jawaban yang benar: <strong>${correctAnswer}</strong>`;
+            
+            document.getElementById('liveScore').textContent = currentQuiz.score;
+            document.getElementById('skipBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+
+            const card = document.getElementById('quizCard');
+            card.classList.add(isCorrect ? 'pulse' : 'shake');
+            setTimeout(() => card.classList.remove('pulse', 'shake'), 500);
+        }
+
+        function skipQuestion() {
+            currentQuiz.mistakes.push(currentQuiz.questions[currentQuiz.currentIndex]);
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            currentQuiz.currentIndex++;
+            
+            if (currentQuiz.currentIndex >= currentQuiz.questions.length) {
+                showResults();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function showResults() {
+            clearInterval(currentQuiz.timerInterval);
+            
+            document.getElementById('quizActive').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+
+            const total = currentQuiz.questions.length;
+            const score = currentQuiz.score;
+            const percentage = Math.round((score / total) * 100);
+            const elapsed = Math.round((Date.now() - currentQuiz.startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+
+            document.getElementById('finalScore').textContent = percentage + '%';
+            document.getElementById('scoreDetail').textContent = `${score} benar dari ${total} soal`;
+            document.getElementById('correctCount').textContent = score;
+            document.getElementById('incorrectCount').textContent = total - score;
+            document.getElementById('totalTime').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function reviewMistakes() {
+            if (currentQuiz.mistakes.length === 0) {
+                alert('Tidak ada kesalahan untuk direview! 🎉');
+                return;
+            }
+
+            let reviewText = 'Soal yang salah:\n\n';
+            currentQuiz.mistakes.forEach((q, i) => {
+                if (q.type === 'vocab') {
+                    reviewText += `${i + 1}. ${q.word} = ${q.meaning}\n`;
+                } else if (q.type === 'kanji') {
+                    reviewText += `${i + 1}. ${q.kanji} = ${q.reading}\n`;
+                } else if (q.type === 'grammar' || q.type === 'reading') {
+                    reviewText += `${i + 1}. ${q.question}\n   Jawaban: ${q.options[q.correct]}\n`;
+                }
+            });
+            
+            alert(reviewText);
+        }
+    </script>
+</body>
+</html>
+

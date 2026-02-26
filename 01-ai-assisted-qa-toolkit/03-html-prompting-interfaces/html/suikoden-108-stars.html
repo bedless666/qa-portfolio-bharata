@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suikoden: 108 Stars of Destiny | True Runes Chronicle</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=MedievalSharp&family=Uncial+Antiqua&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Suikoden Color Palette */
+            --royal-blue: #1a4d8f;
+            --deep-red: #8b0000;
+            --gold: #d4af37;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+            --parchment: #f4e4c1;
+            --dark-wood: #3d2817;
+            --forest-green: #2d5016;
+            --castle-gray: #5a5a5a;
+            --rune-purple: #6a0dad;
+            --flame-orange: #ff6600;
+            --water-blue: #0066cc;
+            --earth-brown: #8b4513;
+            --wind-cyan: #00ced1;
+            --lightning-yellow: #ffd700;
+            --darkness-black: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Philosopher', sans-serif;
+            background: linear-gradient(135deg, var(--royal-blue) 0%, var(--deep-red) 100%);
+            color: var(--parchment);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-castle {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, rgba(61, 40, 23, 0.8), transparent);
+        }
+
+        .bg-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20% 30%, white, transparent),
+                radial-gradient(2px 2px at 60% 70%, white, transparent),
+                radial-gradient(1px 1px at 50% 50%, white, transparent),
+                radial-gradient(1px 1px at 80% 10%, white, transparent),
+                radial-gradient(2px 2px at 90% 60%, white, transparent);
+            background-size: 200% 200%;
+            animation: twinkle 8s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .floating-rune {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.2;
+            animation: float-rune 15s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes float-rune {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translateY(-50px) rotate(180deg);
+                opacity: 0.4;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header with Medieval Style */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding: 2rem;
+            background: rgba(61, 40, 23, 0.8);
+            border: 5px solid var(--gold);
+            border-radius: 20px;
+            box-shadow: 
+                0 0 30px rgba(212, 175, 55, 0.5),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 
+                3px 3px 0 var(--deep-red),
+                6px 6px 0 rgba(0, 0, 0, 0.5),
+                0 0 30px var(--gold);
+            margin-bottom: 1rem;
+            letter-spacing: 5px;
+            animation: glow-pulse 3s infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% {
+                text-shadow: 
+                    3px 3px 0 var(--deep-red),
+                    6px 6px 0 rgba(0, 0, 0, 0.5),
+                    0 0 30px var(--gold);
+            }
+            50% {
+                text-shadow: 
+                    3px 3px 0 var(--deep-red),
+                    6px 6px 0 rgba(0, 0, 0, 0.5),
+                    0 0 50px var(--gold),
+                    0 0 70px var(--flame-orange);
+            }
+        }
+
+        .subtitle {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.5rem;
+            color: var(--silver);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 3px;
+        }
+
+        .ornament {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 1rem 0;
+        }
+
+        /* Game Selection */
+        .game-selector {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .game-btn {
+            padding: 1.5rem 3rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: 4px solid var(--gold);
+            background: linear-gradient(135deg, var(--dark-wood), var(--castle-gray));
+            color: var(--gold);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .game-btn:hover::before {
+            left: 100%;
+        }
+
+        .game-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
+            border-color: var(--flame-orange);
+            color: var(--flame-orange);
+        }
+
+        .game-btn.active {
+            background: linear-gradient(135deg, var(--deep-red), var(--royal-blue));
+            border-color: var(--gold);
+            box-shadow: 
+                0 0 30px var(--gold),
+                inset 0 0 20px rgba(212, 175, 55, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* True Runes Section */
+        .runes-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(61, 40, 23, 0.6);
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 3px;
+        }
+
+        .runes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Rune Card - Ornate Style */
+        .rune-card {
+            background: linear-gradient(135deg, rgba(61, 40, 23, 0.9), rgba(90, 90, 90, 0.9));
+            border: 4px solid var(--gold);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .rune-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1), transparent);
+            animation: rotate-glow 10s linear infinite;
+        }
+
+        @keyframes rotate-glow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .rune-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--flame-orange);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+        }
+
+        .rune-icon {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 20px currentColor);
+            animation: rune-pulse 2s infinite;
+        }
+
+        @keyframes rune-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .rune-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 2px;
+        }
+
+        .rune-description {
+            font-size: 0.9rem;
+            color: var(--parchment);
+            text-align: center;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .rune-power {
+            text-align: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--gold);
+        }
+
+        .power-label {
+            font-size: 0.8rem;
+            color: var(--silver);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .power-value {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--flame-orange);
+            font-weight: 700;
+            text-shadow: 0 0 10px var(--flame-orange);
+        }
+
+        /* Character Section */
+        .characters-section {
+            margin-bottom: 4rem;
+        }
+
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Character Card - Portrait Style */
+        .character-card {
+            background: linear-gradient(135deg, rgba(26, 77, 143, 0.9), rgba(139, 0, 0, 0.9));
+            border: 5px solid var(--gold);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .character-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(212, 175, 55, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .character-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .character-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.5);
+            border-color: var(--flame-orange);
+        }
+
+        /* Character Portrait */
+        .character-portrait {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--castle-gray), var(--dark-wood));
+            border: 4px solid var(--gold);
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .character-portrait::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.1) 2px,
+                rgba(0, 0, 0, 0.1) 4px
+            );
+            pointer-events: none;
+        }
+
+        .character-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 2px;
+        }
+
+        .character-title {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1rem;
+            color: var(--silver);
+            text-align: center;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .character-star {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+            text-shadow: 0 0 10px var(--gold);
+        }
+
+        .character-rune {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .rune-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-weight: 700;
+        }
+
+        .rune-soul-eater { background: linear-gradient(135deg, #8b0000, #000000); }
+        .rune-bright-shield { background: linear-gradient(135deg, #ffd700, #ff6600); }
+        .rune-black-sword { background: linear-gradient(135deg, #1a1a1a, #5a5a5a); }
+        .rune-beginning { background: linear-gradient(135deg, #00ced1, #0066cc); }
+        .rune-sovereign { background: linear-gradient(135deg, #d4af37, #8b4513); }
+        .rune-moon { background: linear-gradient(135deg, #c0c0c0, #6a0dad); }
+        .rune-sun { background: linear-gradient(135deg, #ffd700, #ff6600); }
+
+        .character-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--gold);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--silver);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-value {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+            font-weight: 700;
+            text-shadow: 0 0 10px var(--gold);
+        }
+
+        /* Story Section */
+        .story-section {
+            margin-bottom: 4rem;
+        }
+
+        .story-book {
+            background: linear-gradient(135deg, var(--parchment), #e8d4a0);
+            border: 8px solid var(--dark-wood);
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.6),
+                inset 0 0 30px rgba(139, 69, 19, 0.2);
+            position: relative;
+        }
+
+        .story-book::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .story-title {
+            font-family: 'Uncial Antiqua', cursive;
+            font-size: 2rem;
+            color: var(--deep-red);
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .story-text {
+            font-family: 'Philosopher', sans-serif;
+            font-size: 1.1rem;
+            color: var(--dark-wood);
+            line-height: 2;
+            text-align: justify;
+            text-indent: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-quote {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.2rem;
+            color: var(--royal-blue);
+            text-align: center;
+            font-style: italic;
+            padding: 1.5rem;
+            border-left: 4px solid var(--gold);
+            border-right: 4px solid var(--gold);
+            margin: 2rem 0;
+            background: rgba(26, 77, 143, 0.1);
+        }
+
+        /* 108 Stars Counter */
+        .stars-counter {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(61, 40, 23, 0.8);
+            border: 4px solid var(--gold);
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .stars-number {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            color: var(--gold);
+            font-weight: 900;
+            text-shadow: 0 0 30px var(--gold);
+            animation: count-glow 2s infinite;
+        }
+
+        @keyframes count-glow {
+            0%, 100% { 
+                text-shadow: 0 0 30px var(--gold);
+                transform: scale(1);
+            }
+            50% { 
+                text-shadow: 0 0 50px var(--gold), 0 0 70px var(--flame-orange);
+                transform: scale(1.05);
+            }
+        }
+
+        .stars-label {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.2rem;
+            color: var(--silver);
+            margin-top: 1rem;
+            letter-spacing: 3px;
+        }
+
+        /* Army Units Display */
+        .army-display {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .unit-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--dark-wood);
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .unit-icon:hover {
+            transform: scale(1.2) rotate(10deg);
+            box-shadow: 0 0 20px var(--gold);
+        }
+
+        /* War Battle Display */
+        .war-section {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.8), rgba(26, 77, 143, 0.8));
+            border: 5px solid var(--gold);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .war-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .battle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .battle-unit {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .battle-unit:hover {
+            transform: scale(1.05);
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        .unit-name {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .unit-type {
+            font-size: 0.7rem;
+            color: var(--silver);
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(61, 40, 23, 0.8);
+            border-top: 4px solid var(--gold);
+            margin-top: 4rem;
+        }
+
+        .footer-text {
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1rem;
+            color: var(--silver);
+            margin-bottom: 1rem;
+        }
+
+        .footer-quote {
+            font-family: 'Philosopher', sans-serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .game-btn {
+                font-size: 0.9rem;
+                padding: 1rem 2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .runes-grid,
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .character-portrait {
+                height: 250px;
+                font-size: 6rem;
+            }
+
+            .story-book {
+                padding: 2rem;
+            }
+
+            .story-text {
+                font-size: 1rem;
+            }
+
+            .stars-number {
+                font-size: 3rem;
+            }
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--darkness-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-text {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            text-shadow: 0 0 30px var(--gold);
+            animation: loading-pulse 1.5s infinite;
+        }
+
+        @keyframes loading-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-text">⚔️ Loading Chronicles... ⚔️</div>
+    </div>
+
+    <!-- Background -->
+    <div class="bg-container">
+        <div class="bg-stars"></div>
+        <div class="bg-castle"></div>
+        <div class="floating-rune" style="top: 10%; left: 10%;">🔥</div>
+        <div class="floating-rune" style="top: 20%; right: 15%;">💧</div>
+        <div class="floating-rune" style="bottom: 30%; left: 20%;">⚡</div>
+        <div class="floating-rune" style="bottom: 20%; right: 10%;">🌙</div>
+        <div class="floating-rune" style="top: 50%; left: 5%;">☀️</div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="ornament">⚔️═══════════════════════════════⚔️</div>
+            <h1 class="main-title">SUIKODEN</h1>
+            <p class="subtitle">108 Stars of Destiny Chronicle</p>
+            <div class="ornament">⚔️═══════════════════════════════⚔️</div>
+        </header>
+
+        <!-- Game Selection -->
+        <div class="game-selector">
+            <button class="game-btn active" data-game="suikoden1">
+                🏰 Suikoden I
+            </button>
+            <button class="game-btn" data-game="suikoden2">
+                🗡️ Suikoden II
+            </button>
+        </div>
+
+        <!-- 108 Stars Counter -->
+        <div class="stars-counter reveal">
+            <div class="stars-number" id="starsCount">108</div>
+            <div class="stars-label">Stars of Destiny United</div>
+            <div class="army-display">
+                <div class="unit-icon">⚔️</div>
+                <div class="unit-icon">🛡️</div>
+                <div class="unit-icon">🏹</div>
+                <div class="unit-icon">🔮</div>
+                <div class="unit-icon">🎭</div>
+                <div class="unit-icon">🎨</div>
+                <div class="unit-icon">🍳</div>
+                <div class="unit-icon">⚒️</div>
+            </div>
+        </div>
+
+        <!-- True Runes Section -->
+        <section class="runes-section reveal">
+            <h2 class="section-title">⚡ THE 27 TRUE RUNES ⚡</h2>
+            <div class="runes-grid">
+                <!-- Soul Eater Rune -->
+                <div class="rune-card">
+                    <div class="rune-icon" style="color: var(--deep-red);">☠️</div>
+                    <h3 class="rune-name">Soul Eater</h3>
+                    <p class="rune-description">
+                        The cursed rune that devours the souls of those dear to its bearer. Grants immense power at a terrible price.
+                    </p>
+                    <div class="rune-power">
+                        <div class="power-label">Power Level</div>
+                        <div class="power-value">★★★★★</div>
+                    </div>
+                </div>
+
+                <!-- Bright Shield Rune -->
+                <div class="rune-card">
+                    <div class="rune-icon" style="color: var(--gold);">🛡️</div>
+                    <h3 class="rune-name">Bright Shield</h3>
+                    <p class="rune-description">
+                        The rune of protection and healing. Shields allies and brings light to darkness.
+                    </p>
+                    <div class="rune-power">
+                        <div class="power-label">Power Level</div>
+                        <div class="power-value">★★★★★</div>
+                    </div>
+                </div>
+
+                <!-- Black Sword Rune -->
+                <div class="rune-card">
+                    <div class="rune-icon" style="color: var(--darkness-black);">⚔️</div>
+                    <h3 class="rune-name">Black Sword</h3>
+                    <p class="rune-description">
+                        The twin of Soul Eater. Together they form the Rune of Beginning and Ending.
+                    </p>
+                    <div class="rune-power">
+                        <div class="power-label">Power Level</div>
+                        <div class="power-value">★★★★★</div>
+                    </div>
+                </div>
+
+                <!-- Sovereign Rune -->
+                <div class="rune-card">
+                    <div class="rune-icon" style="color: var(--gold);">👑</div>
+                    <h3 class="rune-name">Sovereign Rune</h3>
+                    <p class="rune-description">
+                        The rune of kings and emperors. Commands loyalty and inspires greatness.
+                    </p>
+                    <div class="rune-power">
+                        <div class="power-label">Power Level</div>
+                        <div class="power-value">★★★★☆</div>
+                    </div>
+                </div>
+
+                <!-- Moon Rune -->
+                <div class="rune-card">
+                    <div class="rune-icon" style="color: var(--silver);">🌙</div>
+                    <h3 class="rune-name">Moon Rune</h3>
+                    <p class="rune-description">
+                        Controls the tides and grants power over water and illusions.
+                    </p>
+                    <div class="rune-power">
+                        <div class="power-label">Power Level</div>
+                        <div class="power-value">★★★★☆</div>
+                    </div>
+                </div>
+
+                <!-- Sun Rune -->
+                <div class="rune-card">
+                    <div class="rune-icon" style="color: var(--flame-orange);">☀️</div>
+                    <h3 class="rune-name">Sun Rune</h3>
+                    <p class="rune-description">
+                        The source of all light and fire. Burns with the intensity of a thousand suns.
+                    </p>
+                    <div class="rune-power">
+                        <div class="power-label">Power Level</div>
+                        <div class="power-value">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Story Section -->
+        <section class="story-section reveal">
+            <h2 class="section-title">📜 THE CHRONICLES 📜</h2>
+            <div class="story-book">
+                <h3 class="story-title">The Tale of Liberation</h3>
+                <p class="story-text">
+                    In the land of the Scarlet Moon Empire, a young hero bearing the cursed Soul Eater Rune rises against tyranny. Gathering the legendary 108 Stars of Destiny, he builds an army of liberation from the ruins of Toran Castle. Each star brings unique talents—warriors, mages, strategists, and craftsmen—united by a common cause: freedom.
+                </p>
+                <div class="story-quote">
+                    "The stars have aligned. Our destiny awaits at Toran Castle."
+                </div>
+                <p class="story-text">
+                    Years later, in the neighboring land of Dunan, another hero emerges. Betrayed by those he trusted, he must once again unite the 108 Stars to face the Highland Kingdom. The Bright Shield Rune guides his path as he builds an army capable of challenging an empire.
+                </p>
+                <div class="story-quote">
+                    "This hand of mine glows with an awesome power!"
+                </div>
+                <p class="story-text">
+                    These are not mere tales of war, but stories of friendship, sacrifice, and the bonds that unite people across nations. The 108 Stars of Destiny are more than soldiers—they are artists, chefs, merchants, and dreamers, each playing their part in shaping history.
+                </p>
+            </div>
+        </section>
+
+        <!-- Main Characters Section -->
+        <section class="characters-section reveal">
+            <h2 class="section-title" id="charactersTitle">⚔️ HEROES OF TORAN ⚔️</h2>
+            <div class="characters-grid" id="charactersGrid">
+                <!-- Suikoden 1 Characters -->
+                <div class="character-card suikoden1">
+                    <div class="character-portrait" style="background: linear-gradient(135deg, #8b0000, #1a4d8f);">
+                        🧑‍🦱
+                    </div>
+                    <h3 class="character-name">McDohl</h3>
+                    <p class="character-title">Tenkai Star - Leader of Liberation Army</p>
+                    <div class="character-star">⭐ Tenkai Star ⭐</div>
+                    <div class="character-rune">
+                        <span class="rune-badge rune-soul-eater">Soul Eater Rune</span>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">Level</div>
+                            <div class="stat-value">99</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Army</div>
+                            <div class="stat-value">108</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Castle</div>
+                            <div class="stat-value">⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card suikoden1">
+                    <div class="character-portrait" style="background: linear-gradient(135deg, #2d5016, #44DD44);">
+                        👨‍🦰
+                    </div>
+                    <h3 class="character-name">Gremio</h3>
+                    <p class="character-title">Chikai Star - Loyal Servant</p>
+                    <div class="character-star">⭐ Chikai Star ⭐</div>
+                    <div class="character-rune">
+                        <span class="rune-badge" style="background: linear-gradient(135deg, #44DD44, #88FF88);">Earth Rune</span>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">Level</div>
+                            <div class="stat-value">45</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Loyalty</div>
+                            <div class="stat-value">MAX</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Cooking</div>
+                            <div class="stat-value">S</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card suikoden1">
+                    <div class="character-portrait" style="background: linear-gradient(135deg, #6a0dad, #FF00AA);">
+                        🧙‍♂️
+                    </div>
+                    <h3 class="character-name">Luc</h3>
+                    <p class="character-title">Tenman Star - Wind Mage</p>
+                    <div class="character-star">⭐ Tenman Star ⭐</div>
+                    <div class="character-rune">
+                        <span class="rune-badge" style="background: linear-gradient(135deg, #00ced1, #0066cc);">Wind Rune</span>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">Level</div>
+                            <div class="stat-value">60</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Magic</div>
+                            <div class="stat-value">S+</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Speed</div>
+                            <div class="stat-value">A</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card suikoden1">
+                    <div class="character-portrait" style="background: linear-gradient(135deg, #cd7f32, #d4af37);">
+                        👸
+                    </div>
+                    <h3 class="character-name">Odessa</h3>
+                    <p class="character-title">Tenyu Star - Liberation Leader</p>
+                    <div class="character-star">⭐ Tenyu Star ⭐</div>
+                    <div class="character-rune">
+                        <span class="rune-badge" style="background: linear-gradient(135deg, #ffd700, #ff6600);">Fire Rune</span>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">Level</div>
+                            <div class="stat-value">35</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Charisma</div>
+                            <div class="stat-value">S</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Legacy</div>
+                            <div class="stat-value">★★★</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suikoden 2 Characters -->
+                <div class="character-card suikoden2" style="display: none;">
+                    <div class="character-portrait" style="background: linear-gradient(135deg, #ffd700, #ff6600);">
+                        👦
+                    </div>
+                    <h3 class="character-name">Riou</h3>
+                    <p class="character-title">Tenkai Star - Hero of Dunan</p>
+                    <div class="character-star">⭐ Tenkai Star ⭐</div>
+                    <div class="character-rune">
+                        <span class="rune-badge rune-bright-shield">Bright Shield Rune</span>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">Level</div>
+                            <div class="stat-value">99</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Army</div>
+                            <div class="stat-value">108</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Castle</div>
+                            <div class="stat-value">⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card suikoden2" style="display: none;">
+                    <div class="character-portrait" style="background: linear-gradient(135deg, #1a1a1a, #5a5a5a);">
+                        🗡️
+                    </div>
+                    <h3 class="character-name">Jowy</h3>
+                    <p class="character-title">Tenkai Star - King of Highland</p>
+                    <div class="character-star">⭐ Tenkai Star ⭐</div>
+                    <div class="character-rune">
+                        <span class="rune-badge rune-black-sword">Black Sword Rune</span>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">Level</div>
+                            <div class="stat-value">99</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Destiny</div>
+                            <div class="stat-value">★★★</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Bond</div>
+                            <div class="stat-value">∞</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card suikoden2" style="display: none;">
+                    <div class="character-portrait" style="background: linear-gradient(135deg, #FF6699, #FF00AA);">
+                        👧
+                    </div>
+                    <h3 class="character-name">Nanami</h3>
+                    <p class="character-title">Tenki Star - Loyal Sister</p>
+                    <div class="character-star">⭐ Tenki Star ⭐</div>
+                    <div class="character-rune">
+                        <span class="rune-badge" style="background: linear-gradient(135deg, #ffd700, #ff6600);">Fire Rune</span>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">Level</div>
+                            <div class="stat-value">75</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Speed</div>
+                            <div class="stat-value">S</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Love</div>
+                            <div class="stat-value">★★★</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-card suikoden2" style="display: none;">
+                    <div class="character-portrait" style="background: linear-gradient(135deg, #8b4513, #cd7f32);">
+                        🧔
+                    </div>
+                    <h3 class="character-name">Viktor</h3>
+                    <p class="character-title">Tenyu Star - Bear of Toran</p>
+                    <div class="character-star">⭐ Tenyu Star ⭐</div>
+                    <div class="character-rune">
+                        <span class="rune-badge" style="background: linear-gradient(135deg, #8b4513, #cd7f32);">Earth Rune</span>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-label">Level</div>
+                            <div class="stat-value">85</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Power</div>
+                            <div class="stat-value">S+</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Defense</div>
+                            <div class="stat-value">A</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- War Battle Section -->
+        <section class="war-section reveal">
+            <h2 class="war-title">⚔️ STRATEGIC WARFARE ⚔️</h2>
+            <div class="battle-grid">
+                <div class="battle-unit">
+                    <div style="font-size: 2rem;">🏹</div>
+                    <div class="unit-name">Archers</div>
+                    <div class="unit-type">Ranged Unit</div>
+                </div>
+                <div class="battle-unit">
+                    <div style="font-size: 2rem;">⚔️</div>
+                    <div class="unit-name">Infantry</div>
+                    <div class="unit-type">Melee Unit</div>
+                </div>
+                <div class="battle-unit">
+                    <div style="font-size: 2rem;">🐴</div>
+                    <div class="unit-name">Cavalry</div>
+                    <div class="unit-type">Mobile Unit</div>
+                </div>
+                <div class="battle-unit">
+                    <div style="font-size: 2rem;">🔮</div>
+                    <div class="unit-name">Mages</div>
+                    <div class="unit-type">Magic Unit</div>
+                </div>
+                <div class="battle-unit">
+                    <div style="font-size: 2rem;">🛡️</div>
+                    <div class="unit-name">Guards</div>
+                    <div class="unit-type">Defense Unit</div>
+                </div>
+                <div class="battle-unit">
+                    <div style="font-size: 2rem;">🎯</div>
+                    <div class="unit-name">Assassins</div>
+                    <div class="unit-type">Special Unit</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p class="footer-text">
+                ⚔️ Suikoden: 108 Stars of Destiny Chronicle ⚔️
+            </p>
+            <p class="footer-quote">
+                "The stars guide our destiny, and together we shall write history."
+            </p>
+            <p class="footer-text" style="margin-top: 1rem; font-size: 0.8rem;">
+                © Konami | A tribute to the legendary JRPG series
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Loading animation
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Game selector functionality
+        const gameButtons = document.querySelectorAll('.game-btn');
+        const charactersTitle = document.getElementById('charactersTitle');
+
+        gameButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const game = this.dataset.game;
+                
+                // Update active button
+                gameButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show/hide characters
+                const suikoden1Cards = document.querySelectorAll('.suikoden1');
+                const suikoden2Cards = document.querySelectorAll('.suikoden2');
+                
+                if (game === 'suikoden1') {
+                    suikoden1Cards.forEach(card => card.style.display = 'block');
+                    suikoden2Cards.forEach(card => card.style.display = 'none');
+                    charactersTitle.innerHTML = '⚔️ HEROES OF TORAN ⚔️';
+                } else {
+                    suikoden1Cards.forEach(card => card.style.display = 'none');
+                    suikoden2Cards.forEach(card => card.style.display = 'block');
+                    charactersTitle.innerHTML = '🗡️ HEROES OF DUNAN 🗡️';
+                }
+                
+                // Animation effect
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Character card click animation
+        const characterCards = document.querySelectorAll('.character-card');
+        characterCards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 10);
+                
+                // Play sound effect (visual feedback)
+                const portrait = this.querySelector('.character-portrait');
+                portrait.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    portrait.style.transform = '';
+                }, 300);
+            });
+        });
+
+        // Rune card hover effect
+        const runeCards = document.querySelectorAll('.rune-card');
+        runeCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.rune-icon');
+                icon.style.transform = 'scale(1.2) rotate(360deg)';
+                icon.style.transition = 'transform 0.5s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.rune-icon');
+                icon.style.transform = '';
+            });
+        });
+
+        // Stars counter animation
+        function animateCounter() {
+            const counter = document.getElementById('starsCount');
+            let count = 0;
+            const target = 108;
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            
+            const updateCounter = () => {
+                count += increment;
+                if (count < target) {
+                    counter.textContent = Math.floor(count);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target;
+                }
+            };
+            
+            updateCounter();
+        }
+
+        // Scroll reveal animation
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', reveal);
+        reveal(); // Initial check
+
+        // Animate counter when visible
+        const starsCounter = document.querySelector('.stars-counter');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counterObserver.observe(starsCounter);
+
+        // Unit icon animation
+        const unitIcons = document.querySelectorAll('.unit-icon');
+        unitIcons.forEach((icon, index) => {
+            icon.addEventListener('click', function() {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = 'rune-pulse 0.5s ease';
+                }, 10);
+            });
+            
+            // Stagger animation on load
+            setTimeout(() => {
+                icon.style.animation = 'rune-pulse 0.5s ease';
+            }, index * 100);
+        });
+
+        // Battle unit hover sound effect (visual)
+        const battleUnits = document.querySelectorAll('.battle-unit');
+        battleUnits.forEach(unit => {
+            unit.addEventListener('mouseenter', function() {
+                this.style.borderColor = 'var(--flame-orange)';
+            });
+            
+            unit.addEventListener('mouseleave', function() {
+                this.style.borderColor = 'var(--gold)';
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '1') {
+                document.querySelector('[data-game="suikoden1"]').click();
+            } else if (e.key === '2') {
+                document.querySelector('[data-game="suikoden2"]').click();
+            }
+        });
+
+        // Easter egg: Konami code for 108 stars
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                alert('⭐ All 108 Stars of Destiny have been united! ⭐\nYour castle is now at maximum level!');
+                document.body.style.animation = 'glow-pulse 2s infinite';
+            }
+        });
+
+        // Random rune glow effect
+        setInterval(() => {
+            const runes = document.querySelectorAll('.floating-rune');
+            const randomRune = runes[Math.floor(Math.random() * runes.length)];
+            randomRune.style.opacity = '0.6';
+            randomRune.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                randomRune.style.opacity = '';
+                randomRune.style.transform = '';
+            }, 1000);
+        }, 3000);
+
+        // Story book page turn effect
+        const storyBook = document.querySelector('.story-book');
+        if (storyBook) {
+            storyBook.addEventListener('click', function() {
+                this.style.transform = 'rotateY(5deg)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 300);
+            });
+        }
+    </script>
+</body>
+</html>
+

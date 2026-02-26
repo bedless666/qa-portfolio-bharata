@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N5 Drill Tool - JLPT準備</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-hover: #1a1a25;
+            --accent-pink: #ff6b9d;
+            --accent-blue: #4ecdc4;
+            --accent-purple: #a855f7;
+            --accent-yellow: #fbbf24;
+            --text-white: #ffffff;
+            --text-gray: #9ca3af;
+            --text-muted: #6b7280;
+            --success: #22c55e;
+            --error: #ef4444;
+            --border: #2a2a35;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', 'Noto Sans JP', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(255, 107, 157, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(78, 205, 196, 0.08) 0%, transparent 40%);
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--text-white), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle { color: var(--text-gray); font-size: 1.1rem; }
+
+        /* Category Cards */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .category-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover::before { transform: scaleX(1); }
+        .category-card:hover { transform: translateY(-5px); border-color: var(--accent-blue); }
+        .category-card.selected { border-color: var(--accent-pink); background: rgba(255, 107, 157, 0.1); }
+        .category-card.selected::before { transform: scaleX(1); }
+
+        .category-icon { font-size: 3rem; margin-bottom: 15px; }
+        .category-title { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
+        .category-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
+        .category-count {
+            display: inline-block;
+            background: var(--bg-hover);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+        }
+
+        /* Mode Selection */
+        .mode-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .mode-title { font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+        .mode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .mode-btn {
+            background: var(--bg-hover);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            color: var(--text-white);
+            font-family: inherit;
+        }
+
+        .mode-btn:hover { border-color: var(--accent-pink); }
+        .mode-btn.active { border-color: var(--accent-pink); background: rgba(255, 107, 157, 0.1); }
+        .mode-btn .icon { font-size: 2rem; margin-bottom: 10px; }
+        .mode-btn .label { font-weight: 600; }
+        .mode-btn .desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 5px; }
+
+        /* Quiz Area */
+        .quiz-section { display: none; }
+        .quiz-section.active { display: block; }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .quiz-info { display: flex; gap: 30px; align-items: center; flex-wrap: wrap; }
+        .quiz-stat { text-align: center; }
+        .quiz-stat .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .quiz-stat .label { font-size: 0.8rem; color: var(--text-muted); }
+
+        .timer {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-yellow);
+            font-family: monospace;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-hover);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 50px 40px;
+            text-align: center;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .question-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .question-text {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .question-hint {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .option-btn {
+            background: var(--bg-hover);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            font-size: 1.1rem;
+            color: var(--text-white);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .option-btn:hover:not(.disabled) { border-color: var(--accent-blue); transform: scale(1.02); }
+        .option-btn.correct { background: rgba(34, 197, 94, 0.2); border-color: var(--success); }
+        .option-btn.wrong { background: rgba(239, 68, 68, 0.2); border-color: var(--error); }
+        .option-btn.disabled { pointer-events: none; opacity: 0.7; }
+
+        /* Fixed feedback area */
+        .feedback-area {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .feedback-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 30px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .feedback-box.waiting {
+            background: transparent;
+            color: var(--text-muted);
+        }
+
+        .feedback-box.correct {
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .feedback-box.wrong {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid var(--error);
+            color: var(--error);
+        }
+
+        .feedback-box .next-btn {
+            padding: 12px 28px;
+            background: var(--text-white);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .feedback-box .next-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .feedback-box.correct .next-btn {
+            background: var(--success);
+            color: white;
+        }
+
+        .feedback-box.wrong .next-btn {
+            background: var(--error);
+            color: white;
+        }
+
+        .feedback-box .explanation {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            background: rgba(255,255,255,0.1);
+            padding: 8px 14px;
+            border-radius: 8px;
+            max-width: 400px;
+            text-align: left;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            color: white;
+        }
+
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3); }
+        .btn-secondary { background: var(--bg-hover); color: var(--text-white); border: 1px solid var(--border); }
+        .btn-secondary:hover { border-color: var(--accent-blue); }
+
+        .btn-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+        /* Flashcard */
+        .flashcard {
+            perspective: 1000px;
+            cursor: pointer;
+            min-height: 400px;
+        }
+
+        .flashcard-inner {
+            width: 100%;
+            min-height: 350px;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 24px;
+            padding: 40px;
+        }
+
+        .flashcard-front { background: var(--bg-card); border: 1px solid var(--border); }
+        .flashcard-back { background: linear-gradient(135deg, var(--bg-card), var(--bg-hover)); border: 1px solid var(--accent-blue); transform: rotateY(180deg); }
+
+        .flashcard-text { font-family: 'Noto Sans JP', sans-serif; font-size: 4rem; font-weight: 700; }
+        .flashcard-answer { font-size: 2rem; }
+        .flashcard-hint { color: var(--text-muted); margin-top: 20px; }
+
+        .flashcard-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .fc-btn {
+            padding: 16px 40px;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .fc-btn:hover { transform: scale(1.05); }
+        .fc-btn.know { background: var(--success); color: white; }
+        .fc-btn.dont-know { background: var(--error); color: white; }
+
+        /* Results */
+        .results-section { text-align: center; padding: 40px 0; display: none; }
+        .results-section.active { display: block; }
+
+        .results-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 50px;
+            margin-bottom: 30px;
+        }
+
+        .results-emoji { font-size: 5rem; margin-bottom: 20px; }
+        .results-score {
+            font-size: 6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .results-message { font-size: 1.5rem; margin: 20px 0; color: var(--text-gray); }
+
+        .results-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .result-stat { text-align: center; }
+        .result-stat .num { font-size: 2.5rem; font-weight: 700; }
+        .result-stat .lbl { color: var(--text-muted); }
+        .result-stat.correct .num { color: var(--success); }
+        .result-stat.wrong .num { color: var(--error); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .question-text { font-size: 2.5rem; }
+            .options-grid { grid-template-columns: 1fr; }
+            .question-card { padding: 30px 20px; min-height: 500px; }
+            .flashcard-text { font-size: 2.5rem; }
+            .feedback-box { flex-direction: column; gap: 10px; text-align: center; }
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.4s ease; }
+
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+        .shake { animation: shake 0.4s ease; }
+
+        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .bounce { animation: bounce 0.4s ease; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="header-badge">🎌 JLPT N5 準備</span>
+            <h1>N5 Drill Tool</h1>
+            <p class="subtitle">Drilling intensif vocab, kanji, dan grammar untuk sukses di ujian!</p>
+        </header>
+
+        <!-- Main Menu -->
+        <div id="mainMenu">
+            <div class="categories">
+                <div class="category-card" onclick="selectCategory('vocab', this)">
+                    <div class="category-icon">📚</div>
+                    <div class="category-title">Vocabulary</div>
+                    <div class="category-desc">Kata-kata penting untuk N5</div>
+                    <span class="category-count" id="vocabTotal">Loading...</span>
+                </div>
+                <div class="category-card" onclick="selectCategory('kanji', this)">
+                    <div class="category-icon">漢</div>
+                    <div class="category-title">Kanji</div>
+                    <div class="category-desc">100+ Kanji wajib N5</div>
+                    <span class="category-count" id="kanjiTotal">Loading...</span>
+                </div>
+                <div class="category-card" onclick="selectCategory('grammar', this)">
+                    <div class="category-icon">📝</div>
+                    <div class="category-title">Grammar</div>
+                    <div class="category-desc">Pola kalimat dasar N5</div>
+                    <span class="category-count" id="grammarTotal">Loading...</span>
+                </div>
+                <div class="category-card" onclick="selectCategory('all', this)">
+                    <div class="category-icon">🔥</div>
+                    <div class="category-title">Mixed Drill</div>
+                    <div class="category-desc">Semua materi digabung acak</div>
+                    <span class="category-count">Full Mode</span>
+                </div>
+            </div>
+
+            <div class="mode-section" id="modeSelect" style="display: none;">
+                <div class="mode-title">⚙️ Pilih Mode Latihan</div>
+                <div class="mode-grid">
+                    <button class="mode-btn active" onclick="setMode('quiz', this)">
+                        <div class="icon">🎯</div>
+                        <div class="label">Quiz Mode</div>
+                        <div class="desc">Pilihan ganda dengan timer</div>
+                    </button>
+                    <button class="mode-btn" onclick="setMode('flashcard', this)">
+                        <div class="icon">🃏</div>
+                        <div class="label">Flashcard</div>
+                        <div class="desc">Flip card untuk review</div>
+                    </button>
+                    <button class="mode-btn" onclick="setMode('speed', this)">
+                        <div class="icon">⚡</div>
+                        <div class="label">Speed Run</div>
+                        <div class="desc">Sebanyak mungkin dalam 60 detik!</div>
+                    </button>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-primary" onclick="startDrill()">🚀 Mulai Drilling!</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <section id="quizSection" class="quiz-section">
+            <div class="quiz-header">
+                <div class="quiz-info">
+                    <div class="quiz-stat">
+                        <div class="value" id="currentNum">1</div>
+                        <div class="label">Soal</div>
+                    </div>
+                    <div class="quiz-stat">
+                        <div class="value" id="scoreNum">0</div>
+                        <div class="label">Score</div>
+                    </div>
+                    <div class="quiz-stat">
+                        <div class="value" id="streakNum">0</div>
+                        <div class="label">Streak 🔥</div>
+                    </div>
+                </div>
+                <div class="timer" id="timerDisplay">00:30</div>
+                <button class="btn btn-secondary" onclick="endDrill()">✕ Selesai</button>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+            </div>
+
+            <div class="question-card fade-in" id="questionCard">
+                <div class="question-area">
+                    <div class="question-text" id="questionText">読む</div>
+                    <div class="question-hint" id="questionHint">Apa arti kata ini?</div>
+                    <div class="options-grid" id="optionsArea"></div>
+                </div>
+                
+                <div class="feedback-area">
+                    <div class="feedback-box waiting" id="feedbackBox">
+                        <span id="feedbackText">Pilih jawaban di atas</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flashcard Section -->
+        <section id="flashcardSection" class="quiz-section">
+            <div class="quiz-header">
+                <div class="quiz-info">
+                    <div class="quiz-stat">
+                        <div class="value" id="fcCurrentNum">1</div>
+                        <div class="label">Card</div>
+                    </div>
+                    <div class="quiz-stat">
+                        <div class="value" id="fcKnownNum">0</div>
+                        <div class="label">Tahu ✓</div>
+                    </div>
+                    <div class="quiz-stat">
+                        <div class="value" id="fcTotalNum">20</div>
+                        <div class="label">Total</div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" onclick="endDrill()">✕ Selesai</button>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="fcProgressBar" style="width: 0%"></div>
+            </div>
+
+            <div class="flashcard" id="flashcard" onclick="flipCard()">
+                <div class="flashcard-inner" id="flashcardInner">
+                    <div class="flashcard-front">
+                        <div class="flashcard-text" id="fcFront">食べる</div>
+                        <div class="flashcard-hint">👆 Tap untuk lihat jawaban</div>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="flashcard-answer" id="fcBack">makan / to eat</div>
+                        <div class="flashcard-hint" id="fcExtra"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-actions">
+                <button class="fc-btn dont-know" onclick="markCard(false)">❌ Belum Hafal</button>
+                <button class="fc-btn know" onclick="markCard(true)">✅ Sudah Hafal</button>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section">
+            <div class="results-card">
+                <div class="results-emoji" id="resultEmoji">🎉</div>
+                <div class="results-score" id="finalScore">85%</div>
+                <div class="results-message" id="resultMessage">Kerja bagus!</div>
+                <div class="results-stats">
+                    <div class="result-stat correct">
+                        <div class="num" id="correctTotal">17</div>
+                        <div class="lbl">Benar</div>
+                    </div>
+                    <div class="result-stat wrong">
+                        <div class="num" id="wrongTotal">3</div>
+                        <div class="lbl">Salah</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="num" id="timeTotal">2:45</div>
+                        <div class="lbl">Waktu</div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="restartDrill()">🔄 Ulangi</button>
+                <button class="btn btn-secondary" onclick="backToMenu()">← Menu</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // ==================== N5 DATA ====================
+        const N5_DATA = {
+            vocab: [
+                // === GREETINGS & BASICS ===
+                { word: "おはよう", reading: "おはよう", meaning: "selamat pagi" },
+                { word: "こんにちは", reading: "こんにちは", meaning: "selamat siang" },
+                { word: "こんばんは", reading: "こんばんは", meaning: "selamat malam" },
+                { word: "さようなら", reading: "さようなら", meaning: "selamat tinggal" },
+                { word: "ありがとう", reading: "ありがとう", meaning: "terima kasih" },
+                { word: "すみません", reading: "すみません", meaning: "permisi / maaf" },
+                { word: "どういたしまして", reading: "どういたしまして", meaning: "sama-sama" },
+                { word: "ごめんなさい", reading: "ごめんなさい", meaning: "maaf" },
+                { word: "はじめまして", reading: "はじめまして", meaning: "salam kenal" },
+                { word: "おやすみなさい", reading: "おやすみなさい", meaning: "selamat tidur" },
+                // === VERBS ===
+                { word: "食べる", reading: "たべる", meaning: "makan" },
+                { word: "飲む", reading: "のむ", meaning: "minum" },
+                { word: "行く", reading: "いく", meaning: "pergi" },
+                { word: "来る", reading: "くる", meaning: "datang" },
+                { word: "帰る", reading: "かえる", meaning: "pulang" },
+                { word: "見る", reading: "みる", meaning: "melihat" },
+                { word: "聞く", reading: "きく", meaning: "mendengar" },
+                { word: "読む", reading: "よむ", meaning: "membaca" },
+                { word: "書く", reading: "かく", meaning: "menulis" },
+                { word: "話す", reading: "はなす", meaning: "berbicara" },
+                { word: "買う", reading: "かう", meaning: "membeli" },
+                { word: "寝る", reading: "ねる", meaning: "tidur" },
+                { word: "起きる", reading: "おきる", meaning: "bangun" },
+                { word: "働く", reading: "はたらく", meaning: "bekerja" },
+                { word: "勉強する", reading: "べんきょうする", meaning: "belajar" },
+                { word: "教える", reading: "おしえる", meaning: "mengajar" },
+                { word: "習う", reading: "ならう", meaning: "belajar (dari guru)" },
+                { word: "待つ", reading: "まつ", meaning: "menunggu" },
+                { word: "使う", reading: "つかう", meaning: "menggunakan" },
+                { word: "作る", reading: "つくる", meaning: "membuat" },
+                { word: "入る", reading: "はいる", meaning: "masuk" },
+                { word: "出る", reading: "でる", meaning: "keluar" },
+                { word: "会う", reading: "あう", meaning: "bertemu" },
+                { word: "住む", reading: "すむ", meaning: "tinggal" },
+                { word: "暮らす", reading: "くらす", meaning: "hidup/tinggal" },
+                { word: "歩く", reading: "あるく", meaning: "berjalan" },
+                { word: "走る", reading: "はしる", meaning: "berlari" },
+                { word: "泳ぐ", reading: "およぐ", meaning: "berenang" },
+                { word: "遊ぶ", reading: "あそぶ", meaning: "bermain" },
+                { word: "思う", reading: "おもう", meaning: "berpikir" },
+                { word: "知る", reading: "しる", meaning: "tahu" },
+                { word: "分かる", reading: "わかる", meaning: "mengerti" },
+                { word: "休む", reading: "やすむ", meaning: "istirahat" },
+                { word: "洗う", reading: "あらう", meaning: "mencuci" },
+                { word: "洗濯する", reading: "せんたくする", meaning: "mencuci baju" },
+                { word: "切る", reading: "きる", meaning: "memotong" },
+                { word: "脱ぐ", reading: "ぬぐ", meaning: "melepas (baju)" },
+                { word: "履く", reading: "はく", meaning: "memakai (bawahan/sepatu)" },
+                { word: "着る", reading: "きる", meaning: "memakai (baju)" },
+                { word: "浴びる", reading: "あびる", meaning: "mandi (shower)" },
+                { word: "渡す", reading: "わたす", meaning: "menyerahkan" },
+                { word: "並べる", reading: "ならべる", meaning: "menyusun" },
+                { word: "取る", reading: "とる", meaning: "mengambil" },
+                { word: "消す", reading: "けす", meaning: "mematikan" },
+                { word: "つける", reading: "つける", meaning: "menyalakan" },
+                { word: "開ける", reading: "あける", meaning: "membuka" },
+                { word: "閉める", reading: "しめる", meaning: "menutup" },
+                { word: "覚える", reading: "おぼえる", meaning: "mengingat" },
+                { word: "忘れる", reading: "わすれる", meaning: "lupa" },
+                { word: "持つ", reading: "もつ", meaning: "membawa/punya" },
+                { word: "貸す", reading: "かす", meaning: "meminjamkan" },
+                { word: "借りる", reading: "かりる", meaning: "meminjam" },
+                { word: "返す", reading: "かえす", meaning: "mengembalikan" },
+                { word: "始まる", reading: "はじまる", meaning: "mulai" },
+                { word: "終わる", reading: "おわる", meaning: "selesai" },
+                { word: "生まれる", reading: "うまれる", meaning: "lahir" },
+                { word: "治る", reading: "なおる", meaning: "sembuh" },
+                { word: "片づける", reading: "かたづける", meaning: "membereskan" },
+                { word: "貼る", reading: "はる", meaning: "menempel" },
+                // === PEOPLE ===
+                { word: "人", reading: "ひと", meaning: "orang" },
+                { word: "男", reading: "おとこ", meaning: "laki-laki" },
+                { word: "女", reading: "おんな", meaning: "perempuan" },
+                { word: "男の子", reading: "おとこのこ", meaning: "anak laki-laki" },
+                { word: "女の子", reading: "おんなのこ", meaning: "anak perempuan" },
+                { word: "子供", reading: "こども", meaning: "anak" },
+                { word: "友達", reading: "ともだち", meaning: "teman" },
+                { word: "先生", reading: "せんせい", meaning: "guru" },
+                { word: "学生", reading: "がくせい", meaning: "siswa" },
+                { word: "家族", reading: "かぞく", meaning: "keluarga" },
+                { word: "父", reading: "ちち", meaning: "ayah (sendiri)" },
+                { word: "母", reading: "はは", meaning: "ibu (sendiri)" },
+                { word: "お父さん", reading: "おとうさん", meaning: "ayah" },
+                { word: "お母さん", reading: "おかあさん", meaning: "ibu" },
+                { word: "両親", reading: "りょうしん", meaning: "orang tua" },
+                { word: "兄", reading: "あに", meaning: "kakak laki-laki" },
+                { word: "姉", reading: "あね", meaning: "kakak perempuan" },
+                { word: "弟", reading: "おとうと", meaning: "adik laki-laki" },
+                { word: "妹", reading: "いもうと", meaning: "adik perempuan" },
+                { word: "彼女", reading: "かのじょ", meaning: "pacar perempuan" },
+                { word: "恋人", reading: "こいびと", meaning: "kekasih" },
+                { word: "歌手", reading: "かしゅ", meaning: "penyanyi" },
+                // === PLACES ===
+                { word: "国", reading: "くに", meaning: "negara" },
+                { word: "日本", reading: "にほん", meaning: "Jepang" },
+                { word: "家", reading: "いえ", meaning: "rumah" },
+                { word: "部屋", reading: "へや", meaning: "kamar" },
+                { word: "学校", reading: "がっこう", meaning: "sekolah" },
+                { word: "大学", reading: "だいがく", meaning: "universitas" },
+                { word: "会社", reading: "かいしゃ", meaning: "perusahaan" },
+                { word: "病院", reading: "びょういん", meaning: "rumah sakit" },
+                { word: "駅", reading: "えき", meaning: "stasiun" },
+                { word: "店", reading: "みせ", meaning: "toko" },
+                { word: "本屋", reading: "ほんや", meaning: "toko buku" },
+                { word: "喫茶店", reading: "きっさてん", meaning: "kafe" },
+                { word: "郵便局", reading: "ゆうびんきょく", meaning: "kantor pos" },
+                { word: "図書館", reading: "としょかん", meaning: "perpustakaan" },
+                { word: "公園", reading: "こうえん", meaning: "taman" },
+                { word: "広場", reading: "ひろば", meaning: "lapangan" },
+                { word: "レストラン", reading: "れすとらん", meaning: "restoran" },
+                { word: "プール", reading: "ぷーる", meaning: "kolam renang" },
+                { word: "町", reading: "まち", meaning: "kota" },
+                // === NATURE ===
+                { word: "山", reading: "やま", meaning: "gunung" },
+                { word: "川", reading: "かわ", meaning: "sungai" },
+                { word: "海", reading: "うみ", meaning: "laut" },
+                { word: "空", reading: "そら", meaning: "langit" },
+                { word: "橋", reading: "はし", meaning: "jembatan" },
+                { word: "道", reading: "みち", meaning: "jalan" },
+                // === THINGS ===
+                { word: "本", reading: "ほん", meaning: "buku" },
+                { word: "新聞", reading: "しんぶん", meaning: "koran" },
+                { word: "雑誌", reading: "ざっし", meaning: "majalah" },
+                { word: "辞書", reading: "じしょ", meaning: "kamus" },
+                { word: "電話", reading: "でんわ", meaning: "telepon" },
+                { word: "車", reading: "くるま", meaning: "mobil" },
+                { word: "電車", reading: "でんしゃ", meaning: "kereta api" },
+                { word: "自転車", reading: "じてんしゃ", meaning: "sepeda" },
+                { word: "飛行機", reading: "ひこうき", meaning: "pesawat" },
+                { word: "タクシー", reading: "たくしー", meaning: "taksi" },
+                { word: "バス", reading: "ばす", meaning: "bus" },
+                { word: "切手", reading: "きって", meaning: "perangko" },
+                { word: "封筒", reading: "ふうとう", meaning: "amplop" },
+                { word: "荷物", reading: "にもつ", meaning: "barang bawaan" },
+                { word: "机", reading: "つくえ", meaning: "meja" },
+                { word: "椅子", reading: "いす", meaning: "kursi" },
+                { word: "窓", reading: "まど", meaning: "jendela" },
+                { word: "門", reading: "もん", meaning: "gerbang" },
+                { word: "本棚", reading: "ほんだな", meaning: "rak buku" },
+                { word: "引き出し", reading: "ひきだし", meaning: "laci" },
+                { word: "皿", reading: "さら", meaning: "piring" },
+                { word: "ナイフ", reading: "ないふ", meaning: "pisau" },
+                { word: "時計", reading: "とけい", meaning: "jam" },
+                { word: "財布", reading: "さいふ", meaning: "dompet" },
+                { word: "地図", reading: "ちず", meaning: "peta" },
+                { word: "カメラ", reading: "かめら", meaning: "kamera" },
+                { word: "テレビ", reading: "てれび", meaning: "TV" },
+                { word: "電気", reading: "でんき", meaning: "listrik/lampu" },
+                { word: "エアコン", reading: "えあこん", meaning: "AC" },
+                { word: "ストーブ", reading: "すとーぶ", meaning: "pemanas" },
+                { word: "お風呂", reading: "おふろ", meaning: "bak mandi" },
+                // === CLOTHING ===
+                { word: "服", reading: "ふく", meaning: "baju" },
+                { word: "靴", reading: "くつ", meaning: "sepatu" },
+                { word: "靴下", reading: "くつした", meaning: "kaos kaki" },
+                { word: "シャツ", reading: "しゃつ", meaning: "kemeja" },
+                { word: "ワイシャツ", reading: "わいしゃつ", meaning: "kemeja putih" },
+                { word: "スカート", reading: "すかーと", meaning: "rok" },
+                { word: "セーター", reading: "せーたー", meaning: "sweater" },
+                { word: "コート", reading: "こーと", meaning: "mantel" },
+                { word: "スリッパ", reading: "すりっぱ", meaning: "sandal" },
+                { word: "帽子", reading: "ぼうし", meaning: "topi" },
+                { word: "手袋", reading: "てぶくろ", meaning: "sarung tangan" },
+                { word: "眼鏡", reading: "めがね", meaning: "kacamata" },
+                // === FOOD & DRINKS ===
+                { word: "水", reading: "みず", meaning: "air" },
+                { word: "お茶", reading: "おちゃ", meaning: "teh" },
+                { word: "コーヒー", reading: "こーひー", meaning: "kopi" },
+                { word: "ジュース", reading: "じゅーす", meaning: "jus" },
+                { word: "お酒", reading: "おさけ", meaning: "sake/minuman beralkohol" },
+                { word: "ご飯", reading: "ごはん", meaning: "nasi/makanan" },
+                { word: "朝ご飯", reading: "あさごはん", meaning: "sarapan" },
+                { word: "昼ご飯", reading: "ひるごはん", meaning: "makan siang" },
+                { word: "晩ご飯", reading: "ばんごはん", meaning: "makan malam" },
+                { word: "肉", reading: "にく", meaning: "daging" },
+                { word: "魚", reading: "さかな", meaning: "ikan" },
+                { word: "野菜", reading: "やさい", meaning: "sayuran" },
+                { word: "卵", reading: "たまご", meaning: "telur" },
+                { word: "パン", reading: "ぱん", meaning: "roti" },
+                { word: "ケーキ", reading: "けーき", meaning: "kue" },
+                { word: "りんご", reading: "りんご", meaning: "apel" },
+                { word: "バナナ", reading: "ばなな", meaning: "pisang" },
+                { word: "納豆", reading: "なっとう", meaning: "natto" },
+                { word: "砂糖", reading: "さとう", meaning: "gula" },
+                { word: "料理", reading: "りょうり", meaning: "masakan" },
+                // === TIME ===
+                { word: "今", reading: "いま", meaning: "sekarang" },
+                { word: "今日", reading: "きょう", meaning: "hari ini" },
+                { word: "昨日", reading: "きのう", meaning: "kemarin" },
+                { word: "明日", reading: "あした", meaning: "besok" },
+                { word: "一昨日", reading: "おととい", meaning: "kemarin dulu" },
+                { word: "一昨年", reading: "おととし", meaning: "2 tahun lalu" },
+                { word: "朝", reading: "あさ", meaning: "pagi" },
+                { word: "昼", reading: "ひる", meaning: "siang" },
+                { word: "夜", reading: "よる", meaning: "malam" },
+                { word: "晩", reading: "ばん", meaning: "malam" },
+                { word: "午前", reading: "ごぜん", meaning: "AM/pagi" },
+                { word: "午後", reading: "ごご", meaning: "PM/siang-sore" },
+                { word: "毎日", reading: "まいにち", meaning: "setiap hari" },
+                { word: "毎週", reading: "まいしゅう", meaning: "setiap minggu" },
+                { word: "毎晩", reading: "まいばん", meaning: "setiap malam" },
+                { word: "今週", reading: "こんしゅう", meaning: "minggu ini" },
+                { word: "来週", reading: "らいしゅう", meaning: "minggu depan" },
+                { word: "先週", reading: "せんしゅう", meaning: "minggu lalu" },
+                { word: "今月", reading: "こんげつ", meaning: "bulan ini" },
+                { word: "来月", reading: "らいげつ", meaning: "bulan depan" },
+                { word: "先月", reading: "せんげつ", meaning: "bulan lalu" },
+                { word: "今年", reading: "ことし", meaning: "tahun ini" },
+                { word: "来年", reading: "らいねん", meaning: "tahun depan" },
+                { word: "去年", reading: "きょねん", meaning: "tahun lalu" },
+                { word: "週末", reading: "しゅうまつ", meaning: "akhir pekan" },
+                { word: "夏休み", reading: "なつやすみ", meaning: "liburan musim panas" },
+                { word: "冬休み", reading: "ふゆやすみ", meaning: "liburan musim dingin" },
+                { word: "時間", reading: "じかん", meaning: "waktu/jam" },
+                { word: "十日", reading: "とおか", meaning: "tanggal 10" },
+                // === DAYS OF WEEK ===
+                { word: "日曜日", reading: "にちようび", meaning: "Minggu" },
+                { word: "月曜日", reading: "げつようび", meaning: "Senin" },
+                { word: "火曜日", reading: "かようび", meaning: "Selasa" },
+                { word: "水曜日", reading: "すいようび", meaning: "Rabu" },
+                { word: "木曜日", reading: "もくようび", meaning: "Kamis" },
+                { word: "金曜日", reading: "きんようび", meaning: "Jumat" },
+                { word: "土曜日", reading: "どようび", meaning: "Sabtu" },
+                // === ADJECTIVES ===
+                { word: "大きい", reading: "おおきい", meaning: "besar" },
+                { word: "小さい", reading: "ちいさい", meaning: "kecil" },
+                { word: "高い", reading: "たかい", meaning: "tinggi/mahal" },
+                { word: "安い", reading: "やすい", meaning: "murah" },
+                { word: "新しい", reading: "あたらしい", meaning: "baru" },
+                { word: "古い", reading: "ふるい", meaning: "lama/tua" },
+                { word: "良い", reading: "いい", meaning: "bagus" },
+                { word: "悪い", reading: "わるい", meaning: "buruk" },
+                { word: "熱い", reading: "あつい", meaning: "panas" },
+                { word: "暑い", reading: "あつい", meaning: "panas (cuaca)" },
+                { word: "寒い", reading: "さむい", meaning: "dingin (cuaca)" },
+                { word: "冷たい", reading: "つめたい", meaning: "dingin (benda)" },
+                { word: "美味しい", reading: "おいしい", meaning: "enak" },
+                { word: "まずい", reading: "まずい", meaning: "tidak enak" },
+                { word: "楽しい", reading: "たのしい", meaning: "menyenangkan" },
+                { word: "難しい", reading: "むずかしい", meaning: "sulit" },
+                { word: "やさしい", reading: "やさしい", meaning: "mudah/lembut" },
+                { word: "忙しい", reading: "いそがしい", meaning: "sibuk" },
+                { word: "長い", reading: "ながい", meaning: "panjang" },
+                { word: "短い", reading: "みじかい", meaning: "pendek" },
+                { word: "早い", reading: "はやい", meaning: "cepat/awal" },
+                { word: "遅い", reading: "おそい", meaning: "lambat/terlambat" },
+                { word: "多い", reading: "おおい", meaning: "banyak" },
+                { word: "少ない", reading: "すくない", meaning: "sedikit" },
+                { word: "広い", reading: "ひろい", meaning: "luas" },
+                { word: "狭い", reading: "せまい", meaning: "sempit" },
+                { word: "明るい", reading: "あかるい", meaning: "terang" },
+                { word: "暗い", reading: "くらい", meaning: "gelap" },
+                { word: "丸い", reading: "まるい", meaning: "bulat" },
+                { word: "白い", reading: "しろい", meaning: "putih" },
+                { word: "黒い", reading: "くろい", meaning: "hitam" },
+                { word: "赤い", reading: "あかい", meaning: "merah" },
+                { word: "青い", reading: "あおい", meaning: "biru" },
+                { word: "若い", reading: "わかい", meaning: "muda" },
+                { word: "薄い", reading: "うすい", meaning: "tipis" },
+                { word: "汚い", reading: "きたない", meaning: "kotor" },
+                { word: "危ない", reading: "あぶない", meaning: "berbahaya" },
+                { word: "痛い", reading: "いたい", meaning: "sakit" },
+                // === NA-ADJECTIVES ===
+                { word: "元気", reading: "げんき", meaning: "sehat/semangat" },
+                { word: "静か", reading: "しずか", meaning: "tenang" },
+                { word: "綺麗", reading: "きれい", meaning: "cantik/bersih" },
+                { word: "有名", reading: "ゆうめい", meaning: "terkenal" },
+                { word: "便利", reading: "べんり", meaning: "praktis" },
+                { word: "にぎやか", reading: "にぎやか", meaning: "ramai" },
+                { word: "暇", reading: "ひま", meaning: "senggang" },
+                { word: "残念", reading: "ざんねん", meaning: "sayang sekali" },
+                { word: "好き", reading: "すき", meaning: "suka" },
+                { word: "嫌い", reading: "きらい", meaning: "tidak suka" },
+                { word: "上手", reading: "じょうず", meaning: "mahir" },
+                { word: "下手", reading: "へた", meaning: "tidak mahir" },
+                { word: "丈夫", reading: "じょうぶ", meaning: "kuat/tahan lama" },
+                { word: "簡単", reading: "かんたん", meaning: "mudah" },
+                { word: "大変", reading: "たいへん", meaning: "berat/sulit" },
+                // === QUESTIONS ===
+                { word: "何", reading: "なに/なん", meaning: "apa" },
+                { word: "誰", reading: "だれ", meaning: "siapa" },
+                { word: "どなた", reading: "どなた", meaning: "siapa (sopan)" },
+                { word: "どこ", reading: "どこ", meaning: "di mana" },
+                { word: "いつ", reading: "いつ", meaning: "kapan" },
+                { word: "どう", reading: "どう", meaning: "bagaimana" },
+                { word: "どうして", reading: "どうして", meaning: "mengapa" },
+                { word: "どれ", reading: "どれ", meaning: "yang mana" },
+                { word: "どのくらい", reading: "どのくらい", meaning: "berapa lama" },
+                { word: "いくつ", reading: "いくつ", meaning: "berapa (jumlah)" },
+                { word: "いくら", reading: "いくら", meaning: "berapa (harga)" },
+                // === DIRECTIONS ===
+                { word: "上", reading: "うえ", meaning: "atas" },
+                { word: "下", reading: "した", meaning: "bawah" },
+                { word: "前", reading: "まえ", meaning: "depan" },
+                { word: "後ろ", reading: "うしろ", meaning: "belakang" },
+                { word: "右", reading: "みぎ", meaning: "kanan" },
+                { word: "左", reading: "ひだり", meaning: "kiri" },
+                { word: "中", reading: "なか", meaning: "dalam" },
+                { word: "外", reading: "そと", meaning: "luar" },
+                { word: "隣", reading: "となり", meaning: "sebelah" },
+                { word: "間", reading: "あいだ", meaning: "antara" },
+                { word: "横", reading: "よこ", meaning: "samping" },
+                { word: "近く", reading: "ちかく", meaning: "dekat" },
+                { word: "北", reading: "きた", meaning: "utara" },
+                { word: "南", reading: "みなみ", meaning: "selatan" },
+                { word: "東", reading: "ひがし", meaning: "timur" },
+                { word: "西", reading: "にし", meaning: "barat" },
+                // === BODY ===
+                { word: "体", reading: "からだ", meaning: "tubuh" },
+                { word: "頭", reading: "あたま", meaning: "kepala" },
+                { word: "顔", reading: "かお", meaning: "wajah" },
+                { word: "目", reading: "め", meaning: "mata" },
+                { word: "耳", reading: "みみ", meaning: "telinga" },
+                { word: "口", reading: "くち", meaning: "mulut" },
+                { word: "手", reading: "て", meaning: "tangan" },
+                { word: "足", reading: "あし", meaning: "kaki" },
+                { word: "お腹", reading: "おなか", meaning: "perut" },
+                // === WEATHER ===
+                { word: "天気", reading: "てんき", meaning: "cuaca" },
+                { word: "雨", reading: "あめ", meaning: "hujan" },
+                { word: "雪", reading: "ゆき", meaning: "salju" },
+                { word: "風", reading: "かぜ", meaning: "angin" },
+                { word: "花", reading: "はな", meaning: "bunga" },
+                { word: "花火", reading: "はなび", meaning: "kembang api" },
+                // === ANIMALS ===
+                { word: "犬", reading: "いぬ", meaning: "anjing" },
+                { word: "猫", reading: "ねこ", meaning: "kucing" },
+                { word: "鳥", reading: "とり", meaning: "burung" },
+                { word: "ペット", reading: "ぺっと", meaning: "hewan peliharaan" },
+                { word: "動物", reading: "どうぶつ", meaning: "hewan" },
+                // === OTHERS ===
+                { word: "仕事", reading: "しごと", meaning: "pekerjaan" },
+                { word: "宿題", reading: "しゅくだい", meaning: "PR" },
+                { word: "テスト", reading: "てすと", meaning: "ujian" },
+                { word: "質問", reading: "しつもん", meaning: "pertanyaan" },
+                { word: "授業", reading: "じゅぎょう", meaning: "pelajaran" },
+                { word: "練習", reading: "れんしゅう", meaning: "latihan" },
+                { word: "旅行", reading: "りょこう", meaning: "perjalanan" },
+                { word: "散歩", reading: "さんぽ", meaning: "jalan-jalan" },
+                { word: "買い物", reading: "かいもの", meaning: "belanja" },
+                { word: "食事", reading: "しょくじ", meaning: "makan" },
+                { word: "映画", reading: "えいが", meaning: "film" },
+                { word: "音楽", reading: "おんがく", meaning: "musik" },
+                { word: "写真", reading: "しゃしん", meaning: "foto" },
+                { word: "名前", reading: "なまえ", meaning: "nama" },
+                { word: "言葉", reading: "ことば", meaning: "kata/bahasa" },
+                { word: "外国", reading: "がいこく", meaning: "luar negeri" },
+                { word: "外国人", reading: "がいこくじん", meaning: "orang asing" },
+                { word: "留学生", reading: "りゅうがくせい", meaning: "mahasiswa asing" },
+                { word: "人口", reading: "じんこう", meaning: "populasi" },
+                { word: "病気", reading: "びょうき", meaning: "penyakit" },
+                { word: "薬", reading: "くすり", meaning: "obat" },
+                { word: "お金", reading: "おかね", meaning: "uang" },
+                { word: "チケット", reading: "ちけっと", meaning: "tiket" },
+                { word: "パーティー", reading: "ぱーてぃー", meaning: "pesta" },
+                { word: "シャワー", reading: "しゃわー", meaning: "shower" },
+                // === ADVERBS ===
+                { word: "いつも", reading: "いつも", meaning: "selalu" },
+                { word: "たいてい", reading: "たいてい", meaning: "biasanya" },
+                { word: "よく", reading: "よく", meaning: "sering" },
+                { word: "時々", reading: "ときどき", meaning: "kadang-kadang" },
+                { word: "たぶん", reading: "たぶん", meaning: "mungkin" },
+                { word: "すぐ", reading: "すぐ", meaning: "segera" },
+                { word: "もう", reading: "もう", meaning: "sudah" },
+                { word: "まだ", reading: "まだ", meaning: "belum" },
+                { word: "もっと", reading: "もっと", meaning: "lebih" },
+                { word: "だんだん", reading: "だんだん", meaning: "semakin" },
+                { word: "ちょうど", reading: "ちょうど", meaning: "tepat" },
+                { word: "少し", reading: "すこし", meaning: "sedikit" },
+                { word: "たくさん", reading: "たくさん", meaning: "banyak" },
+                { word: "全部", reading: "ぜんぶ", meaning: "semua" },
+                { word: "そろそろ", reading: "そろそろ", meaning: "sebentar lagi" },
+                { word: "もうすぐ", reading: "もうすぐ", meaning: "sebentar lagi" },
+                // === COUNTERS ===
+                { word: "一回", reading: "いっかい", meaning: "1 kali" },
+                { word: "三回", reading: "さんかい", meaning: "3 kali" },
+                { word: "一人", reading: "ひとり", meaning: "1 orang" },
+                { word: "二人", reading: "ふたり", meaning: "2 orang" },
+                { word: "三人", reading: "さんにん", meaning: "3 orang" },
+                { word: "百人", reading: "ひゃくにん", meaning: "100 orang" },
+                { word: "半分", reading: "はんぶん", meaning: "setengah" },
+                { word: "一つ", reading: "ひとつ", meaning: "1 (benda)" },
+                { word: "二つ", reading: "ふたつ", meaning: "2 (benda)" },
+                { word: "三つ", reading: "みっつ", meaning: "3 (benda)" },
+                { word: "五つ", reading: "いつつ", meaning: "5 (benda)" },
+                { word: "一杯", reading: "いっぱい", meaning: "1 gelas/penuh" },
+            ],
+
+            kanji: [
+                // === NUMBERS ===
+                { kanji: "一", reading: "いち・ひと(つ)", meaning: "satu", example: "一つ (ひとつ) = satu buah" },
+                { kanji: "二", reading: "に・ふた(つ)", meaning: "dua", example: "二人 (ふたり) = dua orang" },
+                { kanji: "三", reading: "さん・みっ(つ)", meaning: "tiga", example: "三つ (みっつ) = tiga buah" },
+                { kanji: "四", reading: "よん・し・よっ(つ)", meaning: "empat", example: "四月 (しがつ) = April" },
+                { kanji: "五", reading: "ご・いつ(つ)", meaning: "lima", example: "五つ (いつつ) = lima buah" },
+                { kanji: "六", reading: "ろく・むっ(つ)", meaning: "enam", example: "六月 (ろくがつ) = Juni" },
+                { kanji: "七", reading: "なな・しち", meaning: "tujuh", example: "七時 (しちじ) = jam 7" },
+                { kanji: "八", reading: "はち・やっ(つ)", meaning: "delapan", example: "八百 (はっぴゃく) = 800" },
+                { kanji: "九", reading: "きゅう・く", meaning: "sembilan", example: "九月 (くがつ) = September" },
+                { kanji: "十", reading: "じゅう・とお", meaning: "sepuluh", example: "十日 (とおか) = tanggal 10" },
+                { kanji: "百", reading: "ひゃく", meaning: "seratus", example: "百人 (ひゃくにん) = 100 orang" },
+                { kanji: "千", reading: "せん", meaning: "seribu", example: "千円 (せんえん) = 1000 yen" },
+                { kanji: "万", reading: "まん", meaning: "sepuluh ribu", example: "一万 (いちまん) = 10.000" },
+                // === DAYS OF WEEK ===
+                { kanji: "日", reading: "にち・ひ・び", meaning: "hari/matahari", example: "日曜日 (にちようび) = Minggu" },
+                { kanji: "月", reading: "げつ・がつ・つき", meaning: "bulan", example: "今月 (こんげつ) = bulan ini" },
+                { kanji: "火", reading: "か・ひ", meaning: "api", example: "火曜日 (かようび) = Selasa" },
+                { kanji: "水", reading: "すい・みず", meaning: "air", example: "水曜日 (すいようび) = Rabu" },
+                { kanji: "木", reading: "もく・き", meaning: "pohon/kayu", example: "木曜日 (もくようび) = Kamis" },
+                { kanji: "金", reading: "きん・かね", meaning: "emas/uang", example: "お金 (おかね) = uang" },
+                { kanji: "土", reading: "ど・つち", meaning: "tanah", example: "土曜日 (どようび) = Sabtu" },
+                // === TIME ===
+                { kanji: "年", reading: "ねん・とし", meaning: "tahun", example: "今年 (ことし) = tahun ini" },
+                { kanji: "時", reading: "じ・とき", meaning: "waktu/jam", example: "時間 (じかん) = waktu" },
+                { kanji: "分", reading: "ふん・ぶん・わ(かる)", meaning: "menit/bagian", example: "半分 (はんぶん) = setengah" },
+                { kanji: "今", reading: "こん・いま", meaning: "sekarang", example: "今日 (きょう) = hari ini" },
+                { kanji: "週", reading: "しゅう", meaning: "minggu", example: "来週 (らいしゅう) = minggu depan" },
+                { kanji: "半", reading: "はん", meaning: "setengah", example: "三時半 (さんじはん) = jam 3:30" },
+                { kanji: "午", reading: "ご", meaning: "siang", example: "午後 (ごご) = siang/PM" },
+                { kanji: "前", reading: "まえ・ぜん", meaning: "depan/sebelum", example: "午前 (ごぜん) = pagi/AM" },
+                { kanji: "後", reading: "あと・うしろ・ご", meaning: "belakang/setelah", example: "午後 (ごご) = siang/PM" },
+                // === PEOPLE ===
+                { kanji: "人", reading: "ひと・じん・にん", meaning: "orang", example: "日本人 (にほんじん) = orang Jepang" },
+                { kanji: "男", reading: "おとこ・だん", meaning: "laki-laki", example: "男の子 (おとこのこ) = anak laki-laki" },
+                { kanji: "女", reading: "おんな・じょ", meaning: "perempuan", example: "女の子 (おんなのこ) = anak perempuan" },
+                { kanji: "子", reading: "こ・し", meaning: "anak", example: "子供 (こども) = anak-anak" },
+                { kanji: "父", reading: "ちち・とう", meaning: "ayah", example: "お父さん (おとうさん) = ayah" },
+                { kanji: "母", reading: "はは・かあ", meaning: "ibu", example: "お母さん (おかあさん) = ibu" },
+                { kanji: "友", reading: "とも・ゆう", meaning: "teman", example: "友達 (ともだち) = teman" },
+                { kanji: "先", reading: "さき・せん", meaning: "sebelum/duluan", example: "先生 (せんせい) = guru" },
+                { kanji: "生", reading: "せい・い(きる)・う(まれる)", meaning: "hidup/lahir", example: "学生 (がくせい) = siswa" },
+                // === PLACES ===
+                { kanji: "国", reading: "くに・こく", meaning: "negara", example: "外国 (がいこく) = luar negeri" },
+                { kanji: "山", reading: "やま・さん", meaning: "gunung", example: "富士山 (ふじさん) = Gunung Fuji" },
+                { kanji: "川", reading: "かわ・がわ", meaning: "sungai", example: "川 (かわ) = sungai" },
+                { kanji: "田", reading: "た・でん", meaning: "sawah", example: "田中 (たなか) = nama orang" },
+                { kanji: "駅", reading: "えき", meaning: "stasiun", example: "駅前 (えきまえ) = depan stasiun" },
+                { kanji: "店", reading: "みせ・てん", meaning: "toko", example: "喫茶店 (きっさてん) = kafe" },
+                { kanji: "社", reading: "しゃ", meaning: "perusahaan", example: "会社 (かいしゃ) = perusahaan" },
+                { kanji: "校", reading: "こう", meaning: "sekolah", example: "学校 (がっこう) = sekolah" },
+                // === NATURE ===
+                { kanji: "天", reading: "てん・あめ", meaning: "langit/surga", example: "天気 (てんき) = cuaca" },
+                { kanji: "空", reading: "そら・くう・から", meaning: "langit/kosong", example: "空 (そら) = langit" },
+                { kanji: "雨", reading: "あめ・う", meaning: "hujan", example: "雨天 (うてん) = cuaca hujan" },
+                { kanji: "花", reading: "はな・か", meaning: "bunga", example: "花火 (はなび) = kembang api" },
+                { kanji: "気", reading: "き・け", meaning: "semangat/udara", example: "元気 (げんき) = sehat" },
+                // === BODY ===
+                { kanji: "目", reading: "め・もく", meaning: "mata", example: "目的 (もくてき) = tujuan" },
+                { kanji: "耳", reading: "みみ・じ", meaning: "telinga", example: "耳 (みみ) = telinga" },
+                { kanji: "口", reading: "くち・こう・ぐち", meaning: "mulut", example: "入口 (いりぐち) = pintu masuk" },
+                { kanji: "手", reading: "て・しゅ", meaning: "tangan", example: "上手 (じょうず) = mahir" },
+                { kanji: "足", reading: "あし・そく", meaning: "kaki", example: "足 (あし) = kaki" },
+                // === ACTIONS ===
+                { kanji: "見", reading: "み(る)・けん", meaning: "melihat", example: "見ます (みます) = melihat" },
+                { kanji: "聞", reading: "き(く)・ぶん", meaning: "mendengar", example: "新聞 (しんぶん) = koran" },
+                { kanji: "読", reading: "よ(む)・どく", meaning: "membaca", example: "読む (よむ) = membaca" },
+                { kanji: "書", reading: "か(く)・しょ", meaning: "menulis", example: "辞書 (じしょ) = kamus" },
+                { kanji: "話", reading: "はな(す)・わ", meaning: "berbicara", example: "電話 (でんわ) = telepon" },
+                { kanji: "言", reading: "い(う)・げん・ごん", meaning: "berkata", example: "言います (いいます) = berkata" },
+                { kanji: "語", reading: "ご・かた(る)", meaning: "bahasa", example: "日本語 (にほんご) = bahasa Jepang" },
+                { kanji: "食", reading: "た(べる)・しょく", meaning: "makan", example: "食べる (たべる) = makan" },
+                { kanji: "飲", reading: "の(む)・いん", meaning: "minum", example: "飲み物 (のみもの) = minuman" },
+                { kanji: "行", reading: "い(く)・こう・ぎょう", meaning: "pergi", example: "旅行 (りょこう) = perjalanan" },
+                { kanji: "来", reading: "く(る)・らい", meaning: "datang", example: "来年 (らいねん) = tahun depan" },
+                { kanji: "入", reading: "はい(る)・い(れる)・にゅう", meaning: "masuk", example: "入口 (いりぐち) = pintu masuk" },
+                { kanji: "出", reading: "で(る)・だ(す)・しゅつ", meaning: "keluar", example: "出口 (でぐち) = pintu keluar" },
+                { kanji: "立", reading: "た(つ)・りつ", meaning: "berdiri", example: "立ちます (たちます) = berdiri" },
+                { kanji: "休", reading: "やす(む)・きゅう", meaning: "istirahat", example: "休み (やすみ) = libur" },
+                { kanji: "会", reading: "あ(う)・かい", meaning: "bertemu", example: "会います (あいます) = bertemu" },
+                { kanji: "買", reading: "か(う)・ばい", meaning: "membeli", example: "買い物 (かいもの) = belanja" },
+                // === ADJECTIVES ===
+                { kanji: "大", reading: "おお(きい)・だい・たい", meaning: "besar", example: "大学 (だいがく) = universitas" },
+                { kanji: "小", reading: "ちい(さい)・しょう・こ", meaning: "kecil", example: "小さい (ちいさい) = kecil" },
+                { kanji: "中", reading: "なか・ちゅう", meaning: "tengah/dalam", example: "中国 (ちゅうごく) = Cina" },
+                { kanji: "長", reading: "なが(い)・ちょう", meaning: "panjang", example: "長い (ながい) = panjang" },
+                { kanji: "高", reading: "たか(い)・こう", meaning: "tinggi/mahal", example: "高い (たかい) = tinggi/mahal" },
+                { kanji: "安", reading: "やす(い)・あん", meaning: "murah/aman", example: "安心 (あんしん) = tenang" },
+                { kanji: "多", reading: "おお(い)・た", meaning: "banyak", example: "多い (おおい) = banyak" },
+                { kanji: "少", reading: "すく(ない)・すこ(し)・しょう", meaning: "sedikit", example: "少し (すこし) = sedikit" },
+                { kanji: "新", reading: "あたら(しい)・しん", meaning: "baru", example: "新聞 (しんぶん) = koran" },
+                { kanji: "古", reading: "ふる(い)・こ", meaning: "lama/tua", example: "古い (ふるい) = lama" },
+                { kanji: "白", reading: "しろ(い)・はく・びゃく", meaning: "putih", example: "白い (しろい) = putih" },
+                { kanji: "赤", reading: "あか(い)・せき", meaning: "merah", example: "赤い (あかい) = merah" },
+                { kanji: "青", reading: "あお(い)・せい", meaning: "biru", example: "青い (あおい) = biru" },
+                // === DIRECTIONS ===
+                { kanji: "上", reading: "うえ・じょう・あ(げる)", meaning: "atas", example: "上げます (あげます) = menaikkan" },
+                { kanji: "下", reading: "した・げ・さ(げる)", meaning: "bawah", example: "下げます (さげます) = menurunkan" },
+                { kanji: "左", reading: "ひだり・さ", meaning: "kiri", example: "左手 (ひだりて) = tangan kiri" },
+                { kanji: "右", reading: "みぎ・う", meaning: "kanan", example: "右手 (みぎて) = tangan kanan" },
+                { kanji: "北", reading: "きた・ほく", meaning: "utara", example: "北口 (きたぐち) = pintu utara" },
+                { kanji: "南", reading: "みなみ・なん", meaning: "selatan", example: "南口 (みなみぐち) = pintu selatan" },
+                { kanji: "東", reading: "ひがし・とう", meaning: "timur", example: "東京 (とうきょう) = Tokyo" },
+                { kanji: "西", reading: "にし・せい・さい", meaning: "barat", example: "西口 (にしぐち) = pintu barat" },
+                { kanji: "外", reading: "そと・がい・げ", meaning: "luar", example: "外国 (がいこく) = luar negeri" },
+                // === OTHERS ===
+                { kanji: "学", reading: "まな(ぶ)・がく", meaning: "belajar", example: "学校 (がっこう) = sekolah" },
+                { kanji: "電", reading: "でん", meaning: "listrik", example: "電車 (でんしゃ) = kereta" },
+                { kanji: "車", reading: "くるま・しゃ", meaning: "mobil/kendaraan", example: "自転車 (じてんしゃ) = sepeda" },
+                { kanji: "道", reading: "みち・どう", meaning: "jalan", example: "道 (みち) = jalan" },
+                { kanji: "本", reading: "ほん・もと", meaning: "buku/asal", example: "日本 (にほん) = Jepang" },
+                { kanji: "円", reading: "えん・まる(い)", meaning: "yen/lingkaran", example: "千円 (せんえん) = 1000 yen" },
+                { kanji: "何", reading: "なに・なん", meaning: "apa", example: "何ですか = apa ini?" },
+                { kanji: "名", reading: "な・めい・みょう", meaning: "nama", example: "名前 (なまえ) = nama" },
+                { kanji: "間", reading: "あいだ・かん・ま", meaning: "antara/ruang", example: "時間 (じかん) = waktu" },
+                { kanji: "毎", reading: "まい", meaning: "setiap", example: "毎日 (まいにち) = setiap hari" },
+                { kanji: "魚", reading: "さかな・ぎょ", meaning: "ikan", example: "金魚 (きんぎょ) = ikan mas" },
+            ],
+
+            grammar: [
+                // === PARTIKEL は (TOPIK) ===
+                { question: "わたし＿＿学生です。", options: ["が", "は", "を", "に"], correct: 1, explanation: "「は」menandai topik kalimat. 'Saya (topik) adalah siswa.'" },
+                { question: "この本＿＿おもしろいです。", options: ["が", "は", "を", "に"], correct: 1, explanation: "「は」untuk topik. 'Buku ini (topik) menarik.'" },
+                // === PARTIKEL が (SUBJEK) ===
+                { question: "昨日、雨＿＿降りました。", options: ["を", "が", "は", "に"], correct: 1, explanation: "「が」menandai subjek aksi. Hujan (subjek) turun." },
+                { question: "私は魚＿＿好きです。", options: ["を", "は", "が", "で"], correct: 2, explanation: "「が」dipakai dengan kata suka/benci/mahir. 'Saya suka ikan.'" },
+                { question: "日本語＿＿少しわかります。", options: ["を", "が", "は", "に"], correct: 1, explanation: "「が」dipakai dengan わかる (mengerti). Bahasa Jepang (yang) saya mengerti sedikit." },
+                // === PARTIKEL を (OBJEK) ===
+                { question: "毎日コーヒー＿＿飲みます。", options: ["が", "は", "を", "に"], correct: 2, explanation: "「を」menandai objek langsung dari kata kerja transitif." },
+                { question: "昨日、映画＿＿見ました。", options: ["が", "は", "を", "で"], correct: 2, explanation: "「を」untuk objek. Film (objek) yang ditonton." },
+                // === PARTIKEL に (WAKTU/TUJUAN/TEMPAT) ===
+                { question: "1日＿＿3回薬を飲みます。", options: ["が", "に", "へ", "を"], correct: 1, explanation: "「に」untuk frekuensi. '3 kali dalam 1 hari.'" },
+                { question: "7時＿＿起きます。", options: ["が", "は", "を", "に"], correct: 3, explanation: "「に」untuk waktu spesifik. 'Bangun pada jam 7.'" },
+                { question: "友達＿＿会いました。", options: ["が", "は", "を", "に"], correct: 3, explanation: "「に」dipakai dengan 会う (bertemu). Bertemu dengan teman." },
+                { question: "将来、医者＿＿なりたいです。", options: ["で", "くて", "でも", "に"], correct: 3, explanation: "「に」dipakai dengan なる (menjadi). Ingin menjadi dokter." },
+                // === PARTIKEL へ (ARAH) ===
+                { question: "明日、東京＿＿行きます。", options: ["が", "は", "を", "へ"], correct: 3, explanation: "「へ」menunjukkan arah tujuan. Pergi ke Tokyo." },
+                { question: "学校＿＿行きます。", options: ["が", "は", "を", "に"], correct: 3, explanation: "「に」atau「へ」untuk tujuan pergi. Pergi ke sekolah." },
+                // === PARTIKEL で (ALAT/TEMPAT AKSI) ===
+                { question: "電車＿＿会社に行きます。", options: ["が", "は", "を", "で"], correct: 3, explanation: "「で」untuk alat/cara. Pergi ke kantor dengan kereta." },
+                { question: "私はきのう公園＿＿写真をとりました。", options: ["に", "へ", "が", "で"], correct: 3, explanation: "「で」untuk tempat dimana aksi terjadi. Memotret di taman." },
+                { question: "家族はぜんぶ＿＿8人です。", options: ["が", "の", "を", "で"], correct: 3, explanation: "「で」untuk total. 'Semuanya ada 8 orang.'" },
+                // === PARTIKEL と (DAN/BERSAMA) ===
+                { question: "りんご＿＿みかんを買いました。", options: ["が", "と", "を", "に"], correct: 1, explanation: "「と」untuk 'dan'. Membeli apel dan jeruk." },
+                { question: "日曜日、子供＿＿遊びました。", options: ["を", "が", "に", "と"], correct: 3, explanation: "「と」untuk 'bersama'. Bermain bersama anak." },
+                // === PARTIKEL も (JUGA) ===
+                { question: "掃除をしました。洗濯＿＿終わりました。", options: ["の", "に", "も", "と"], correct: 2, explanation: "「も」berarti 'juga'. Mencuci juga sudah selesai." },
+                // === PARTIKEL から (DARI/KARENA) ===
+                { question: "冬休みは来週＿＿始まります。", options: ["と", "まで", "から", "が"], correct: 2, explanation: "「から」untuk 'mulai dari'. Liburan dimulai dari minggu depan." },
+                { question: "寒い＿＿、窓を閉めてください。", options: ["だから", "でも", "けど", "から"], correct: 3, explanation: "「から」= 'karena'. Karena dingin, tolong tutup jendela." },
+                { question: "宿題がたくさんあった＿＿、昨日はテレビを見ませんでした。", options: ["あって", "あり", "あった", "ない"], correct: 0, explanation: "て-form + から = setelah. Setelah ada banyak PR, tidak menonton TV." },
+                // === PARTIKEL まで (SAMPAI) ===
+                { question: "9時＿＿働きます。", options: ["から", "まで", "に", "を"], correct: 1, explanation: "「まで」untuk 'sampai'. Bekerja sampai jam 9." },
+                // === KONJUGASI て-FORM ===
+                { question: "テレビを＿＿から、寝ます。", options: ["見る", "見て", "見た", "見ない"], correct: 1, explanation: "て-form + から = setelah melakukan. Setelah menonton TV, tidur." },
+                { question: "窓を開けて＿＿。", options: ["ください", "ます", "です", "だ"], correct: 0, explanation: "て-form + ください = tolong lakukan. Tolong buka jendela." },
+                { question: "日本語を勉強＿＿います。", options: ["する", "して", "した", "しない"], correct: 1, explanation: "て-form + います = sedang melakukan (progresif). Sedang belajar bahasa Jepang." },
+                { question: "まだ宿題を＿＿いません。", options: ["する", "して", "した", "しない"], correct: 1, explanation: "まだ～ていません = belum melakukan. Belum mengerjakan PR." },
+                { question: "父は毎朝コーヒーを＿＿ながら新聞を読みます。", options: ["飲む", "飲み", "飲んで", "飲んだ"], correct: 1, explanation: "ます-stem + ながら = sambil. Minum sambil membaca koran." },
+                // === た-FORM (LAMPAU) ===
+                { question: "私が昨日＿＿カメラはどこにありますか。", options: ["買って", "買う", "買った", "買わない"], correct: 2, explanation: "た-form sebelum kata benda = yang telah. Kamera yang saya beli kemarin." },
+                { question: "日曜日、本を＿＿します。", options: ["読みたり", "読んたり", "読むたり", "読んだり"], correct: 3, explanation: "たり～たり untuk daftar aktivitas. Membaca buku, dll." },
+                // === KONJUGASI ADJEKTIVA ===
+                { question: "この本は＿＿です。", options: ["高い", "高く", "高", "高いの"], correct: 0, explanation: "い-adjektiva + です. Buku ini mahal." },
+                { question: "部屋は静か＿＿です。", options: ["な", "に", "の", "だ"], correct: 0, explanation: "な-adjektiva: kata dasar langsung + です. SALAH! Harusnya 'です' saja, tapi pilihan 'な' menunjukkan bentuk na-adjektiva." },
+                { question: "12月が来たからだんだん＿＿なります。", options: ["寒い", "寒くて", "寒く", "寒かった"], correct: 2, explanation: "い→く + なる = menjadi. Menjadi semakin dingin." },
+                { question: "彼女は歌が上手＿＿なりました。", options: ["く", "に", "で", "と"], correct: 1, explanation: "な-adjektiva + に + なる = menjadi. Menjadi pandai menyanyi." },
+                { question: "私は小さいとき、納豆が好き＿＿でした。", options: ["ない", "じゃない", "ありません", "じゃありません"], correct: 3, explanation: "じゃありませんでした = tidak (lampau sopan). Dulu tidak suka natto." },
+                // === BENTUK ます ===
+                { question: "日本語が少し＿＿。", options: ["わかります", "わかりました", "わかる", "わかって"], correct: 0, explanation: "～ます untuk kalimat sopan. Sedikit mengerti bahasa Jepang." },
+                { question: "田中さんは料理が上手＿＿。", options: ["だ", "です", "ます", "な"], correct: 1, explanation: "です untuk kalimat sopan dengan kata sifat/kata benda." },
+                // === KEINGINAN たい ===
+                { question: "日本に＿＿たいです。", options: ["行く", "行き", "行って", "行った"], correct: 1, explanation: "ます-stem + たい = ingin. Ingin pergi ke Jepang." },
+                // === PERKIRAAN そう ===
+                { question: "この料理は＿＿そうです。", options: ["おいしい", "おいし", "おいしく", "おいしさ"], correct: 1, explanation: "い-adjektiva (hilangkan い) + そう = kelihatannya. Kelihatannya enak." },
+                // === PERTANYAAN ===
+                { question: "＿＿日本へ来ましたか。「今年の3月です。」", options: ["どうして", "いくつ", "どのくらい", "いつ"], correct: 3, explanation: "「いつ」= kapan. Kapan datang ke Jepang?" },
+                { question: "昨日のパーティーは＿＿でしたか。", options: ["どれ", "どうして", "どう", "だれ"], correct: 2, explanation: "「どう」= bagaimana. Bagaimana pesta kemarin?" },
+                // === PARTIKEL AKHIR ===
+                { question: "田中さんは日本人です＿＿。(memberitahu)", options: ["ね", "よ", "か", "の"], correct: 1, explanation: "「よ」untuk memberitahu informasi baru. Tanaka orang Jepang lho." },
+                { question: "この映画はおもしろい＿＿。(konfirmasi)", options: ["ね", "よ", "か", "の"], correct: 0, explanation: "「ね」untuk konfirmasi/persetujuan. Film ini menarik ya." },
+                // === KONEKSI KALIMAT ===
+                { question: "このコンピューターは便利です。＿＿、安いです。", options: ["そして", "それで", "それに", "ですから"], correct: 2, explanation: "「それに」= selain itu. Komputer ini praktis. Selain itu, murah." },
+                { question: "日本語は難しい＿＿、面白いです。", options: ["だから", "でも", "けど", "から"], correct: 2, explanation: "「けど」= tapi. Bahasa Jepang sulit, tapi menarik." },
+                // === こと/もの ===
+                { question: "この映画を見た＿＿がありますか。", options: ["こと", "もの", "ところ", "ほう"], correct: 0, explanation: "～たことがある = pernah. Pernah menonton film ini?" },
+                // === と思う ===
+                { question: "田中さんは来る＿＿思います。", options: ["を", "が", "と", "に"], correct: 2, explanation: "～と思う = berpikir bahwa. Saya pikir Tanaka akan datang." },
+                // === ぐらい ===
+                { question: "駅まで歩いて10分＿＿かかります。", options: ["が", "ぐらい", "を", "に"], correct: 1, explanation: "「ぐらい」= kira-kira. Sekitar 10 menit jalan kaki ke stasiun." },
+                // === BENTUK NEGATIF ===
+                { question: "「先週の日曜日にどこかへ行きましたか。」「いいえ、雨が降ったから、＿＿。」", options: ["どこかへ行きました", "どこも行きました", "どこへ行きませんでした", "どこも行きませんでした"], correct: 3, explanation: "どこも～ません = tidak pergi ke mana pun." },
+                // === EKSPRESI ===
+                { question: "「風邪をひいて、昨日から頭が痛いです。」「それは＿＿。」", options: ["痛いですね", "すみませんね", "大変ですね", "悪いですね"], correct: 2, explanation: "「大変ですね」= kasihan/berat ya. Respons simpati." },
+                { question: "パクさんは留学生＿＿か。「はい、留学生＿＿。」", options: ["です/ではありません", "です/です", "ではありません/です", "です/だ"], correct: 1, explanation: "です untuk pertanyaan dan jawaban sopan. Apakah Pak mahasiswa asing? Ya, saya mahasiswa asing." },
+                // === DARI PDF BATCH 1 - MONDAI 5 ===
+                { question: "昨日、会社へ＿＿前に、病院へ行きました。", options: ["行く", "行か", "行って", "行った"], correct: 0, explanation: "Kata kerja bentuk kamus + 前に = sebelum. Sebelum pergi ke kantor." },
+                // === DARI PDF BATCH 3 - MONDAI 1 ===
+                { question: "私はあしたの飛行機＿＿国へ帰ります。", options: ["に", "で", "か", "を"], correct: 1, explanation: "「で」untuk alat transportasi. Pulang dengan pesawat besok." },
+                { question: "先週デパートでかばん＿＿靴などを買いました。", options: ["は", "も", "へ", "や"], correct: 3, explanation: "「や」untuk daftar tidak lengkap. Tas, sepatu, dll." },
+                { question: "私は毎朝7時ごろ家＿＿出ます。", options: ["を", "と", "が", "で"], correct: 0, explanation: "「を」dengan 出る untuk meninggalkan tempat. Keluar dari rumah." },
+                { question: "昨日スーパーで田中さん＿＿会いました。", options: ["を", "の", "で", "に"], correct: 3, explanation: "「に」dengan 会う (bertemu). Bertemu dengan Tanaka." },
+                { question: "私のうちの本棚は、去年父＿＿作りました。", options: ["や", "が", "を", "で"], correct: 1, explanation: "「が」menandai pelaku aksi. Ayah (yang) membuat." },
+                { question: "今日八百屋でりんごを買いました。五つ＿＿300円でした。", options: ["に", "と", "で", "や"], correct: 2, explanation: "「で」untuk harga total. 5 buah seharga 300 yen." },
+                { question: "昨日＿＿少し寒かったですが、今日＿＿寒くないです。", options: ["は/は", "に/に", "も/も", "を/を"], correct: 0, explanation: "「は」untuk kontras. Kemarin (topik) dingin, tapi hari ini tidak." },
+                { question: "南町は、海がきれい＿＿、静かです。", options: ["も", "や", "で", "と"], correct: 2, explanation: "な-adjektiva + で = dan (menghubungkan). Lautnya indah dan tenang." },
+                // === DARI PDF - LANJUTAN ===
+                { question: "森「ケンさん、大学の授業は始まりましたか。」ケン「いいえ、＿＿です。来週始まります。」", options: ["よく", "もう", "ちょっと", "まだ"], correct: 3, explanation: "「まだ」= belum. Belum dimulai, minggu depan akan mulai." },
+                { question: "（病院で）医者「今日から一週間薬を飲んで、来週の月曜日に＿＿来てください。」", options: ["たくさん", "あまり", "また", "だんだん"], correct: 2, explanation: "「また」= lagi. Tolong datang lagi minggu depan." },
+                // === DARI PDF - MONDAI 2 (BINTANG) ===
+                { question: "（タクシーの中で）「すみません、次の＿＿＿＿右に曲がってください。」", options: ["に/信号/右/を", "信号/を/右/に", "を/信号/に/右", "右/信号/を/に"], correct: 0, explanation: "次の信号を右に = di lampu berikutnya belok kanan." },
+                { question: "私は日曜日に兄＿＿＿＿で出かけました。", options: ["の/と/子供/一緒に", "と/子供/の/一緒に", "子供/と/一緒に/の", "一緒に/と/子供/の"], correct: 0, explanation: "兄の子供と一緒に = bersama anak kakak." },
+                // === DARI PDF - MONDAI 3 (ISI BAGIAN KOSONG) ===
+                { question: "私の好きな飲み物はジュースです。＿＿、日本では売っている店を知りません。", options: ["だから", "でも", "いつも", "もっと"], correct: 1, explanation: "「でも」= tapi. Suka jus, tapi tidak tahu toko yang jual di Jepang." },
+                { question: "先週の土曜日はいい天気でした。昼に買い物をしてから、喫茶店に＿＿。", options: ["入るからです", "入ったからです", "入ります", "入りました"], correct: 3, explanation: "Cerita lampau → bentuk lampau ました. Masuk ke kafe." },
+                { question: "「花」＿＿コーヒーは安かったです。", options: ["から", "と", "の", "より"], correct: 2, explanation: "「の」untuk kepemilikan. Kopi di kafe 'Hana'." },
+                { question: "来週も「花」にコーヒーを＿＿。", options: ["飲んで行きます", "飲んで来ます", "飲みに行きます", "飲みに来ます"], correct: 2, explanation: "ます-stem + に行く = pergi untuk. Pergi untuk minum kopi." },
+                // === TAMBAHAN READING COMPREHENSION STYLE ===
+                { question: "「わたしの父は若いとき体が弱くてよく会社を休みました。しかし今は毎日朝から夜遅くまで働きます。」同じ意味は？", options: ["若いとき元気ではなかったが今は元気", "若いとき元気だったが今は元気ではない", "若いときも今も元気ではない", "若いときも今も元気"], correct: 0, explanation: "若いとき体が弱い=元気ではない、今は働く=元気。Dulu tidak sehat tapi sekarang sehat." },
+                { question: "「おとといの夜12時まで友達とお酒を飲みました。昨日は朝ご飯を食べないで会社へ行きました。」正しいのは？", options: ["昨日は夜12時までお酒を飲んだ", "昨日は朝ご飯を食べなかった", "おとといは元気ではなかった", "おとといは朝からお腹が痛かった"], correct: 1, explanation: "昨日は朝ご飯を食べないで = kemarin tidak makan sarapan." },
+                // === LEBIH BANYAK PARTIKEL ===
+                { question: "ケーキ屋で「すみません、いちごのケーキを二つ＿＿。」", options: ["ありますか", "どうぞ", "ください", "ほしいですか"], correct: 2, explanation: "「ください」untuk memesan. Tolong berikan 2 kue stroberi." },
+                { question: "「日曜日に、私の家でアンさんと勉強をします。キムさんも＿＿。」", options: ["来ませんか", "来ていますか", "来ませんでしたか", "来ていましたか"], correct: 0, explanation: "～ませんか = ajakan sopan. Mau datang juga?" },
+                { question: "この靴下は薄いですが、＿＿です。", options: ["簡単", "丈夫", "元気", "上手"], correct: 1, explanation: "「丈夫」= kuat/tahan lama. Kaos kaki tipis tapi kuat." },
+                { question: "あの＿＿を渡って、大学へ行きます。", options: ["門", "窓", "橋", "山"], correct: 2, explanation: "「橋」= jembatan. Menyeberangi jembatan untuk ke universitas." },
+                { question: "本棚に本を＿＿。", options: ["習いましょう", "鳴らしましょう", "並びましょう", "並べましょう"], correct: 3, explanation: "「並べる」= menyusun. Ayo susun buku di rak." },
+                { question: "この道を＿＿病院へ行きます。", options: ["歩いて", "出して", "泳いで", "飛んで"], correct: 0, explanation: "「歩いて」= dengan berjalan. Pergi ke rumah sakit dengan berjalan." },
+                { question: "妹は去年＿＿。今年、一歳になります。", options: ["生まれました", "起きました", "始まりました", "着きました"], correct: 0, explanation: "「生まれる」= lahir. Adik lahir tahun lalu." },
+                { question: "「このほん、どうもありがとうございました。」「いいえ、＿＿。」", options: ["どういたしまして", "ごちそうさまでした", "お願いします", "ごめんなさい"], correct: 0, explanation: "「どういたしまして」= sama-sama. Respons untuk terima kasih." },
+                { question: "たくさんありますから、＿＿食べてください。", options: ["もう", "よく", "もっと", "とても"], correct: 2, explanation: "「もっと」= lebih banyak. Silakan makan lebih banyak." },
+                { question: "ここは図書館です。＿＿勉強してください。", options: ["便利に", "静かに", "にぎやかに", "簡単に"], correct: 1, explanation: "「静かに」= dengan tenang. Belajar dengan tenang di perpustakaan." },
+                { question: "寒くなったから、＿＿をつけてください。", options: ["スリッパ", "コート", "テレビ", "ストーブ"], correct: 3, explanation: "「ストーブ」= pemanas. Nyalakan pemanas karena dingin." },
+                { question: "封筒に切手を＿＿。", options: ["取ります", "借ります", "売ります", "貼ります"], correct: 3, explanation: "「貼る」= menempel. Menempel perangko di amplop." },
+                { question: "お風呂に＿＿体を洗いました。", options: ["浴びて", "取って", "通って", "入って"], correct: 3, explanation: "「入って」= masuk. Masuk bak mandi lalu mencuci badan." },
+                { question: "忙しくて本を読む＿＿がありません。", options: ["暇", "仕事", "時間", "休み"], correct: 2, explanation: "「時間」= waktu. Sibuk, tidak ada waktu membaca buku." },
+                { question: "強い風が＿＿います。", options: ["吹いて", "急いで", "飛んで", "走って"], correct: 0, explanation: "「吹く」= bertiup (angin). Angin kencang sedang bertiup." },
+            ]
+        };
+
+        // ==================== STATE ====================
+        let state = {
+            category: null,
+            mode: 'quiz',
+            questions: [],
+            current: 0,
+            score: 0,
+            streak: 0,
+            mistakes: [],
+            startTime: null,
+            timer: null,
+            timeLeft: 30,
+            answered: false
+        };
+
+        // ==================== INIT ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('vocabTotal').textContent = N5_DATA.vocab.length + ' kata';
+            document.getElementById('kanjiTotal').textContent = N5_DATA.kanji.length + ' kanji';
+            document.getElementById('grammarTotal').textContent = N5_DATA.grammar.length + ' pola';
+        });
+
+        // ==================== MENU ====================
+        function selectCategory(cat, el) {
+            state.category = cat;
+            document.querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('modeSelect').style.display = 'block';
+            document.getElementById('modeSelect').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function setMode(mode, el) {
+            state.mode = mode;
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // ==================== START DRILL ====================
+        function startDrill() {
+            if (!state.category) { alert('Pilih kategori dulu!'); return; }
+            
+            let pool = [];
+            if (state.category === 'vocab' || state.category === 'all') {
+                pool = pool.concat(N5_DATA.vocab.map(v => ({ type: 'vocab', ...v })));
+            }
+            if (state.category === 'kanji' || state.category === 'all') {
+                pool = pool.concat(N5_DATA.kanji.map(k => ({ type: 'kanji', ...k })));
+            }
+            if (state.category === 'grammar' || state.category === 'all') {
+                pool = pool.concat(N5_DATA.grammar.map(g => ({ type: 'grammar', ...g })));
+            }
+
+            pool = pool.sort(() => Math.random() - 0.5);
+            
+            state.questions = pool.slice(0, state.mode === 'speed' ? 100 : 20);
+            state.current = 0;
+            state.score = 0;
+            state.streak = 0;
+            state.mistakes = [];
+            state.startTime = Date.now();
+            state.answered = false;
+
+            document.getElementById('mainMenu').style.display = 'none';
+            document.getElementById('resultsSection').classList.remove('active');
+
+            if (state.mode === 'flashcard') {
+                document.getElementById('flashcardSection').classList.add('active');
+                document.getElementById('quizSection').classList.remove('active');
+                document.getElementById('fcTotalNum').textContent = state.questions.length;
+                showFlashcard();
+            } else {
+                document.getElementById('quizSection').classList.add('active');
+                document.getElementById('flashcardSection').classList.remove('active');
+                showQuestion();
+                
+                if (state.mode === 'speed') {
+                    state.timeLeft = 60;
+                    startSpeedTimer();
+                }
+            }
+        }
+
+        // ==================== QUIZ MODE ====================
+        function showQuestion() {
+            const q = state.questions[state.current];
+            const card = document.getElementById('questionCard');
+            
+            card.classList.remove('fade-in');
+            void card.offsetWidth;
+            card.classList.add('fade-in');
+
+            state.answered = false;
+            document.getElementById('currentNum').textContent = state.current + 1;
+            document.getElementById('scoreNum').textContent = state.score;
+            document.getElementById('streakNum').textContent = state.streak;
+            document.getElementById('progressBar').style.width = ((state.current / state.questions.length) * 100) + '%';
+
+            // Reset feedback
+            const feedbackBox = document.getElementById('feedbackBox');
+            feedbackBox.className = 'feedback-box waiting';
+            feedbackBox.innerHTML = '<span>Pilih jawaban di atas</span>';
+
+            // Timer (not in speed mode)
+            if (state.mode !== 'speed') {
+                state.timeLeft = 30;
+                clearInterval(state.timer);
+                state.timer = setInterval(() => {
+                    state.timeLeft--;
+                    document.getElementById('timerDisplay').textContent = `00:${state.timeLeft.toString().padStart(2, '0')}`;
+                    if (state.timeLeft <= 0) {
+                        clearInterval(state.timer);
+                        handleTimeout();
+                    }
+                }, 1000);
+                document.getElementById('timerDisplay').textContent = '00:30';
+            }
+
+            let questionText = '';
+            let hint = '';
+            let options = [];
+            let correctIndex = 0;
+
+            if (q.type === 'vocab') {
+                questionText = q.word;
+                hint = q.reading ? `(${q.reading})` : 'Apa artinya?';
+                options = generateOptions(q.meaning, 'vocab', 'meaning');
+                correctIndex = options.indexOf(q.meaning);
+            } else if (q.type === 'kanji') {
+                questionText = q.kanji;
+                hint = 'Bagaimana cara bacanya?';
+                options = generateOptions(q.reading, 'kanji', 'reading');
+                correctIndex = options.indexOf(q.reading);
+            } else if (q.type === 'grammar') {
+                questionText = q.question;
+                hint = 'Pilih jawaban yang tepat';
+                options = q.options;
+                correctIndex = q.correct;
+            }
+
+            document.getElementById('questionText').textContent = questionText;
+            document.getElementById('questionHint').textContent = hint;
+            document.getElementById('optionsArea').innerHTML = options.map((opt, i) => `
+                <button class="option-btn" onclick="checkAnswer(${i}, ${correctIndex}, '${options[correctIndex].replace(/'/g, "\\'")}')">${opt}</button>
+            `).join('');
+        }
+
+        function generateOptions(correct, type, field) {
+            let pool = type === 'vocab' ? N5_DATA.vocab : N5_DATA.kanji;
+            let options = [correct];
+            let attempts = 0;
+            
+            while (options.length < 4 && attempts < 50) {
+                const random = pool[Math.floor(Math.random() * pool.length)];
+                const val = random[field];
+                if (val && !options.includes(val)) {
+                    options.push(val);
+                }
+                attempts++;
+            }
+
+            const fallback = type === 'vocab' 
+                ? ['makan', 'minum', 'pergi', 'tidur', 'belajar', 'membaca', 'menulis']
+                : ['にほん', 'がっこう', 'せんせい', 'ともだち', 'たべる', 'のむ', 'みる'];
+            
+            while (options.length < 4) {
+                const f = fallback[Math.floor(Math.random() * fallback.length)];
+                if (!options.includes(f)) options.push(f);
+            }
+
+            return options.sort(() => Math.random() - 0.5);
+        }
+
+        function checkAnswer(selected, correct, correctAnswer) {
+            if (state.answered) return;
+            state.answered = true;
+            clearInterval(state.timer);
+            
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach((btn, i) => {
+                btn.classList.add('disabled');
+                if (i === correct) btn.classList.add('correct');
+                if (i === selected && selected !== correct) btn.classList.add('wrong');
+            });
+
+            const isCorrect = selected === correct;
+            if (isCorrect) {
+                state.score++;
+                state.streak++;
+            } else {
+                state.streak = 0;
+                state.mistakes.push(state.questions[state.current]);
+            }
+
+            // Get explanation for grammar questions
+            const q = state.questions[state.current];
+            const explanation = q.explanation || '';
+            
+            showFeedback(isCorrect, correctAnswer, explanation);
+        }
+
+        function handleTimeout() {
+            if (state.answered) return;
+            state.answered = true;
+            state.streak = 0;
+            state.mistakes.push(state.questions[state.current]);
+            
+            const q = state.questions[state.current];
+            const correct = q.type === 'kanji' ? q.reading : (q.type === 'vocab' ? q.meaning : q.options[q.correct]);
+            const explanation = q.explanation || '';
+            
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => btn.classList.add('disabled'));
+            
+            showFeedback(false, correct, explanation);
+        }
+
+        function showFeedback(isCorrect, correctAnswer, explanation = '') {
+            document.getElementById('scoreNum').textContent = state.score;
+            document.getElementById('streakNum').textContent = state.streak;
+            
+            const feedbackBox = document.getElementById('feedbackBox');
+            feedbackBox.className = `feedback-box ${isCorrect ? 'correct' : 'wrong'}`;
+            
+            let feedbackHTML = `<span>${isCorrect ? '✅ Benar!' : `❌ Salah! Jawaban: ${correctAnswer}`}</span>`;
+            if (explanation) {
+                feedbackHTML += `<span class="explanation">💡 ${explanation}</span>`;
+            }
+            feedbackHTML += `<button class="next-btn" onclick="nextQuestion()">Lanjut →</button>`;
+            
+            feedbackBox.innerHTML = feedbackHTML;
+
+            const card = document.getElementById('questionCard');
+            card.classList.add(isCorrect ? 'bounce' : 'shake');
+            setTimeout(() => card.classList.remove('bounce', 'shake'), 400);
+        }
+
+        function nextQuestion() {
+            state.current++;
+            if (state.current >= state.questions.length) {
+                endDrill();
+            } else {
+                showQuestion();
+            }
+        }
+
+        // ==================== FLASHCARD MODE ====================
+        function showFlashcard() {
+            const q = state.questions[state.current];
+            
+            document.getElementById('flashcard').classList.remove('flipped');
+            document.getElementById('fcCurrentNum').textContent = state.current + 1;
+            document.getElementById('fcKnownNum').textContent = state.score;
+            document.getElementById('fcProgressBar').style.width = ((state.current / state.questions.length) * 100) + '%';
+
+            if (q.type === 'vocab') {
+                document.getElementById('fcFront').textContent = q.word;
+                document.getElementById('fcBack').textContent = q.meaning;
+                document.getElementById('fcExtra').textContent = q.reading || '';
+            } else if (q.type === 'kanji') {
+                document.getElementById('fcFront').textContent = q.kanji;
+                document.getElementById('fcBack').textContent = q.reading;
+                document.getElementById('fcExtra').textContent = q.meaning || '';
+            } else {
+                document.getElementById('fcFront').textContent = q.question;
+                document.getElementById('fcBack').textContent = q.options[q.correct];
+                document.getElementById('fcExtra').textContent = '';
+            }
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function markCard(knew) {
+            if (knew) state.score++;
+            else state.mistakes.push(state.questions[state.current]);
+            
+            state.current++;
+            if (state.current >= state.questions.length) {
+                endDrill();
+            } else {
+                showFlashcard();
+            }
+        }
+
+        // ==================== SPEED MODE ====================
+        function startSpeedTimer() {
+            document.getElementById('timerDisplay').textContent = '01:00';
+            state.timer = setInterval(() => {
+                state.timeLeft--;
+                const mins = Math.floor(state.timeLeft / 60);
+                const secs = state.timeLeft % 60;
+                document.getElementById('timerDisplay').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                if (state.timeLeft <= 0) {
+                    clearInterval(state.timer);
+                    endDrill();
+                }
+            }, 1000);
+        }
+
+        // ==================== RESULTS ====================
+        function endDrill() {
+            clearInterval(state.timer);
+            
+            const total = state.current;
+            const score = state.score;
+            const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
+            const elapsed = Math.round((Date.now() - state.startTime) / 1000);
+            const mins = Math.floor(elapsed / 60);
+            const secs = elapsed % 60;
+
+            document.getElementById('quizSection').classList.remove('active');
+            document.getElementById('flashcardSection').classList.remove('active');
+            document.getElementById('resultsSection').classList.add('active');
+
+            let emoji = '🎉';
+            let message = 'Kerja bagus!';
+            if (percentage >= 90) { emoji = '🏆'; message = 'Luar biasa! Kamu siap ujian!'; }
+            else if (percentage >= 70) { emoji = '👍'; message = 'Bagus! Terus latihan!'; }
+            else if (percentage >= 50) { emoji = '💪'; message = 'Lumayan! Perlu review lagi.'; }
+            else { emoji = '📚'; message = 'Yuk belajar lagi!'; }
+
+            document.getElementById('resultEmoji').textContent = emoji;
+            document.getElementById('finalScore').textContent = percentage + '%';
+            document.getElementById('resultMessage').textContent = message;
+            document.getElementById('correctTotal').textContent = score;
+            document.getElementById('wrongTotal').textContent = total - score;
+            document.getElementById('timeTotal').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function restartDrill() {
+            startDrill();
+        }
+
+        function backToMenu() {
+            document.getElementById('mainMenu').style.display = 'block';
+            document.getElementById('resultsSection').classList.remove('active');
+            document.querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById('modeSelect').style.display = 'none';
+            state.category = null;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bishi Bashi Special - Hyper Crazy Party!</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-pink: #FF1493;
+            --neon-blue: #00BFFF;
+            --neon-yellow: #FFD700;
+            --neon-green: #00FF00;
+            --neon-orange: #FF6600;
+            --neon-purple: #9933FF;
+            --neon-red: #FF0033;
+            --dark-bg: #1a0033;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial Black', sans-serif;
+            background: linear-gradient(45deg, var(--dark-bg), #330066, #660099);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float-circle 10s infinite ease-in-out;
+        }
+
+        @keyframes float-circle {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, -50px) scale(1.2); }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .main-title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-yellow), var(--neon-blue), var(--neon-green));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow-flow 3s ease infinite;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes rainbow-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 10px var(--neon-yellow);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.5; }
+        }
+
+        /* Score Display */
+        .score-board {
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.3), rgba(0, 191, 255, 0.3));
+            border: 5px solid var(--neon-yellow);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 0 30px var(--neon-yellow);
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px var(--neon-yellow); }
+            50% { box-shadow: 0 0 50px var(--neon-yellow), 0 0 70px var(--neon-pink); }
+        }
+
+        .score-display {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 20px var(--neon-yellow);
+        }
+
+        .score-label {
+            font-size: 1.2rem;
+            color: var(--neon-pink);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* Game Selection */
+        .game-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.4), rgba(153, 51, 255, 0.4));
+            border: 4px solid var(--neon-pink);
+            border-radius: 20px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .game-card:hover::before {
+            left: 100%;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 40px var(--neon-pink);
+        }
+
+        .game-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            color: var(--neon-yellow);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px var(--neon-yellow);
+        }
+
+        .game-desc {
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        /* Game Area */
+        .game-area {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(51, 0, 102, 0.7));
+            border: 5px solid var(--neon-blue);
+            border-radius: 20px;
+            padding: 3rem;
+            min-height: 500px;
+            display: none;
+            box-shadow: 0 0 40px var(--neon-blue);
+            position: relative;
+        }
+
+        .game-area.active {
+            display: block;
+            animation: zoomIn 0.5s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .game-name {
+            font-size: 2.5rem;
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px var(--neon-pink);
+            margin-bottom: 1rem;
+        }
+
+        .timer {
+            font-size: 3rem;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 20px var(--neon-yellow);
+            font-weight: 900;
+        }
+
+        /* Button Masher Game */
+        .button-masher {
+            text-align: center;
+        }
+
+        .mash-button {
+            width: 300px;
+            height: 300px;
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--neon-red), var(--neon-orange));
+            border: 8px solid var(--neon-yellow);
+            border-radius: 50%;
+            color: white;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 40px var(--neon-red);
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .mash-button:active {
+            transform: scale(0.9);
+            box-shadow: 0 0 60px var(--neon-yellow);
+        }
+
+        .mash-count {
+            font-size: 4rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 30px var(--neon-green);
+            font-weight: 900;
+            margin-top: 2rem;
+        }
+
+        /* Reaction Game */
+        .reaction-game {
+            text-align: center;
+        }
+
+        .reaction-target {
+            width: 200px;
+            height: 200px;
+            background: var(--neon-red);
+            border: 5px solid white;
+            border-radius: 50%;
+            margin: 2rem auto;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 0 40px var(--neon-red);
+        }
+
+        .reaction-target.green {
+            background: var(--neon-green);
+            box-shadow: 0 0 60px var(--neon-green);
+            animation: pulse-target 0.5s ease;
+        }
+
+        @keyframes pulse-target {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .reaction-message {
+            font-size: 2rem;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 20px var(--neon-yellow);
+            min-height: 3rem;
+        }
+
+        /* Memory Game */
+        .memory-game {
+            text-align: center;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem auto;
+        }
+
+        .memory-card {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            border: 3px solid var(--neon-yellow);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--neon-purple);
+        }
+
+        .memory-card:hover {
+            transform: scale(1.05);
+        }
+
+        .memory-card.flipped {
+            background: linear-gradient(135deg, var(--neon-yellow), var(--neon-orange));
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched {
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+            border-color: var(--neon-green);
+            cursor: default;
+        }
+
+        /* Rhythm Game */
+        .rhythm-game {
+            text-align: center;
+        }
+
+        .rhythm-track {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .rhythm-button {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 5px solid white;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+        }
+
+        .rhythm-button:active {
+            transform: scale(0.9);
+        }
+
+        .rhythm-button.red { background: var(--neon-red); box-shadow: 0 0 30px var(--neon-red); }
+        .rhythm-button.blue { background: var(--neon-blue); box-shadow: 0 0 30px var(--neon-blue); }
+        .rhythm-button.yellow { background: var(--neon-yellow); box-shadow: 0 0 30px var(--neon-yellow); }
+        .rhythm-button.green { background: var(--neon-green); box-shadow: 0 0 30px var(--neon-green); }
+
+        .rhythm-button.active {
+            transform: scale(1.2);
+            box-shadow: 0 0 60px white;
+        }
+
+        .rhythm-sequence {
+            font-size: 2rem;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 20px var(--neon-yellow);
+            min-height: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Control Buttons */
+        .control-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 900;
+            border: 4px solid var(--neon-yellow);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+            color: white;
+            box-shadow: 0 0 30px var(--neon-green);
+        }
+
+        .btn-start:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px var(--neon-green);
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, var(--neon-red), var(--neon-orange));
+            color: white;
+            box-shadow: 0 0 30px var(--neon-red);
+        }
+
+        .btn-back:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px var(--neon-red);
+        }
+
+        /* Result Screen */
+        .result-screen {
+            text-align: center;
+            padding: 3rem;
+            display: none;
+        }
+
+        .result-screen.show {
+            display: block;
+            animation: zoomIn 0.5s ease;
+        }
+
+        .result-title {
+            font-size: 3rem;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 30px var(--neon-yellow);
+            margin-bottom: 2rem;
+        }
+
+        .result-score {
+            font-size: 5rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 40px var(--neon-green);
+            font-weight: 900;
+            margin-bottom: 2rem;
+        }
+
+        .result-message {
+            font-size: 1.5rem;
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--neon-yellow);
+            position: absolute;
+            animation: confetti-fall 3s linear;
+            pointer-events: none;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Instructions */
+        .instructions {
+            background: rgba(0, 0, 0, 0.5);
+            border: 3px solid var(--neon-blue);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .instructions h3 {
+            color: var(--neon-yellow);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--neon-yellow);
+        }
+
+        .instructions p {
+            color: white;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+
+            .mash-button {
+                width: 200px;
+                height: 200px;
+                font-size: 2rem;
+            }
+
+            .memory-grid {
+                grid-template-columns: repeat(4, 70px);
+            }
+
+            .memory-card {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+
+            .rhythm-button {
+                width: 70px;
+                height: 70px;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 20px var(--neon-yellow);
+            animation: loading-pulse 1s infinite;
+        }
+
+        @keyframes loading-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 class="main-title">BISHI BASHI SPECIAL</h1>
+            <p class="subtitle">🎮 HYPER CRAZY PARTY! 🎮</p>
+        </header>
+
+        <!-- Score Board -->
+        <div class="score-board">
+            <div class="score-label">Total Score</div>
+            <div class="score-display" id="totalScore">0</div>
+        </div>
+
+        <!-- Game Menu -->
+        <div class="game-menu" id="gameMenu">
+            <div class="game-card" onclick="startGame('buttonMasher')">
+                <div class="game-icon">👊</div>
+                <h3 class="game-title">BUTTON MASHER</h3>
+                <p class="game-desc">Mash the button as fast as you can!</p>
+            </div>
+
+            <div class="game-card" onclick="startGame('reaction')">
+                <div class="game-icon">⚡</div>
+                <h3 class="game-title">REACTION TIME</h3>
+                <p class="game-desc">Click when it turns green!</p>
+            </div>
+
+            <div class="game-card" onclick="startGame('memory')">
+                <div class="game-icon">🧠</div>
+                <h3 class="game-title">MEMORY MATCH</h3>
+                <p class="game-desc">Match all the pairs!</p>
+            </div>
+
+            <div class="game-card" onclick="startGame('rhythm')">
+                <div class="game-icon">🎵</div>
+                <h3 class="game-title">RHYTHM MASTER</h3>
+                <p class="game-desc">Follow the pattern!</p>
+            </div>
+        </div>
+
+        <!-- Button Masher Game -->
+        <div class="game-area" id="buttonMasherGame">
+            <div class="game-header">
+                <h2 class="game-name">BUTTON MASHER!</h2>
+                <div class="timer" id="masherTimer">10</div>
+            </div>
+
+            <div class="instructions">
+                <h3>HOW TO PLAY</h3>
+                <p>Click the button as many times as you can before time runs out!</p>
+            </div>
+
+            <div class="button-masher">
+                <button class="mash-button" id="mashButton">MASH!</button>
+                <div class="mash-count" id="mashCount">0</div>
+            </div>
+
+            <div class="control-buttons">
+                <button class="btn btn-start" onclick="startButtonMasher()">START</button>
+                <button class="btn btn-back" onclick="backToMenu()">BACK</button>
+            </div>
+
+            <div class="result-screen" id="masherResult">
+                <h2 class="result-title">AMAZING!</h2>
+                <div class="result-score" id="masherScore">0</div>
+                <p class="result-message">Clicks in 10 seconds!</p>
+                <button class="btn btn-start" onclick="backToMenu()">CONTINUE</button>
+            </div>
+        </div>
+
+        <!-- Reaction Time Game -->
+        <div class="game-area" id="reactionGame">
+            <div class="game-header">
+                <h2 class="game-name">REACTION TIME!</h2>
+                <div class="timer" id="reactionTimer">5</div>
+            </div>
+
+            <div class="instructions">
+                <h3>HOW TO PLAY</h3>
+                <p>Wait for the circle to turn GREEN, then click it as fast as you can!</p>
+            </div>
+
+            <div class="reaction-game">
+                <div class="reaction-target" id="reactionTarget">
+                    <span>WAIT...</span>
+                </div>
+                <div class="reaction-message" id="reactionMessage"></div>
+            </div>
+
+            <div class="control-buttons">
+                <button class="btn btn-start" onclick="startReaction()">START</button>
+                <button class="btn btn-back" onclick="backToMenu()">BACK</button>
+            </div>
+
+            <div class="result-screen" id="reactionResult">
+                <h2 class="result-title">LIGHTNING FAST!</h2>
+                <div class="result-score" id="reactionScore">0</div>
+                <p class="result-message">milliseconds!</p>
+                <button class="btn btn-start" onclick="backToMenu()">CONTINUE</button>
+            </div>
+        </div>
+
+        <!-- Memory Match Game -->
+        <div class="game-area" id="memoryGame">
+            <div class="game-header">
+                <h2 class="game-name">MEMORY MATCH!</h2>
+                <div class="timer" id="memoryTimer">30</div>
+            </div>
+
+            <div class="instructions">
+                <h3>HOW TO PLAY</h3>
+                <p>Find all matching pairs before time runs out!</p>
+            </div>
+
+            <div class="memory-game">
+                <div class="memory-grid" id="memoryGrid"></div>
+            </div>
+
+            <div class="control-buttons">
+                <button class="btn btn-start" onclick="startMemory()">START</button>
+                <button class="btn btn-back" onclick="backToMenu()">BACK</button>
+            </div>
+
+            <div class="result-screen" id="memoryResult">
+                <h2 class="result-title">BRAIN POWER!</h2>
+                <div class="result-score" id="memoryScore">0</div>
+                <p class="result-message">pairs matched!</p>
+                <button class="btn btn-start" onclick="backToMenu()">CONTINUE</button>
+            </div>
+        </div>
+
+        <!-- Rhythm Master Game -->
+        <div class="game-area" id="rhythmGame">
+            <div class="game-header">
+                <h2 class="game-name">RHYTHM MASTER!</h2>
+                <div class="timer" id="rhythmTimer">5</div>
+            </div>
+
+            <div class="instructions">
+                <h3>HOW TO PLAY</h3>
+                <p>Watch the sequence, then repeat it by clicking the buttons!</p>
+            </div>
+
+            <div class="rhythm-game">
+                <div class="rhythm-sequence" id="rhythmSequence">Watch carefully...</div>
+                <div class="rhythm-track">
+                    <button class="rhythm-button red" onclick="rhythmClick(0)">🔴</button>
+                    <button class="rhythm-button blue" onclick="rhythmClick(1)">🔵</button>
+                    <button class="rhythm-button yellow" onclick="rhythmClick(2)">🟡</button>
+                    <button class="rhythm-button green" onclick="rhythmClick(3)">🟢</button>
+                </div>
+            </div>
+
+            <div class="control-buttons">
+                <button class="btn btn-start" onclick="startRhythm()">START</button>
+                <button class="btn btn-back" onclick="backToMenu()">BACK</button>
+            </div>
+
+            <div class="result-screen" id="rhythmResult">
+                <h2 class="result-title">RHYTHM KING!</h2>
+                <div class="result-score" id="rhythmScore">0</div>
+                <p class="result-message">perfect rounds!</p>
+                <button class="btn btn-start" onclick="backToMenu()">CONTINUE</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global Variables
+        let totalScore = 0;
+        let currentGame = null;
+
+        // Background Animation
+        function createBackgroundCircles() {
+            const container = document.getElementById('bgAnimation');
+            const colors = ['#FF1493', '#00BFFF', '#FFD700', '#00FF00', '#FF6600', '#9933FF'];
+            
+            for (let i = 0; i < 20; i++) {
+                const circle = document.createElement('div');
+                circle.className = 'bg-circle';
+                circle.style.width = Math.random() * 100 + 50 + 'px';
+                circle.style.height = circle.style.width;
+                circle.style.left = Math.random() * 100 + '%';
+                circle.style.top = Math.random() * 100 + '%';
+                circle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                circle.style.animationDelay = Math.random() * 5 + 's';
+                circle.style.animationDuration = Math.random() * 10 + 10 + 's';
+                container.appendChild(circle);
+            }
+        }
+
+        // Update Total Score
+        function updateTotalScore(points) {
+            totalScore += points;
+            document.getElementById('totalScore').textContent = totalScore;
+            createConfetti();
+        }
+
+        // Confetti Effect
+        function createConfetti() {
+            const colors = ['#FF1493', '#00BFFF', '#FFD700', '#00FF00', '#FF6600', '#9933FF'];
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // Start Game
+        function startGame(gameName) {
+            document.getElementById('gameMenu').style.display = 'none';
+            currentGame = gameName;
+            
+            if (gameName === 'buttonMasher') {
+                document.getElementById('buttonMasherGame').classList.add('active');
+            } else if (gameName === 'reaction') {
+                document.getElementById('reactionGame').classList.add('active');
+            } else if (gameName === 'memory') {
+                document.getElementById('memoryGame').classList.add('active');
+            } else if (gameName === 'rhythm') {
+                document.getElementById('rhythmGame').classList.add('active');
+            }
+        }
+
+        // Back to Menu
+        function backToMenu() {
+            document.querySelectorAll('.game-area').forEach(area => {
+                area.classList.remove('active');
+            });
+            document.querySelectorAll('.result-screen').forEach(screen => {
+                screen.classList.remove('show');
+            });
+            document.getElementById('gameMenu').style.display = 'grid';
+            currentGame = null;
+        }
+
+        // ===== BUTTON MASHER GAME =====
+        let masherCount = 0;
+        let masherTimer = null;
+        let masherActive = false;
+
+        function startButtonMasher() {
+            masherCount = 0;
+            masherActive = true;
+            let timeLeft = 10;
+            
+            document.getElementById('mashCount').textContent = masherCount;
+            document.getElementById('masherTimer').textContent = timeLeft;
+            document.getElementById('mashButton').disabled = false;
+            
+            masherTimer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('masherTimer').textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    endButtonMasher();
+                }
+            }, 1000);
+        }
+
+        document.getElementById('mashButton').addEventListener('click', function() {
+            if (masherActive) {
+                masherCount++;
+                document.getElementById('mashCount').textContent = masherCount;
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 100);
+            }
+        });
+
+        function endButtonMasher() {
+            clearInterval(masherTimer);
+            masherActive = false;
+            document.getElementById('mashButton').disabled = true;
+            
+            const score = masherCount * 10;
+            updateTotalScore(score);
+            
+            document.getElementById('masherScore').textContent = masherCount;
+            document.getElementById('masherResult').classList.add('show');
+        }
+
+        // ===== REACTION TIME GAME =====
+        let reactionStartTime = 0;
+        let reactionActive = false;
+        let reactionTimeout = null;
+
+        function startReaction() {
+            reactionActive = false;
+            const target = document.getElementById('reactionTarget');
+            const message = document.getElementById('reactionMessage');
+            
+            target.classList.remove('green');
+            target.innerHTML = '<span>WAIT...</span>';
+            message.textContent = '';
+            
+            const delay = Math.random() * 3000 + 2000;
+            
+            reactionTimeout = setTimeout(() => {
+                target.classList.add('green');
+                target.innerHTML = '<span>CLICK!</span>';
+                reactionStartTime = Date.now();
+                reactionActive = true;
+                
+                setTimeout(() => {
+                    if (reactionActive) {
+                        message.textContent = 'Too slow!';
+                        reactionActive = false;
+                    }
+                }, 2000);
+            }, delay);
+        }
+
+        document.getElementById('reactionTarget').addEventListener('click', function() {
+            if (reactionActive) {
+                const reactionTime = Date.now() - reactionStartTime;
+                reactionActive = false;
+                
+                const score = Math.max(1000 - reactionTime, 100);
+                updateTotalScore(Math.floor(score));
+                
+                document.getElementById('reactionScore').textContent = reactionTime;
+                document.getElementById('reactionResult').classList.add('show');
+            } else if (this.classList.contains('green')) {
+                document.getElementById('reactionMessage').textContent = 'Too late!';
+            } else {
+                document.getElementById('reactionMessage').textContent = 'Too early!';
+            }
+        });
+
+        // ===== MEMORY MATCH GAME =====
+        let memoryCards = [];
+        let memoryFlipped = [];
+        let memoryMatched = 0;
+        let memoryTimer = null;
+        let memoryActive = false;
+
+        function startMemory() {
+            const emojis = ['🎮', '🎯', '🎲', '🎪', '🎨', '🎭', '🎸', '🎺'];
+            memoryCards = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+            memoryFlipped = [];
+            memoryMatched = 0;
+            memoryActive = true;
+            
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = '';
+            
+            memoryCards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.index = index;
+                card.dataset.emoji = emoji;
+                card.textContent = '?';
+                card.addEventListener('click', flipMemoryCard);
+                grid.appendChild(card);
+            });
+            
+            let timeLeft = 30;
+            document.getElementById('memoryTimer').textContent = timeLeft;
+            
+            memoryTimer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('memoryTimer').textContent = timeLeft;
+                
+                if (timeLeft <= 0 || memoryMatched === 8) {
+                    endMemory();
+                }
+            }, 1000);
+        }
+
+        function flipMemoryCard() {
+            if (!memoryActive || this.classList.contains('flipped') || this.classList.contains('matched')) return;
+            if (memoryFlipped.length >= 2) return;
+            
+            this.classList.add('flipped');
+            this.textContent = this.dataset.emoji;
+            memoryFlipped.push(this);
+            
+            if (memoryFlipped.length === 2) {
+                setTimeout(checkMemoryMatch, 500);
+            }
+        }
+
+        function checkMemoryMatch() {
+            const [card1, card2] = memoryFlipped;
+            
+            if (card1.dataset.emoji === card2.dataset.emoji) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                memoryMatched++;
+                
+                if (memoryMatched === 8) {
+                    endMemory();
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                card1.textContent = '?';
+                card2.textContent = '?';
+            }
+            
+            memoryFlipped = [];
+        }
+
+        function endMemory() {
+            clearInterval(memoryTimer);
+            memoryActive = false;
+            
+            const score = memoryMatched * 100;
+            updateTotalScore(score);
+            
+            document.getElementById('memoryScore').textContent = memoryMatched;
+            document.getElementById('memoryResult').classList.add('show');
+        }
+
+        // ===== RHYTHM MASTER GAME =====
+        let rhythmSequence = [];
+        let rhythmPlayerSequence = [];
+        let rhythmRound = 0;
+        let rhythmActive = false;
+
+        function startRhythm() {
+            rhythmSequence = [];
+            rhythmPlayerSequence = [];
+            rhythmRound = 0;
+            rhythmActive = true;
+            
+            nextRhythmRound();
+        }
+
+        function nextRhythmRound() {
+            rhythmRound++;
+            rhythmSequence.push(Math.floor(Math.random() * 4));
+            rhythmPlayerSequence = [];
+            
+            document.getElementById('rhythmSequence').textContent = `Round ${rhythmRound} - Watch!`;
+            
+            playRhythmSequence();
+        }
+
+        function playRhythmSequence() {
+            const buttons = document.querySelectorAll('.rhythm-button');
+            rhythmActive = false;
+            
+            rhythmSequence.forEach((index, i) => {
+                setTimeout(() => {
+                    buttons[index].classList.add('active');
+                    setTimeout(() => {
+                        buttons[index].classList.remove('active');
+                        
+                        if (i === rhythmSequence.length - 1) {
+                            rhythmActive = true;
+                            document.getElementById('rhythmSequence').textContent = 'Your turn!';
+                        }
+                    }, 300);
+                }, i * 600);
+            });
+        }
+
+        function rhythmClick(index) {
+            if (!rhythmActive) return;
+            
+            rhythmPlayerSequence.push(index);
+            
+            const buttons = document.querySelectorAll('.rhythm-button');
+            buttons[index].classList.add('active');
+            setTimeout(() => {
+                buttons[index].classList.remove('active');
+            }, 200);
+            
+            if (rhythmPlayerSequence[rhythmPlayerSequence.length - 1] !== rhythmSequence[rhythmPlayerSequence.length - 1]) {
+                endRhythm(false);
+                return;
+            }
+            
+            if (rhythmPlayerSequence.length === rhythmSequence.length) {
+                if (rhythmRound >= 5) {
+                    endRhythm(true);
+                } else {
+                    setTimeout(nextRhythmRound, 1000);
+                }
+            }
+        }
+
+        function endRhythm(success) {
+            rhythmActive = false;
+            
+            const score = success ? rhythmRound * 200 : (rhythmRound - 1) * 200;
+            updateTotalScore(score);
+            
+            document.getElementById('rhythmScore').textContent = success ? rhythmRound : rhythmRound - 1;
+            document.getElementById('rhythmResult').classList.add('show');
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            createBackgroundCircles();
+        });
+    </script>
+</body>
+</html>
+

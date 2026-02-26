@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Kosugi+Maru&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>yasuminohi「アニタ＆アリョ」</title>
+  <style>
+ body {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e9fdf0 0%, #d5e9f6 100%);
+  color: #5f6973;
+  font-size: 18px;
+  line-height: 2;
+  opacity: 0;
+  transition: opacity 0.8s, margin 0.8s;
+  overflow-x: hidden;
+}
+html {
+  box-sizing: border-box;
+  height: auto; /* hindari fix height 100% */
+  min-height: 100%;
+  overflow-x: hidden;
+  background: none !important; /* jaga-jaga */
+}
+body.page-loaded {
+  opacity: 1;
+  overflow-y: auto;
+}
+#preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s;
+}
+#startBtn {
+  font-family: 'Quicksand', 'Kosugi Maru', sans-serif;
+  background: linear-gradient(90deg, #90d9c5, #aadbf0);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(144, 217, 197, 0.3);
+  border: none;
+  font-size: 1.4em;
+  padding: 0.8em 1.5em;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity 0.6s, transform 0.2s;
+  margin-top: 0;
+  letter-spacing: 1px;
+  transform-origin: center;
+  will-change: transform;
+}
+#startBtn:hover,
+#startBtn:active {
+  transform: scale(1.07);
+  background: linear-gradient(90deg, #aadbf0, #90d9c5);
+}
+#cat {
+  position: absolute;
+  bottom: 263px;
+  right: -165px;
+  width: 100px;
+  z-index: 10003;
+  transition: transform 10s linear;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
+}
+#callout {
+  position: absolute;
+  bottom: 350px;
+  right: -200px;
+  background: #faf9f6;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #4e5a60;
+  box-shadow: 2px 2px 12px #b7c4c944;
+  transition: transform 10s linear;
+  z-index: 9999;
+}
+#main-content {
+  opacity: 0;
+  transition: opacity 0.8s;
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    #b7c4c922,
+    #b7c4c922 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  z-index: 5000;
+  pointer-events: none;
+  opacity: 1;
+  animation: scanline-fadeout 1.5s ease-out forwards;
+}
+
+
+@keyframes scanline-fadeout {
+  0% { opacity: 1; transform: scaleY(1.2); filter: brightness(1.1) contrast(1.1); }
+  100% { opacity: 0; transform: scaleY(1); filter: none; }
+}
+details {
+  margin-bottom: 32px;
+  margin-left: 50px;
+  margin-right: 50px;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+details[open] section {
+  animation: fadeSlideIn 0.5s ease-in-out both;
+}
+@keyframes fadeSlideIn {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+summary {
+  font-family: 'Quicksand', 'Kosugi Maru', sans-serif;
+  cursor: pointer;
+  padding: 18px 28px;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #4e5a60;
+  background: linear-gradient(to right, #e9fdf0, #c9eaf5);
+  border-radius: 10px;
+  margin: 0;
+  margin-left: 50px;
+  margin-right: 50px;
+  transition: background 0.3s, box-shadow 0.2s;
+  display: block;
+  box-shadow: 0 1px 6px #cfcfcf55;
+}
+summary:hover {
+  background: linear-gradient(90deg, #aadbf0, #90d9c5);
+  box-shadow: 0 0 12px #cfcfcf44;
+}
+summary::marker { display: none; }
+summary::after {
+  content: '🔢';
+  float: right;
+  font-size: 1.1em;
+  margin-left: 10px;
+  transition: transform 0.2s;
+}
+details[open] summary::after {
+  transform: rotate(180deg);
+  content: '🔼';
+}
+h1 {
+  font-family: 'Quicksand', 'Kosugi Maru', sans-serif;
+  text-align: center;
+  margin-bottom: 2em;
+  font-size: 2em;
+  background: linear-gradient(to right, #d5e9f6, #e9fdf0);
+  box-shadow: 0 2px 12px rgba(144, 217, 197, 0.2);
+  color: #4e5a60;
+  padding: 0.7em;
+  border-radius: 16px;
+  letter-spacing: 1px;
+  cursor: default; /* cursor normal (bukan I-beam) */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+h1:hover {
+    transform: scale(1.05);
+    background: linear-gradient(90deg, #aadbf0, #90d9c5);
+    cursor: pointer; /* jadi tangan saat hover */
+  }
+section {
+  background: #ffffff;
+  padding: 28px 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(144, 217, 197, 0.2);
+  border-left: 10px solid #b8e0d2;
+  margin-bottom: 0;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+h2 {
+  font-family: 'Fredoka', 'M PLUS Rounded 1c', sans-serif;
+  font-size: 1.3em;
+  border-left: 8px solid #90d9c5;
+  background: linear-gradient(to right, #f0fef6, #d5e9f6);
+  color: #4e5a60;
+  padding-left: 14px;
+  margin-bottom: 1em;
+  border-radius: 6px;
+}
+h3 {
+  font-family: 'Fredoka', 'M PLUS Rounded 1c', sans-serif;
+  font-size: 1.1em;
+  border-left: 8px solid #aadbf0;
+  border-bottom: 1px dashed #90d9c5;
+  color: #4e5a60;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px dashed #b7c4c9;
+  padding-left: 14px;
+  padding-bottom: 4px;
+  border-radius: 6px;
+}
+p, ul {
+  margin-bottom: 1.2em;
+  text-align: justify;
+}
+ruby rt {
+  font-size: 0.7em;
+  color: #7a8490;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5em;
+  background: #f9f8f6;
+  border: 1px solid #d6cbbb;
+  font-size: 1em;
+  box-shadow: 0 2px 8px #b7c4c933;
+}
+th {
+  background: #90d9c5;
+  color: #ffffff;
+  padding: 12px;
+  border: 1px solid #a4a9b7;
+  font-weight: bold;
+}
+td {
+  padding: 10px 12px;
+  border: 1px solid #dcd9d4;
+  background: #ffffff;
+}
+.romaji {
+  font-style: italic;
+  color: #5f6973;
+}
+.translation {
+  color: #4e5a60;
+}
+strong {
+  color: #5f6973;
+}
+ul.romaji li,
+ul.translation li {
+  margin-bottom: 0.5em;
+}
+#volume-float {
+  position: fixed;
+  left: 16px;
+  bottom: 30px;
+  z-index: 10001;
+  background: #ffffff;
+  border: 0.5px solid #b7c4c9;
+  border-radius: 14px;
+  padding: 10px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95em;
+  color: #4e5a60;
+  width: 15px;
+z-index: 10001; /* pastikan di atas elemen lain */
+  pointer-events: auto; /* memastikan slider tetap bisa diklik */
+}
+
+#volumeLabel {
+  font-weight: bold;
+  color: #4e5a60;
+  letter-spacing: 1px;
+  margin: 0 0 4px 0;
+  font-size: 1em;
+}
+#volumeControl {
+  accent-color: #90d9c5;
+  background: #d5e9f6;
+  width: 10px;
+  height: 70px;
+  border-radius: 6px;
+  outline: none;
+  margin: 0;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  display: block;
+}
+#volumeValue {
+  min-width: 28px;
+  display: inline-block;
+  color: #5f6973;
+  font-size: 0.7em;
+  text-align: center;
+  margin-top: 2px;
+}
+@media (max-width: 600px) {
+  #volume-float {
+    position: fixed;
+    left: 4px;
+    bottom: 4px;
+    padding: 6px 4px 6px 4px;
+    font-size: 0.9em;
+    min-width: 44px;
+    max-width: 60px;
+  }
+  #volumeControl {
+    height: 48px;
+    width: 8px;
+  }
+}
+ .paused-icon:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+    filter: brightness(1.2);
+    cursor: pointer;
+  }
+  /* Hover saat kondisi mute (sudah ada sebelumnya) */
+  .paused-icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+    filter: brightness(1.2);
+    cursor: pointer;
+  }
+
+  /* Hover saat kondisi play */
+  .active-icon:hover {
+    transform: scale(1.) rotate(-3deg);
+  filter: drop-shadow(0 0 6px #fbdca5);
+    transition: transform 0.2s ease;
+    filter: contrast(1.2);
+    cursor: pointer;
+  }
+
+  #whiteDoggo {
+    width: 80px; /* bisa diubah sesuai kebutuhan */
+    z-index: 9999; /* supaya di atas elemen lain */
+    transition: transform 0.3s ease;
+    filter: brightness(1.2) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
+    cursor: pointer;
+  }
+
+  #whiteDoggo:hover {
+    transform: scale(1.1) rotate(2deg);
+    filter: brightness(1.2) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
+  }
+
+  .blackCat {
+  width: 80px;
+  scale: 0.8;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  z-index: 2;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
+  transform: scale(0.8); /* tambahkan agar tidak perlu inline */
+}
+
+.blackCat:hover {
+  transform: scale(1.1) rotate(1.5deg);
+  filter: brightness(1.2) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
+}
+
+  #cat {
+  filter: drop-shadow(1px 1px 1px rgba(105, 220, 255, 0.6));
+}
+
+
+
+
+
+  </style>
+  
+</head>
+<body>
+
+  
+  <!-- Volume Control -->
+  <div id="volume-float">
+    <img id="volumeIcon" src="https://media1.tenor.com/m/I24RJusgsb0AAAAC/speaker-icon.gif" alt="Volume Icon" style="width: 30px">
+  <input type="range" id="volumeControl" min="0" max="100" value="60">
+  <span id="volumeValue">60%</span>
+</div>
+
+  
+
+  <!-- Preloader -->
+  <div id="preloader">
+      <div id="callout">こんにちは！</div>
+      <img id="cat" src="https://media.tenor.com/QOu7BsEBzC8AAAAi/cat-roll.gif" alt="Cat" />
+      <button id="startBtn">こんにちは！</button>
+  </div>
+  
+  
+
+  <!-- Audio: Sapaan -->
+  <audio id="helloAudio" src="https://www.myinstants.com/media/sounds/yuru-camp-konnichiwa.mp3" preload="auto"></audio>
+  <!-- Audio: Suara efek kucing rolling -->
+  <audio id="meowAudio" src="https://cdn.pixabay.com/download/audio/2025/06/01/audio_1beeb1dd37.mp3?filename=cute-cat-352656.mp3" preload="auto"></audio>
+
+  <div id="main-content" style="opacity:0; overflow-x:hidden;">
+    <h1 id="title">ユニット　１２　休みの日 ー「アニタ＆アリョ」</h1>
+    
+
+    <!-- Audio untuk membuka -->
+    <audio id="openSound" src="https://cdn.pixabay.com/download/audio/2025/05/05/audio_31c3ec2ec0.mp3?filename=video-game-select-337214.mp3" preload="auto"></audio>
+    <!-- Audio untuk menutup -->
+    <audio id="closeSound" src="https://cdn.pixabay.com/download/audio/2025/06/13/audio_c26d6e1573.mp3?filename=ui-sounds-pack-3-14-359717.mp3" preload="auto"></audio>
+    <!-- Audio untuk musik latar belakang -->
+    <audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2024/11/17/audio_b0fd2cac81.mp3?filename=kyoto-river-lofi-japan-food-background-music-265430.mp3" preload="auto" loop></audio>
+
+    
+
+   
+
+    <!--bagian 1 Wrapper-->
+<div id="bagian1wrapper" style="position: relative;">
+
+  <!-- whiteDoggo -->
+    <img id="whiteDoggo" src="https://media.tenor.com/N2CJcvGc14gAAAAi/dog-wagging-tail-white-dog.gif" 
+    style="position: absolute; top: -65px; right: 100px;" alt="White Doggo" />
+    <audio id="dogSound" src="https://cdn.pixabay.com/download/audio/2023/12/05/audio_6370981eda.mp3?filename=dog-bark-179915.mp3" preload="auto"></audio>
+
+  <!--bagian 1-->
+<details>
+
+
+  <summary>① ことば（Kosa Kata）</summary>
+  <section>
+
+  <h3>📘 ことば（Kosa Kata）</h3>
+<table class="kotoba-table">
+  <thead>
+    <tr>
+      <th>【日本語】</th>
+      <th>【ローマ字】</th>
+      <th>【インドネシア語】</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><ruby>昨日<rt>きのう</rt></ruby></td><td>kinou</td><td>kemarin</td></tr>
+    <tr><td><ruby>僕<rt>ぼく</rt></ruby></td><td>boku</td><td>saya (laki-laki)</td></tr>
+    <tr><td><ruby>見<rt>み</rt></ruby>えます</td><td>miemasu</td><td>terlihat</td></tr>
+    <tr><td><ruby>怖<rt>こわ</rt></ruby>い</td><td>kowai</td><td>menakutkan</td></tr>
+    <tr><td><ruby>パレード<rt>ぱれーど</rt></ruby></td><td>pareedo</td><td>parade</td></tr>
+    <tr><td><ruby>あります</ruby>（〜は<ruby>傘<rt>かさ</rt></ruby>が）</td><td>arimasu (~ wa kasa ga)</td><td>ada (~ punya payung)</td></tr>
+    <tr><td><ruby>遊園地<rt>ゆうえんち</rt></ruby></td><td>yuuenchi</td><td>taman bermain</td></tr>
+    <tr><td>〜<ruby>達<rt>たち</rt></ruby></td><td>~tachi</td><td>kata jamak (~ dan teman-temannya)</td></tr>
+    <tr><td><ruby>遠<rt>とお</rt></ruby>く</td><td>tōku</td><td>jauh</td></tr>
+    <tr><td><ruby>隣<rt>となり</rt></ruby></td><td>tonari</td><td>sebelah</td></tr>
+    <tr><td><ruby>帰<rt>かえ</rt></ruby>り</td><td>kaeri</td><td>pulang</td></tr>
+    <tr><td><ruby>天気<rt>てんき</rt></ruby></td><td>tenki</td><td>cuaca</td></tr>
+    <tr><td><ruby>観覧車<rt>かんらんしゃ</rt></ruby></td><td>kanransha</td><td>bianglala</td></tr>
+    <tr><td><ruby>景色<rt>けしき</rt></ruby></td><td>keshiki</td><td>pemandangan</td></tr>
+    <tr><td><ruby>高校生<rt>こうこうせい</rt></ruby></td><td>koukousei</td><td>siswa SMA</td></tr>
+    <tr><td><ruby>雨<rt>あめ</rt></ruby></td><td>ame</td><td>hujan</td></tr>
+    <tr><td><ruby>人<rt>ひと</rt></ruby></td><td>hito</td><td>orang</td></tr>
+    <tr><td><ruby>乗<rt>の</rt></ruby>ります</td><td>norimasu</td><td>naik (kendaraan)</td></tr>
+    <tr><td><ruby>ジェットコースター<rt>じぇっとこーすたー</rt></ruby></td><td>jettokōsutā</td><td>roller coaster</td></tr>
+    <tr><td><ruby>女<rt>おんな</rt></ruby>の<ruby>子<rt>こ</rt></ruby></td><td>onna no ko</td><td>anak perempuan</td></tr>
+    <tr><td><ruby>降<rt>ふ</rt></ruby>ります</td><td>furimasu</td><td>turun (hujan)</td></tr>
+    <tr><td><ruby>走<rt>はし</rt></ruby>ります</td><td>hashirimasu</td><td>berlari</td></tr>
+    <tr><td><ruby>乗<rt>の</rt></ruby>り<ruby>物<rt>もの</rt></ruby></td><td>norimono</td><td>kendaraan</td></tr>
+    <tr><td><ruby>早<rt>はや</rt></ruby>い</td><td>hayai</td><td>cepat</td></tr>
+    <tr><td><ruby>座<rt>すわ</rt></ruby>ります</td><td>suwarimasu</td><td>duduk</td></tr>
+    <tr><td><ruby>傘<rt>かさ</rt></ruby></td><td>kasa</td><td>payung</td></tr>
+    <tr><td><ruby>名前<rt>なまえ</rt></ruby></td><td>namae</td><td>nama</td></tr>
+  </tbody>
+</table>
+
+
+  </section>
+</details>
+</div> <!-- Tutup wrapper bagian 1 -->
+
+<!-- BAGIAN 2 WRAPPER -->
+<div id="bagian2wrapper" style="position: relative;">
+
+   <!-- Black Cat GIF -->
+     <img class="blackCat" src="https://media.tenor.com/-VqQIA-3LvsAAAAj/gatos-memes-gato-meme.gif"
+     style="position: absolute; top: -50px; right: 100px;" alt="Cat A" />
+
+<img class="blackCat" src="https://media.tenor.com/1s9WsIefvs8AAAAi/black-cat.gif"
+     style="position: absolute; top: -50px; right: 160px;" alt="Cat B" />
+
+
+    <audio id="catSound" src="https://cdn.pixabay.com/download/audio/2025/02/26/audio_6c95941b94.mp3?filename=cat-meow-8-fx-306184.mp3" preload="auto"></audio>
+
+<!--bagian 2-->
+<details>
+  <summary>② <ruby>カーリ</ruby>さんの<ruby>ストーリー</ruby> - Cerita Utama</summary>
+  <section>
+
+    <h3>【日本語】- Nihongo</h3>
+    <p>
+      <ruby>昨日<rt>きのう</rt></ruby>は<ruby>休<rt>やす</rt></ruby>みでした。<ruby>友達<rt>ともだち</rt></ruby>と<ruby>遊園地<rt>ゆうえんち</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きました。あまりいい<ruby>天気<rt>てんき</rt></ruby>じゃありませんでしたが、<ruby>人<rt>ひと</rt></ruby>がたくさんいました。とても<ruby>賑<rt>にぎ</rt></ruby>やかでした。
+    </p>
+    <p>
+      いろいろな<ruby>乗<rt>の</rt></ruby>り<ruby>物<rt>もの</rt></ruby>がありました。<ruby>僕<rt>ぼく</rt></ruby>たちは、<ruby>観覧車<rt>かんらんしゃ</rt></ruby>に<ruby>乗<rt>の</rt></ruby>りました。<ruby>海<rt>うみ</rt></ruby>が<ruby>見<rt>み</rt></ruby>えましたが、<ruby>遠<rt>とお</rt></ruby>くの<ruby>景色<rt>けしき</rt></ruby>は<ruby>見<rt>み</rt></ruby>えませんでした。
+    </p>
+    <p>
+      それから、<ruby>友達<rt>ともだち</rt></ruby>は<ruby>ジェットコースター</ruby>に<ruby>乗<rt>の</rt></ruby>りました。<ruby>ジェットコースター</ruby>はとても<ruby>早<rt>はや</rt></ruby>いです。<ruby>怖<rt>こわ</rt></ruby>いです。<ruby>僕<rt>ぼく</rt></ruby>は<ruby>乗<rt>の</rt></ruby>りませんでした。
+    </p>
+    <p>
+      <ruby>友達<rt>ともだち</rt></ruby>の<ruby>隣<rt>となり</rt></ruby>に<ruby>高校生<rt>こうこうせい</rt></ruby>の<ruby>女<rt>おんな</rt></ruby>の<ruby>子<rt>こ</rt></ruby>が<ruby>座<rt>すわ</rt></ruby>りました。
+    </p>
+    <p>
+      <ruby>午後<rt>ごご</rt></ruby>8<ruby>時<rt>じ</rt></ruby>から<ruby>パレード</ruby>を<ruby>見<rt>み</rt></ruby>ました。<ruby>本当<rt>ほんとう</rt></ruby>に<ruby>きれい</ruby>でした。
+    </p>
+    <p>
+      <ruby>帰<rt>かえ</rt></ruby>りに<ruby>雨<rt>あめ</rt></ruby>が<ruby>降<rt>ふ</rt></ruby>りました。<ruby>僕<rt>ぼく</rt></ruby>たちは<ruby>傘<rt>かさ</rt></ruby>がありませんでした。<ruby>駅<rt>えき</rt></ruby>まで<ruby>走<rt>はし</rt></ruby>りました。
+    </p>
+    <p>
+      <ruby>高校生<rt>こうこうせい</rt></ruby>の<ruby>女<rt>おんな</rt></ruby>の<ruby>子<rt>こ</rt></ruby>もいっしょに<ruby>走<rt>はし</rt></ruby>りました。<ruby>女<rt>おんな</rt></ruby>の<ruby>子<rt>こ</rt></ruby>の<ruby>名前<rt>なまえ</rt></ruby>は<ruby>さくら</ruby>さん。<ruby>僕<rt>ぼく</rt></ruby>の<ruby>新<rt>あたら</rt></ruby>しい<ruby>友達<rt>ともだち</rt></ruby>です。
+    </p>
+
+    <h3>【ローマ字】- Romaji</h3>
+    <p class="romaji">
+      Kinou wa yasumi deshita. Tomodachi to yuuenchi e ikimashita. Amari ii tenki ja arimasen deshita ga, hito ga takusan imashita. Totemo nigiyaka deshita.
+    </p>
+    <p class="romaji">
+      Iroiro na norimono ga arimashita. Bokutachi wa, kanransha ni norimashita. Umi ga miemashita ga, tooku no keshiki wa miemasen deshita.
+    </p>
+    <p class="romaji">
+      Sorekara, tomodachi wa jettokōsutā ni norimashita. Jettokōsutā wa totemo hayai desu. Kowai desu. Boku wa norimasen deshita.
+    </p>
+    <p class="romaji">
+      Tomodachi no tonari ni koukousei no onna no ko ga suwarimashita.
+    </p>
+    <p class="romaji">
+      Gogo hachiji kara parēdo o mimashita. Hontou ni kirei deshita.
+    </p>
+    <p class="romaji">
+      Kaeri ni ame ga furimashita. Bokutachi wa kasa ga arimasen deshita. Eki made hashirimashita.
+    </p>
+    <p class="romaji">
+      Koukousei no onna no ko mo issho ni hashirimashita. Onna no ko no namae wa Sakura-san. Boku no atarashii tomodachi desu.
+    </p>
+
+    <h3>【インドネシア語】- Bahasa Indonesia</h3>
+    <p class="translation">
+      Kemarin adalah hari libur. Saya pergi ke taman bermain bersama teman. Meskipun cuacanya tidak begitu baik, banyak orang di sana. Suasananya sangat meriah.
+    </p>
+    <p class="translation">
+      Ada banyak wahana. Kami naik bianglala. Laut terlihat, tetapi pemandangan yang jauh tidak bisa terlihat.
+    </p>
+    <p class="translation">
+      Setelah itu, teman saya naik roller coaster. Roller coaster sangat cepat. Menakutkan. Saya tidak naik.
+    </p>
+    <p class="translation">
+      Di samping teman saya, seorang siswi SMA duduk.
+    </p>
+    <p class="translation">
+      Mulai pukul 8 malam kami menonton parade. Sungguh indah.
+    </p>
+    <p class="translation">
+      Saat pulang, hujan turun. Kami tidak membawa payung. Kami berlari sampai stasiun.
+    </p>
+    <p class="translation">
+      Siswi SMA itu juga berlari bersama kami. Namanya Sakura-san. Dia adalah teman baru saya.
+    </p>
+
+  </section>
+</details>
+
+
+</div> <!-- Tutup wrapper bagian 2 -->
+
+</div>
+<!-- Script -->
+<script>
+  
+
+  // Tangani error JavaScript
+  if (typeof window.onerror !== "function") { 
+    window.onerror = function(msg, src, line, col, err) {
+      console.error('JS Error:', msg, 'at', src + ':' + line + ':' + col);
+    };
+  }
+  window.onerror = function(msg, src, line, col, err) {
+    alert('JS Error: ' + msg + '\n' + src + ':' + line + ':' + col);
+  };
+
+  // Tangani error CSS
+  if (typeof CSS !== "undefined" && typeof CSS.supports === "function") {
+    if (!CSS.supports("display", "grid")) {
+      console.warn("CSS Grid is not supported in this browser.");
+      document.body.classList.add("no-grid");
+    }
+  } else {
+    console.warn("CSS Grid is not supported in this browser.");
+    document.body.classList.add("no-grid");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+  const openSound = document.getElementById("openSound");
+  const closeSound = document.getElementById("closeSound");
+  const bgMusic = document.getElementById("bgMusic");
+  const volumeIcon = document.getElementById("volumeIcon");
+  const volumeSlider = document.getElementById("volumeControl");
+  const volumeValue = document.getElementById("volumeValue");
+  const audioElements = document.querySelectorAll("audio");
+  const whiteDoggo = document.getElementById("whiteDoggo");
+  const dogSound = document.getElementById("dogSound");
+  const blackCats = document.querySelectorAll('.blackCat');
+    const catSound = document.getElementById("catSound");
+  const title = document.getElementById("title");
+  let isMuted = false;
+
+  title.addEventListener("click", () => {
+  // Ambil teks tanpa <rt>
+  const cloned = title.cloneNode(true);
+  cloned.querySelectorAll("rt").forEach(rt => rt.remove());
+  const textToRead = cloned.textContent;
+
+  // Baca pakai TTS
+  const utter = new SpeechSynthesisUtterance(textToRead);
+  utter.lang = "ja-JP";
+  utter.pitch = 1.1;
+  utter.rate = 1.0;
+
+  // 🔊 Atur volume dari slider (0–1)
+  if (volumeSlider) {
+    const volume = volumeSlider.value / 100;
+    utter.volume = volume;
+  } else {
+    utter.volume = 1.0; // Default volume
+  }
+  speechSynthesis.speak(utter);
+});
+
+blackCats.forEach(cat => {
+  cat.addEventListener('click', () => {
+    if (catSound) {
+      catSound.currentTime = 0;
+      catSound.volume = 0.8; // atau bisa disesuaikan dengan slider
+      catSound.play();
+    }
+  });
+});
+
+
+if (dogSound) dogSound.volume = 1;
+  if (whiteDoggo && dogSound) {
+    whiteDoggo.addEventListener("click", () => {
+      dogSound.currentTime = 0; // supaya bisa diulang cepat
+      dogSound.play().catch(err => {
+        console.warn("Gagal memutar suara anjing:", err);
+      });
+    });
+  }
+
+  // Tangani error dan preload audio
+  audioElements.forEach(audio => {
+    audio.addEventListener("error", (e) => {
+      console.error("Audio error:", e);
+      alert("Audio error: " + e.target.src + "\nPlease check your internet connection or try again later.");
+    });
+    audio.addEventListener("canplaythrough", () => {
+      console.log("Audio loaded successfully:", audio.src);
+    });
+  });
+
+  // Set volume awal
+  if (openSound) openSound.volume = 0.5;
+  if (closeSound) closeSound.volume = 1.0;
+  if (bgMusic) bgMusic.volume = 0.03;
+
+  // Autoplay bgMusic setelah klik pertama
+  document.body.addEventListener("click", function handleFirstClick() {
+    if (bgMusic) {
+      bgMusic.play().then(() => {
+        console.log("bgMusic playing");
+      }).catch(err => {
+        console.warn("Autoplay failed:", err);
+      });
+    }
+    document.body.removeEventListener("click", handleFirstClick);
+  });
+
+  // Volume slider (tidak memengaruhi bgMusic)
+  if (volumeSlider && volumeValue) {
+    volumeSlider.addEventListener("input", (e) => {
+      const volume = e.target.value / 100;
+
+      audioElements.forEach(audio => {
+        if (audio.id !== "bgMusic") {
+          audio.volume = volume;
+        }
+      });
+
+      volumeValue.textContent = `${e.target.value}%`;
+
+      // Play feedback sound
+      if (closeSound) {
+        closeSound.volume = volume;
+        closeSound.currentTime = 0;
+        closeSound.play();
+      }
+    });
+  }
+
+  // ⏱️ Set ikon & class awal agar hover langsung aktif
+  volumeIcon.src = "https://media1.tenor.com/m/I24RJusgsb0AAAAC/speaker-icon.gif";
+  volumeIcon.classList.add("active-icon");
+
+  // 🖱️ Toggle mute/play saat ikon diklik
+  volumeIcon.addEventListener("click", () => {
+    isMuted = !isMuted;
+
+    audioElements.forEach(audio => {
+      audio.pause();
+      audio.muted = isMuted;
+    });
+
+    // Jika unmute, play bgMusic ulang
+    if (!isMuted && bgMusic) {
+      bgMusic.play().catch(err => {
+        console.warn("Autoplay resume failed:", err);
+      });
+    }
+
+    // Ganti ikon dan class sesuai status mute
+    if (isMuted) {
+  volumeIcon.src = "https://cdn-icons-png.freepik.com/512/8510/8510221.png";
+  volumeIcon.style.width = "18px"; // ukuran khusus saat mute
+  volumeIcon.classList.remove("active-icon");
+  volumeIcon.classList.add("paused-icon");
+} else {
+  volumeIcon.src = "https://media1.tenor.com/m/I24RJusgsb0AAAAC/speaker-icon.gif";
+  volumeIcon.style.width = "30px"; // ukuran normal saat play
+  volumeIcon.classList.remove("paused-icon");
+  volumeIcon.classList.add("active-icon");
+
+  // 🔊 Mainkan suara openSound saat unmute
+  const openSound = document.getElementById("openSound");
+  if (openSound) {
+    openSound.currentTime = 0; // agar bisa diputar berulang
+    openSound.play().catch(err => {
+      console.warn("Gagal memutar openSound:", err);
+    });
+  }
+}
+
+
+
+
+
+    console.log(isMuted ? "Semua audio dimatikan." : "Semua audio diaktifkan kembali.");
+  });
+});
+
+
+  // Bunyi saat membuka/menutup <details> dan klik tombol Start
+  // Pastikan audio dimuat sebelum digunakan
+  if (!document.getElementById("openSound") || !document.getElementById("closeSound")) {
+    console.warn("Open/Close sound elements not found.");
+  }
+  if (!document.getElementById("startBtn")) {
+    console.warn("Start button not found.");
+  }
+  
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const openSound = document.getElementById("openSound");
+    const closeSound = document.getElementById("closeSound");
+
+    // Bunyi saat membuka/menutup <details>
+    document.querySelectorAll("details").forEach(detail => {
+      let wasOpen = detail.open;
+
+      detail.querySelector("summary").addEventListener("click", () => {
+        setTimeout(() => {
+          const isOpen = detail.open;
+          if (isOpen && !wasOpen) {
+            openSound.currentTime = 0;
+            openSound.play().catch(e => console.warn("Open audio error:", e));
+          } else if (!isOpen && wasOpen) {
+            closeSound.currentTime = 0;
+            closeSound.play().catch(e => console.warn("Close audio error:", e));
+          }
+          wasOpen = isOpen;
+        }, 10);
+      });
+    });
+
+function setAllAudioVolume(value) {
+  const volume = value / 100;
+  document.querySelectorAll("audio").forEach(audio => {
+    audio.volume = volume;
+  });
+}
+    // Bunyi saat klik tombol Start
+    const startBtn = document.getElementById("startBtn");
+    if (startBtn) {
+      startBtn.addEventListener("click", () => {
+        if (openSound) {
+          openSound.currentTime = 0;
+          openSound.play().catch(e => console.warn("Start button audio error:", e));
+        }
+      });
+    }
+  });
+  
+
+  // Animasi ulang saat detail dibuka
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("details").forEach(detail => {
+      detail.addEventListener("toggle", () => {
+        const section = detail.querySelector("section");
+        if (detail.open && section) {
+          section.style.animation = "none";
+          void section.offsetWidth;
+          section.style.animation = "fadeSlideIn 0.5s ease-in-out both";
+        }
+      });
+    });
+  });
+
+  
+  window.addEventListener("load", () => {
+    document.body.classList.add("page-loaded");
+  });
+
+  const startBtn = document.getElementById("startBtn");
+  const audioHello = document.getElementById("helloAudio");
+  const audioMeow = document.getElementById("meowAudio");
+  const preloader = document.getElementById("preloader");
+  const mainContent = document.getElementById("main-content");
+  const cat = document.getElementById("cat");
+  const callout = document.getElementById("callout");
+
+  function hidePreloader() {
+  preloader.style.opacity = 0;
+  setTimeout(() => {
+    preloader.style.display = "none";
+    mainContent.style.opacity = 1;
+    mainContent.style.display = "block";
+    mainContent.style.visibility = "visible";
+    document.body.style.overflow = "hidden";
+    document.body.style.overflowX = "hidden";
+    document.body.style.overflowY = "auto";
+    document.documentElement.style.overflowX = "hidden";
+    document.documentElement.style.overflowY = "auto";
+    window.scrollTo({top: 0, left: 0, behavior: "auto"});
+  }, 500);
+}
+
+
+
+
+
+
+  function startSequence() {
+    startBtn.style.opacity = "0";
+    startBtn.style.pointerEvents = "none";
+    window.scrollTo({top: 0, left: 0, behavior: "auto"});
+    setTimeout(() => {
+      audioHello.play().catch(err => console.warn("hello audio blocked:", err));
+    }, 1500);
+    setTimeout(() => {
+      audioMeow.play().catch(err => console.warn("meow audio blocked:", err));
+    }, 500);
+    cat.style.transform = "translateX(-120vw)";
+    callout.style.transform = "translateX(-120vw)";
+    setTimeout(hidePreloader, 3000);
+  }
+
+  
+
+  // Event click & touchend agar pasti jalan di iOS
+  startBtn.addEventListener("click", startSequence);
+  startBtn.addEventListener("touchend", function(e) {
+    e.preventDefault();
+    startSequence();
+  }, {passive: false});
+
+  // Fallback: jika audio gagal, tetap hilangkan preloader setelah 5 detik
+  setTimeout(() => {
+    if (preloader.style.display !== "none") {
+      hidePreloader();
+    }
+  }, 10000);
+  
+</script>
+</body>
+</html>
+

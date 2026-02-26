@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=M+PLUS+Rounded+1c:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>ooki ni mall「アニタ＆アリョ」</title>
+  <style>
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f0f7ff 0%, #e6f2ff 100%);
+  color: #3a3a3a;
+  font-size: 18px;
+  line-height: 1.9;
+  font-family: 'Poppins', 'M PLUS Rounded 1c', sans-serif;
+  opacity: 0;
+  transition: opacity 0.8s;
+  overflow-x: hidden;
+}
+html {
+  box-sizing: border-box;
+  height: auto; /* hindari fix height 100% */
+  min-height: 100%;
+  overflow-x: hidden;
+  background: none !important; /* jaga-jaga */
+}
+body.page-loaded {
+  opacity: 1;
+  overflow-y: auto;
+}
+#preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s;
+}
+#startBtn {
+  font-family: 'Poppins', 'M PLUS Rounded 1c', sans-serif;
+  background: linear-gradient(to right, #4a90e2, #357abd);
+  color: #2e2e2e;
+  box-shadow: 0 4px 16px rgba(144, 217, 197, 0.3);
+  border: none;
+  font-size: 1.4em;
+  padding: 0.8em 1.5em;
+  border-radius: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity 0.6s, transform 0.2s;
+  margin-top: 0;
+  letter-spacing: 1px;
+  transform-origin: center;
+  will-change: transform;
+}
+#startBtn:hover,
+#startBtn:active {
+  transform: scale(1.07);
+  background: linear-gradient(to right, #ffd48a, #d9f0ff);
+}
+#cat {
+  position: absolute;
+  bottom: 263px;
+  right: -165px;
+  width: 100px;
+  z-index: 10003;
+  transition: transform 10s linear;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
+}
+#callout {
+  position: absolute;
+  bottom: 350px;
+  right: -200px;
+  background: linear-gradient(to right, #ffd48a, #d9f0ff);
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #4e5a60;
+  box-shadow: 2px 2px 12px #b7c4c944;
+  transition: transform 10s linear;
+  z-index: 9999;
+}
+#main-content {
+  opacity: 0;
+  transition: opacity 0.8s;
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    #b7c4c922,
+    #b7c4c922 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  z-index: 5000;
+  pointer-events: none;
+  opacity: 1;
+  animation: scanline-fadeout 1.5s ease-out forwards;
+}
+
+
+@keyframes scanline-fadeout {
+  0% { opacity: 1; transform: scaleY(1.2); filter: brightness(1.1) contrast(1.1); }
+  100% { opacity: 0; transform: scaleY(1); filter: none; }
+}
+details {
+  margin-bottom: 32px;
+  margin-left: 50px;
+  margin-right: 50px;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+details[open] section {
+  animation: fadeSlideIn 0.5s ease-in-out both;
+}
+@keyframes fadeSlideIn {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+summary {
+  cursor: pointer;
+  padding: 18px 28px;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #374151;
+  background: linear-gradient(to right, #e3f2fd, #bbdefb);
+  border-radius: 10px;
+  margin: 0;
+  margin-left: 50px;
+  margin-right: 50px;
+  transition: background 0.3s, box-shadow 0.2s;
+  display: block;
+  box-shadow: 0 1px 6px #cfcfcf55;
+}
+summary:hover {
+  background: linear-gradient(to right, #ffd48a, #d9f0ff);
+}
+summary::marker { display: none; }
+summary::after {
+  content: '🛍️';
+  float: right;
+  font-size: 1.1em;
+  margin-left: 10px;
+  transition: transform 0.2s;
+}
+details[open] summary::after {
+  transform: rotate(360deg);
+  content: '🏬';
+}
+.translation {
+  color: #374151;
+  font-style: italic;
+  margin-top: 0.5em;
+}
+.romaji {
+  color: #6b7280;
+  font-style: italic;
+}
+h1 {
+  text-align: center;
+  font-size: 2em;
+  margin: 1.2em auto;
+  background: linear-gradient(90deg, #4a90e2, #357abd, #1e5799);
+  color: #374151;
+  padding: 0.8em 1em;
+  border-radius: 16px;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 14px rgba(255, 200, 150, 0.25);
+  transition: transform 0.3s ease;
+}
+h1:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+section {
+ background: #ffffff;
+  padding: 28px 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(144, 217, 197, 0.2);
+  border-left: 10px solid #4a90e2;
+  margin-bottom: 0;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+h2 {
+  font-size: 1.3em;
+  border-left: 6px solid #357abd;
+  background: linear-gradient(to right, #fff8ee, #f0faff);
+  color: #374151;
+  padding-left: 14px;
+  margin-bottom: 1em;
+  border-radius: 4px;
+}
+h3 {
+  font-size: 1.1em;
+  border-left: 6px solid #a7d8ff;
+  border-bottom: 1px dashed #4a90e2;
+  color: #374151;
+  margin-top: 1.2em;
+  padding-left: 14px;
+  padding-bottom: 4px;
+}
+p, ul {
+  margin-bottom: 1em;
+  text-align: justify;
+}
+ruby rt {
+  font-size: 0.75em;
+  color: #6b7280;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  background: #fffdf9;
+  border: 1px solid #e5d3b3;
+  font-size: 1em;
+  box-shadow: 0 2px 6px rgba(255, 200, 150, 0.15);
+}
+th {
+  background: #4a90e2;
+  color: #ffffff;
+  padding: 10px;
+  border: 1px solid #f9dca9;
+}
+td {
+  padding: 10px;
+  border: 1px solid #f1e0c3;
+}
+.romaji {
+  font-style: italic;
+  color: #5f6973;
+}
+.translation {
+  color: #4e5a60;
+}
+strong {
+  color: #5f6973;
+}
+ul.romaji li,
+ul.translation li {
+  margin-bottom: 0.5em;
+}
+#volume-float {
+  position: fixed;
+  left: 16px;
+  bottom: 30px;
+  z-index: 10001;
+  background: #ffffff;
+  border: 0.5px solid #b7c4c9;
+  border-radius: 14px;
+  padding: 10px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95em;
+  color: #4e5a60;
+  width: 15px;
+z-index: 10001; /* pastikan di atas elemen lain */
+  pointer-events: auto; /* memastikan slider tetap bisa diklik */
+}
+
+#volumeLabel {
+  font-weight: bold;
+  color: #4e5a60;
+  letter-spacing: 1px;
+  margin: 0 0 4px 0;
+  font-size: 1em;
+}
+#volumeControl {
+  accent-color: #fff4c6;
+  background: #d5e9f6;
+  width: 10px;
+  height: 70px;
+  border-radius: 6px;
+  outline: none;
+  margin: 0;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  display: block;
+}
+#volumeValue {
+  min-width: 28px;
+  display: inline-block;
+  color: #5f6973;
+  font-size: 0.7em;
+  text-align: center;
+  margin-top: 2px;
+}
+@media (max-width: 600px) {
+  #volume-float {
+    position: fixed;
+    left: 4px;
+    bottom: 4px;
+    padding: 6px 4px 6px 4px;
+    font-size: 0.9em;
+    min-width: 44px;
+    max-width: 60px;
+  }
+  #volumeControl {
+    height: 48px;
+    width: 8px;
+  }
+}
+ .paused-icon:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+    filter: brightness(1.2);
+    cursor: pointer;
+  }
+  /* Hover saat kondisi mute (sudah ada sebelumnya) */
+  .paused-icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+    filter: brightness(1.2);
+    cursor: pointer;
+  }
+
+  /* Hover saat kondisi play */
+  .active-icon:hover {
+    transform: scale(1.) rotate(-3deg);
+  filter: drop-shadow(0 0 6px #fbdca5);
+    transition: transform 0.2s ease;
+    filter: contrast(1.2);
+    cursor: pointer;
+  }
+
+  #whiteDoggo {
+    width: 80px; /* bisa diubah sesuai kebutuhan */
+    z-index: 9999; /* supaya di atas elemen lain */
+    transition: transform 0.3s ease;
+    filter: brightness(1.2) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
+    cursor: pointer;
+  }
+
+  #whiteDoggo:hover {
+    transform: scale(1.1) rotate(2deg);
+    filter: brightness(1.2) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
+  }
+
+  .blackCat {
+  width: 80px;
+  scale: 0.8;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  z-index: 2;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
+  transform: scale(0.8); /* tambahkan agar tidak perlu inline */
+}
+
+.blackCat:hover {
+  transform: scale(1.1) rotate(1.5deg);
+  filter: brightness(1.2) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.2));
+}
+
+  #cat {
+  filter: drop-shadow(1px 1px 1px rgba(105, 220, 255, 0.6));
+}
+
+
+
+
+
+  </style>
+  
+</head>
+<body>
+
+  
+  <!-- Volume Control -->
+  <div id="volume-float">
+    <img id="volumeIcon" src="https://media1.tenor.com/m/I24RJusgsb0AAAAC/speaker-icon.gif" alt="Volume Icon" style="width: 30px">
+  <input type="range" id="volumeControl" min="0" max="100" value="60">
+  <span id="volumeValue">60%</span>
+</div>
+
+  
+
+  <!-- Preloader -->
+  <div id="preloader">
+      <div id="callout">こんにちは！</div>
+      <img id="cat" src="https://media.tenor.com/QOu7BsEBzC8AAAAi/cat-roll.gif" alt="Cat" />
+      <button id="startBtn">こんにちは！</button>
+  </div>
+  
+  
+
+  <!-- Audio: Sapaan -->
+  <audio id="helloAudio" src="https://www.myinstants.com/media/sounds/yuru-camp-konnichiwa.mp3" preload="auto"></audio>
+  <!-- Audio: Suara efek kucing rolling -->
+  <audio id="meowAudio" src="https://cdn.pixabay.com/download/audio/2025/06/01/audio_1beeb1dd37.mp3?filename=cute-cat-352656.mp3" preload="auto"></audio>
+
+  <div id="main-content" style="opacity:0; overflow-x:hidden;">
+    <h1 id="title">ユニット１４ - いろいろなことができる場所 - 「アニタ＆アリョ」</h1>
+    
+
+    <!-- Audio untuk membuka -->
+    <audio id="openSound" src="https://cdn.pixabay.com/download/audio/2025/05/05/audio_31c3ec2ec0.mp3?filename=video-game-select-337214.mp3" preload="auto"></audio>
+    <!-- Audio untuk menutup -->
+    <audio id="closeSound" src="https://cdn.pixabay.com/download/audio/2025/06/13/audio_c26d6e1573.mp3?filename=ui-sounds-pack-3-14-359717.mp3" preload="auto"></audio>
+    <!-- Audio untuk musik latar belakang -->
+    <audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2025/06/20/audio_4acee0b1a6.mp3?filename=osaka-night-lofi-beats-362627.mp3" preload="auto" loop></audio>
+
+    
+
+   
+
+    <!--bagian 1 Wrapper-->
+<div id="bagian1wrapper" style="position: relative;">
+
+  <!-- whiteDoggo -->
+    <img id="whiteDoggo" src="https://media.tenor.com/ntyysZK0KJkAAAAi/puglie-pug-puglie.gif" 
+    style="position: absolute; top: -65px; right: 100px;" alt="White Doggo" />
+    <audio id="dogSound" src="https://cdn.pixabay.com/download/audio/2023/12/05/audio_6370981eda.mp3?filename=dog-bark-179915.mp3" preload="auto"></audio>
+
+  <!--bagian 1-->
+  <details>
+    <summary>① <ruby>言葉<rt>ことば</rt></ruby> - Kotoba (Kosakata)</summary>
+    <section>
+  
+      <table>
+        <thead>
+          <tr>
+            <th>日本語</th>
+            <th>ローマ字</th>
+            <th>インドネシア語</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>ショッピングモール</td><td>shoppingu mooru</td><td>shopping mall</td></tr>
+          <tr><td><ruby>服<rt>ふく</rt></ruby></td><td>fuku</td><td>baju</td></tr>
+          <tr><td><ruby>自習室<rt>じしゅうしつ</rt></ruby></td><td>jishuushitsu</td><td>ruang belajar mandiri</td></tr>
+          <tr><td><ruby>小学生<rt>しょうがくせい</rt></ruby></td><td>shougakusei</td><td>murid SD</td></tr>
+          <tr><td><ruby>漢字<rt>かんじ</rt></ruby></td><td>kanji</td><td>kanji</td></tr>
+          <tr><td><ruby>練習<rt>れんしゅう</rt></ruby></td><td>renshuu</td><td>latihan</td></tr>
+          <tr><td><ruby>復習<rt>ふくしゅう</rt></ruby></td><td>fukushuu</td><td>mengulang pelajaran</td></tr>
+          <tr><td><ruby>妹<rt>いもうと</rt></ruby></td><td>imouto</td><td>adik perempuan</td></tr>
+          <tr><td><ruby>書<rt>か</rt></ruby>きます</td><td>kakimasu</td><td>menulis</td></tr>
+        </tbody>
+      </table>
+  
+    </section>
+  </details>
+  
+  </div>
+
+  <!-- BAGIAN 2 WRAPPER -->
+  <div id="bagian2wrapper" style="position: relative;">
+  
+  <details>
+    <summary>② 「おおきにモール」</summary>
+    <section>
+  
+      <h3>【日本語】- Nihongo</h3>
+      <p>
+        <ruby>家<rt>いえ</rt></ruby>の<ruby>近<rt>ちか</rt></ruby>くにに<ruby>小<rt>ちい</rt></ruby>さなショッピングモールがあります。「おおきにモール」です。<ruby>歩<rt>ある</rt></ruby>いて<ruby>行<rt>い</rt></ruby>くことができます。<ruby>家<rt>いえ</rt></ruby>から５<ruby>分<rt>ふん</rt></ruby>です。<br><br>
+
+        「おおきにモール」の<ruby>中<rt>なか</rt></ruby>にいろいろな<ruby>店<rt>みせ</rt></ruby>があります。<ruby>服<rt>ふく</rt></ruby>や<ruby>本<rt>ほん</rt></ruby>を<ruby>買<rt>か</rt></ruby>うことができます。ゲームができます。そして、カラオケができます。おいしいハンバーガーを<ruby>食<rt>た</rt></ruby>べることができます。ベンチで<ruby>友<rt>とも</rt></ruby>だちとおしゃべりすることができます。<br><br>
+
+        「おおきにモール」の<ruby>隣<rt>となり</rt></ruby>に<ruby>図書館<rt>としょかん</rt></ruby>があります。<ruby>図書館<rt>としょかん</rt></ruby>の２<ruby>階<rt>かい</rt></ruby>に<ruby>自習室<rt>じしゅうしつ</rt></ruby>があります。<br><br>
+
+        <ruby>僕<rt>ぼく</rt></ruby>は<ruby>小学生<rt>しょうがくせい</rt></ruby>の<ruby>弟<rt>おとうと</rt></ruby>と<ruby>妹<rt>いもうと</rt></ruby>がいます。<ruby>家<rt>いえ</rt></ruby>でゆっくり<ruby>勉強<rt>べんきょう</rt></ruby>することができません。ですから、<ruby>図書館<rt>としょかん</rt></ruby>の<ruby>自習室<rt>じしゅうしつ</rt></ruby>で<ruby>勉強<rt>べんきょう</rt></ruby>します。<ruby>自習室<rt>じしゅうしつ</rt></ruby>はとても<ruby>静<rt>しず</rt></ruby>かです。ゆっくり<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>練習<rt>れんしゅう</rt></ruby>や<ruby>復習<rt>ふくしゅう</rt></ruby>ができます。<ruby>漢字<rt>かんじ</rt></ruby>をたくさん<ruby>書<rt>か</rt></ruby>きます。
+      </p>
+  
+      <h3>【ローマ字】- Romaji</h3>
+      <p class="romaji">
+        Ie no chikaku ni chiisana shoppingu mooru ga arimasu. "Ooki ni Mooru" desu. Aruite iku koto ga dekimasu. Ie kara go-fun desu.<br><br>
+
+        "Ooki ni Mooru" no naka ni iroiro na mise ga arimasu. Fuku ya hon o kau koto ga dekimasu. Geemu ga dekimasu. Soshite, karaoke ga dekimasu. Oishii hanbaagaa o taberu koto ga dekimasu. Benchi de tomodachi to oshaberi suru koto ga dekimasu.<br><br>
+
+        "Ooki ni Mooru" no tonari ni toshokan ga arimasu. Toshokan no ni-kai ni jishuushitsu ga arimasu.<br><br>
+
+        Boku wa shougakusei no otouto to imouto ga imasu. Ie de yukkuri benkyou suru koto ga dekimasen. Desukara, toshokan no jishuushitsu de benkyou shimasu. Jishuushitsu wa totemo shizuka desu. Yukkuri kanji no renshuu ya fukushuu ga dekimasu. Kanji o takusan kakimasu.
+      </p>
+  
+      <h3>【インドネシア語】- Bahasa Indonesia</h3>
+      <p class="translation">
+        Di dekat rumah ada shopping mall kecil. Namanya "Ooki ni Mall". Bisa pergi dengan berjalan kaki. Dari rumah 5 menit.<br><br>
+
+        Di dalam "Ooki ni Mall" ada berbagai macam toko. Bisa membeli baju dan buku. Bisa main game. Dan, bisa karaoke. Bisa makan hamburger yang enak. Bisa mengobrol dengan teman di bangku.<br><br>
+
+        Di sebelah "Ooki ni Mall" ada perpustakaan. Di lantai 2 perpustakaan ada ruang belajar mandiri.<br><br>
+
+        Saya punya adik laki-laki dan perempuan yang masih SD. Tidak bisa belajar dengan tenang di rumah. Karena itu, saya belajar di ruang belajar mandiri perpustakaan. Ruang belajar mandiri sangat tenang. Bisa latihan dan mengulang kanji dengan tenang. Menulis banyak kanji.
+      </p>
+  
+    </section>
+  </details>
+  
+  </div>
+
+
+
+
+<!-- Script -->
+<script>
+  
+
+  // Tangani error JavaScript
+  if (typeof window.onerror !== "function") { 
+    window.onerror = function(msg, src, line, col, err) {
+      console.error('JS Error:', msg, 'at', src + ':' + line + ':' + col);
+    };
+  }
+  window.onerror = function(msg, src, line, col, err) {
+    alert('JS Error: ' + msg + '\n' + src + ':' + line + ':' + col);
+  };
+
+  // Tangani error CSS
+  if (typeof CSS !== "undefined" && typeof CSS.supports === "function") {
+    if (!CSS.supports("display", "grid")) {
+      console.warn("CSS Grid is not supported in this browser.");
+      document.body.classList.add("no-grid");
+    }
+  } else {
+    console.warn("CSS Grid is not supported in this browser.");
+    document.body.classList.add("no-grid");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+  const openSound = document.getElementById("openSound");
+  const closeSound = document.getElementById("closeSound");
+  const bgMusic = document.getElementById("bgMusic");
+  const volumeIcon = document.getElementById("volumeIcon");
+  const volumeSlider = document.getElementById("volumeControl");
+  const volumeValue = document.getElementById("volumeValue");
+  const audioElements = document.querySelectorAll("audio");
+  const whiteDoggo = document.getElementById("whiteDoggo");
+  const dogSound = document.getElementById("dogSound");
+  const blackCats = document.querySelectorAll('.blackCat');
+    const catSound = document.getElementById("catSound");
+  const title = document.getElementById("title");
+  let isMuted = false;
+
+  title.addEventListener("click", () => {
+  // Ambil teks tanpa <rt>
+  const cloned = title.cloneNode(true);
+  cloned.querySelectorAll("rt").forEach(rt => rt.remove());
+  const textToRead = cloned.textContent;
+
+  // Baca pakai TTS
+  const utter = new SpeechSynthesisUtterance(textToRead);
+  utter.lang = "ja-JP";
+  utter.pitch = 1.1;
+  utter.rate = 1.0;
+
+  // 🔊 Atur volume dari slider (0–1)
+  if (volumeSlider) {
+    const volume = volumeSlider.value / 100;
+    utter.volume = volume;
+  } else {
+    utter.volume = 1.0; // Default volume
+  }
+  speechSynthesis.speak(utter);
+});
+
+blackCats.forEach(cat => {
+  cat.addEventListener('click', () => {
+    if (catSound) {
+      catSound.currentTime = 0;
+      catSound.volume = 0.8; // atau bisa disesuaikan dengan slider
+      catSound.play();
+    }
+  });
+});
+
+
+if (dogSound) dogSound.volume = 1;
+  if (whiteDoggo && dogSound) {
+    whiteDoggo.addEventListener("click", () => {
+      dogSound.currentTime = 0; // supaya bisa diulang cepat
+      dogSound.play().catch(err => {
+        console.warn("Gagal memutar suara anjing:", err);
+      });
+    });
+  }
+
+  // Tangani error dan preload audio
+  audioElements.forEach(audio => {
+    audio.addEventListener("error", (e) => {
+      console.error("Audio error:", e);
+      alert("Audio error: " + e.target.src + "\nPlease check your internet connection or try again later.");
+    });
+    audio.addEventListener("canplaythrough", () => {
+      console.log("Audio loaded successfully:", audio.src);
+    });
+  });
+
+  // Set volume awal
+  if (openSound) openSound.volume = 0.5;
+  if (closeSound) closeSound.volume = 1.0;
+  if (bgMusic) bgMusic.volume = 0.1;
+
+  // Autoplay bgMusic setelah klik pertama
+  document.body.addEventListener("click", function handleFirstClick() {
+    if (bgMusic) {
+      bgMusic.play().then(() => {
+        console.log("bgMusic playing");
+      }).catch(err => {
+        console.warn("Autoplay failed:", err);
+      });
+    }
+    document.body.removeEventListener("click", handleFirstClick);
+  });
+
+  // Volume slider (tidak memengaruhi bgMusic)
+  if (volumeSlider && volumeValue) {
+    volumeSlider.addEventListener("input", (e) => {
+      const volume = e.target.value / 100;
+
+      audioElements.forEach(audio => {
+        if (audio.id !== "bgMusic") {
+          audio.volume = volume;
+        }
+      });
+
+      volumeValue.textContent = `${e.target.value}%`;
+
+      // Play feedback sound
+      if (closeSound) {
+        closeSound.volume = volume;
+        closeSound.currentTime = 0;
+        closeSound.play();
+      }
+    });
+  }
+
+  // ⏱️ Set ikon & class awal agar hover langsung aktif
+  volumeIcon.src = "https://media1.tenor.com/m/I24RJusgsb0AAAAC/speaker-icon.gif";
+  volumeIcon.classList.add("active-icon");
+
+  // 🖱️ Toggle mute/play saat ikon diklik
+  volumeIcon.addEventListener("click", () => {
+    isMuted = !isMuted;
+
+    audioElements.forEach(audio => {
+      audio.pause();
+      audio.muted = isMuted;
+    });
+
+    // Jika unmute, play bgMusic ulang
+    if (!isMuted && bgMusic) {
+      bgMusic.play().catch(err => {
+        console.warn("Autoplay resume failed:", err);
+      });
+    }
+
+    // Ganti ikon dan class sesuai status mute
+    if (isMuted) {
+  volumeIcon.src = "https://cdn-icons-png.freepik.com/512/8510/8510221.png";
+  volumeIcon.style.width = "18px"; // ukuran khusus saat mute
+  volumeIcon.classList.remove("active-icon");
+  volumeIcon.classList.add("paused-icon");
+} else {
+  volumeIcon.src = "https://media1.tenor.com/m/I24RJusgsb0AAAAC/speaker-icon.gif";
+  volumeIcon.style.width = "30px"; // ukuran normal saat play
+  volumeIcon.classList.remove("paused-icon");
+  volumeIcon.classList.add("active-icon");
+
+  // 🔊 Mainkan suara openSound saat unmute
+  const openSound = document.getElementById("openSound");
+  if (openSound) {
+    openSound.currentTime = 0; // agar bisa diputar berulang
+    openSound.play().catch(err => {
+      console.warn("Gagal memutar openSound:", err);
+    });
+  }
+}
+
+
+
+
+
+    console.log(isMuted ? "Semua audio dimatikan." : "Semua audio diaktifkan kembali.");
+  });
+});
+
+
+  // Bunyi saat membuka/menutup <details> dan klik tombol Start
+  // Pastikan audio dimuat sebelum digunakan
+  if (!document.getElementById("openSound") || !document.getElementById("closeSound")) {
+    console.warn("Open/Close sound elements not found.");
+  }
+  if (!document.getElementById("startBtn")) {
+    console.warn("Start button not found.");
+  }
+  
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const openSound = document.getElementById("openSound");
+    const closeSound = document.getElementById("closeSound");
+
+    // Bunyi saat membuka/menutup <details>
+    document.querySelectorAll("details").forEach(detail => {
+      let wasOpen = detail.open;
+
+      detail.querySelector("summary").addEventListener("click", () => {
+        setTimeout(() => {
+          const isOpen = detail.open;
+          if (isOpen && !wasOpen) {
+            openSound.currentTime = 0;
+            openSound.play().catch(e => console.warn("Open audio error:", e));
+          } else if (!isOpen && wasOpen) {
+            closeSound.currentTime = 0;
+            closeSound.play().catch(e => console.warn("Close audio error:", e));
+          }
+          wasOpen = isOpen;
+        }, 10);
+      });
+    });
+
+function setAllAudioVolume(value) {
+  const volume = value / 100;
+  document.querySelectorAll("audio").forEach(audio => {
+    audio.volume = volume;
+  });
+}
+    // Bunyi saat klik tombol Start
+    const startBtn = document.getElementById("startBtn");
+    if (startBtn) {
+      startBtn.addEventListener("click", () => {
+        if (openSound) {
+          openSound.currentTime = 0;
+          openSound.play().catch(e => console.warn("Start button audio error:", e));
+        }
+      });
+    }
+  });
+  
+
+  // Animasi ulang saat detail dibuka
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("details").forEach(detail => {
+      detail.addEventListener("toggle", () => {
+        const section = detail.querySelector("section");
+        if (detail.open && section) {
+          section.style.animation = "none";
+          void section.offsetWidth;
+          section.style.animation = "fadeSlideIn 0.5s ease-in-out both";
+        }
+      });
+    });
+  });
+
+  
+  window.addEventListener("load", () => {
+    document.body.classList.add("page-loaded");
+  });
+
+  const startBtn = document.getElementById("startBtn");
+  const audioHello = document.getElementById("helloAudio");
+  const audioMeow = document.getElementById("meowAudio");
+  const preloader = document.getElementById("preloader");
+  const mainContent = document.getElementById("main-content");
+  const cat = document.getElementById("cat");
+  const callout = document.getElementById("callout");
+
+  function hidePreloader() {
+  preloader.style.opacity = 0;
+  setTimeout(() => {
+    preloader.style.display = "none";
+    mainContent.style.opacity = 1;
+    mainContent.style.display = "block";
+    mainContent.style.visibility = "visible";
+    document.body.style.overflow = "hidden";
+    document.body.style.overflowX = "hidden";
+    document.body.style.overflowY = "auto";
+    document.documentElement.style.overflowX = "hidden";
+    document.documentElement.style.overflowY = "auto";
+    window.scrollTo({top: 0, left: 0, behavior: "auto"});
+  }, 500);
+}
+
+
+
+
+
+
+  function startSequence() {
+    startBtn.style.opacity = "0";
+    startBtn.style.pointerEvents = "none";
+    window.scrollTo({top: 0, left: 0, behavior: "auto"});
+    setTimeout(() => {
+      audioHello.play().catch(err => console.warn("hello audio blocked:", err));
+    }, 1500);
+    setTimeout(() => {
+      audioMeow.play().catch(err => console.warn("meow audio blocked:", err));
+    }, 500);
+    cat.style.transform = "translateX(-120vw)";
+    callout.style.transform = "translateX(-120vw)";
+    setTimeout(hidePreloader, 3000);
+  }
+
+  
+
+  // Event click & touchend agar pasti jalan di iOS
+  startBtn.addEventListener("click", startSequence);
+  startBtn.addEventListener("touchend", function(e) {
+    e.preventDefault();
+    startSequence();
+  }, {passive: false});
+
+  // Fallback: jika audio gagal, tetap hilangkan preloader setelah 5 detik
+  setTimeout(() => {
+    if (preloader.style.display !== "none") {
+      hidePreloader();
+    }
+  }, 10000);
+  
+</script>
+</body>
+</html>
+

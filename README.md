@@ -33,9 +33,22 @@ This portfolio showcases **3+ years of QA engineering work** across **e-commerce
 
 ## 📂 Featured Projects
 
+### 🤖 AI-Assisted QA Innovation
+
+#### 1. [AI-Assisted QA Toolkit](./01-ai-assisted-qa-toolkit/)
+**Innovation:** Showcasing AI-powered QA capabilities through interactive HTML applications created entirely via AI prompting.
+
+**Solution:** Two sub-projects demonstrating prompt engineering, rapid prototyping, and AI collaboration skills essential for modern QA.
+
+**Impact:** Demonstrates ability to leverage AI for test documentation, training materials, and rapid UI prototyping.
+
+**Tech Stack:** Cursor AI, ChatGPT, HTML5, CSS3, JavaScript
+
+---
+
 ### 🏢 Professional Work Projects
 
-#### 1. [Regression Automation System](./01-regression-automation/)
+#### 2. [Regression Automation System](./01-regression-automation/)
 **Problem:** Manual regression tracking across multiple releases was time-consuming and error-prone.
 
 **Solution:** Built automated regression monitoring with Google Apps Script, integrating dashboards, notifications, and team chat webhooks.
@@ -46,7 +59,7 @@ This portfolio showcases **3+ years of QA engineering work** across **e-commerce
 
 ---
 
-#### 2. [JIRA Workflow Optimization Tool](./02-jira-optimization/)
+#### 3. [JIRA Workflow Optimization Tool](./02-jira-optimization/)
 **Problem:** QA team spent significant time on repetitive JIRA board management tasks.
 
 **Solution:** Developed custom Apps Script tool to automate board optimization, bulk updates, and workflow transitions.
@@ -57,7 +70,7 @@ This portfolio showcases **3+ years of QA engineering work** across **e-commerce
 
 ---
 
-#### 3. [Technical Documentation Samples](./03-documentation-samples/)
+#### 4. [Technical Documentation Samples](./03-documentation-samples/)
 **Problem:** Lack of standardized documentation for internal tools and processes.
 
 **Solution:** Created comprehensive guides for system account management, testing procedures, and tool usage.
@@ -68,7 +81,7 @@ This portfolio showcases **3+ years of QA engineering work** across **e-commerce
 
 ---
 
-#### 4. [E-commerce Test Templates](./04-test-templates/)
+#### 5. [E-commerce Test Templates](./04-test-templates/)
 **Problem:** Inconsistent test data formats across promotion features (Flash Sale, Vouchers).
 
 **Solution:** Designed standardized CSV templates with validation rules and usage guides.
@@ -81,35 +94,35 @@ This portfolio showcases **3+ years of QA engineering work** across **e-commerce
 
 ### 🎓 Learning & Skill Development Projects
 
-#### 5. [Web + API Automation Framework](./05-web-api-framework/)
+#### 6. [Web + API Automation Framework](./05-web-api-framework/)
 Unified test automation framework combining Web UI (Selenium) and API (Rest Assured) testing with Cucumber BDD and GitHub Actions CI/CD.
 
 **Highlights:** Dual testing capability, Page Object Model, automated CI/CD
 
 ---
 
-#### 6. [Cucumber UI Framework](./06-cucumber-ui-framework/)
+#### 7. [Cucumber UI Framework](./06-cucumber-ui-framework/)
 Focused UI automation framework demonstrating BDD with Cucumber, Selenium, and clean Page Object Model architecture.
 
 **Highlights:** BDD fundamentals, clean architecture, Gherkin scenarios
 
 ---
 
-#### 7. [Final Project Framework](./07-final-project-framework/)
+#### 8. [Final Project Framework](./07-final-project-framework/)
 Advanced automation framework with robust error handling, comprehensive test coverage, and production-ready implementation.
 
 **Highlights:** Advanced Selenium techniques, alert handling, E2E testing
 
 ---
 
-#### 8. [API Testing Basics](./08-api-testing-basics/)
+#### 9. [API Testing Basics](./08-api-testing-basics/)
 Foundational API automation with TestNG and Apache HTTP Client, demonstrating core API testing concepts.
 
 **Highlights:** TestNG setup, HTTP client usage, test organization
 
 ---
 
-#### 9. [Java Gradle Setup](./09-java-gradle-setup/)
+#### 10. [Java Gradle Setup](./09-java-gradle-setup/)
 Basic Java + Gradle project setup demonstrating build configuration and dependency management fundamentals.
 
 **Highlights:** Gradle configuration, project structure, dependency management
@@ -171,6 +184,6 @@ Basic Java + Gradle project setup demonstrating build configuration and dependen
 
 ---
 
-**Last Updated:** February 24, 2026  
-**Total Projects:** 9 (4 professional work + 5 learning projects)  
+**Last Updated:** February 18, 2026  
+**Total Projects:** 10 (1 AI-assisted + 4 professional work + 5 learning projects)  
 **Portfolio Status:** ✅ Published & Active

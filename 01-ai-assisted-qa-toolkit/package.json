@@ -1,0 +1,28 @@
+{
+  "name": "japanese-n5-learning-tests",
+  "version": "1.0.0",
+  "description": "Playwright tests for Japanese N5 learning tools",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report"
+  },
+  "keywords": [
+    "japanese",
+    "jlpt",
+    "n5",
+    "learning",
+    "quiz",
+    "playwright",
+    "testing"
+  ],
+  "author": "Bharata Aryaseta",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.10.0"
+  }
+}
+

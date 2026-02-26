@@ -39,6 +39,10 @@ qa-portfolio-bharata/
 ├── INTERACTIVE-GUIDE.md           # Portfolio management
 ├── PROJECT-PROGRESS.md            # Achievements & stats
 │
+├── 01-ai-assisted-qa-toolkit/     # AI Innovation
+│   ├── 02-japanese-n5-learning/   # Interactive learning tool
+│   └── 03-html-prompting-interfaces/ # Themed UI showcase
+│
 ├── 01-regression-automation/      # Professional Work
 ├── 02-jira-optimization/          # Professional Work
 ├── 03-documentation-samples/      # Professional Work
@@ -61,21 +65,28 @@ qa-portfolio-bharata/
 
 ## 🎯 Key Features
 
-### 1. **Professional Work Projects (01-04)**
+### 1. **AI-Assisted QA Innovation (01)**
+Cutting-edge AI integration demonstrating modern QA capabilities:
+- Interactive learning tools created via AI prompting
+- Themed UI interfaces for rapid prototyping
+- Prompt engineering for test documentation
+- Zero-dependency standalone applications
+
+### 2. **Professional Work Projects (01-04)**
 Real-world QA solutions from e-commerce and fintech experience:
 - Regression automation with AI integration
 - JIRA workflow optimization tools
 - Technical documentation standards
 - E-commerce test templates
 
-### 2. **Learning Projects (05-09)**
+### 3. **Learning Projects (05-09)**
 Skill development projects from bootcamp training:
 - Full-stack automation frameworks
 - BDD/Cucumber implementations
 - API testing foundations
 - Build tool configurations
 
-### 3. **Interactive Portfolio System**
+### 4. **Interactive Portfolio System**
 Hybrid menu-style system for portfolio management:
 - Auto-updating progress tracking
 - Command history logging
@@ -87,8 +98,11 @@ Hybrid menu-style system for portfolio management:
 ## 💡 Common Use Cases
 
 ### For Recruiters/Visitors
-**"I want to see your best work"**
-→ Check [01-regression-automation](./01-regression-automation/) for AI-powered automation
+**"I want to see your AI skills"**
+→ Check [01-ai-assisted-qa-toolkit](./01-ai-assisted-qa-toolkit/) for AI-powered innovation
+
+**"Show me your best work"**
+→ Check [01-regression-automation](./01-regression-automation/) for production automation
 
 **"Show me your automation skills"**
 → Browse projects 05-09 for framework implementations
@@ -122,7 +136,8 @@ Hybrid menu-style system for portfolio management:
 
 | Metric | Value |
 |--------|-------|
-| **Total Projects** | 9 |
+| **Total Projects** | 10 |
+| **AI-Assisted Projects** | 1 parent (2 sub-projects) |
 | **Professional Work** | 4 projects |
 | **Learning Projects** | 5 projects |
 | **Years of Experience** | 3+ years |
@@ -160,5 +175,5 @@ Projects 05-09 were developed during professional bootcamp training and represen
 ---
 
 **Created:** February 18, 2026  
-**Last Updated:** February 24, 2026  
-**Version:** 2.0 (Reorganized)
+**Last Updated:** February 18, 2026  
+**Version:** 2.1 (AI Projects Added)

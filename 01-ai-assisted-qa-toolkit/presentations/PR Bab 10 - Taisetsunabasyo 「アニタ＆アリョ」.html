@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>朝ごはん - アニタ＆アリョ</title>
+  <style>
+  body {
+    font-family: 'Meiryo', 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(180deg, #f8f6ff 0%, #f3e9ff 100%);
+    color: #4a3f2a;
+    font-size: 18px;
+    line-height: 2;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s, transform 0.8s;
+    overflow: hidden;
+  }
+  body.page-loaded {
+    opacity: 1;
+    transform: translateY(0);
+    overflow-y: auto;
+  }
+  #preloader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, #f8f6ff 60%, #e9d6ff 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s;
+  }
+  #startBtn {
+    background: linear-gradient(90deg, #d7b2f2, #f8cdda, #b6a4f7);
+    color: #fff;
+    border: none;
+    font-size: 1.4em;
+    padding: 0.8em 1.5em;
+    border-radius: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 16px #b6a4f733;
+    transition: opacity 0.6s, transform 0.2s;
+    margin-top: 1.5em;
+    letter-spacing: 1px;
+  }
+  #startBtn:hover {
+    transform: scale(1.07);
+    background: linear-gradient(90deg, #d7b2f2, #f8cdda, #ffd5a4);
+  }
+  #cat {
+    position: absolute;
+    bottom: 60px;
+    right: -110px;
+    width: 100px;
+    z-index: 10000;
+    transition: transform 10s linear;
+    filter: drop-shadow(0 4px 12px #d7b2f244);
+  }
+  #callout {
+    position: absolute;
+    bottom: 160px;
+    right: -200px;
+    background: #f8f6ff;
+    border: 2px solid #d7b2f2;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #7c3f8b;
+    box-shadow: 2px 2px 12px #d7b2f233;
+    transition: transform 10s linear;
+    z-index: 10001;
+  }
+  #main-content {
+    opacity: 0;
+    transition: opacity 0.8s;
+    padding: 0 20px 40px 20px;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: repeating-linear-gradient(0deg, #d7b2f222, #d7b2f222 1px, transparent 1px, transparent 3px);
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 1;
+    animation: scanline-fadeout 1.5s ease-out forwards;
+  }
+  @keyframes scanline-fadeout {
+    0% { opacity: 1; transform: scaleY(1.2); filter: brightness(1.1) contrast(1.1); }
+    100% { opacity: 0; transform: scaleY(1); filter: none; }
+  }
+  details {
+    margin-bottom: 32px;
+    border: none;
+    border-radius: 12px;
+    background: #fcf9ff;
+    box-shadow: 0 2px 12px #d7b2f222;
+    overflow: hidden;
+  }
+  details[open] section {
+    animation: fadeSlideIn 0.5s ease-in-out both;
+  }
+  @keyframes fadeSlideIn {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  summary {
+    cursor: pointer;
+    padding: 18px 28px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #7c3f8b;
+    background: linear-gradient(to right, #f8f6ff, #d7b2f2);
+    border: 1px solid #d7b2f2;
+    border-radius: 10px;
+    margin: 0;
+    transition: background 0.3s, box-shadow 0.2s;
+    display: block;
+    box-shadow: 0 1px 6px #d7b2f222;
+  }
+  summary:hover {
+    background: linear-gradient(to right, #f8f6ff, #d7b2f2, #f8cdda);
+    box-shadow: 0 0 12px #d7b2f233;
+  }
+  summary::marker { display: none; }
+  summary::after {
+    content: '💜';
+    float: right;
+    font-size: 1.1em;
+    margin-left: 10px;
+    transition: transform 0.2s;
+  }
+  details[open] summary::after {
+    transform: rotate(180deg);
+    content: '⭐';
+  }
+  h1 {
+    text-align: center;
+    color: #7c3f8b;
+    margin-bottom: 2em;
+    font-size: 2em;
+    background: linear-gradient(to right, #f8f6ff, #d7b2f2, #ffd5a4);
+    padding: 0.7em;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px #d7b2f233;
+    letter-spacing: 1px;
+  }
+  section {
+    background: #fcf9ff;
+    padding: 28px 32px;
+    margin-bottom: 44px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px #d7b2f222;
+    border-left: 10px solid #d7b2f2;
+  }
+  h2 {
+    font-size: 1.3em;
+    color: #7c3f8b;
+    border-left: 8px solid #a173b3;
+    padding-left: 14px;
+    margin-bottom: 1em;
+    background: linear-gradient(to right, #f8f6ff, #f3e9ff);
+    border-radius: 6px;
+  }
+  h3 {
+    font-size: 1.1em;
+    color: #b06fc7;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px dashed #d7b2f2;
+    padding-bottom: 4px;
+  }
+  p, ul {
+    margin-bottom: 1.2em;
+    text-align: justify;
+  }
+  ruby rt {
+    font-size: 0.7em;
+    color: #b06fc7;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5em;
+    background: #f8f6ff;
+    border: 1px solid #d7b2f2;
+    font-size: 1em;
+    box-shadow: 0 2px 8px #d7b2f222;
+  }
+  th {
+    background: #d7b2f2;
+    color: #7c3f8b;
+    padding: 12px;
+    border: 1px solid #a173b3;
+    font-weight: bold;
+  }
+  td {
+    padding: 10px 12px;
+    border: 1px solid #e2d6e6;
+    background: #fcf9ff;
+  }
+  .romaji {
+    font-style: italic;
+    color: #b06fc7;
+  }
+  .translation {
+    color: #7c3f8b;
+  }
+  strong {
+    color: #b06fc7;
+  }
+  ul.romaji li,
+  ul.translation li {
+    margin-bottom: 0.5em;
+  }
+  </style>
+</head>
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+      <img id="cat" src="https://media.tenor.com/QOu7BsEBzC8AAAAi/cat-roll.gif" alt="Cat" />
+      <div id="callout">こんにちは！</div>
+      <button id="startBtn">こんにちは！</button>
+  </div>
+
+  <!-- Audio: Sapaan -->
+  <audio id="helloAudio" src="https://www.myinstants.com/media/sounds/yuru-camp-konnichiwa.mp3" preload="auto"></audio>
+  <!-- Audio: Suara efek kucing rolling -->
+  <audio id="meowAudio" src="https://cdn.pixabay.com/download/audio/2025/06/01/audio_1beeb1dd37.mp3?filename=cute-cat-352656.mp3" preload="auto"></audio>
+
+  <div id="main-content" style="opacity:0; overflow-x:hidden;">
+    <h1><ruby>大切<rt>たいせつ</rt></ruby>の<ruby>場所<rt>ばしょ</rt></ruby> - ユニット9</h1>
+
+    <!-- Audio untuk membuka -->
+    <audio id="openSound" src="https://cdn.pixabay.com/download/audio/2025/05/05/audio_31c3ec2ec0.mp3?filename=video-game-select-337214.mp3" preload="auto"></audio>
+    <!-- Audio untuk menutup -->
+    <audio id="closeSound" src="https://cdn.pixabay.com/download/audio/2025/06/13/audio_c26d6e1573.mp3?filename=ui-sounds-pack-3-14-359717.mp3" preload="auto"></audio>
+
+    <!--bagian 1-->
+<details>
+      <summary>① <ruby>言葉<rt>ことば</rt></ruby> - Kotoba (Kosakata)</summary>
+      <section>
+
+        <!-- isi bagian 1 -->
+ <h2>① <ruby>言葉<rt>ことば</rt></ruby> - Kosakata</h2>
+
+ 
+  <table>
+    <thead>
+      <tr>
+        <th>日本語</th>
+        <th>ふりがな</th>
+        <th>インドネシア語</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><ruby>大学<rt>だいがく</rt></ruby></td><td>だいがく</td><td>universitas</td></tr>
+      <tr><td><ruby>休<rt>やす</rt></ruby>みます</td><td>やすみます</td><td>beristirahat</td></tr>
+      <tr><td><ruby>親切<rt>しんせつ</rt></ruby>な</td><td>しんせつな</td><td>baik hati</td></tr>
+      <tr><td><ruby>昼<rt>ひる</rt></ruby></td><td>ひる</td><td>siang</td></tr>
+      <tr><td><ruby>考<rt>かんが</rt></ruby>えます</td><td>かんがえます</td><td>memikirkan</td></tr>
+      <tr><td><ruby>近<rt>ちか</rt></ruby>く</td><td>ちかく</td><td>dekat</td></tr>
+      <tr><td><ruby>古<rt>ふる</rt></ruby>い</td><td>ふるい</td><td>lama</td></tr>
+      <tr><td><ruby>国<rt>くに</rt></ruby></td><td>くに</td><td>negara</td></tr>
+      <tr><td><ruby>賑<rt>にぎ</rt></ruby>やかな</td><td>にぎやかな</td><td>ramai</td></tr>
+      <tr><td><ruby>大切<rt>たいせつ</rt></ruby>な</td><td>たいせつな</td><td>berharga/penting</td></tr>
+      <tr><td><ruby>喫茶店<rt>きっさてん</rt></ruby></td><td>きっさてん</td><td>kedai kopi</td></tr>
+      <tr><td><ruby>店<rt>みせ</rt></ruby></td><td>みせ</td><td>toko</td></tr>
+      <tr><td><ruby>父<rt>ちち</rt></ruby></td><td>ちち</td><td>ayah</td></tr>
+      <tr><td><ruby>夕方<rt>ゆうがた</rt></ruby></td><td>ゆうがた</td><td>sore</td></tr>
+      <tr><td><ruby>場所<rt>ばしょ</rt></ruby></td><td>ばしょ</td><td>tempat</td></tr>
+      <tr><td><ruby>授業<rt>じゅぎょう</rt></ruby></td><td>じゅぎょう</td><td>pelajaran</td></tr>
+      <tr><td><ruby>マスター</ruby></td><td>マスター</td><td>pemilik (toko kopi)</td></tr>
+      <tr><td><ruby>思<rt>おも</rt></ruby>い<ruby>出<rt>だ</rt></ruby>します</td><td>おもいだします</td><td>mengingat</td></tr>
+      <tr><td><ruby>音楽<rt>おんがく</rt></ruby></td><td>おんがく</td><td>musik</td></tr>
+      <tr><td><ruby>疲<rt>つか</rt></ruby>れます</td><td>つかれます</td><td>lelah</td></tr>
+      <tr><td><ruby>元気<rt>げんき</rt></ruby>な</td><td>げんきな</td><td>sehat, bertenaga</td></tr>
+      <tr><td><ruby>心配<rt>しんぱい</rt></ruby>な</td><td>しんぱいな</td><td>khawatir</td></tr>
+      <tr><td><ruby>聞<rt>き</rt></ruby>きます</td><td>ききます</td><td>mendengarkan</td></tr>
+    </tbody>
+  </table>
+</section>
+</details>
+
+
+
+
+<!--bagian 2-->
+<details>
+  <summary>② <ruby>チン<rt>ちん</rt></ruby>さんの<ruby>ストーリー</ruby> - Cerita Utama</summary>
+  <section>
+
+ <!-- isi bagian 2 -->
+    <h2>② <ruby>チン<rt>ちん</rt></ruby>さんの<ruby>ストーリー</ruby>（<ruby>喫茶店<rt>きっさてん</rt></ruby>「<ruby>ムーンライト<rt>むーんらいと</rt></ruby>」）</h2>
+
+  <h3>【日本語】- nihon go</h3>
+  <p>
+    <ruby>私<rt>わたし</rt></ruby>は、よく、<ruby>大学<rt>だいがく</rt></ruby>の<ruby>近<rt>ちか</rt></ruby>くの<ruby>喫茶店<rt>きっさてん</rt></ruby>「<ruby>ムーンライト<rt>むーんらいと</rt></ruby>」へ<ruby>行<rt>い</rt></ruby>きます。<ruby>大学<rt>だいがく</rt></ruby>の<ruby>授業<rt>じゅぎょう</rt></ruby>は<ruby>大変<rt>たいへん</rt></ruby>です。<ruby>毎日<rt>まいにち</rt></ruby>、たくさん<ruby>勉強<rt>べんきょう</rt></ruby>します。とても<ruby>疲<rt>つか</rt></ruby>れます。「<ruby>ムーンライト<rt>むーんらいと</rt></ruby>」で<ruby>休<rt>やす</rt></ruby>みます。
+  </p>
+  <p>
+    「<ruby>ムーンライト<rt>むーんらいと</rt></ruby>」は<ruby>古<rt>ふる</rt></ruby>い<ruby>喫茶店<rt>きっさてん</rt></ruby>です。<ruby>店<rt>みせ</rt></ruby>の<ruby>マスター<rt>ますたー</rt></ruby>は73<ruby>歳<rt>さい</rt></ruby>です。でも、とても<ruby>元気<rt>げんき</rt></ruby>です。そして、<ruby>親切<rt>しんせつ</rt></ruby>です。<ruby>私<rt>わたし</rt></ruby>は<ruby>国<rt>くに</rt></ruby>の<ruby>父<rt>ちち</rt></ruby>を<ruby>思<rt>おも</rt></ruby>い<ruby>出<rt>だ</rt></ruby>します。<ruby>父<rt>ちち</rt></ruby>は<ruby>最近<rt>さいきん</rt></ruby>、あまり<ruby>元気<rt>げんき</rt></ruby>じゃありません。<ruby>私<rt>わたし</rt></ruby>は<ruby>心配<rt>しんぱい</rt></ruby>です。
+  </p>
+  <p>
+    「<ruby>ムーンライト<rt>むーんらいと</rt></ruby>」は<ruby>昼<rt>ひる</rt></ruby>、<ruby>賑<rt>にぎ</rt></ruby>やかです。でも、<ruby>夕方<rt>ゆうがた</rt></ruby>、<ruby>静<rt>しず</rt></ruby>かです。<ruby>私<rt>わたし</rt></ruby>はいつも5<ruby>時<rt>じ</rt></ruby>ごろ<ruby>行<rt>い</rt></ruby>きます。<ruby>熱<rt>あつ</rt></ruby>い<ruby>コーヒー<rt>こーひー</rt></ruby>を<ruby>飲<rt>の</rt></ruby>みます。そして、<ruby>静<rt>しず</rt></ruby>かな<ruby>音楽<rt>おんがく</rt></ruby>を<ruby>聞<rt>き</rt></ruby>きます。<ruby>何<rt>なに</rt></ruby>も<ruby>考<rt>かんが</rt></ruby>えません。
+  </p>
+  <p>
+    「<ruby>ムーンライト<rt>むーんらいと</rt></ruby>」は<ruby>私<rt>わたし</rt></ruby>の<ruby>大切<rt>たいせつ</rt></ruby>な<ruby>場所<rt>ばしょ</rt></ruby>です。
+  </p>
+
+  <h3>【ローマ字】- Romaji</h3>
+  <p class="romaji">
+    Watashi wa, yoku, daigaku no chikaku no kissaten "Moonlight" e ikimasu. Daigaku no jugyou wa taihen desu. Mainichi, takusan benkyou shimasu. Totemo tsukaremasu. "Moonlight" de yasumimasu.
+  </p>
+  <p class="romaji">
+    "Moonlight" wa furui kissaten desu. Mise no masutā wa nanajuu san-sai desu. Demo, totemo genki desu. Soshite, shinsetsu desu. Watashi wa kuni no chichi o omoidasu koto ga arimasu. Chichi wa saikin, amari genki ja arimasen. Watashi wa shinpai desu.
+  </p>
+  <p class="romaji">
+    "Moonlight" wa hiru, nigiyaka desu. Demo, yuugata, shizuka desu. Watashi wa itsumo go-ji goro ikimasu. Atsui koohii o nomimasu. Soshite, shizuka na ongaku o kikimasu. Nani mo kangaemasen.
+  </p>
+  <p class="romaji">
+    "Moonlight" wa watashi no taisetsu na basho desu.
+  </p>
+
+  <h3>【インドネシア語】Indonesia go</h3>
+  <p class="translation">
+    Saya sering pergi ke kedai kopi "Moonlight" di dekat kampus. Kuliah di kampus itu berat. Setiap hari saya belajar banyak. Sangat melelahkan. Saya beristirahat di "Moonlight".
+  </p>
+  <p class="translation">
+    "Moonlight" adalah kedai kopi yang tua. Pemilik tokonya berusia 73 tahun. Tapi dia sangat sehat dan ramah. Saya teringat pada ayah saya di kampung halaman. Ayah saya belakangan ini kurang sehat. Saya khawatir.
+  </p>
+  <p class="translation">
+    Di siang hari, "Moonlight" ramai. Tapi pada sore hari, tenang. Saya biasanya datang sekitar jam 5. Saya minum kopi panas. Lalu saya mendengarkan musik tenang. Saya tidak memikirkan apa pun.
+  </p>
+  <p class="translation">
+    "Moonlight" adalah tempat yang penting bagi saya.
+  </p>
+  </section>
+</details>
+
+
+<!--bagian 3 -->
+<details>
+  <summary>③ Q＆A</summary>
+  <section>
+
+
+<!-- isi bagian 3 -->
+   <h2>③ Q＆A</h2>
+
+  <h3>【日本語】- nihon go</h3>
+  <p>
+    <strong>Q1：</strong><ruby>チン<rt>ちん</rt></ruby>さんの<ruby>大学<rt>だいがく</rt></ruby>の<ruby>授業<rt>じゅぎょう</rt></ruby>はどうですか。<br>
+    <strong>A1：</strong><ruby>大変<rt>たいへん</rt></ruby>です。<ruby>毎日<rt>まいにち</rt></ruby>、たくさん<ruby>勉強<rt>べんきょう</rt></ruby>します。
+  </p>
+  <p>
+    <strong>Q2：</strong>「<ruby>ムーンライト<rt>むーんらいと</rt></ruby>」の<ruby>マスター<rt>ますたー</rt></ruby>は<ruby>元気<rt>げんき</rt></ruby>ですか。<br>
+    <strong>A2：</strong><ruby>はい</ruby>、とても<ruby>元気</ruby>です。
+  </p>
+  <p>
+    <strong>Q3：</strong><ruby>チン</ruby>さんの<ruby>お父<rt>とう</rt></ruby>さんは<ruby>最近<rt>さいきん</rt></ruby>、どうですか。<br>
+    <strong>A3：</strong>あまり<ruby>元気</ruby>じゃありません。
+  </p>
+  <p>
+    <strong>Q4：</strong>「<ruby>ムーンライト</ruby>」は<ruby>昼<rt>ひる</rt></ruby>、<ruby>賑<rt>にぎ</rt></ruby>やかですか。<br>
+    <strong>A4：</strong><ruby>はい</ruby>、<ruby>賑</ruby>やかです。
+  </p>
+  <p>
+    <strong>Q5：</strong><ruby>夕方<rt>ゆうがた</rt></ruby>も<ruby>賑</ruby>やかですか。<br>
+    <strong>A5：</strong><ruby>いいえ</ruby>、<ruby>賑</ruby>やかじゃありません。<ruby>静<rt>しず</rt></ruby>かです。
+  </p>
+
+  <h3>【ローマ字】- Romaji</h3>
+  <p>
+    <strong>Q1:</strong> Chin-san no daigaku no jugyou wa dou desu ka?<br>
+    <strong>A1:</strong> Taihen desu. Mainichi, takusan benkyou shimasu.
+  </p>
+  <p>
+    <strong>Q2:</strong> "Moonlight" no masutā wa genki desu ka?<br>
+    <strong>A2:</strong> Hai, totemo genki desu.
+  </p>
+  <p>
+    <strong>Q3:</strong> Chin-san no otousan wa saikin, dou desu ka?<br>
+    <strong>A3:</strong> Amari genki ja arimasen.
+  </p>
+  <p>
+    <strong>Q4:</strong> "Moonlight" wa hiru, nigiyaka desu ka?<br>
+    <strong>A4:</strong> Hai, nigiyaka desu.
+  </p>
+  <p>
+    <strong>Q5:</strong> Yuugata mo nigiyaka desu ka?<br>
+    <strong>A5:</strong> Iie, nigiyaka ja arimasen. Shizuka desu.
+  </p>
+
+  <h3>【インドネシア語】- Indonesia go</h3>
+  <p>
+    <strong>P1:</strong> Bagaimana kuliah Chin-san di kampus?<br>
+    <strong>J1:</strong> Berat. Setiap hari dia belajar banyak.
+  </p>
+  <p>
+    <strong>P2:</strong> Apakah pemilik "Moonlight" sehat?<br>
+    <strong>J2:</strong> Ya, sangat sehat.
+  </p>
+  <p>
+    <strong>P3:</strong> Bagaimana kondisi ayah Chin-san akhir-akhir ini?<br>
+    <strong>J3:</strong> Kurang sehat.
+  </p>
+  <p>
+    <strong>P4:</strong> Apakah "Moonlight" ramai di siang hari?<br>
+    <strong>J4:</strong> Ya, ramai.
+  </p>
+  <p>
+    <strong>P5:</strong> Apakah juga ramai di sore hari?<br>
+    <strong>J5:</strong> Tidak, tidak ramai. Tenang.
+  </p>
+  </section>
+</details>
+
+
+
+
+<!--bagian 4-->
+<details>
+  <summary>④ <ruby>質問<rt>しつもん</rt></ruby>に<ruby>答<rt>こた</rt></ruby>えましょう</summary>
+<section>
+  <h2>④ <ruby>質問<rt>しつもん</rt></ruby>に<ruby>答<rt>こた</rt></ruby>えましょう</h2>
+
+  <h3>【日本語】- nihon go</h3>
+  <p>
+    <strong>1：</strong><ruby>あなた</ruby>の<ruby>大切<rt>たいせつ</rt></ruby>な<ruby>場所<rt>ばしょ</rt></ruby>はどこですか。<br>
+    <strong>A：</strong><ruby>日本<rt>にほん</rt></ruby>です。<ruby>日本</ruby>が<ruby>好<rt>す</rt></ruby>きです。
+  </p>
+  <p>
+    <strong>2：</strong>そこはどんな<ruby>場所<rt>ばしょ</rt></ruby>ですか。<br>
+    <strong>A：</strong><ruby>綺麗<rt>きれい</rt></ruby>な<ruby>場所</ruby>です。そこはたくさん<ruby>賑<rt>にぎ</rt></ruby>やかな<ruby>場所</ruby>です。
+  </p>
+  <p>
+    <strong>3：</strong><ruby>あなた</ruby>はそこで<ruby>何<rt>なに</rt></ruby>をしますか。<br>
+    <strong>A：</strong>いろいろします。でも、<ruby>私<rt>わたし</rt></ruby>の<ruby>大切</ruby>な<ruby>場所</ruby>は<ruby>秋葉原<rt>あきはばら</rt></ruby>と<ruby>新宿公園<rt>しんじゅくこうえん</rt></ruby>です。
+  </p>
+
+  <h3>【ローマ字】- Romaji</h3>
+  <p>
+    <strong>1:</strong> Anata no taisetsu na basho wa doko desu ka?<br>
+    <strong>A:</strong> Nihon desu. Nihon ga suki desu.
+  </p>
+  <p>
+    <strong>2:</strong> Soko wa donna basho desu ka?<br>
+    <strong>A:</strong> Kirei na basho desu. Soko wa takusan nigiyaka na basho desu.
+  </p>
+  <p>
+    <strong>3:</strong> Anata wa soko de nani o shimasu ka?<br>
+    <strong>A:</strong> Iroiro shimasu. Demo, watashi no taisetsu na basho wa Akihabara to Shinjuku Kouen desu.
+  </p>
+
+  <h3>【インドネシア語】- Indonesia go</h3>
+  <p>
+    <strong>1:</strong> Tempat yang penting bagimu di mana?<br>
+    <strong>J:</strong> Di Jepang. Saya suka Jepang.
+  </p>
+  <p>
+    <strong>2:</strong> Seperti apa tempat itu?<br>
+    <strong>J:</strong> Tempatnya indah. Itu adalah tempat yang ramai.
+  </p>
+  <p>
+    <strong>3:</strong> Apa yang kamu lakukan di sana?<br>
+    <strong>J:</strong> Saya melakukan banyak hal. Tapi, tempat penting saya adalah Akihabara dan Taman Shinjuku.
+  </p>
+</section>
+</details>
+
+<!--bagian 5-->
+<details>
+  <summary>⑤ <ruby>話<rt>はな</rt></ruby>しましょう・<ruby>書<rt>か</rt></ruby>きましょう</summary>
+<section>
+  <h2>⑤ <ruby>話<rt>はな</rt></ruby>しましょう・<ruby>書<rt>か</rt></ruby>きましょう</h2>
+
+  <h3>【日本語】- nihon go</h3>
+  <p>
+    <strong>Q：</strong><ruby>あなた</ruby>の<ruby>大切<rt>たいせつ</rt></ruby>な<ruby>場所<rt>ばしょ</rt></ruby>や、よく<ruby>行<rt>い</rt></ruby>く<ruby>場所</ruby>について<ruby>話<rt>はな</rt></ruby>してください。
+  </p>
+  <p>
+    <strong>1：</strong><ruby>モール</ruby>は<ruby>大切</ruby>な<ruby>場所</ruby>です。よく<ruby>モール</ruby>へ<ruby>行</ruby>きます。いろいろな<ruby>物<rt>もの</rt></ruby>を<ruby>見<rt>み</rt></ruby>ます。いつも<ruby>妻<rt>つま</rt></ruby>と<ruby>車<rt>くるま</rt></ruby>で<ruby>行</ruby>きます。<ruby>モール</ruby>の<ruby>食<rt>た</rt></ruby>べ<ruby>物<rt>もの</rt></ruby>はいつも<ruby>美味<rt>おい</rt></ruby>しいです。あまり<ruby>安<rt>やす</rt></ruby>くないです。そして、<ruby>私<rt>わたし</rt></ruby>たちはすこし<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>をします。
+  </p>
+
+  <h3>【ローマ字】- Romaji</h3>
+  <p>
+    <strong>Q:</strong> Anata no taisetsu na basho ya, yoku iku basho ni tsuite hanashite kudasai.
+  </p>
+  <p>
+    <strong>1:</strong> Mōru wa taisetsu na basho desu. Yoku mōru e ikimasu. Iroiro na mono o mimasu. Itsumo tsuma to kuruma de ikimasu. Mōru no tabemono wa itsumo oishii desu. Amari yasukunai desu. Soshite, watashitachi wa sukoshi kaimono o shimasu.
+  </p>
+
+  <h3>【インドネシア語】- Indonesia go</h3>
+  <p>
+    <strong>P:</strong> Ceritakan tentang tempat penting atau tempat yang sering kamu kunjungi.
+  </p>
+  <p>
+    <strong>1:</strong> Mal adalah tempat yang penting. Saya sering pergi ke mal. Saya melihat berbagai macam barang. Saya selalu pergi bersama istri saya naik mobil. Makanan di mal selalu enak. Tidak terlalu murah. Dan kami belanja sedikit.
+  </p>
+</section>
+</details>
+
+
+<!--bagian 6-->
+<details>
+  <summary>⑥ <ruby>ちょっと</ruby><ruby>文法<rt>ぶんぽう</summary>
+<section>
+  <h2>⑥ <ruby>ちょっと</ruby><ruby>文法<rt>ぶんぽう</rt></ruby></h2>
+
+  <h3>【日本語】- nihon go</h3>
+  <ul>
+    <li><ruby>大学<rt>だいがく</rt></ruby>の<ruby>授業<rt>じゅぎょう</rt></ruby>は<ruby>大変<rt>たいへん</rt></ruby>です。</li>
+    <li><ruby>父<rt>ちち</rt></ruby>は<ruby>元気<rt>げんき</rt></ruby>じゃありません。</li>
+  </ul>
+
+  <h3>【ローマ字】- Romaji</h3>
+  <ul>
+    <li>Daigaku no jugyō wa taihen desu.</li>
+    <li>Chichi wa genki ja arimasen.</li>
+  </ul>
+
+  <h3>【インドネシア語】- Indonesia go</h3>
+  <ul>
+    <li>Perkuliahan di universitas itu berat.</li>
+    <li>Ayah saya kurang sehat.</li>
+  </ul>
+</section>
+</details>
+
+
+
+<!-- Script -->
+<script>
+  window.onerror = function(msg, src, line, col, err) {
+    alert('JS Error: ' + msg + '\n' + src + ':' + line + ':' + col);
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const openSound = document.getElementById("openSound");
+    const closeSound = document.getElementById("closeSound");
+
+    document.querySelectorAll("details").forEach(detail => {
+      let wasOpen = detail.open;
+
+      detail.querySelector("summary").addEventListener("click", () => {
+        setTimeout(() => {
+          const isOpen = detail.open;
+          if (isOpen && !wasOpen) {
+            openSound.currentTime = 0;
+            openSound.play().catch(e => console.warn("Open audio error:", e));
+          } else if (!isOpen && wasOpen) {
+            closeSound.currentTime = 0;
+            closeSound.play().catch(e => console.warn("Close audio error:", e));
+          }
+          wasOpen = isOpen;
+        }, 10);
+      });
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("details").forEach(detail => {
+      detail.addEventListener("toggle", () => {
+        const section = detail.querySelector("section");
+        if (detail.open && section) {
+          section.style.animation = "none";
+          void section.offsetWidth;
+          section.style.animation = "fadeSlideIn 0.5s ease-in-out both";
+        }
+      });
+    });
+  });
+
+  window.addEventListener("load", () => {
+    document.body.classList.add("page-loaded");
+  });
+
+  const startBtn = document.getElementById("startBtn");
+  const audioHello = document.getElementById("helloAudio");
+  const audioMeow = document.getElementById("meowAudio");
+  const preloader = document.getElementById("preloader");
+  const mainContent = document.getElementById("main-content");
+  const cat = document.getElementById("cat");
+  const callout = document.getElementById("callout");
+
+  function hidePreloader() {
+    preloader.style.opacity = 0;
+    setTimeout(() => {
+      preloader.style.display = "none";
+      mainContent.style.opacity = 1;
+      mainContent.style.display = "block";
+      mainContent.style.visibility = "visible";
+      document.body.style.overflow = "hidden";
+      document.body.style.overflowX = "hidden";
+      document.body.style.overflowY = "auto";
+      document.documentElement.style.overflowX = "hidden";
+      document.documentElement.style.overflowY = "auto";
+      window.scrollTo({top: 0, left: 0, behavior: "auto"});
+    }, 500);
+  }
+
+  function startSequence() {
+    startBtn.style.opacity = "0";
+    startBtn.style.pointerEvents = "none";
+    window.scrollTo({top: 0, left: 0, behavior: "auto"});
+    setTimeout(() => {
+      audioHello.play().catch(err => console.warn("hello audio blocked:", err));
+    }, 1500);
+    setTimeout(() => {
+      audioMeow.play().catch(err => console.warn("meow audio blocked:", err));
+    }, 500);
+    cat.style.transform = "translateX(-120vw)";
+    callout.style.transform = "translateX(-120vw)";
+    setTimeout(hidePreloader, 3000);
+  }
+
+  // Event click & touchend agar pasti jalan di iOS
+  startBtn.addEventListener("click", startSequence);
+  startBtn.addEventListener("touchend", function(e) {
+    e.preventDefault();
+    startSequence();
+  }, {passive: false});
+
+  // Fallback: jika audio gagal, tetap hilangkan preloader setelah 5 detik
+  setTimeout(() => {
+    if (preloader.style.display !== "none") {
+      hidePreloader();
+    }
+  }, 10000);
+</script>
+</body>
+</html>
+
