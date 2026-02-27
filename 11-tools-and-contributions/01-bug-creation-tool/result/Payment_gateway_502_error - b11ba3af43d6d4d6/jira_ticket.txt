@@ -1,0 +1,83 @@
+*Summary*:
+Can't place order in ID Staging unless using COD payment - Payment gateway returns 502 Bad Gateway error
+
+*Configuration*:
+- app / os version: Chrome on Mac OS X
+- env (test, staging, live) and country info: Staging, ID
+- pfb build: n/a
+- account (user / id): user_id=5216310904
+- toggles: none
+
+*Impact*
+- user impact summary: All users in ID Staging cannot place orders using non-COD payment methods (Credit Card, Debit Card, ShopeePay, etc.). Only COD payment works. This blocks the entire checkout flow for digital payments.
+- test impact summary: QA team cannot test any payment-related features in ID Staging. All payment method verification, payment promotions, and transaction flows are blocked.
+- any workaround: Use COD (Cash on Delivery) as payment method
+
+*Reproducible Steps*
+1. Login to ID Staging environment (staging.shopee.co.id)
+2. Add items to cart (e.g., item_id: 943427735, 943426958)
+3. Go to checkout page
+4. Select any non-COD payment method (e.g., Credit Card - channel_id: 80030)
+5. Click "Place Order"
+
+*Expected Result*
+- Order should be placed successfully
+- Payment verification should pass
+- User should be redirected to payment page or order confirmation
+
+*Actual*
+- Checkout fails with error: "Some product information in your order has been updated, please go back and try again."
+- Error code: 35400002 (error_other_service)
+- Payment channel verification fails with 502 Bad Gateway
+- TraceID: b11ba3af43d6d4d6bc772eb6442d1e00 (18 Nov 2025, 12:23:54 ID time)
+
+*Evidence and Troubleshooting*
+[x] trace link (_show_debug_info=2)
+[x] log URL from log platform
+[ ] screenshot / video (attach file)
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue
+
+**Root Cause:**
+ShopeePay Gateway (SPM) service is unreachable in ID Staging environment. The payment verification service (mpp-bridgeapi) attempts to call SPM API to verify the chosen payment channel, but receives HTTP 502 Bad Gateway error from nginx, indicating the upstream service is down or not responding.
+
+**Technical Details:**
+- Service: `mpp-bridgeapi-staging-id` → `ShopeePay Gateway (SPM)`
+- Failed API: `https://gw0.pps.i.staging.shopeepay.co.id/api/get_payment_channel/`
+- Error: `502 Bad Gateway - Connect Upstream Failed`
+- SPEX Error Code: `19300999` (ERROR_UNKNOWN)
+- Checkout Error Code: `35400002` (error_other_service)
+
+**Error Chain:**
+1. User clicks "Place Order" with payment channel 80030 (Credit Card)
+2. `mpcheckout-core` calls `payment.mpp.bridge_api.verify_chosen_payment_channel_v2`
+3. `mpp-bridgeapi` calls SPM API: `POST https://gw0.pps.i.staging.shopeepay.co.id/api/get_payment_channel/`
+4. SPM Gateway returns: `502 Bad Gateway - Connect Upstream Failed`
+5. Payment verification fails with error code `19300999`
+6. Checkout process aborts with error: "error_other_service"
+
+**Log Evidence:**
+```
+2025-11-18 12:23:54.444215|DEBUG|b11ba3af43d6d4d6bc772eb6442d1e00
+url: https://gw0.pps.i.staging.shopeepay.co.id/api/get_payment_channel/
+status_code: 502
+response_body: <html><head><title>502 Bad Gateway</title></head>
+<body><center><h1>Connect Upstream Failed</h1></center></body></html>
+```
+
+**Affected Services:**
+- `mpp-bridgeapi-staging-id` - Payment bridge service
+- `mppayments-channel-staging-id` - Payment channel info service
+- `checkoutpromo-business-staging-id` - Promotion service (blocked by payment error)
+
+**Why COD Still Works:**
+COD (Cash on Delivery) payment method doesn't require real-time payment gateway verification, so it bypasses the SPM API call and allows checkout to proceed.
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[x] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[x] If applicable, you have provided the detailed information about your toggle setting.
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+

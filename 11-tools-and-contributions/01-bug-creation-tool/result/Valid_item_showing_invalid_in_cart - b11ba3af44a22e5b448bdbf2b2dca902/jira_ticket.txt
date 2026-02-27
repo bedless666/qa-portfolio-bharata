@@ -1,0 +1,89 @@
+*Summary*:
+Valid item showing invalid in cart - Add-On Deal main item not found causing cart validation failure
+
+*Configuration*:
+- app / os version: n/a (Backend issue)
+- env (test, staging, live) and country info: Test environment, KH (Cambodia)
+- pfb build: n/a
+- account (user / id): UserID 7114504824
+- toggles: none
+
+*Impact*
+- user impact summary: Users cannot properly add items to cart or see incorrect item availability. Items that should be valid are showing as invalid, blocking checkout process.
+- test impact summary: QA testing blocked for Add-On Deal promotions and cart functionality in KH test environment. Multiple items affected across 2 shops.
+- any workaround: Clear cart and re-add items, or avoid items with Add-On Deal promotions (ItemID: 3344815530)
+
+*Reproducible Steps*
+1. Login as UserID 7114504824 in Test-KH environment
+2. Add item (ShopID: 1013214384, ItemID: 3344815530, ModelID: 2025231470) to cart
+3. Observe cart validation status
+
+*Expected Result*
+- Item should be added to cart successfully
+- Item should show as valid with correct promotion information
+- Add-On Deal promotion should calculate correctly
+
+*Actual*
+- Item shows as invalid in cart
+- Warning: "UpdateMainItemPromoInfo, item_not_found_in_cart"
+- Add-On Deal promotion fails: "fallback all valid subs due to no valid main exists"
+- TraceID: b11ba3af44a22e5b448bdbf2b2dca902 (around 2025-11-28 15:00:13 UTC+8)
+
+*Evidence and Troubleshooting*
+[ ] screenshot / video (attach file)
+[ ] trace link (_show_debug_info=2)
+[x] log URL from log platform
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue
+
+Technical Analysis:
+This is a Cart State Synchronization Issue in the cartservice-core service. The root cause involves multiple interconnected problems:
+
+1. **Add-On Deal Promotion Failure (Primary Issue)**
+   - Item (ItemID: 3344815530, ModelID: 2025231470) is part of Add-On Deal promotion (PromoID: 385913276477948)
+   - The main item is not properly registered in the cart state
+   - Log shows: "fallback all valid subs due to no valid main exists"
+   - This causes all sub-items in the Add-On Deal to be invalidated
+
+2. **Expired Promotion Still Active**
+   - Item 3144815806 has expired promotion (Type: 313, ID: 385913276477728, ended at 1763630492)
+   - price-business service detected: "price status is normal but promotion has ended"
+   - Cart still references the expired promotion, causing price calculation mismatches
+
+3. **Configuration Missing**
+   - Missing configs in test-KH: "item_model_tag_info_config" and "seller_streaming_session_batch_size"
+   - These missing configurations may contribute to incomplete cart item validation
+
+4. **Cache Write Failures**
+   - Redis cache operations timing out in promotion-rewardslogistics service
+   - Error: "redis_setmany_err: context canceled"
+   - Prevents proper discount information from being cached, affecting cart validation
+
+5. **Data Consistency Issues**
+   - Mismatched field: total_can_buy_quantity (Expected: 0, Actual: 400)
+   - Cart state and item availability data are out of sync
+
+Service Chain:
+- cartservice-core-test-kh (Primary failure point)
+- price-business-test-kh (Promotion status mismatch)
+- promotion-rewardslogistics-test-kh (Cache failures)
+
+Affected Items:
+- ItemID: 3344815530, ModelID: 2025231470 (Main issue - Add-On Deal)
+- ItemID: 3144815806, ModelID: 260001397006 (Expired promotion)
+- ShopID: 1013214384 (Primary), ShopID: 1013045290 (Secondary)
+
+Teams to Contact:
+- Cart Team (Primary): Fix cart state synchronization for Add-On Deal items
+- Promotion Team (Secondary): Fix expired promotion handling and Add-On Deal validation
+- Infrastructure Team (Tertiary): Fix Redis performance and add missing configs in test-KH
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist (Remove this section in the bug. It is for your reference when creating the bug ticket. If any check is not true, please contact huanglh@sea.com for coaching)
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[] If applicable, you have provided the detailed information about your toggle setting.
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+
+

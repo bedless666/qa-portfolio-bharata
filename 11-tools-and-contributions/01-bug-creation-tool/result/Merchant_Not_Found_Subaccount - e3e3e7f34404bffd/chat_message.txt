@@ -1,0 +1,35 @@
+Hi @Subaccount-Team
+
+Found issue in Staging environment (Global - Subaccount System).
+
+Issue: Merchant Shop page cannot find/display any merchants despite merchants being created successfully in the system.
+
+URL: https://subaccount.staging.shopee.com/merchant-shop
+TraceID: e3e3e7f34404bffde5ca1289acb1da01
+Error: "Can't find any merchant" (empty result set)
+
+Root Cause: Unknown - Potential issues include:
+- Database routing/query problem (read/write split, sharding)
+- Cache staleness or invalidation failure
+- Permission/RBAC misconfiguration
+- Data visibility issue (status flags, soft delete)
+- Search index synchronization problem
+- Query filter excluding merchants
+
+Impact: Blocks all merchant management functionality in staging - users cannot view, search, or manage merchant accounts.
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate? The trace ID was not found in logs (may be expired), so we'll need to:
+1. Check database directly to verify merchants exist
+2. Review API logs for recent merchant listing requests
+3. Test API endpoint directly to see raw response
+4. Verify user permissions and RBAC configuration
+5. Check cache service and database replication status
+
+cc: @Merchant-Platform-Team @Infrastructure-Team
+
+Thanks!
+
+
+

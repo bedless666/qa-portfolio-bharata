@@ -1,0 +1,176 @@
+BUG ANALYSIS SUMMARY
+====================
+
+ISSUE OVERVIEW
+TraceID: e3e3e7f3464b53fdfd8444ae381ffb00
+Environment: staging
+Region: ID (Indonesia)
+Severity: High - Blocking seller order fulfillment workflow
+Date: 2025-12-19 18:13:25 - 18:13:36
+
+PROBLEM
+Sellers cannot arrange shipment for orders using non-integrated logistics. When attempting to arrange shipment for order 219837985207773, the request times out after 10 seconds with "context deadline exceeded" error. This completely blocks the seller's ability to fulfill orders and progress them to shipped status.
+
+ERROR DETAILS
+Code: 120510041
+Message: context deadline exceeded
+Service: sellerfulfillment-shipment-staging-id
+Component: shipment initialization (init_processors.forderInitProcessor)
+API Endpoint: POST https://oms.staging.shopee.co.id/api/forder/init
+Timestamp: 2025-12-19 18:13:25.924 - 18:13:36.284 (10.36 seconds elapsed)
+
+ROOT CAUSE
+The OMS (Order Management System) service's `/api/forder/init` endpoint is experiencing severe performance degradation. When the sellerfulfillment-shipment service attempts to initialize fulfillment packages for order 219837985207773 with non-integrated logistics, the downstream OMS service fails to respond within the 10-second timeout window. 
+
+The root cause is a performance bottleneck in the OMS forder/init API. The request parameters include:
+- Order ID: 219837985207773
+- Package: OFG219837985206382  
+- Shipping mode: non_integrated
+- Shipping trace no: 251219RCDVY1EW
+
+The API call made with retry mechanism (retry_times=0) but all attempts failed with status_code=-1 (connection timeout), indicating the downstream service never responded before the deadline.
+
+SERVICE CHAIN
+1. Seller Center UI → Seller clicks "Arrange Shipment" button
+2. POST /api/fulfillment/shipment/v2/init → sellerfulfillment-shipment service
+3. sellerfulfillment-shipment → POST https://oms.staging.shopee.co.id/api/forder/init (OMS service)
+4. **ERROR occurred at OMS service** (reason: API response time >10 seconds, causing context deadline exceeded)
+5. Timeout error propagates back through the chain to user
+
+CONFIGURATION ISSUES (if applicable)
+- Timeout configuration: Current timeout is set to 10 seconds for the forder/init API call
+- This timeout may need to be reviewed if non-integrated logistics orders legitimately require longer processing time
+- However, primary issue is the OMS service performance, not the timeout duration
+
+DATA ISSUES (if applicable)
+Order Details:
+- Order ID: 219837985207773
+- Order SN: 251219RCDVY1EW
+- Shop ID: 300563615
+- User ID: 5216310904 (buyer), 102549904 (seller)
+- Package: OFG219837985206382
+- Fulfilment Status: 9 (Ready for shipment)
+- Shipping mode: non_integrated
+- Fulfilment Channel ID: 89000
+- Items: 2 items (Item IDs: 943427735 x2, 901265561 x1)
+
+The order data appears valid. The issue is not with invalid data but with the processing time required by OMS.
+
+IMPACT ASSESSMENT
+User Impact:
+- Sellers with non-integrated logistics cannot arrange shipment for their orders
+- Blocks the entire order fulfillment workflow at the shipment arrangement stage
+- Prevents sellers from meeting shipping deadlines (ship_by_date: 1766398067)
+- Customer orders are delayed as sellers cannot progress orders to shipped status
+- Severe business impact - affects seller operations and customer satisfaction
+
+System Impact:
+- sellerfulfillment-shipment service is affected (returns 500-level errors)
+- OMS forder/init endpoint is experiencing performance issues
+- All orders using non-integrated logistics in ID staging may be affected
+- The issue may indicate a broader performance problem in OMS that could affect other order types
+
+TEAMS TO CONTACT
+Primary: @OMS-Team (Order Management System / Order Fulfilment Team)
+Reason: Owns the `/api/forder/init` endpoint that is timing out. Need to investigate why this specific order (and potentially others) take more than 10 seconds to process. Should check database queries, external service calls, or any blocking operations in the forder initialization logic.
+
+Secondary: @Seller-Fulfilment-Team
+Reason: Owns the sellerfulfillment-shipment service that makes the call to OMS. May need to review timeout configuration (currently 10 seconds) and implement better retry logic or fallback mechanisms. Also need to coordinate on appropriate timeout values for different shipping modes.
+
+Tertiary: @Logistics-Team (if applicable)
+Reason: May need to verify if non-integrated logistics configuration is correct for the affected channel (89000) and if there are any known issues with this logistics setup.
+
+SOLUTION STEPS
+1. OMS-Team: Investigate performance of /api/forder/init endpoint
+   - Profile the API to identify slow database queries or external service calls
+   - Check if there's a specific issue with order 219837985207773
+   - Review if non-integrated logistics orders require different handling
+   - Optimize the endpoint to respond within acceptable time (<5 seconds)
+
+2. OMS-Team: Add monitoring and logging
+   - Implement performance metrics for forder/init API
+   - Add detailed logging to identify slow operations
+   - Set up alerts for API response times >5 seconds
+
+3. Seller-Fulfilment-Team: Review timeout configuration
+   - Evaluate if 10-second timeout is appropriate
+   - Consider implementing progressive timeouts or async processing for slow operations
+   - Add better error messages to help sellers understand the issue
+
+4. Verification: Test shipment arrangement with same order
+   - Retry shipment arrangement for order 219837985207773
+   - Verify response time is <5 seconds
+   - Confirm order progresses to shipped status successfully
+
+5. Testing: Comprehensive regression testing
+   - Test with multiple orders using non-integrated logistics
+   - Test with different shipping channels and modes
+   - Verify performance across different regions
+
+VERIFICATION STEPS
+After the fix is deployed:
+1. Attempt to arrange shipment for order 219837985207773 again
+2. Verify the API responds within 5 seconds
+3. Confirm shipment is successfully arranged
+4. Check order status updates correctly to "Shipped"
+5. Test with 5-10 additional orders with non-integrated logistics
+6. Monitor OMS forder/init endpoint for 1 hour to ensure consistent performance
+7. Verify error rates return to normal levels
+
+LOG EVIDENCE
+Key log excerpts showing the error:
+
+Timestamp: 2025-12-19 18:13:36.285030
+Service: sellerfulfillment-shipment-staging-id
+TraceID: e3e3e7f3464b53fdfd8444ae381ffb00:01000262b6660ffe:000000d0fb95debf
+Status: FAILED
+Error: {"code":120510041,"message":"context deadline exceeded","user_message":"Oops! Something went wrong, please try it again, or report the problem to us."}
+
+Timestamp: 2025-12-19 18:13:36.282397
+Service: sellerfulfillment-shipment
+TraceID: e3e3e7f3464b53fdfd8444ae381ffb00:02000037bc12d01a:01000262b6660ffe
+Error: uhttp_client_request_error - context deadline exceeded
+Details: url=https://oms.staging.shopee.co.id/api/forder/init, method=POST, elapsed_millis=10000, status_code=-1
+
+Timestamp: 2025-12-19 18:13:36.282337
+Service: sellerfulfillment-shipment
+Error: uhttp_retry_request_failed - context deadline exceeded
+Details: retry_times=0, elapsed_millis=10000
+
+Request payload to OMS:
+- order_id: 219837985207773
+- package_number: OFG219837985206382
+- shipping_trace_no: 251219RCDVY1EW
+- integrated: 0 (non-integrated)
+- shipping_mode: non_integrated
+
+Order Fulfilment Group data (successfully retrieved before timeout):
+- ofg_id: 219837985206382
+- fulfilment_status: 9 (Ready)
+- fulfilment_channel_id: 89000
+- is_shipment_arranged: true
+- Items: Item 943427735 (qty: 2), Item 901265561 (qty: 1)
+
+NEXT STEPS
+1. Create JIRA ticket (use jira_ticket.txt) ✓
+2. Notify OMS team (use chat_message.txt) ✓
+3. Wait for OMS team investigation
+4. Once fixed, verify fix in staging with original order
+5. Retest with multiple orders (non-integrated and integrated logistics)
+6. Monitor performance metrics for 24 hours post-deployment
+7. Close ticket if resolved and performance is stable
+
+ADDITIONAL NOTES
+- The order data was successfully retrieved from order-fulfilment service before the timeout, indicating the issue is specifically with the forder/init endpoint processing
+- Previous successful calls show the OMS service can respond quickly (other calls in same trace completed in milliseconds)
+- This suggests the performance issue is specific to certain order configurations or data states
+- Consider if there are database locking issues, N+1 queries, or external service dependencies causing the delay
+
+---
+Generated: 2025-12-19 18:13:36
+Analyzer Version: Bug Analyzer v2.2 (TXT-based)
+Analyzed By: Cursor AI
+
+
+
+

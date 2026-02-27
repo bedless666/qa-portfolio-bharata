@@ -1,0 +1,18 @@
+Hi @Resource-SlotManagement-Team
+
+Found issue in ID (Indonesia) Staging environment.
+
+Issue: Cannot approve nominated model - cache infrastructure is closed/unavailable
+
+TraceID: d841bee045f913a0410b9bfaad8e6d02
+Error Code: 264000014
+Error: Reduce Slot Setting Failed - cache:cache_closed
+
+Root Cause: Cache Infrastructure Issue - resource-slotmanagementcore service
+
+The memory cache system is closed or connection is unavailable. When trying to approve a nominated model, the service cannot access the cache to get "slot_category_universe", causing the entire slot setting reduction operation to fail.
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate and restart the cache service in staging environment? Thanks!
+

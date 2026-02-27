@@ -1,0 +1,29 @@
+Hi @SIP-Team @Cross-Border-Item-Team
+
+Found issue in KH Test environment (CN Seller Operation Platform).
+
+Issue: Failed to sync item from PShop to AShop - PShop not hit logistics channel whitelist
+
+TraceID: e3e3e7f34467e6f897fca796ae5a2701
+Error Code: 405300005
+Error: external api error : call crossupload.api error:|create aitem fail for affiShopid:1013210527, reason:pshop not hit logistics channel whitelist|
+
+Root Cause: SIP Configuration Issue - CrossUpload API / Logistics Whitelist Validation
+
+**Details:**
+- PShop ID: 1013210519 (not whitelisted for KH logistics channels)
+- AShop ID: 1013210527 (target affiliated shop in KH)
+- The PShop needs to be added to KH region's logistics channel whitelist before items can be synced
+
+**Impact:**
+- Blocking cross-border item synchronization from CN to KH
+- CN Sellers cannot list items in KH market through SIP
+
+**Required Action:**
+1. Add PShop 1013210519 to KH logistics channel whitelist
+2. Verify logistics channel configuration for KH region
+3. Retry item sync after whitelist update
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate and add the necessary whitelist configuration? Thanks!

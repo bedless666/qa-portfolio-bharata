@@ -1,0 +1,58 @@
+Case name,Components Involved,Pre-condition,Platform,Steps,Expected Result
+[17]Test product from same seller but in different warehouse sent as different parcel when sending in cart,Cart,"Shopee app
+region=ID/BR/TW
+Scenerio 1:
+1. Cart already contains multiple products from same seller 
+2. and these products are in different warehouse
+
+Scenerio 2:
+1. Cart already contains 1 product from same seller 
+2. and these products are in different warehouse, if > limit, products are add to cart, will split into different parcels",IOS/ANDROID/PC,Enter cart Page,Successfully load
+,,,,IOS/ANDROID/PC,tick to select item,success
+,,,,IOS/ANDROID/PC,Check price amount,Information in Discount Detail Page displayed correctly
+,,,,IOS/ANDROID/PC,Click Check Out,page load successfully
+[17]Test product from same seller but in different warehouse sent as different parcel when sending in checkout,"Checkout, Voucher, Discount & Coins","Shopee app
+region=ID/BR/TW
+Scenerio 1:
+1. Cart already contains multiple products from same seller 
+2. and these products are in different warehouse
+
+Scenerio 2:
+1. Cart already contains 1 product from same seller 
+2. and these products are in different warehouse, if > limit, products are add to cart, will split into different parcels
+Successfully selected items in cart and clicked checkout",IOS/ANDROID/PC,Check voucher,voucher information and cart page info matches
+,,,,IOS/ANDROID/PC,Check Shipping Option,1 shop has multiple entrance
+,,,,IOS/ANDROID/PC,Click Select payment method,Redirect to Payment Method Page
+,,,,IOS/ANDROID/PC,"select any payment method，Click CONFIRM",Return to OPC Page
+,,,,IOS/ANDROID/PC,Check OPC Page for shop,information Correct
+,,,,IOS/ANDROID/PC,Check OPC Page for item,information Correct
+,,,,IOS/ANDROID/PC,Check OPC Page for voucher,information Correct
+,,,,IOS/ANDROID/PC,Check OPC Page for coins,information Correct
+,,,,IOS/ANDROID/PC,Check OPC Page for Payment Details information,information Correct
+,,,,IOS/ANDROID/PC,Click Place Order,"1. redirect to OSP
+2. Payment status is paid"
+[17]Test product from same seller but in different warehouse sent as different parcel when sending in order payment,Order Payment,"Shopee app
+region=ID/BR/TW
+Successfully placed order",IOS/ANDROID/PC,Click My Purchases button,"1. Redirect to My Purchases Page
+2. Redirect to To Ship tab"
+,,,,IOS/ANDROID/PC,Click the order,Redirect to Order Details Page
+[17]Test product from same seller but in different warehouse sent as different parcel when sending in seller fulfilment,Seller fulfilment,"Shopee app
+region=ID/BR/TW
+Order has been created
+[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully"
+,,,,IOS/ANDROID/PC,"In search bar, search Buyer Name",Display multiple packages
+[17]Test product from same seller but in different warehouse sent as different parcel when sending in seller mass ship,Seller fulfilment,"Shopee app
+region=ID/BR/TW
+Order has been created
+[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+Login Seller Center → Order → Mass Ship",IOS/ANDROID/PC,Click Mass Ship,"1. Redirect to Mass Shipment Page
+2. stop at Orders To Ship"
+,,,,IOS/ANDROID/PC,Click Generate Documents,Switch success
+,,,,IOS/ANDROID/PC,Click Orders To Ship,Switch success
+,,,,IOS/ANDROID/PC,"In Orders To Ship Page, Search Buyer Name",success
+,,,,IOS/ANDROID/PC,"Products from select switch, Click Mass Arrange Pickup/Drop off",success
+

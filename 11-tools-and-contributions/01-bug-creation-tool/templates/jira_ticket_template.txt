@@ -1,0 +1,49 @@
+⚠️ STRICT TEMPLATE - FOLLOW EXACTLY AS SHOWN BELOW ⚠️
+DO NOT ADD ANY EXTRA SECTIONS NOT LISTED HERE
+ONLY FILL IN THE SECTIONS THAT ARE EXPLICITLY DEFINED
+
+*Summary*:
+[Brief one-line description of the issue]
+
+*Configuration*:
+- app / os version: [e.g., "Shopee 3.48.2 / Android 14" or "Chrome 124 on macOS 12.7"]
+- env (test, staging, live) and country info: [environment and region]
+- pfb build: [build tag or "n/a" if you are not using pfb]
+- account (user / id): [test user or ID; omit password if it is sensitive]
+- toggles: [list toggles changed e.g RN, Feature, BE, DRE, Experiment or "none"]
+
+*Impact*
+- user impact summary: [who or what is blocked, and why it matters]
+- test impact summary: [who or what is blocked, and why it matters]
+- any workaround: [if applicable]
+
+
+*Reproducible Steps*
+1. [step 1]
+2. [step 2]
+3. [step 3]
+
+*Expected Result*
+- [what should happen]
+
+*Actual*
+- [what actually happened]
+- TraceID: [trace_id] (around [date and time])
+
+*Evidence and Troubleshooting*
+[x] screenshot / video (attach file)
+[ ] trace link (_show_debug_info=2)
+[ ] log URL from log platform
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* [Front End issue / Backend issue / Unknown]
+[Provide your technical analysis and justification based on log findings]
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist (Remove this section in the bug. It is for your reference when creating the bug ticket. If any check is not true, please contact huanglh@sea.com for coaching)
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[] If applicable, you have provided the detailed information about your toggle setting.
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+
+⚠️ END OF TEMPLATE - DO NOT ADD ANYTHING BEYOND THIS POINT ⚠️

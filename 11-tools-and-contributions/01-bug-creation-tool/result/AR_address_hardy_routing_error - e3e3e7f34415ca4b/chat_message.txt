@@ -1,0 +1,15 @@
+Hi @DBA-Team @Hardy-Platform-Team
+
+Found critical issue in AR Staging environment (accessed via CNSC).
+
+Issue: Cannot add addresses for AR shops - Hardy routing configuration missing AR region
+
+TraceID: e3e3e7f34415ca4b8ceab7a948835301
+Error Code: Hardy 3027, 120030000 (unknown system error)
+Error: eval sharding expression failed when use region: ar to format region expression
+
+Root Cause: Hardy Routing Error - AR region not configured in shopee_account_address_db cluster. Current regions: [br, cl, co, id, mx, my, ph, sg, th, tw, vn] - AR is missing
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help add AR region to the Hardy routing configuration (CRDS ID: sddl_10007290)? Thanks!

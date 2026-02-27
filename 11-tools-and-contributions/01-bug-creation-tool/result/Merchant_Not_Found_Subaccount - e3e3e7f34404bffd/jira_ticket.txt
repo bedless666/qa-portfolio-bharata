@@ -1,0 +1,96 @@
+*Summary*:
+Merchant Shop Page Cannot Find Merchants Despite Successful Creation in Staging
+
+*Configuration*:
+- app / os version: Web Browser (Chrome/Safari/Firefox) on macOS/Windows
+- env (test, staging, live) and country info: Staging environment, Global (Subaccount System)
+- pfb build: n/a (web application)
+- account (user / id): [To be provided by reporter]
+- toggles: none
+
+*Impact*
+- user impact summary: All users accessing the merchant-shop page in staging cannot view or manage merchants. This blocks merchant account management, shop configuration, and verification of merchant creation. Critical functionality is completely unavailable.
+- test impact summary: QA team cannot verify merchant creation workflows, test merchant management features, or validate merchant-related functionality. This blocks testing and development progress for merchant-related features.
+- any workaround: Direct database query can verify merchant existence, but no workaround for UI access. May need to use API directly via Postman/curl for merchant operations.
+
+*Reproducible Steps*
+1. Create a merchant account in staging environment (or verify existing merchants exist in database)
+2. Navigate to https://subaccount.staging.shopee.com/merchant-shop
+3. Log in with appropriate user account
+4. Observe the merchant listing page
+
+*Expected Result*
+- The merchant-shop page should display a list of all merchants that have been created
+- Merchants should be searchable and filterable
+- User should be able to click on merchants to view details
+- The page should show merchant count and pagination if applicable
+
+*Actual*
+- The merchant-shop page shows "Can't find any merchant" or displays an empty list
+- No merchants are visible even though they exist in the database
+- Search and filter functionality returns no results
+- TraceID: e3e3e7f34404bffde5ca1289acb1da01
+
+*Evidence and Troubleshooting*
+[x] screenshot / video (attach file - please provide)
+[ ] trace link (_show_debug_info=2) - please provide if available
+[ ] log URL from log platform - TraceID provided but logs not found in system
+[ ] FE traffic packets - please capture browser network tab
+
+*Initial Judgment / Root Cause Analysis:* Backend issue / Unknown
+
+Based on the symptoms, this appears to be a backend issue related to one or more of the following:
+
+1. **Database Routing/Query Issue**: The merchant listing API may be querying the wrong database shard, or there's a read/write split issue where merchants are written to primary DB but queries read from an out-of-sync replica.
+
+2. **Cache Issue**: Merchant list may be cached with stale data (empty result), and cache invalidation is not working properly after merchant creation.
+
+3. **Permission/RBAC Issue**: The user account may not have proper permissions to view merchants, or RBAC rules are filtering out all merchants incorrectly.
+
+4. **Data Visibility Issue**: Merchants may be created with incorrect status flags (inactive, deleted, pending) that exclude them from the default listing query.
+
+5. **Search Index Issue**: If using Elasticsearch or similar, the search index may not be synchronized with the database.
+
+6. **Query Filter Issue**: The listing API may have default filters (date range, status, region) that exclude the newly created merchants.
+
+**Recommended Investigation Steps:**
+- Check database directly to verify merchants exist: `SELECT * FROM merchant_table ORDER BY created_at DESC LIMIT 10`
+- Review subaccount service logs for API errors around the time of access
+- Test merchant listing API directly with Postman/curl to see raw response
+- Check user permissions and RBAC configuration
+- Verify cache service health and cache keys
+- Review database replication status and query routing configuration
+
+**Teams to Contact:**
+- @Subaccount-Team (primary owner of merchant-shop page and listing API)
+- @Merchant-Platform-Team (owner of merchant data model and services)
+- @Infrastructure-Team (for database, cache, and service routing issues)
+
+**Severity:** High - Blocks critical merchant management functionality in staging environment
+
+**Priority:** P1 - Should be investigated and fixed urgently to unblock testing and development
+
+**Additional Context:**
+- URL: https://subaccount.staging.shopee.com/merchant-shop
+- TraceID: e3e3e7f34404bffde5ca1289acb1da01 (logs not found in log platform - may be expired or from different time period)
+- Service: subaccount (marketplace subaccount system)
+- Component: merchant-shop page/API
+
+**Note:** The trace ID could not be found in the log system. Please provide:
+- Exact timestamp when the issue occurred
+- Browser console errors or network tab details
+- API response body and status code
+- User account details (user ID, roles)
+- Merchant IDs that should be visible
+- Any error messages displayed in the UI
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist
+[x] You are using staging environment and have provided the environment information in the ticket.
+[ ] You have captured the browser network traffic (Developer Tools > Network tab) and provided the API response details.
+[ ] You have provided the exact timestamp when the issue occurred for log investigation.
+[ ] You have verified the issue is reproducible and not a one-time occurrence.
+[ ] You have checked if the same issue exists in other environments (test/production).
+[ ] You have provided user account details and merchant IDs for investigation.{color}
+
+
+

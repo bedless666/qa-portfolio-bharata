@@ -1,0 +1,73 @@
+SHORT DESCRIPTION
+==================
+Seller unable to arrange shipment for order with non-integrated logistics - API timeout error after 10 seconds. Error code 120510041 (context deadline exceeded) is returned when attempting to initialize shipment arrangement.
+
+
+REPRODUCE STEP
+==============
+1. Login to Seller Center staging (staging.shopee.co.id) with Shop ID 300563615, User ID 102549904
+2. Navigate to "My Orders" page
+3. Find order ID: 219837985207773 (Order SN: 251219RCDVY1EW)
+4. Click on the order to view details
+5. Click "Arrange Shipment" button
+6. Select non-integrated logistics mode (shipping mode: non_integrated)
+7. Click confirm/submit to arrange shipment
+8. Wait for response
+
+
+EXPECTED RESULT
+===============
+- Shipment arrangement request should complete successfully within 5 seconds
+- Success message should be displayed: "Shipment has been arranged successfully"
+- Order status should update to "To Ship" or "Shipment Arranged"
+- User can proceed with next steps in fulfillment workflow
+- Package tracking number should be generated/assigned
+
+
+ACTUAL RESULT
+=============
+- Request takes longer than 10 seconds and times out
+- Error message displayed: "Oops! Something went wrong, please try it again, or report the problem to us."
+- Error code: 120510041
+- Error message: "context deadline exceeded"
+- Shipment arrangement fails - order remains in current status
+- User cannot proceed with order fulfillment
+- Multiple retry attempts result in same timeout error
+
+Technical Details:
+- TraceID: e3e3e7f3464b53fdfd8444ae381ffb00
+- Timestamp: 2025-12-19 18:13:25 - 18:13:36 (10+ seconds)
+- Failed API: https://oms.staging.shopee.co.id/api/forder/init
+- Root cause: OMS service performance issue/timeout
+
+
+LOGIN INFO
+==========
+Environment: staging
+Region: ID (Indonesia)
+URL: https://seller.staging.shopee.co.id/
+
+Seller Account:
+- Shop ID: 300563615
+- User ID: 102549904
+- Note: [Add password if available, or request access from account owner]
+
+Test Order Details:
+- Order ID: 219837985207773
+- Order SN: 251219RCDVY1EW
+- Package: OFG219837985206382
+- Buyer User ID: 5216310904
+- Shipping Mode: non_integrated
+- Fulfilment Channel: 89000
+- Items: 
+  * Item ID 943427735 x 2 units
+  * Item ID 901265561 x 1 unit
+
+Additional Info:
+- PFB: n/a
+- Toggles: none
+- Browser: Any (issue is backend)
+
+
+
+

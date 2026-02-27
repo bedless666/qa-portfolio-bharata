@@ -1,0 +1,25 @@
+Hi @PDP-Team
+
+Found issue in LA Test environment.
+
+Issue: Item shows "sold_out" on PDP despite being NORMAL status in admin and bassiteminfo
+
+Item: pitem 2303859249 (shop_id: 1013355932)
+TraceID: b11ba3af4595d4c621ecac1f90dd9400
+Error Code: -10501 (ShippingFeeCalculationError from logistics)
+
+Root Cause: PDP Logic Issue - Incorrectly interpreting logistics failures as "sold_out"
+
+Details:
+✅ Seller Center admin shows item status = NORMAL
+✅ bassiteminfo API returns normal status
+❌ PDP shows "abnormal_status": "sold_out"
+
+The issue is that when logistics planning fails (no valid shipping channels / shipping fee calculation error), PDP is marking the item as "sold_out". This is misleading because the item itself is NOT sold out - it just has logistics configuration issues.
+
+PDP should handle logistics errors separately from item availability status. Consider using a different status like "shipping_unavailable" or showing appropriate error messaging instead of "sold_out".
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate the logic that sets "abnormal_status" field in PDP response? Thanks!
+

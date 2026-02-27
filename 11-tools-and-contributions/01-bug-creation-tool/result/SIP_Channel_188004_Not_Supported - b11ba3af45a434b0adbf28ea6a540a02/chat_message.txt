@@ -1,0 +1,32 @@
+Hi @Fulfilment-Infrastructure-Team @SIP-Logistics-Team
+
+Found critical issue in LA Test environment - Channel 188004 "SIP TH-LA" not working.
+
+Issue: Shipping channel 188004 showing price = 0 (invalid configuration)
+
+TraceID: b11ba3af45a434b0adbf28ea6a540a02
+Shop ID: 1013355932
+Channel: 188004 "SIP TH-LA" (Thailand → LA cross-border)
+
+Root Cause 1 (CRITICAL): Hardy Database Routing Error
+- Service: sellerfulfilment-fulfilmentinfo-test-mx
+- Error: hardy (3025): routing out of range, route region: la, route index: 0
+- Issue: MX service cannot query LA region database
+- Impact: GetShopFmInfoWithCache fails with ERROR_SYSTEM (10005)
+
+Root Cause 2: SIP Channel Not Configured
+- Channel 188004 exists but has invalid pricing:
+  * single_value: 0
+  * range_min: -1
+  * range_max: -1
+- Shipping fee calculation fails (error -10501)
+- COD validation fails (error -20213, rate 612410612)
+
+Impact: All SIP items from Thailand to LA cannot be shipped
+
+Action Needed:
+1. @Infrastructure: Fix Hardy routing for LA queries from MX environment
+2. @SIP-Logistics: Configure channel 188004 with valid pricing and rates
+
+Could you please help investigate urgently? This blocks all TH→LA cross-border shipments. Thanks!
+

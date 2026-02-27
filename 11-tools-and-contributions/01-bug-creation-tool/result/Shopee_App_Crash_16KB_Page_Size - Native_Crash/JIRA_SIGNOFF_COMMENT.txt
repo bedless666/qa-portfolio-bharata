@@ -1,0 +1,40 @@
+h2. QA Sign-Off - Build {{fix-16kb-1204}}
+
+*Verified by:* [~aryo]
+*Date:* 2025-12-04
+*Environment:* {{staging}}
+
+h3. Test Results
+
+|| Test Case || Device || Result ||
+| App Launch | Pixel 8 Pro API 35 (16KB) | {color:green}✓ PASS{color} |
+| Native Libraries | All affected .so files | {color:green}✓ PASS{color} |
+| Regression Test | Pixel 8 API 34 (4KB) | {color:green}✓ PASS{color} |
+
+h3. Verification Details
+
+*Before Fix:*
+* App crashed immediately on 16KB devices
+* Error: {{Program alignment (4096) smaller than system page size (16384)}}
+
+*After Fix:*
+* App launches successfully on 16KB devices
+* No crashes detected
+* All native libraries load correctly
+
+h3. Sign-Off Status
+
+{panel:title=QA Approval|bgColor=#E3FCEF}
+Build {{fix-16kb-1204}} is {color:green}*APPROVED*{color} for merge and deployment.
+
+The 16KB page size crash issue has been successfully resolved.
+{panel}
+
+*Next Step:* Ready for code merge by [~ren.jiaxin]
+
+----
+
+_Tested on: Pixel 8 Pro API 35 (16KB), Android 15_
+_Page size verified: {{16384 bytes}}_
+_No regressions found on 4KB devices_
+

@@ -1,0 +1,224 @@
+*Summary*:
+Aitem is unlisted, but Pitem is available and already enabled correct logistic
+
+*Configuration*:
+- app / os version: Chrome 142 on macOS 10.15.7
+- env (test, staging, live) and country info: Test / KH (Cambodia)
+- pfb build: n/a
+- account (user / id): kh.buyer6 / User ID: 7114504824
+- toggles: none
+
+*Impact*
+- user impact summary: Buyers in KH test environment cannot add SIP (Shopee Integrated Platform) A-items to cart even though the P-item (Primary item) is available and properly configured. This blocks the entire SIP cross-border shopping flow for KH market.
+- test impact summary: QA team blocked from testing SIP A-item add-to-cart functionality in KH test environment. Cannot verify cross-border item listing synchronization between P-shop and A-shop.
+- any workaround: Manually list the A-item in the A-shop, but this defeats the purpose of SIP auto-synchronization feature.
+
+*Reproducible Steps*
+1. Login to Shopee KH test environment as buyer (kh.buyer6)
+2. Navigate to a SIP A-item (Item ID: 2303838543, Model ID: 310001393599)
+3. Verify that the P-item is listed and available in the P-shop
+4. Verify that logistics are properly configured for the A-shop
+5. Click "Add to Cart" button on the A-item
+6. Observe the error response
+
+*Expected Result*
+- A-item should be added to cart successfully
+- Since P-item is available and logistics are configured, A-item should also be available
+- SIP synchronization should ensure A-item status matches P-item status
+- Cart should show the added item
+- User can proceed to checkout
+
+*Actual*
+- Add to cart fails with error code 15020015
+- Error message: "Sorry, the item is currently unlisted."
+- A-item is marked as unlisted despite P-item being available
+- TraceID: b11ba3af44678700e2947cc5c2f43002 (25 Nov 2025, 17:01:37 UTC)
+- Error Response:
+```json
+{
+    "error": 15020015,
+    "error_msg": "Sorry, the item is currently unlisted.",
+    "data": {
+        "problematic_items": [
+            {
+                "shopid": 1013045290,
+                "itemid": 2303838543,
+                "modelid": 310001393599,
+                "item_group_id": null
+            }
+        ],
+        "cart_item": null
+    }
+}
+```
+
+*Evidence and Troubleshooting*
+[x] screenshot / video (attach file if available)
+[x] trace link (_show_debug_info=2)
+[x] log URL from log platform - TraceID: b11ba3af44678700e2947cc5c2f43002
+[x] Error response captured in bug report
+
+*Root Cause Analysis:*
+
+**Issue Type:** Backend Data Inconsistency - SIP Item Status Synchronization Failure
+
+**Technical Details:**
+This is a SIP (Shopee Integrated Platform) cross-border item synchronization issue. In SIP architecture:
+- **P-item (Primary item)**: The original item in the primary shop (P-shop)
+- **A-item (Affiliated item)**: The synchronized copy in the affiliated shop (A-shop) for cross-border selling
+
+The A-item (Item ID: 2303838543) in the KH A-shop is marked as "unlisted" in the system, but the corresponding P-item is available and properly configured with logistics. This indicates a failure in the SIP item status synchronization mechanism.
+
+**Error Chain:**
+1. User attempts to add A-item to cart via `/api/v4/cart/add_to_cart`
+2. Request goes to `cart-bff-test-kh` service
+3. BFF calls `marketplace.cart_v2.core.add_cart_item` in `cartservice-core-test-kh`
+4. Cart service checks item status and finds item is unlisted
+5. Error logged: "item_unlisted" for item_id: 2303838543
+6. Internal error code 63 (item_unlisted) is converted to Spex error 184803007
+7. BFF returns user-facing error 15020015: "Sorry, the item is currently unlisted."
+
+**Service Chain:**
+```
+Frontend (KH buyer)
+  ↓ POST /api/v4/cart/add_to_cart
+  ↓ Item: 2303838543, Model: 310001393599, Shop: 1013045290
+
+cart-bff-test-kh
+  ↓ marketplace.cart_v2.bff.add_to_cart
+  ↓ Calls core service
+
+cartservice-core-test-kh
+  ↓ marketplace.cart_v2.core.add_cart_item
+  ↓ Validates item status
+  ↓ ❌ ITEM_UNLISTED detected
+  ↓ Error code: 184803007 (ERROR_ITEM_IS_UNLISTED)
+
+Response: Error 15020015
+```
+
+**Root Cause - SIP Synchronization Failure:**
+
+The issue is caused by one or more of the following:
+
+1. **Item Status Not Synchronized**: 
+   - P-item status changed to "listed" but A-item status was not updated
+   - SIP synchronization job failed or was delayed
+   - Item status update event was not propagated to A-shop
+
+2. **A-item Display Settings Misconfiguration**:
+   - A-item may have incorrect display settings that override P-item status
+   - Fulfillment type or location settings may be blocking the item
+   - Item may be blocked for specific regions despite logistics being configured
+
+3. **Database Inconsistency**:
+   - A-item record in database shows status as "unlisted"
+   - P-item record shows status as "listed"
+   - Synchronization mechanism failed to update A-item status
+
+**Affected Components:**
+- Service: cartservice-core-test-kh
+- Component: Item status validation
+- SIP Feature: Cross-border item synchronization
+- Shop ID: 1013045290 (A-shop in KH)
+- Item ID: 2303838543 (A-item)
+- Model ID: 310001393599
+
+**Impact Assessment:**
+- Severity: HIGH - Blocks core SIP functionality
+- Scope: All SIP A-items in KH test environment with synchronization issues
+- Business Impact: Cannot test cross-border shopping flow, SIP feature validation blocked
+
+**Action Items Required:**
+
+**Primary Team:** @SIP-Platform-Team @Listing-Service-Team
+**Reason:** Owns SIP item synchronization logic and item status management
+
+**Secondary Team:** @Cart-Service-Team
+**Reason:** Can verify item status validation logic and help with troubleshooting
+
+**Database Team:** @Database-Operations (if needed)
+**Reason:** May need to manually fix item status in database if synchronization is broken
+
+**Solution Steps:**
+
+1. **SIP Team**: Check SIP synchronization logs for item 2303838543
+   - Verify if synchronization job ran successfully
+   - Check if any errors occurred during P-item to A-item sync
+   - Review item status update events
+
+2. **SIP Team**: Verify P-item and A-item status in database
+   - Query P-item status in P-shop database
+   - Query A-item status in A-shop database (Shop ID: 1013045290)
+   - Compare and identify the discrepancy
+
+3. **Listing Team**: Check A-item display settings
+   - Verify if A-item has correct display settings
+   - Check if fulfillment types are properly configured
+   - Ensure no region-specific blocks are active
+
+4. **SIP Team**: Trigger manual synchronization if needed
+   - Force re-sync of item 2303838543 from P-shop to A-shop
+   - Verify A-item status updates to "listed"
+   - Check if logistics configuration is also synced correctly
+
+5. **SIP Team**: Fix synchronization mechanism if broken
+   - Identify why automatic sync failed
+   - Fix the synchronization job or event propagation
+   - Ensure future updates are properly synced
+
+6. **QA Team**: Verify fix
+   - Retry adding A-item to cart
+   - Verify no "unlisted" error appears
+   - Test end-to-end SIP cross-border checkout flow
+
+**Verification Steps:**
+
+1. **Check Item Status:**
+   - Query A-item status in database: SELECT status FROM items WHERE item_id = 2303838543
+   - Expected: status should be 1 (listed) or 2 (normal)
+   - If status is 0 (unlisted), this confirms the issue
+
+2. **Verify P-item Status:**
+   - Check P-item status in P-shop
+   - Confirm P-item is listed and available
+   - Verify logistics are configured
+
+3. **Test Add to Cart:**
+   - Login as kh.buyer6 (User ID: 7114504824)
+   - Navigate to A-item (Item ID: 2303838543)
+   - Click "Add to Cart"
+   - Verify item is added successfully
+   - Check cart shows the item
+
+4. **Check Logs:**
+   - Search for new TraceID in log platform
+   - Verify no "item_unlisted" error appears
+   - Confirm add_cart_item API returns success (code 0)
+
+5. **Test SIP Synchronization:**
+   - Update P-item status (list/unlist)
+   - Wait for synchronization (or trigger manually)
+   - Verify A-item status updates accordingly
+   - Test add to cart after each status change
+
+**Related Information:**
+- Log Platform TraceID: b11ba3af44678700e2947cc5c2f43002
+- Error Codes:
+  - User-facing: 15020015 (Item unlisted)
+  - Internal: 184803007 (ERROR_ITEM_IS_UNLISTED)
+  - Service internal: 63 (item_unlisted)
+- Services: cart-bff-test-kh, cartservice-core-test-kh
+- Shop ID: 1013045290 (A-shop)
+- Item ID: 2303838543 (A-item)
+- Model ID: 310001393599
+- User ID: 7114504824 (kh.buyer6)
+- Timestamp: 2025-11-25 17:01:37 UTC
+
+**SIP Context:**
+- SIP (Shopee Integrated Platform) enables cross-border selling
+- P-shop: Primary shop where original item is created
+- A-shop: Affiliated shop in target market (KH) where item is synchronized
+- Synchronization should keep A-item status, price, stock, and logistics in sync with P-item
+- This bug indicates synchronization mechanism is not working correctly
+

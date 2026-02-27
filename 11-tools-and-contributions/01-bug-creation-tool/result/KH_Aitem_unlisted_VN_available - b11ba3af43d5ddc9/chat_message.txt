@@ -1,0 +1,16 @@
+Hi @DBA @Platform-Infrastructure @Fulfillment-Team
+
+Found issue in KH Test environment.
+
+Issue: Hardy database routing error - KH Aitem showing unlisted in PDP but available in VN Pshop
+
+TraceID: b11ba3af43d5ddc97234603034d14500
+Error Code: 3025, 10005, 10000
+Error: "routing out of range, route region: kh, route index: 0" | "ERROR_SYSTEM" | "unavailable address id"
+
+Root Cause: Database Routing Error (Hardy) - Incomplete Hardy routing configuration for KH test environment + CID mismatch (PH service handling KH requests)
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate? Thanks!
+

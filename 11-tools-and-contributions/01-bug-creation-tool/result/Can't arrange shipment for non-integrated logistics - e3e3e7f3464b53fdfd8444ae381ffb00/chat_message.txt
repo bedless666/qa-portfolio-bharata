@@ -1,0 +1,19 @@
+Hi @OMS-Team
+
+Found issue in ID staging environment.
+
+Issue: Seller unable to arrange shipment for order with non-integrated logistics - forder/init API timeout
+
+TraceID: e3e3e7f3464b53fdfd8444ae381ffb00
+Error Code: 120510041
+Error: context deadline exceeded
+
+Root Cause: Timeout/Performance Issue - OMS service forder/init endpoint is taking >10 seconds to respond for order 219837985207773 (Package: OFG219837985206382) with non-integrated logistics mode
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate? Thanks!
+
+
+
+

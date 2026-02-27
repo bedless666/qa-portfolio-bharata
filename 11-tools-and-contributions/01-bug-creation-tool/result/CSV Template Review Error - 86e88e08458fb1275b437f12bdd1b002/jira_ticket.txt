@@ -1,0 +1,67 @@
+*Summary*:
+get_csv_template returns error 10000 causing review page to show blank page in KH Test environment
+
+*Configuration*:
+- app / os version: Common Scene Admin Service / Browser-based
+- env (test, staging, production) and region info: Test environment, KH (Cambodia) region
+- build tag: n/a
+- account (user / id): bharata.aryaseta@shopee.com
+- feature flags: none
+
+*Impact*
+- user impact summary: Users in KH region cannot access the CSV template review page. The page appears blank due to the backend service failing to retrieve the CSV template configuration for "review" operation. This blocks any CSV review functionality.
+- test impact summary: QA testing for CSV template review feature in KH region is completely blocked. Cannot verify any review-related workflows or validate CSV template functionality.
+- any workaround: No immediate workaround available. The "review" operation is not recognized by the service.
+
+
+*Reproducible Steps*
+1. Access Common Scene Admin service in Test environment for KH region
+2. Navigate to CSV template review page (session_id: 170000000005052)
+3. Attempt to get CSV template with operation type "review"
+
+*Expected Result*
+- CSV template configuration for "review" operation should be retrieved successfully
+- Review page should display the CSV template information properly
+- No error should occur
+
+*Actual*
+- Service returns error code 10000 (ERROR_UNKNOWN)
+- Error message: "unknown operation review"
+- Review page shows blank/empty content
+- TraceID: 86e88e08458fb1275b437f12bdd1b002 (around 2025-12-10 10:21:55 UTC)
+
+*Evidence and Troubleshooting*
+[x] screenshot / video (attach file)
+[x] trace link (debug mode)
+[ ] log URL from log platform
+[ ] network traffic capture
+
+*Initial Judgment / Root Cause Analysis:* Backend issue
+
+Based on log analysis from campaignscene-commonsceneadmin-test-kh service:
+
+**Root Cause:** Configuration Error - Missing Operation Type
+
+The service `campaignscene-commonsceneadmin` does not recognize the operation type "review" when calling GetCsvTemplate API. The error logs clearly show:
+- WARN: "unknown operation" with operation=review
+- ERROR: "GetCsvTemplate fail" with error "unknown operation review"
+
+**Technical Details:**
+- Service: campaignscene-commonsceneadmin-test-kh
+- Component: CSVTemplateService (csv_template_service.go:58)
+- Handler: CommonSceneAdminServiceImpl.GetCsvTemplate (csv_template_handler.go:39)
+- Error Type: Configuration/Validation Error
+- Error Code: 10000 (ERROR_UNKNOWN)
+- Session ID: 170000000005052
+- IDC: sg90
+
+**Analysis:**
+The "review" operation type is either:
+1. Not configured in the CSV template service's allowed operations list
+2. Missing from the operation type enum/constants
+3. Not implemented in the GetCsvTemplate handler logic
+
+This is a backend configuration issue where the service needs to add support for the "review" operation type in its CSV template retrieval logic.
+
+**Recommended Team:** @Campaign-Scene-Backend-Team or @Common-Scene-Admin-Team
+

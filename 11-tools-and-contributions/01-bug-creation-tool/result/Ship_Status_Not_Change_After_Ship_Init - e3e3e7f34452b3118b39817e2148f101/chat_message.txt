@@ -1,0 +1,32 @@
+Hi @Seller-Platform-Gateway @Seller-Platform-Infrastructure
+
+Found critical issue in ID Staging environment.
+
+Issue: Ship status not changing after seller clicks ship button and enters tracking number. Order fulfillment workflow is completely blocked.
+
+TraceID: e3e3e7f34452b3118b39817e2148f101
+Error Code: Spex 10019 (ERROR_CID_PARAM)
+Error: viewercontext contains mismatched cid flag: CID from flag=id but CID from env=sg
+
+Root Cause: CID Routing Misconfiguration - sellerplatform-gatewayacl service
+
+The `seller_cid_routing` plugin in mall-sellergatewayunification-staging-global is incorrectly routing ID region requests to the SG environment backend (sellerplatform-gatewayacl-staging-sg) instead of the ID environment backend (sellerplatform-gatewayacl-staging-id).
+
+This causes CID validation to fail during authentication check for shipment initialization API.
+
+Service Chain:
+- mall-sellergatewayunification-staging-global
+  → sellerplatform-gatewayacl-staging-sg (WRONG! Should be staging-id)
+  → Authentication fails with CID mismatch
+
+Impact:
+- All ID sellers in staging cannot ship orders
+- Blocks QA testing of entire order fulfillment pipeline
+- HIGH severity - critical workflow broken
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate and fix the CID routing configuration? Thanks!
+
+cc: @Seller-Fulfillment-Team (for verification after fix)
+

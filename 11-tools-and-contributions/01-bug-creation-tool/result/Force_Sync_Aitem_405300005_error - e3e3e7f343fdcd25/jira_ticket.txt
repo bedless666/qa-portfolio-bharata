@@ -1,0 +1,94 @@
+*Summary*:
+Force Sync Aitem to Pitem got 405300005 error - External API error from account health metric service
+
+*Configuration*:
+- app / os version: Seller Center Web / Chrome on macOS
+- env (test, staging, live) and country info: Test environment, KH region (Cambodia)
+- pfb build: n/a
+- account (user / id): Shop ID: 1013210519 (Primary), 1013210527 (Affiliated)
+- toggles: none
+
+*Impact*
+- user impact summary: Sellers cannot sync SIP (Seller in Primary) items from Primary shop (VN) to Affiliated shop (KH). This blocks cross-border listing management for SIP merchants.
+- test impact summary: QA team blocked from testing SIP force sync functionality in KH region. Cannot verify cross-upload workflows for VN→KH item synchronization.
+- any workaround: None available. The underlying service (account_health_metric_api) is timing out or unavailable.
+
+*Reproducible Steps*
+1. Login to Seller Center with a SIP-enabled merchant account
+2. Navigate to SIP MSKU detail page for Primary Item ID: 2944816227
+3. Click "Force Sync" button to sync affiliated item to KH region
+4. Observe the error response with code 405300005
+
+*Expected Result*
+- The affiliated item (ID: 3703805432) in KH shop (1013210527) should be successfully synchronized with the primary item (ID: 2944816227) in VN shop (1013210519)
+- Product details, pricing, and inventory should be updated in the affiliated shop
+- Success message should be displayed to the seller
+
+*Actual*
+- API returns error code 405300005: "external api error : call crossupload.api error:|sync aitem fail for affiShopid:1013210527, reason:call marketplace.listing.upload.product error: external error: external error, source: seller.seller_operation.account_health_metric_api.get_shop_listing_limit, code: 10004, source: marketplace.listing.upload.lock.check_product_lock, code: 338300005|"
+- The sync operation fails completely
+- TraceID: e3e3e7f343fdcd2521009576a4896e01 (2025-11-20, 10:53:27 - 10:53:33 UTC)
+
+*Evidence and Troubleshooting*
+[x] trace link with TraceID: e3e3e7f343fdcd2521009576a4896e01
+[x] log URL from log platform (analyzed via QAFoundBugs tool)
+[ ] screenshot / video (attach file)
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue
+
+**Root Cause:**
+The issue is caused by a timeout (error code 10004) in the `seller.seller_operation.account_health_metric_api.get_shop_listing_limit` service when called during the product lock check phase. This is a critical dependency in the SIP item sync flow.
+
+**Error Chain:**
+1. **User Action**: Force sync Aitem from Seller Center (Primary Item: 2944816227 → Affiliated Item: 3703805432)
+2. **API Call**: `crossuploadbff.admin.sync_related_aitem` → `marketplace.listing.upload.crossupload.api.sync_product`
+3. **Product Update**: `marketplace.listing.upload.product.update_product` is called for the affiliated shop
+4. **Lock Check**: `marketplace.listing.upload.lock.check_product_lock` is invoked to validate product lock status
+5. **Health Metric Check**: Calls `seller.seller_operation.account_health_metric_api.get_shop_listing_limit` to verify shop listing limits
+6. **Timeout**: The health metric API times out with error code 10004 (ERROR_TIMEOUT)
+7. **Propagation**: Error propagates back through the chain as 338300005 → 370200006 → 405300005
+
+**Service Call Chain:**
+```
+crossuploadbff-admin (405300005)
+  → crossupload.api (370200006)
+    → marketplace.listing.upload.product (338300005)
+      → marketplace.listing.upload.lock.check_product_lock (338300005)
+        → seller.seller_operation.account_health_metric_api.get_shop_listing_limit (10004 - TIMEOUT)
+```
+
+**Additional Issues Found:**
+1. **Cache Errors**: `region_sync_config:VN_KH_0` cache read failure in crossupload-api
+2. **Missing Configuration**: Item attribute service shows KH region missing from unit_local_settings for attribute ID 100098
+3. **Database Issues**: Missing table `component_shop_blacklist_tab` in KH region for shop channels service
+4. **CID Mismatch**: Multiple warnings about CID flag mismatch (global vs regional)
+
+**Affected Services:**
+- Primary: `seller.seller_operation.account_health_metric_api` (Seller Operation team)
+- Secondary: `marketplace.listing.upload.lock` (Listing Upload team)
+- Tertiary: `marketplace.listing.upload.crossupload.api` (Cross Upload team)
+
+**Teams to Contact:**
+- **@Seller-Operation-Team**: Primary owner of `account_health_metric_api` service that is timing out
+- **@Listing-Upload-Team**: Owner of product lock check logic that depends on health metric API
+- **@Cross-Upload-Team**: Owner of SIP sync workflow for context and coordination
+
+**Recommended Actions:**
+1. **Immediate**: Investigate why `account_health_metric_api.get_shop_listing_limit` is timing out for shop 1013210527 in KH region
+2. **Short-term**: Check if the health metric service is properly configured for KH region in test environment
+3. **Medium-term**: Review timeout settings and add retry logic for health metric API calls
+4. **Long-term**: Consider adding fallback mechanism when health metric check fails (if business logic allows)
+5. **Configuration**: Fix the cache configuration for `region_sync_config:VN_KH_0`
+6. **Database**: Create missing table `component_shop_blacklist_tab` in KH region database
+
+**Verification Steps:**
+After fix is deployed:
+1. Retry the force sync operation for item 2944816227 → 3703805432
+2. Verify that `account_health_metric_api` responds within timeout threshold
+3. Confirm that product lock check completes successfully
+4. Validate that affiliated item is properly synchronized
+5. Test with multiple KH shops to ensure consistent behavior
+
+
+

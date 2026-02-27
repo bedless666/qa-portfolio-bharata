@@ -1,0 +1,377 @@
+================================================================================
+  TEST CASE MIGRATION GUIDE - OLD FORMAT TO NEW FORMAT
+================================================================================
+
+PURPOSE:
+--------
+Guide ini digunakan untuk migrate test case dari format lama (Old test case) 
+ke format baru (New Format) sesuai dengan standar yang sudah ditetapkan.
+
+REFERENCE FILES:
+----------------
+1. Old Format: Old test case/ID Team Regression Case[P0] - Shopee(English).csv
+2. New Format Sample: Sample test case and docs/MP Regression Cases New Format - Buyer Flow.csv
+3. PIC Mapping: Sample test case and docs/ID Team Regression Case[P0] - PIC X Test Case.csv
+4. Example Output: New Test Case/MP Regression Cases New Format - Buyer Flow 3 (TC 14).csv
+
+================================================================================
+STEP-BY-STEP PROCESS
+================================================================================
+
+STEP 1: IDENTIFY TEST CASE
+---------------------------
+- Cari test case di Old Format berdasarkan numbering (contoh: [14], [15], [16], [17])
+- Test case dimulai dari baris yang berisi "[XX]Test case name" di kolom pertama (kolom "f")
+- Test case berakhir sebelum baris berikutnya yang berisi "[XX+1]Test case name"
+
+STEP 2: GET REGION FROM PIC MAPPING
+------------------------------------
+- Buka file: Sample test case and docs/ID Team Regression Case[P0] - PIC X Test Case.csv
+- Cari test case yang sama (contoh: [14]Test Buyer successfully place order...)
+- Lihat kolom PIC untuk setiap region
+- Extract region dari nama PIC (contoh: "Gafiliano Gapili (ID), Trisha Theophania (BR)" → region=ID/BR)
+- Format region: region=ID/BR/TW (dipisah dengan slash, tanpa spasi)
+
+STEP 3: ANALYZE TEST CASE FLOW
+-------------------------------
+- Baca semua steps dalam test case
+- Identifikasi page/component untuk setiap step:
+  * Homepage
+  * PDP (Product Detail Page)
+  * Cart
+  * Checkout
+  * Order Payment
+  * Order Data & Ops
+  * Seller fulfilment
+  * dll (sesuai list Components yang tersedia)
+- Pisahkan steps berdasarkan page/component yang berbeda
+- Setiap page/component harus menjadi case name terpisah
+
+STEP 4: DETERMINE COMPONENTS INVOLVED
+--------------------------------------
+- Analisa case name dan steps untuk menentukan Components Involved
+- JANGAN gunakan Product Line 1 & 2 dari Old Format
+- Pilih dari list Components yang valid:
+  * Checkout, Cart, Homepage, PDP, Rating
+  * Seller fulfilment, Prefulfilment, Fulfilment platform
+  * Order Payment, Marketplace Payments, Order Data & Ops
+  * Stock, Voucher, Discount & Coins
+  * Item, Return & Refund, Settlement, Invoice
+  * dll (lihat Sample test case untuk complete list)
+- Format: "Component1, Component2, Component3" (dipisah koma dengan spasi)
+
+STEP 5: CREATE CASE NAMES
+--------------------------
+- Setiap page/component = 1 case name terpisah
+- Format case name: "[XX]Test [description] in [page/component]"
+- Contoh:
+  * "[14]Test Buyer successfully place order for product with seller streaming price in Homepage"
+  * "[14]Test Buyer successfully place order for product with seller streaming price in PDP"
+  * "[14]Test Buyer successfully place order for product with seller streaming price in cart"
+  * "[14]Test Buyer successfully place order for product with seller streaming price in checkout"
+- Jika satu case name punya >20 steps, split jadi Part 1, Part 2, dst:
+  * "[14]Test ... in cart - Part 1" (20 steps)
+  * "[14]Test ... in cart - Part 2" (remaining steps)
+
+STEP 6: BUILD PROGRESSIVE PRE-CONDITION
+----------------------------------------
+- Base pre-condition (universal) hanya ditulis di BARIS PERTAMA setiap case name
+- Format base pre-condition:
+  Shopee app
+  region=ID/BR
+  1. [condition 1]
+  2. [condition 2]
+  3. [condition 3]
+  4. [condition 4]
+- Progressive condition ditambahkan di baris pertama case name baru:
+  * Homepage: Base pre-condition saja
+  * PDP: Base + "Successfully entered live streaming page and added item1 to cart"
+  * Cart: Base + "Successfully added item1 and item2 to cart from PDP"
+  * Checkout: Base + "Successfully selected items in cart and clicked checkout"
+  * Order Payment: Base + "Successfully placed order"
+  * Order Admin: "Order has been created" + "Login to Order admin → Orders → Orders"
+- Steps berikutnya dalam case name yang sama: PRE-CONDITION KOSONG (hanya koma)
+- Exception: Jika ada conditional pre-condition yang berbeda, tulis di step tersebut:
+  * user in control group[TW/BR]
+  * user in treatment group[except TW/BR，all implemented]
+  * OPC Page
+  * item1 and item2 selected
+  * dll
+
+STEP 7: SPLIT MULTI-NUMBERED STEPS
+-----------------------------------
+- Setiap step harus dalam 1 row terpisah
+- Jika di Old Format ada step dengan numbering (1. xxx\n2. xxx\n3. xxx), split jadi:
+  * Row 1: Step "1. xxx"
+  * Row 2: Step "2. xxx"
+  * Row 3: Step "3. xxx"
+- Expected Result juga bisa multi-numbered, tetap dalam 1 cell (tidak perlu split)
+
+STEP 8: DETERMINE PLATFORM
+----------------------------
+- Default: IOS/ANDROID/PC (untuk semua buyer flow steps)
+- Jika step mention [RN] only: IOS/ANDROID
+- Jika step mention [PC] only: PC
+- Admin steps (Order admin, Seller Center): PC
+- Lihat dari steps untuk determine platform yang tepat
+
+STEP 9: CREATE CSV FILE
+------------------------
+- Header: Case name,Components Involved,Pre-condition,Platform,Steps,Expected Result
+- File naming: "MP Regression Cases New Format - Buyer Flow 3 (TC XX).csv"
+- Satu file per test case (TC 14, TC 15, TC 16, TC 17 = 4 files terpisah)
+- Save di folder: New Test Case/
+
+================================================================================
+RULES & GUIDELINES
+================================================================================
+
+RULE 1: CASE NAME SPECIFICITY
+-------------------------------
+✓ Case name HARUS spesifik per page/component
+✓ Tidak boleh satu case name untuk multiple pages
+✗ "[14]Test buyer flow" (salah - terlalu general)
+✓ "[14]Test buyer flow in PDP" (benar)
+✓ "[14]Test buyer flow in cart" (benar - case name terpisah)
+
+RULE 2: COMPONENTS SEPARATION
+------------------------------
+✓ Setiap page/component = case name terpisah
+✓ Components Involved harus sesuai dengan page yang sedang ditest
+✓ Tidak boleh gabung Homepage + PDP dalam 1 case name
+
+RULE 3: PRE-CONDITION MANAGEMENT
+---------------------------------
+✓ Base pre-condition (universal) hanya di baris pertama case name
+✓ Steps berikutnya: pre-condition kosong (hanya koma)
+✓ Conditional pre-condition: tulis di step yang memerlukan
+✓ Progressive condition: build up sesuai flow sebelumnya
+
+RULE 4: STEPS LIMITATION
+-------------------------
+✓ Maksimal 20 steps per case name
+✓ Jika >20 steps, split jadi Part 1, Part 2, dst
+✓ Satu step per row (tidak boleh multi-step dalam 1 cell)
+
+RULE 5: PLATFORM CLARITY
+-------------------------
+✓ Platform harus jelas untuk setiap step
+✓ Default: IOS/ANDROID/PC
+✓ Admin steps: PC only
+✓ Platform-specific steps: sesuai dengan mention di steps
+
+RULE 6: REGION FROM PIC
+-----------------------
+✓ Region HARUS diambil dari PIC mapping file
+✓ Format: region=ID/BR/TW (dipisah slash, tanpa spasi)
+✓ Region ditulis di base pre-condition (baris pertama case name)
+
+================================================================================
+EXAMPLE FROM TC 14
+================================================================================
+
+OLD FORMAT (Input):
+-------------------
+f,Pre-condition,,Steps,Expected Result,PIC,Android,IOS,PC,Admin,Product Line 1,Product Line 2
+[14]Test Buyer successfully place order for product with seller streaming price,,,,,,,,,,
+Test Buyer successfully place order for product with seller streaming price,"1.seller: currently doing live streaming, and set streaming price
+2.item1 and item2 both in live stream and set with live stream price
+3.have coin
+4.payment method: Bank Transfer",[Buyer],Enter live streaming page,success,Galang Theo Saputra,,,,,Buyer,N/A
+,,,Click cart Icon on the right of enjoy streaming price item1,Successfully add to cart,Galang Theo Saputra,,,,,Buyer,N/A
+,,,Click the product ,"1.Enter PDP Page
+2.Display video streaming window overlay",Galang Theo Saputra,,,,,Buyer,N/A
+...
+
+NEW FORMAT (Output):
+--------------------
+Case name,Components Involved,Pre-condition,Platform,Steps,Expected Result
+[14]Test Buyer successfully place order for product with seller streaming price in Homepage,Homepage,"Shopee app
+region=ID/BR
+1. seller: currently doing live streaming, and set streaming price
+2. item1 and item2 both in live stream and set with live stream price
+3. have coin
+4. payment method: Bank Transfer",IOS/ANDROID/PC,Enter live streaming page,success
+,,,,IOS/ANDROID/PC,Click cart Icon on the right of enjoy streaming price item1,Successfully add to cart
+[14]Test Buyer successfully place order for product with seller streaming price in PDP,PDP,"Shopee app
+region=ID/BR
+1. seller: currently doing live streaming, and set streaming price
+2. item1 and item2 both in live stream and set with live stream price
+3. have coin
+4. payment method: Bank Transfer
+Successfully entered live streaming page and added item1 to cart",IOS/ANDROID/PC,Click the product,"1. Enter PDP Page
+2. Display video streaming window overlay"
+,,user in control group[TW/BR],IOS/ANDROID,Check banner and price,"1. display SSP banner and SSP price [RN]
+2. click ""buy in live"" in banner, redirect to live streaming"
+...
+
+KEY OBSERVATIONS:
+-----------------
+1. Case name dipecah per page: Homepage, PDP, Cart, Checkout, Order Payment, Order Admin
+2. Base pre-condition hanya di baris pertama, steps berikutnya kosong
+3. Progressive condition: "Successfully entered...", "Successfully added...", dll
+4. Conditional pre-condition: "user in control group[TW/BR]" ditulis di step yang memerlukan
+5. Region dari PIC mapping: ID/BR
+6. Components sesuai page: Homepage, PDP, Cart, Checkout, Voucher, Discount & Coins, Order Payment, Order Data & Ops
+
+================================================================================
+COMPONENTS LIST (Valid Components)
+================================================================================
+
+Buyer Flow:
+- Checkout
+- Cart
+- Homepage
+- PDP
+- Rating
+
+Order & Payment:
+- Order Payment
+- Marketplace Payments
+- Order Data & Ops
+
+Seller:
+- Seller fulfilment
+- Prefulfilment
+- Fulfilment platform
+
+Promotion:
+- Voucher
+- Discount & Coins
+- Collection
+- Campaign Scene
+- Banner
+- Bidding
+
+Product:
+- Item
+- Stock
+
+Return & Refund:
+- Return & Refund
+- Return Seller
+
+Other:
+- Settlement
+- Invoice
+- Clearing
+- Seller Onboarding
+- OpenPlatform
+- Optimize
+- Seller Operation
+- Seller Platform
+- ShopPage
+- ShopMarketing
+- CRM
+- ShopMarket (ShopPage/ShopMarketing/CRM)
+- Listing Operation
+- Listing Info
+- Upload
+- Planning & Recruiting - BE
+- CMT - Microsite
+- paid_msg
+- push_noti
+- User BE
+- Calculation
+- Infrastructure
+
+================================================================================
+COMMON PITFALLS & SOLUTIONS
+================================================================================
+
+PITFALL 1: Pre-condition diulang di setiap step
+-------------------------------------------------
+✗ SALAH: Setiap step punya pre-condition lengkap yang sama
+✓ BENAR: Base pre-condition hanya di baris pertama, steps berikutnya kosong
+
+PITFALL 2: Case name terlalu general
+------------------------------------
+✗ SALAH: "[14]Test buyer flow" (untuk semua pages)
+✓ BENAR: "[14]Test buyer flow in PDP", "[14]Test buyer flow in cart" (terpisah)
+
+PITFALL 3: Components tidak sesuai page
+---------------------------------------
+✗ SALAH: Case name "in PDP" tapi Components "Cart, Checkout"
+✓ BENAR: Case name "in PDP" → Components "PDP"
+
+PITFALL 4: Multi-step dalam 1 row
+----------------------------------
+✗ SALAH: Steps "1. Click A\n2. Click B\n3. Click C" dalam 1 cell
+✓ BENAR: Split jadi 3 rows terpisah
+
+PITFALL 5: Region tidak dari PIC mapping
+------------------------------------------
+✗ SALAH: Asumsi region atau ambil dari Old Format
+✓ BENAR: Ambil dari PIC mapping file berdasarkan test case name
+
+PITFALL 6: Pre-condition kosong di step pertama
+-------------------------------------------------
+✗ SALAH: Step pertama case name dengan pre-condition kosong
+✓ BENAR: Step pertama case name HARUS punya pre-condition lengkap
+
+PITFALL 7: Platform tidak jelas
+------------------------------
+✗ SALAH: Platform kosong atau tidak sesuai
+✓ BENAR: Platform harus jelas: IOS/ANDROID/PC, IOS/ANDROID, atau PC
+
+================================================================================
+CHECKLIST BEFORE FINALIZING
+================================================================================
+
+□ Test case sudah diidentifikasi dengan benar (dari [XX] sampai [XX+1])
+□ Region sudah diambil dari PIC mapping file
+□ Case name sudah dipecah per page/component
+□ Components Involved sesuai dengan page yang ditest
+□ Base pre-condition hanya di baris pertama setiap case name
+□ Steps berikutnya: pre-condition kosong (kecuali conditional)
+□ Progressive condition sudah build up dengan benar
+□ Multi-numbered steps sudah di-split per row
+□ Platform sudah jelas untuk setiap step
+□ Maksimal 20 steps per case name (jika lebih, sudah di-split)
+□ File naming sudah sesuai: "MP Regression Cases New Format - Buyer Flow 3 (TC XX).csv"
+□ Header sudah benar: Case name,Components Involved,Pre-condition,Platform,Steps,Expected Result
+□ File disimpan di folder: New Test Case/
+
+================================================================================
+QUICK REFERENCE
+================================================================================
+
+PRE-CONDITION FORMAT:
+---------------------
+Baris pertama case name:
+Shopee app
+region=ID/BR
+1. [base condition 1]
+2. [base condition 2]
+3. [base condition 3]
+4. [base condition 4]
+[progressive condition if any]
+
+Steps berikutnya:
+(empty - hanya koma)
+
+CASE NAME FORMAT:
+-----------------
+[XX]Test [description] in [page/component]
+[XX]Test [description] in [page/component] - Part 1 (jika >20 steps)
+[XX]Test [description] in [page/component] - Part 2
+
+PLATFORM FORMAT:
+----------------
+IOS/ANDROID/PC (default buyer flow)
+IOS/ANDROID (RN only steps)
+PC (admin steps)
+
+COMPONENTS FORMAT:
+------------------
+"Component1, Component2, Component3" (dipisah koma dengan spasi)
+
+================================================================================
+END OF GUIDE
+================================================================================
+
+Last Updated: Based on TC 14 migration
+For questions or clarifications, refer to:
+- Sample test case: Sample test case and docs/MP Regression Cases New Format - Buyer Flow.csv
+- Example output: New Test Case/MP Regression Cases New Format - Buyer Flow 3 (TC 14).csv
+

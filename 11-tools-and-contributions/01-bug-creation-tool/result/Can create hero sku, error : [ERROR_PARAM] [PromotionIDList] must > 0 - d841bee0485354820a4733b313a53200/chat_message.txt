@@ -1,0 +1,16 @@
+Hi @[Team-Name]
+
+Found issue in ID staging environment.
+
+Issue: Can create hero sku, error : [ERROR_PARAM] [PromotionIDList] must > 0
+
+TraceID: d841bee0485354820a4733b313a53200
+Error Code: 6000006
+Error: [ERROR_PARAM] [PromotionIDList] must > 0
+
+Root Cause: Parameter Validation Error - Backend Service
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate? Thanks!
+

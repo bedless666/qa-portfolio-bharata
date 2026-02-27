@@ -1,0 +1,47 @@
+Hi @Native-Team @Build-Team
+
+Found critical issue in Test environment - Shopee app crashes on Android 15 emulators with 16KB page size.
+
+Issue: App crashes immediately on startup with native SIGSEGV error on 16KB page size devices
+
+Environment: Test / ID
+Device: Android Emulator API 35 (Android 15) with 16KB page size
+App Version: Shopee 3.64.03@regression
+Page Size: 16384 bytes (verified via getprop ro.product.cpu.pagesize.max)
+
+Error: SIGSEGV - Segmentation violation (invalid memory reference)
+Crashed Thread: JSBinder (React Native bridge)
+Crashed Libraries: 
+- libshadowhook.so
+- libglog_v2.so  
+- libnative-crash.so
+
+Root Cause: Native Library Alignment Issue (16KB-specific)
+The APK's native libraries are not properly aligned for 16KB page size. 
+
+**Verified:** Same APK works fine on 4KB page size devices (tested on API 34 emulator) but crashes immediately on 16KB devices. This confirms issue is specific to 16KB page size incompatibility.
+
+Current build has:
+- extractNativeLibs=true (causes alignment issues)
+- Native libraries not aligned to 16KB boundaries
+- Memory mapping incompatible with 16KB pages
+
+Impact:
+- App completely unusable on 16KB page size devices
+- Blocks all Android 15 (16KB) compatibility testing
+- Will affect future devices using 16KB as default
+
+Required Fix:
+1. Rebuild native libraries with 16KB page alignment
+2. Set extractNativeLibs=false in AndroidManifest
+3. Update build.gradle with 16KB configuration:
+   - android.bundle.enableUncompressedNativeLibs=false
+   - Ensure NDK libraries are 16KB aligned
+4. Test on 16KB emulator before release
+
+Created ticket with full analysis and logs: [JIRA_TICKET_URL]
+
+This is blocking 16KB compatibility verification. Could you please help investigate and rebuild with proper alignment? Thanks!
+
+Reference: https://developer.android.com/guide/practices/page-sizes
+

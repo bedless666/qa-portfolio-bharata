@@ -1,0 +1,41 @@
+__BUG REPORT - Hero SKU Creation Error__
+
+__Issue:__ Can create hero sku, error : [ERROR_PARAM] [PromotionIDList] must > 0
+
+__Environment:__ staging / ID
+
+__TraceID:__ d841bee0485354820a4733b313a53200
+
+__Error Code:__ 6000006 (ERROR_PARAM)
+
+__Error Message:__ [ERROR_PARAM] [PromotionIDList] must > 0
+
+__Error Response:__
+{
+    "error_list": [
+        {
+            "error_code": 6000006,
+            "error_msg": "[ERROR_PARAM] [PromotionIDList] must > 0",
+            "component_id": 0
+        }
+    ]
+}
+
+__Root Cause:__
+Backend parameter validation error. System requires PromotionIDList to contain at least one valid promotion ID > 0, but the request either:
+- Missing PromotionIDList parameter
+- Empty/null PromotionIDList
+- Contains invalid values (0, negative, or non-existent promotion IDs)
+
+__Impact:__
+- Users cannot create hero SKU items with promotions
+- Blocks marketing campaign setup for hero SKU items
+
+__Next Steps:__
+Please investigate the hero SKU creation API to verify:
+1. Why PromotionIDList validation is failing
+2. Check request payload structure
+3. Verify promotion ID validation logic
+
+Thanks!
+

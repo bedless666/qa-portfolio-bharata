@@ -1,0 +1,99 @@
+Case name,Components Involved,Pre-condition,Platform,Steps,Expected Result
+[14]Test Buyer successfully place order for product with seller streaming price in Homepage,Homepage,"Shopee app
+region=ID/BR
+1. seller: currently doing live streaming, and set streaming price
+2. item1 and item2 both in live stream and set with live stream price
+3. have coin
+4. payment method: Bank Transfer",IOS/ANDROID/PC,Enter live streaming page,success
+,,,,IOS/ANDROID/PC,Click cart Icon on the right of enjoy streaming price item1,Successfully add to cart
+[14]Test Buyer successfully place order for product with seller streaming price in PDP,PDP,"Shopee app
+region=ID/BR
+1. seller: currently doing live streaming, and set streaming price
+2. item1 and item2 both in live stream and set with live stream price
+3. have coin
+4. payment method: Bank Transfer
+Successfully entered live streaming page and added item1 to cart",IOS/ANDROID/PC,Click the product,"1. Enter PDP Page
+2. Display video streaming window overlay"
+,,user in control group[TW/BR],IOS/ANDROID,Check banner and price,"1. display SSP banner and SSP price [RN]
+2. click ""buy in live"" in banner, redirect to live streaming"
+,,user in treatment group[except TW/BR，all implemented],IOS/ANDROID,Check banner and price,"1. display SSP banner and SSP price[RN]
+2. display discount value
+3. Not clickable"
+,,,,IOS/ANDROID/PC,Click Add to Cart,Successfully add to cart
+,,,,IOS/ANDROID/PC,Click shop name in cart page,Enter shop page
+,,,,IOS/ANDROID/PC,Click item2,Enter PDP Page
+,,user in treatment group[except TW/BR，all implemented],IOS/ANDROID,Check banner and price,"1. display SSP banner under price [RN]
+2. PDP shows original price
+3. display SSP price on the banner
+4. click ""buy in live"" in banner, redirect to live streaming"
+,,,,IOS/ANDROID/PC,Click Add to Cart,Successfully add to cart
+,,,,IOS/ANDROID/PC,Click top right cart icon in PDP page,Enter cart Page
+[14]Test Buyer successfully place order for product with seller streaming price in cart,Cart,"Shopee app
+region=ID/BR
+1. seller: currently doing live streaming, and set streaming price
+2. item1 and item2 both in live stream and set with live stream price
+3. have coin
+4. payment method: Bank Transfer
+Successfully added item1 and item2 to cart from PDP",IOS/ANDROID/PC,Check item1 information,"1. label: Added From Live
+2. Display slashed price
+3. label: Streaming Price"
+,,,,IOS/ANDROID/PC,Check item2 information,"1. Display original price
+2. Streaming Price at amount"
+,,,,IOS/ANDROID/PC,Click item2 Streaming Price at amount,Redirect to livestreaming page
+,,,,IOS/ANDROID/PC,Click Return to,Return to cart Page
+,,,,IOS/ANDROID/PC,Click box at left of shop icon,successfully select (tick) item1 and item2
+,,,,IOS/ANDROID/PC,change item1 amount > Purchase Limit,"Popup display ""This price is limited to max {price_max_qty} items, price will be changed to {next_price}"""
+,,,,IOS/ANDROID/PC,Click OK,"1. Return to cart Page
+2. ""Streaming Price"" label no longer Display
+3. Display original price"
+,,,,IOS/ANDROID/PC,change item1 amount < Purchase Limit,success
+,,,,IOS/ANDROID/PC,change item2 amount,success
+,,,,IOS/ANDROID/PC,Click box at left of shop icon,Successfully unCheck item
+,,item1 and item2 selected,IOS/ANDROID/PC,Check price amount,Information in Discount Detail Page displayed correctly
+,,item1 and item2 selected,IOS/ANDROID/PC,Click Check Out,page load successfully
+[14]Test Buyer successfully place order for product with seller streaming price in checkout,"Checkout, Voucher, Discount & Coins","Shopee app
+region=ID/BR
+1. seller: currently doing live streaming, and set streaming price
+2. item1 and item2 both in live stream and set with live stream price
+3. have coin
+4. payment method: Bank Transfer
+Successfully selected items in cart and clicked checkout",IOS/ANDROID/PC,"Click ""Return to"" button on OPC Page top left corner",Loads Return to cart Page and item is in Checked Status
+,,OPC Page,IOS/ANDROID/PC,Check voucher,voucher information and cart page info matches
+,,,,IOS/ANDROID/PC,Check label,item1Display Added From Live label
+,,,,IOS/ANDROID/PC,Click Select payment method,Redirect to Payment Method Page
+,,,,IOS/ANDROID/PC,"select Bank Transfer，Click CONFIRM",Return to OPC Page
+,,,,IOS/ANDROID/PC,redeem coin,success
+,,,,IOS/ANDROID/PC,Check OPC Page for shop,information Correct
+,,,,IOS/ANDROID/PC,Check OPC Page for item,information Correct
+,,,,IOS/ANDROID/PC,Check OPC Page for voucher,information Correct
+,,,,IOS/ANDROID/PC,Check OPC Page for coins,information Correct
+,,,,IOS/ANDROID/PC,Check OPC Page for Payment Details information,information Correct
+,,,,IOS/ANDROID/PC,Click Place Order,"1. redirect to OSP
+2. Payment in pending status"
+[14]Test Buyer successfully place order for product with seller streaming price in order payment,Order Payment,"Shopee app
+region=ID/BR
+1. seller: currently doing live streaming, and set streaming price
+2. item1 and item2 both in live stream and set with live stream price
+3. have coin
+4. payment method: Bank Transfer
+Successfully placed order",IOS/ANDROID/PC,Click My Purchases button,"1. Redirect to My Purchases Page
+2. Redirect to To Pay tab"
+,,,,IOS/ANDROID/PC,Click the order,Redirect to Order Details Page
+,,,,IOS/ANDROID/PC,Click Cancel Order,"Pop-up ""Select Cancellation Reason"""
+,,,,IOS/ANDROID/PC,choose one reason and click on Confirm,"1. Enter My Purchases Page
+2. stop at Cancelled Page"
+,,,,IOS/ANDROID/PC,Check cancelled order,"1. Cancelled
+2. Buy Again
+3. Quantity, Unit price, Order Total is Correct"
+,,,,IOS/ANDROID/PC,Click the order,"1. Redirect to Cancellation Details Page
+2. page Display Cancellation Completed"
+,,,,IOS/ANDROID/PC,Click Order Detail,Enter Order Details Page
+,,,,IOS/ANDROID/PC,Click Cancel Details,"1. Redirect to Cancellation Details Page
+2. page Display Cancellation Completed"
+[14]Test Buyer successfully place order for product with seller streaming price in order admin,Order Data & Ops,"Shopee app
+region=ID/BR
+Order has been created
+Login to Order admin → Orders → Orders",PC,Enter Order ID or other information then Click Search,Search successfully
+,,,,PC,Click Order ID,Redirect to Order Details Page
+,,,,PC,Click Coding Monkey,success
+,,,,PC,Query order_unit_migration_toggle information,Value is 2

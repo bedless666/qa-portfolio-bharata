@@ -1,0 +1,70 @@
+*Summary*:
+SIP Product Sync Failed - Primary Shop Not Whitelisted for Logistics Channel in LA Region
+
+*Configuration*:
+- app / os version: Seller Center Admin / Chrome 142 on macOS
+- env (test, staging, live) and country info: Test environment, LA (Latin America) region, Global CID
+- pfb build: n/a
+- account (user / id): User ID: 39671, Primary Shop ID: 1013355633, Affiliated Shop ID: 1013355932, Item ID: 2303859249
+- toggles: none
+
+*Impact*
+- user impact summary: Cross-border sellers cannot sync products from Primary Shop to Affiliated Shops in LA region. Product creation/sync fails completely, blocking SIP (Shopee International Platform) operations for LA market.
+- test impact summary: QA team blocked from testing SIP product sync functionality in LA region. Cannot verify cross-upload features for LA market expansion.
+- any workaround: Contact backend team to add shop 1013355633 to logistics channel whitelist for LA region
+
+*Reproducible Steps*
+1. Login to Seller Center as cross-border merchant (Primary Shop: 1013355633)
+2. Navigate to SIP MSKU detail page for item 2303859249
+3. Click "Sync Related A-Item" to create affiliated item in LA shop (1013355932)
+4. System attempts to sync product via crossupload API
+
+*Expected Result*
+- Product should sync successfully to affiliated shop in LA region
+- A-Item should be created with proper logistics channel configuration
+- Sync operation completes without errors
+
+*Actual*
+- Product sync fails with error code 405300005
+- Error message: "pshop not hit logistics channel whitelist"
+- Affiliated item creation blocked
+- TraceID: e3e3e7f34594ab699436687407f66c01 (around 2025-12-10 16:18:13 UTC)
+
+*Evidence and Troubleshooting*
+[x] screenshot / video (attach file)
+[x] trace link (_show_debug_info=2)
+[x] log URL from log platform
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend Configuration Issue
+Based on log analysis from TraceID e3e3e7f34594ab699436687407f66c01:
+
+**Root Cause**: Primary Shop (1013355633) is not added to the logistics channel whitelist for LA region operations.
+
+**Technical Details**:
+- Service: crossupload-api (marketplace.listing.upload.crossupload.api.sync_product)
+- Error Code: 370200006 (internal), 405300005 (external API error)
+- Error Message: "create aitem fail for affiShopid:1013355932, reason:pshop not hit logistics channel whitelist"
+- Failed at: item_sync_service.go:178
+
+**Service Call Chain**:
+1. Seller Center Admin → mall-sellergatewayunification (gateway)
+2. Gateway → crossuploadbff-admin (BFF layer)
+3. BFF → crossupload-api (core sync service)
+4. crossupload-api checks logistics channel whitelist
+5. Validation fails: Shop 1013355633 not in whitelist for LA region
+6. Sync operation aborted with error 370200006
+
+**Why This Happened**:
+The crossupload-api service validates whether the primary shop is authorized to use specific logistics channels when syncing to affiliated shops in different regions. For LA region operations, there's a whitelist mechanism that controls which shops can create items with specific logistics configurations. Shop 1013355633 has not been added to this whitelist, causing all sync attempts to LA affiliated shops to fail.
+
+**Required Fix**:
+Backend team needs to add Primary Shop ID 1013355633 to the logistics channel whitelist for LA region in the crossupload-api configuration or database.
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist (Remove this section in the bug. It is for your reference when creating the bug ticket. If any check is not true, please contact huanglh@sea.com for coaching)
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[x] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[] If applicable, you have provided the detailed information about your toggle setting.
+[x] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+

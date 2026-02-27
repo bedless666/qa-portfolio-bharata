@@ -1,0 +1,16 @@
+Hi @Campaign-Scene-Backend-Team / @Common-Scene-Admin-Team
+
+Found issue in KH Test environment.
+
+Issue: CSV template review page showing blank - get_csv_template API returns error 10000
+
+TraceID: 86e88e08458fb1275b437f12bdd1b002
+Error Code: 10000 (ERROR_UNKNOWN)
+Error: unknown operation review
+
+Root Cause: Configuration Error - campaignscene-commonsceneadmin service doesn't recognize "review" operation type in GetCsvTemplate handler
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate? Thanks!
+

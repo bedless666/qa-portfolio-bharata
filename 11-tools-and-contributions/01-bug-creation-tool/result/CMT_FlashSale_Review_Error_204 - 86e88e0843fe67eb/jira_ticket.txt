@@ -1,0 +1,120 @@
+*Summary*:
+CMT Flash Sale Review Page returns error 204 - Session data not found for pending auto review count
+
+*Configuration*:
+- app / os version: CMT Admin Web Portal / Chrome on macOS
+- env (test, staging, live) and country info: Test environment, KH region (Cambodia)
+- pfb build: n/a
+- account (user / id): bharata.aryaseta@shopee.com
+- toggles: none
+
+*Impact*
+- user impact summary: Campaign managers cannot view the Flash Sale review page for session 170000000005035. The pending auto review count API returns error 204 with null data, preventing users from accessing campaign review details and blocking the review workflow.
+- test impact summary: QA team blocked from testing Flash Sale campaign review functionality in KH region. Cannot verify auto-review count display, campaign approval workflows, or session management features.
+- any workaround: None available. The session data appears to be missing or inaccessible from the backend service.
+
+*Reproducible Steps*
+1. Login to CMT Admin portal at https://cmt-admin.test.shopeekh.com
+2. Navigate to Campaign Scene → Flash Sale → Sub Campaign → Session → Review
+3. Access the review page with URL parameter: sessionId=170000000005035
+4. Observe the page fails to load with error 204
+
+*Expected Result*
+- The Flash Sale review page should load successfully
+- The pending auto review count should be displayed
+- Session details and review information should be visible
+- User should be able to proceed with campaign review workflow
+
+*Actual*
+- API endpoint `/api/gateway/v1/cmt/commonscene/pending_auto_review_count` returns error code 204
+- Response body: `{"data": null, "error": 204, "error_msg": ""}`
+- The review page cannot display session information
+- User is blocked from reviewing the Flash Sale campaign
+- TraceID: 86e88e0843fe67ebf6e3fcfeb94ab000 (2025-11-20, 10:36:44 UTC)
+
+*Evidence and Troubleshooting*
+[x] Error response captured from browser DevTools
+[x] trace link with TraceID: 86e88e0843fe67ebf6e3fcfeb94ab000
+[ ] screenshot / video (attach file)
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue
+
+**Root Cause:**
+The issue is caused by missing or inaccessible session data for Flash Sale session ID `170000000005035` in the CMT (Campaign Management Tool) backend. The error code 204 typically indicates "No Content" or "Data Not Found", suggesting that:
+
+1. The session ID does not exist in the database
+2. The session data was deleted or expired
+3. The session is in an invalid state that prevents data retrieval
+4. There's a data inconsistency between different services/databases
+
+**Error Details:**
+- **API Endpoint**: POST `/api/gateway/v1/cmt/commonscene/pending_auto_review_count`
+- **Request Body**: `{"session_id": "170000000005035"}`
+- **Response**: `{"data": null, "error": 204, "error_msg": ""}`
+- **HTTP Status**: 200 (but business error code 204)
+- **TraceID**: 86e88e0843fe67ebf6e3fcfeb94ab000
+
+**Analysis:**
+The API request successfully reaches the backend (HTTP 200), but the business logic returns error code 204 with null data. This indicates:
+
+1. **Permission Check**: The related trace (86e88e0843fe67ebf43e35dde4fdb100) shows successful permission validation:
+   - User: bharata.aryaseta@shopee.com
+   - Permission: `Recruiting.BC.SC.ReviewVoucher.View` ✓
+   - Permission: `Recruiting.BC.SC.ReviewVoucher.SensitiveView` ✓
+   - Entity check for session 170000000005035 completed successfully
+
+2. **Data Retrieval**: Despite successful permission checks, the actual session data retrieval fails with error 204
+
+**Possible Root Causes:**
+1. **Session Not Found**: Session ID 170000000005035 doesn't exist in the CMT database
+2. **Session Expired**: The session data was cleaned up or archived
+3. **Region Mismatch**: The session might exist in a different region's database
+4. **Data Migration Issue**: Session data might have been lost during a migration or deployment
+5. **Database Sync Issue**: Data inconsistency between read and write databases
+6. **Service Logic**: The pending_auto_review_count endpoint might have specific business rules that filter out this session
+
+**Affected Services:**
+- Primary: `campaignscene.commonsceneadmin` (CMT Common Scene Admin)
+- Secondary: `promotion.cmt.recruiting.recruiting_core` (CMT Recruiting Core)
+- Tertiary: `promotion.cmt.planning.general_service_core` (CMT Planning Service)
+
+**Teams to Contact:**
+- **@CMT-Team**: Primary owner of Campaign Management Tool and Flash Sale review functionality
+- **@Campaign-Scene-Team**: Owner of common scene admin service that handles session data
+- **@Recruiting-Team**: Owner of recruiting core service that manages campaign sessions
+
+**Recommended Actions:**
+1. **Immediate**: Verify if session 170000000005035 exists in the KH test database
+   - Check `flash_sale_session` table or equivalent
+   - Verify session status and data integrity
+   - Check if session was deleted or expired
+
+2. **Short-term**: 
+   - If session doesn't exist, create a valid test session for QA testing
+   - If session exists but is in invalid state, fix the data or state
+   - Add better error messaging (error_msg is empty, should explain why data is null)
+   - Review session cleanup/archival policies
+
+3. **Medium-term**:
+   - Add logging to track why error 204 is returned (which condition triggered it)
+   - Implement better error messages that explain the specific reason (not found, expired, invalid state, etc.)
+   - Add monitoring for error 204 occurrences
+
+4. **Long-term**:
+   - Review session lifecycle management
+   - Ensure proper test data setup in test environments
+   - Add validation to prevent accessing invalid/expired sessions
+   - Consider adding a "session not found" page instead of silent error
+
+**Verification Steps:**
+After fix is deployed:
+1. Query the database to confirm session 170000000005035 exists with valid data
+2. Access the review page URL: https://cmt-admin.test.shopeekh.com/campaignScene/flashSale/subCampaign/session/review?sessionId=170000000005035
+3. Verify the pending auto review count API returns success (error: 0)
+4. Confirm session details are displayed correctly
+5. Validate that the review workflow can proceed normally
+6. Test with multiple session IDs to ensure consistent behavior
+
+
+

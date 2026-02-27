@@ -1,0 +1,32 @@
+Hi @Crossupload-API-Team
+
+Found issue in LA Test environment.
+
+Issue: SIP product sync failing - Primary shop not in logistics channel whitelist
+
+TraceID: e3e3e7f34594ab699436687407f66c01
+Error Code: 370200006 (internal), 405300005 (external)
+Error: "create aitem fail for affiShopid:1013355932, reason:pshop not hit logistics channel whitelist"
+
+Root Cause: Configuration Issue - crossupload-api service
+Primary Shop 1013355633 is not whitelisted for LA region logistics channels, blocking all product sync operations to affiliated shop 1013355932.
+
+Details:
+- Primary Shop ID: 1013355633
+- Affiliated Shop ID: 1013355932 (LA region)
+- Item ID: 2303859249
+- Failed at: item_sync_service.go:178
+
+Could you please help add shop 1013355633 to the logistics channel whitelist for LA region? This is blocking SIP testing for LA market.
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Thanks!
+
+
+
+
+
+
+
+

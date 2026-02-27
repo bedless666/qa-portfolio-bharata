@@ -1,0 +1,85 @@
+*Summary*:
+[Backend][KH Test] Hardy database routing error - KH Aitem showing unlisted in PDP but available in VN Pshop
+
+*Configuration*:
+- app / os version: Backend API / Product Detail Page
+- env (test, staging, live) and country info: Test environment, KH (Cambodia)
+- pfb build: n/a
+- account (user / id): shop_id=1013210527, item_id=3703805432
+- toggles: none
+
+*Impact*
+- user impact summary: Items appear unlisted in KH region but are available in VN, causing inconsistent cross-region product availability. Users cannot purchase items that should be available.
+- test impact summary: QA testing blocked for KH region. Hardy database routing failures prevent shop fulfillment info retrieval. Cross-region listing inconsistency blocks multi-region testing scenarios.
+- any workaround: Test using VN region. Contact DBA team to configure Hardy routing for KH region.
+
+*Reproducible Steps*
+1. Access Product Detail Page (PDP) for item_id=3703805432 in KH test environment
+2. Observe item shows as "unlisted" in KH
+3. Check same item in VN Pshop - item is available
+4. Check logs for shop_id=1013210527 fulfillment info query
+5. Observe Hardy routing error: "routing out of range, route region: kh, route index: 0"
+
+*Expected Result*
+- Hardy should route KH database queries to correct shard
+- Shop fulfillment info should be retrievable for KH shops
+- Items should have consistent availability across regions (KH and VN)
+- No routing errors in logs
+
+*Actual*
+- Item shows as unlisted in KH but available in VN
+- Hardy routing fails with "routing out of range, route region: kh, route index: 0"
+- Shop fulfillment info query returns ERROR_SYSTEM (code: 10005)
+- Invalid address error: address_id=0 (unavailable address)
+- CID mismatch: Service in PH environment handling KH requests
+- TraceID: b11ba3af43d5ddc97234603034d14500 (2025-11-18, 11:14:48 KH time)
+
+*Evidence and Troubleshooting*
+[x] log URL from log platform
+[ ] screenshot / video (attach file)
+[ ] trace link (_show_debug_info=2)
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue
+
+**Root Cause:**
+Multiple infrastructure issues in KH test environment causing item to appear unlisted:
+
+1. **Hardy Routing Error (Primary)**
+   - Service: `sellerfulfilment-fulfilmentinfo-test-ph` (note: running in PH but handling KH)
+   - Error: `hardy (3025): routing out of range, route region: kh, route index: 0`
+   - Query: `SELECT * FROM shop_fm_info_tab WHERE shop_id=1013210527`
+   - Impact: Cannot retrieve shop fulfillment configuration
+
+2. **Invalid Address (Secondary)**
+   - Error: `unavailable address id|userid=7347400547, address_id=0`
+   - Impact: Address validation failures cascade through logistics services
+
+3. **CID Mismatch**
+   - Warning: "CID from flag=kh but CID from env=ph"
+   - Service in PH environment incorrectly handling KH requests
+
+4. **DNS Error**
+   - Error: `lookup fss-searchapi.ssc.test.shopee.kh.com: no such host`
+   - Impact: FSS service unreachable
+
+**Error Chain:**
+1. PDP requests shop fulfillment info for shop_id=1013210527
+2. Hardy routing fails → "routing out of range" for KH
+3. Shop fulfillment info unavailable → ERROR_SYSTEM
+4. Without fulfillment info, item cannot be listed
+5. Item shows as "unlisted" in KH (but available in VN where routing works)
+
+**Impact:**
+- Item listing inconsistency between KH and VN regions
+- Hardy routing failure for entire KH region
+- Shop fulfillment configuration unavailable
+- Cross-region testing blocked
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist (Remove this section in the bug. It is for your reference when creating the bug ticket. If any check is not true, please contact huanglh@sea.com for coaching)
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[] If applicable, you have provided the detailed information about your toggle setting.
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+

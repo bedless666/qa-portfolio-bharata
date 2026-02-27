@@ -1,0 +1,178 @@
+BUG ANALYSIS SUMMARY
+====================
+
+ISSUE OVERVIEW
+TraceID: e3e3e7f34594ab699436687407f66c01
+Environment: Test
+Region: LA (Latin America) / Global CID
+Severity: High - Blocks SIP product sync operations
+Date: 2025-12-10 16:18:13 UTC
+
+PROBLEM
+SIP (Shopee International Platform) product sync from Primary Shop to Affiliated Shop in LA region is completely blocked. When attempting to sync item 2303859249 from Primary Shop 1013355633 to Affiliated Shop 1013355932, the system rejects the operation because the primary shop is not whitelisted for logistics channel operations in LA region.
+
+ERROR DETAILS
+Code: 370200006 (internal error code), 405300005 (external API error code)
+Message: "create aitem fail for affiShopid:1013355932, reason:pshop not hit logistics channel whitelist"
+Service: crossupload-api
+Component: item_sync_service.go:178
+API Endpoint: marketplace.listing.upload.crossupload.api.sync_product
+Timestamp: 2025-12-10 16:18:13.731039 UTC
+
+ROOT CAUSE
+The crossupload-api service implements a logistics channel whitelist validation mechanism for cross-border product sync operations. When a primary shop attempts to create or sync products to affiliated shops in different regions, the system checks if the primary shop is authorized to use specific logistics channels for that target region.
+
+In this case:
+1. Primary Shop 1013355633 is attempting to sync to LA region (Affiliated Shop 1013355932)
+2. The crossupload-api service checks its logistics channel whitelist for LA region
+3. Shop 1013355633 is NOT found in the whitelist
+4. The validation fails at item_sync_service.go:178
+5. Sync operation is aborted with error code 370200006
+
+This is a configuration/permission issue, not a code bug. The shop simply hasn't been granted access to LA region logistics channels yet.
+
+SERVICE CHAIN
+1. User Action → Seller Center Admin (seller.test.shopee.cn)
+   - User clicks "Sync Related A-Item" button
+   - Request: PUT /crossuploadbff/admin/sync_related_aitem
+
+2. Seller Center → mall-sellergatewayunification (Gateway)
+   - Routes request to appropriate backend service
+   - Adds authentication and routing headers
+
+3. Gateway → crossuploadbff-admin (BFF Layer)
+   - Command: mkt_http.crossuploadbff.admin.put_crossuploadbff_admin_sync05frelated05faitem
+   - Prepares request for core API
+
+4. BFF → crossupload-api (Core Sync Service)
+   - Command: marketplace.listing.upload.crossupload.api.sync_product
+   - Request: {"shop_id":1013355633,"item_id":2303859249,"is_create":true}
+
+5. Error occurred at crossupload-api (item_sync_service.go:178)
+   - Validates logistics channel whitelist
+   - Checks if Primary Shop 1013355633 is whitelisted for LA region
+   - Validation FAILS: Shop not in whitelist
+   - Returns error: "pshop not hit logistics channel whitelist"
+
+CONFIGURATION ISSUES
+Missing Whitelist Entry:
+- Primary Shop ID 1013355633 is not in the logistics channel whitelist for LA region
+- This whitelist controls which shops can sync products to specific regions
+- Without whitelist entry, ALL sync operations to LA affiliated shops will fail
+
+Current Configuration State:
+- Primary Shop: 1013355633 (exists, active)
+- Affiliated Shop: 1013355932 (LA region, exists)
+- Whitelist Status: Shop 1013355633 NOT whitelisted for LA logistics channels
+- Required Action: Add shop to whitelist configuration
+
+DATA ISSUES
+No data corruption or invalid data detected. All entities exist and are valid:
+- Item 2303859249: Valid, exists in primary shop
+- Shop 1013355633: Valid primary shop
+- Shop 1013355932: Valid affiliated shop in LA region
+- The issue is purely a configuration/permission problem
+
+IMPACT ASSESSMENT
+User Impact:
+- Cross-border sellers with Primary Shop 1013355633 cannot sync products to LA market
+- All product creation/sync operations to LA affiliated shops are blocked
+- Business expansion to LA region is completely halted for this merchant
+- No workaround available except manual product creation (time-consuming, error-prone)
+
+System Impact:
+- Affects all SIP sync operations from shop 1013355633 to LA region
+- Does not affect syncs to other regions (if whitelisted)
+- Does not affect other shops' LA sync operations
+- Localized to this specific shop-region combination
+
+Test Impact:
+- QA team blocked from testing SIP features for LA market with this shop
+- Cannot verify cross-upload functionality for LA expansion
+- Test coverage incomplete for LA region scenarios
+
+TEAMS TO CONTACT
+Primary: @Crossupload-API-Team
+Reason: Owns the crossupload-api service and logistics channel whitelist configuration. They need to add shop 1013355633 to the LA region whitelist in their service configuration or database.
+
+Secondary: @SIP-Platform-Team (if applicable)
+Reason: May need to coordinate on SIP shop setup and regional permissions. Can verify if there are additional SIP-level configurations needed for LA region access.
+
+Tertiary: @Logistics-Team (if applicable)
+Reason: May need to verify that LA region logistics channels are properly configured and available for this shop type. Can confirm logistics channel IDs and requirements.
+
+SOLUTION STEPS
+1. Crossupload-API-Team: Add Primary Shop ID 1013355633 to the logistics channel whitelist for LA region
+   - Update whitelist configuration in crossupload-api service
+   - This may involve database update or config file change
+   - Ensure the whitelist entry covers all necessary LA logistics channels
+
+2. Crossupload-API-Team: Deploy the configuration change to test environment
+   - Apply whitelist update
+   - Restart service if necessary
+   - Verify configuration is loaded correctly
+
+3. Verification: Retry the sync operation with same parameters
+   - Primary Shop: 1013355633
+   - Item: 2303859249
+   - Target: Affiliated Shop 1013355932 (LA)
+   - Expected: Sync succeeds without whitelist error
+
+4. Testing: Verify end-to-end sync functionality
+   - Test product creation sync
+   - Test product update sync
+   - Verify affiliated item appears correctly in LA shop
+   - Check logistics channel configuration on synced item
+
+VERIFICATION STEPS
+After the fix is deployed:
+1. Clear any cached whitelist data in crossupload-api service
+2. Retry sync operation: PUT /crossuploadbff/admin/sync_related_aitem with item 2303859249
+3. Verify response code is 200 (success) instead of 405300005 (error)
+4. Check affiliated shop 1013355932 for newly created item
+5. Verify item has correct logistics channel configuration
+6. Monitor logs for 10-15 minutes to ensure no recurring errors
+7. Test with different items from same shop to confirm whitelist works consistently
+
+LOG EVIDENCE
+Key error from crossupload-api service:
+2025-12-10 16:18:13.731039|ERROR|e3e3e7f34594ab699436687407f66c01
+Service: crossupload-api-test-global
+File: item_sync_service.go:178
+Error: sync product for sip fail, pItemID:2303859249, pShopID:1013355633, aShopID:1013355932, err:pshop not hit logistics channel whitelist
+
+API response from crossupload-api:
+Code: 370200006
+Debug Message: "|create aitem fail for affiShopid:1013355932, reason:pshop not hit logistics channel whitelist|"
+
+External error returned to client:
+Code: 405300005
+Message: "external api error : call crossupload.api error:|create aitem fail for affiShopid:1013355932, reason:pshop not hit logistics channel whitelist|"
+
+Request details:
+- Command: marketplace.listing.upload.crossupload.api.sync_product
+- Request: {"shop_id":1013355633,"item_id":2303859249,"is_create":true}
+- Total cost: 151.99837ms
+- IDC: sg90
+
+NEXT STEPS
+1. Create JIRA ticket (use jira_ticket.txt)
+2. Notify Crossupload-API-Team via Slack/Teams (use chat_message.txt)
+3. Wait for team to update whitelist configuration
+4. Verify fix after configuration is deployed
+5. Retest the sync scenario with same shop and item
+6. Test additional items to ensure consistent behavior
+7. Close ticket if resolved and document the whitelist entry
+
+---
+Generated: 2025-12-10 16:18:13 UTC
+Analyzer Version: Bug Analyzer v2.2 (TXT-based)
+Analyzed By: Cursor AI
+
+
+
+
+
+
+
+

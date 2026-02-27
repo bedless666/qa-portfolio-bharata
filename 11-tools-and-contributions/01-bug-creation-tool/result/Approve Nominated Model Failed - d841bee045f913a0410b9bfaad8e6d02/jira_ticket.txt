@@ -1,0 +1,80 @@
+*Summary*:
+Cannot approve nominated model - cache closed error (error code 264000014)
+
+*Configuration*:
+- app / os version: Admin Portal / Chrome on macOS
+- env (test, staging, live) and country info: Staging - ID (Indonesia)
+- pfb build: n/a
+- account (user / id): bharata.aryaseta@shopee.com
+- toggles: none
+
+*Impact*
+- user impact summary: Admin users cannot approve nominated models for recruitment campaigns. The approval workflow is completely blocked, preventing any model nominations from being processed.
+- test impact summary: QA team cannot test the full recruitment campaign flow. All approval-related test cases are blocked. This affects campaign scene and recruiting module testing.
+- any workaround: None available. The cache infrastructure needs to be restored.
+
+
+*Reproducible Steps*
+1. Login to Admin Portal as reviewer (bharata.aryaseta@shopee.com)
+2. Navigate to recruitment campaign nomination review page
+3. Select a nominated model (nomination_id: 2300000000000025503, item_id: 901290082)
+4. Click "Approve" button with adjust_promo_stock=true
+
+*Expected Result*
+- The nominated model should be approved successfully
+- Slot setting should be reduced accordingly
+- Success response should be returned
+
+*Actual*
+- Approval fails with error code 264000014
+- Error message: "Reduce Slot Setting Failed" with sub_detail: "cache:cache_closed"
+- TraceID: d841bee045f913a0410b9bfaad8e6d02 (around 2025-12-15 16:05:39)
+
+*Evidence and Troubleshooting*
+[x] screenshot / video (attach file)
+[x] trace link (_show_debug_info=2)
+[x] log URL from log platform
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue
+
+Technical Analysis:
+The issue originates from the `resource-slotmanagementcore` service where the memory cache system is closed/unavailable. 
+
+Service Call Chain:
+1. campaignscene-commonsceneadmin receives approve request
+2. Calls promotion.cmt.recruiting.recruiting_admin.reviewer_approve
+3. recruiting-recruitingadmin processes the approval
+4. Calls resource-slotmanagementcore to reduce slot setting
+5. FAILURE: slotmanagementcore cannot access cache (error: "cache:cache_closed")
+
+Root Cause Details:
+- Service: resource-slotmanagementcore-staging-id
+- Operation: GetValueFromMemoryCache for "slot_category_universe"
+- Error: "cache:cache_closed" - The cache infrastructure is not running or connection is closed
+- Impact: Cannot locate slot settings, cannot lock slot sheet, cannot reduce slot allocation
+- Error Code: 264000014 (Reduce Slot Setting Failed)
+
+Log Evidence:
+```
+2025-12-15 16:05:39.242767|ERROR|d841bee045f913a0410b9bfaad8e6d02
+GetValueFromMemoryCache error
+cacheKey: "slot_category_universe"
+err: "cache:cache_closed"
+
+2025-12-15 16:05:39.242783|ERROR|d841bee045f913a0410b9bfaad8e6d02
+locate slot setting failed: cache:cache_closed
+
+2025-12-15 16:05:39.338046|ERROR|d841bee045f913a0410b9bfaad8e6d02
+Lock failed: cache:cache_closed
+```
+
+The cache service needs to be restarted or the connection needs to be re-established in the staging environment.
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist (Remove this section in the bug. It is for your reference when creating the bug ticket. If any check is not true, please contact huanglh@sea.com for coaching)
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[x] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[x] If applicable, you have provided the detailed information about your toggle setting.
+[x] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+

@@ -8,7 +8,7 @@
 
 **Status:** ✅ Published & Active  
 **Last Updated:** February 18, 2026  
-**Total Projects:** 10 (1 AI-assisted + 4 professional + 5 learning)
+**Total Projects:** 11 (1 AI-assisted + 5 professional + 5 learning)
 
 ---
 
@@ -63,7 +63,7 @@
 
 ---
 
-### Professional Work Projects (4)
+### Professional Work Projects (5)
 
 #### 2. Regression Automation System
 **Domain:** E-commerce Marketplace  
@@ -137,9 +137,37 @@
 
 ---
 
+#### 6. Tools & Contributions
+**Domain:** E-commerce Marketplace  
+**Duration:** 2022 - Present  
+**Impact:** 60-70% reduction in manual QA tasks
+
+**Key Features:**
+- 6 automation tools (Python, JavaScript, Node.js)
+- 1 process methodology (JIRA Kanban)
+- AI-assisted development (Cursor AI, ChatGPT)
+- Integration with JIRA API, Shark API, Google Sheets
+
+**Tools Included:**
+1. Bug Analyzer - Automated bug report generation
+2. JIRA Weekly Summary - Automated team notifications
+3. Test Case Migration - Systematic migration guide
+4. Monthly Regression Schedule - Automated calendar notifications
+5. Shop Activation Automation - API-based shop activation
+6. RN Regression (QAoD) - Smart workflow orchestrator
+7. JIRA Kanban Daily Task - Team task management methodology
+
+**Metrics:**
+- 6 automation tools created
+- 60-70% reduction in manual work
+- 100+ hours saved monthly
+- 10+ team members benefited
+
+---
+
 ### Learning & Skill Development Projects (5)
 
-#### 6. Web + API Automation Framework
+#### 7. Web + API Automation Framework
 **Context:** Bootcamp capstone project  
 **Tech Stack:** Selenium, Rest Assured, Cucumber, GitHub Actions
 
@@ -151,7 +179,7 @@
 
 ---
 
-#### 7. Cucumber UI Framework
+#### 8. Cucumber UI Framework
 **Context:** Bootcamp training project  
 **Tech Stack:** Cucumber, Selenium, TestNG
 
@@ -175,7 +203,7 @@
 
 ---
 
-#### 9. API Testing Basics
+#### 10. API Testing Basics
 **Context:** Bootcamp foundation project  
 **Tech Stack:** TestNG, Apache HTTP Client
 
@@ -187,7 +215,7 @@
 
 ---
 
-#### 10. Java Gradle Setup
+#### 11. Java Gradle Setup
 **Context:** Bootcamp setup project  
 **Tech Stack:** Java, Gradle, TestNG
 

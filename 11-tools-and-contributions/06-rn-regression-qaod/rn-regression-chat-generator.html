@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RN Regression Chat Generator - QAoD Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            color: #666;
+            min-width: 200px;
+        }
+
+        .tab:hover {
+            background: #e8e9ea;
+        }
+
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .template-content {
+            display: none;
+        }
+
+        .template-content.active {
+            display: contents;
+        }
+
+        .form-section, .preview-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #888;
+            font-size: 12px;
+        }
+
+        .info-badge {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #4f46e5;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .link-helper {
+            display: flex;
+            gap: 8px;
+            margin-top: 5px;
+            flex-wrap: wrap;
+        }
+
+        .link-helper a {
+            font-size: 11px;
+            color: #667eea;
+            text-decoration: none;
+            padding: 4px 8px;
+            background: #e0e7ff;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .link-helper a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .quick-fill {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .quick-fill-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .quick-fill-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .quick-btn {
+            padding: 6px 12px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .quick-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .preview-box {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 700px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .success-message.show {
+            display: flex;
+        }
+
+        .collapsible-section {
+            margin-bottom: 15px;
+        }
+
+        .collapsible-header {
+            background: #f0f0f0;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #555;
+            transition: all 0.3s;
+        }
+
+        .collapsible-header:hover {
+            background: #e8e8e8;
+        }
+
+        .collapsible-header::after {
+            content: '▼';
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .collapsible-header.active::after {
+            transform: rotate(-180deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .collapsible-content.active {
+            max-height: 3000px;
+            padding-top: 15px;
+        }
+
+        @media (max-width: 1200px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 RN Regression Chat Generator</h1>
+            <p>QAoD Tool - Generate chat templates for Deployment, Staging & Live Regression</p>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="switchTemplate('deployment')">
+                📦 Deployment Staging
+            </div>
+            <div class="tab" onclick="switchTemplate('staging')">
+                🧪 Staging Regression
+            </div>
+            <div class="tab" onclick="switchTemplate('live')">
+                🔴 Live Regression
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- TEMPLATE 1: DEPLOYMENT STAGING -->
+            <div id="deployment-template" class="template-content active">
+                <div class="form-section">
+                    <div class="section-title">📝 Deployment Staging Input</div>
+
+                    <div class="quick-fill">
+                        <div class="quick-fill-title">Quick Fill Date:</div>
+                        <div class="quick-fill-buttons">
+                            <button class="quick-btn" onclick="setDeploymentToday()">Today</button>
+                            <button class="quick-btn" onclick="setDeploymentTomorrow()">Tomorrow</button>
+                            <button class="quick-btn" onclick="setDeploymentNextFriday()">Next Friday</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Version Number <span class="info-badge">Required</span></label>
+                        <input type="text" id="deployment-version" placeholder="e.g., 2025.11.v4" value="2025.11.v4">
+                    </div>
+
+                    <div class="form-group">
+                        <label>RSL Schedule Number <span class="info-badge">Required</span></label>
+                        <input type="text" id="deployment-rsl" placeholder="e.g., 9540">
+                        <div class="link-helper">
+                            <a href="https://space.shopee.io/release/portal/regression_management/regression_schedule?tab=2" target="_blank">📋 Open Release Portal</a>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deployment Date <span class="info-badge">Required</span></label>
+                        <input type="date" id="deployment-date">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deployment Time (Jakarta Time)</label>
+                        <input type="text" id="deployment-time" placeholder="e.g., 16.30" value="16.30">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deployment Thread Link (Optional)</label>
+                        <input type="url" id="deployment-thread" placeholder="https://link.seatalk.io/message/...">
+                        <small>Link to MKP Regression Group deployment thread</small>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="generateDeploymentChat()">
+                            ✨ Generate Chat
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetDeploymentForm()">
+                            🔄 Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="preview-section">
+                    <div class="section-title">👁️ Preview</div>
+                    <div class="preview-box" id="deployment-preview">
+                        <em style="color: #888;">Preview will appear here after you fill in the form and click "Generate Chat"</em>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="copyDeploymentToClipboard()">
+                            📋 Copy to Clipboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TEMPLATE 2: STAGING REGRESSION -->
+            <div id="staging-template" class="template-content">
+                <div class="form-section">
+                    <div class="section-title">📝 Staging Regression Input</div>
+
+                    <div class="quick-fill">
+                        <div class="quick-fill-title">Quick Fill Date:</div>
+                        <div class="quick-fill-buttons">
+                            <button class="quick-btn" onclick="setStagingToday()">Today</button>
+                            <button class="quick-btn" onclick="setStagingNextMonday()">Next Monday</button>
+                            <button class="quick-btn" onclick="setStagingCustomDate(7)">+7 Days</button>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section">
+                        <div class="collapsible-header active" onclick="toggleSection(this)">
+                            📅 Basic Information
+                        </div>
+                        <div class="collapsible-content active">
+                            <div class="form-group">
+                                <label>Version Number <span class="info-badge">Required</span></label>
+                                <input type="text" id="staging-version" placeholder="e.g., 2025.11.v4" value="2025.11.v4">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Date <span class="info-badge">Required</span></label>
+                                <input type="date" id="staging-date">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Test Case Spreadsheet URL</label>
+                                <input type="url" id="staging-spreadsheet" placeholder="https://docs.google.com/spreadsheets/d/...">
+                                <div class="link-helper">
+                                    <a href="https://docs.google.com/spreadsheets/d/1YIO68EZ-mOGHx2QUwtMZTEkFR6iIAivDSzpjdTigeyw/edit?gid=1710049128#gid=1710049128" target="_blank">📋 Template</a>
+                                    <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41Kk7STtvXNAhNTSsR-YuCYADFNMEN9H-oAU_GXz" target="_blank">💬 Check in MP Report</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Seller App Jira Ticket</label>
+                                <input type="url" id="staging-jira-seller" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                                <div class="link-helper">
+                                    <a href="https://jira.shopee.io/issues/?filter=150230" target="_blank">🎫 Recent SPQAA Tickets</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Buyer App Jira Ticket</label>
+                                <input type="url" id="staging-jira-buyer" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section">
+                        <div class="collapsible-header active" onclick="toggleSection(this)">
+                            📱 Shopee App
+                        </div>
+                        <div class="collapsible-content active">
+                            <div class="form-group">
+                                <label>iOS Version</label>
+                                <input type="text" id="staging-shopee-ios" placeholder="e.g., 3.63.44">
+                                <div class="link-helper">
+                                    <a href="https://app.sea.com/apps/246" target="_blank">🔗 Check Version</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Android Version</label>
+                                <input type="text" id="staging-shopee-android" placeholder="e.g., 3.63.23@regression (36323)">
+                            </div>
+
+                            <div class="form-group">
+                                <label>RN Available Time</label>
+                                <input type="text" id="staging-shopee-rn-time" placeholder="e.g., 11.30 SG Time">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section">
+                        <div class="collapsible-header active" onclick="toggleSection(this)">
+                            🏪 Seller App
+                        </div>
+                        <div class="collapsible-content active">
+                            <div class="form-group">
+                                <label>iOS Version (Internal Build)</label>
+                                <input type="text" id="staging-seller-ios" placeholder="e.g., 3.47.41">
+                                <div class="link-helper">
+                                    <a href="https://app.sea.com/apps/305" target="_blank">🔗 Check Version</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Android Version (Internal Build)</label>
+                                <input type="text" id="staging-seller-android" placeholder="e.g., 3.47.47@1-5-regression (34747)">
+                            </div>
+
+                            <div class="form-group">
+                                <label>iOS Version (ID Internal Build)</label>
+                                <input type="text" id="staging-seller-id-ios" placeholder="e.g., 3.48.1-test-seller-master">
+                                <div class="link-helper">
+                                    <a href="https://app.sea.com/apps/306" target="_blank">🔗 Check Version</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Android Version (ID Internal Build)</label>
+                                <input type="text" id="staging-seller-id-android" placeholder="e.g., 3.47.42@regression (34742)">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Seller App RN Version</label>
+                                <input type="text" id="staging-seller-rn" placeholder="e.g., rn-v6.60.0">
+                                <div class="link-helper">
+                                    <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41KkGdJ_vXNAhNTJhQttCvhbz-cvu6U9NmT0tLDQ" target="_blank">💬 Check in MKP Group</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section">
+                        <div class="collapsible-header active" onclick="toggleSection(this)">
+                            🌟 Shopee Lite
+                        </div>
+                        <div class="collapsible-content active">
+                            <div class="form-group">
+                                <label>App Version</label>
+                                <input type="text" id="staging-lite-version" placeholder="e.g., 2.93.48@regression (773)">
+                                <div class="link-helper">
+                                    <a href="https://app.sea.com/apps/196" target="_blank">🔗 Check Version</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>RN Version</label>
+                                <input type="text" id="staging-lite-rn" placeholder="e.g., 5.60.30">
+                                <div class="link-helper">
+                                    <a href="https://confluence.shopee.io/pages/viewpage.action?spaceKey=SPAT&title=%5B2024%5D+Shopee+Lite+RN+Release+Memo" target="_blank">📖 Check in Confluence</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section">
+                        <div class="collapsible-header active" onclick="toggleSection(this)">
+                            ⚙️ Additional Information
+                        </div>
+                        <div class="collapsible-content active">
+                            <div class="form-group">
+                                <label>Internal Target Time</label>
+                                <input type="text" id="staging-target-time" placeholder="e.g., 18:00 WIB" value="18:00 WIB">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Outstanding Services Link (Optional)</label>
+                                <input type="url" id="staging-outstanding" placeholder="https://link.seatalk.io/message/...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="generateStagingChat()">
+                            ✨ Generate Chat
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetStagingForm()">
+                            🔄 Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="preview-section">
+                    <div class="section-title">👁️ Preview</div>
+                    <div class="preview-box" id="staging-preview">
+                        <em style="color: #888;">Preview will appear here after you fill in the form and click "Generate Chat"</em>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="copyStagingToClipboard()">
+                            📋 Copy to Clipboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TEMPLATE 3: LIVE REGRESSION -->
+            <div id="live-template" class="template-content">
+                <div class="form-section">
+                    <div class="section-title">📝 Live Regression Input</div>
+
+                    <div class="quick-fill">
+                        <div class="quick-fill-title">Quick Fill Date:</div>
+                        <div class="quick-fill-buttons">
+                            <button class="quick-btn" onclick="setLiveToday()">Today</button>
+                            <button class="quick-btn" onclick="setLiveNextWednesday()">Next Wednesday</button>
+                            <button class="quick-btn" onclick="setLiveCustomDate(7)">+7 Days</button>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section">
+                        <div class="collapsible-header active" onclick="toggleSection(this)">
+                            👥 Team Masters
+                        </div>
+                        <div class="collapsible-content active">
+                            <div class="form-group">
+                                <label>Buyer Master Name</label>
+                                <input type="text" id="live-buyer-master" placeholder="e.g., Ovi">
+                                <div class="link-helper">
+                                    <a href="https://docs.google.com/spreadsheets/d/19nAfyhqtf-Evdl78peuoDOvs6SIoo9j0bpgvf1lIYAM/edit?gid=398695652#gid=398695652&range=A24" target="_blank">📋 Check Master Names</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Order Ops Master Name</label>
+                                <input type="text" id="live-orderops-master" placeholder="e.g., Katriel Serafina Widjaja">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Seller Master Name (backup)</label>
+                                <input type="text" id="live-seller-master" placeholder="e.g., Anisa Karina | MP Regression QA">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Promotion Master Name</label>
+                                <input type="text" id="live-promotion-master" placeholder="e.g., Kego | MP Regression QA">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section">
+                        <div class="collapsible-header active" onclick="toggleSection(this)">
+                            📅 Basic Information
+                        </div>
+                        <div class="collapsible-content active">
+                            <div class="form-group">
+                                <label>Version Number <span class="info-badge">Required</span></label>
+                                <input type="text" id="live-version" placeholder="e.g., 2025.11.v4" value="2025.11.v4">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Date <span class="info-badge">Required</span></label>
+                                <input type="date" id="live-date">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Live Regression TC Spreadsheet URL</label>
+                                <input type="url" id="live-spreadsheet" placeholder="https://docs.google.com/spreadsheets/d/...">
+                                <div class="link-helper">
+                                    <a href="https://docs.google.com/spreadsheets/d/1xcWWD9HbYodGfdtVeDPNrHd3PePdsleTSF3l4F3i-1U/edit?gid=2068996028#gid=2068996028" target="_blank">📋 Duplicate from Template</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Main Jira Ticket</label>
+                                <input type="url" id="live-jira-main" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                                <div class="link-helper">
+                                    <a href="https://jira.shopee.io/issues/?filter=150230" target="_blank">🎫 Recent SPQAA Tickets</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>SPMR Jira Ticket</label>
+                                <input type="url" id="live-jira-spmr" placeholder="https://jira.shopee.io/browse/SPMR-XXXX">
+                                <div class="link-helper">
+                                    <a href="https://jira.shopee.io/browse/SPMR-1448" target="_blank">🎫 Sample SPMR</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>RN Version</label>
+                                <input type="text" id="live-rn-version" placeholder="e.g., rn-v6.83.0-rc.2">
+                                <div class="link-helper">
+                                    <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41KkS1X6vXNAhNTJhQsRBO6xTT7EV-MdguHG2Am9" target="_blank">💬 Check in MKP Group</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section">
+                        <div class="collapsible-header active" onclick="toggleSection(this)">
+                            ⏰ Time Window
+                        </div>
+                        <div class="collapsible-content active">
+                            <div class="form-group">
+                                <label>Start Time</label>
+                                <input type="text" id="live-start-time" placeholder="e.g., 15:00 WIB" value="15:00 WIB">
+                            </div>
+
+                            <div class="form-group">
+                                <label>End Time</label>
+                                <input type="text" id="live-end-time" placeholder="e.g., 17:00 WIB" value="17:00 WIB">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="generateLiveChat()">
+                            ✨ Generate Chat
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetLiveForm()">
+                            🔄 Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="preview-section">
+                    <div class="section-title">👁️ Preview</div>
+                    <div class="preview-box" id="live-preview">
+                        <em style="color: #888;">Preview will appear here after you fill in the form and click "Generate Chat"</em>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="copyLiveToClipboard()">
+                            📋 Copy to Clipboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-message" id="successMessage">
+        <span>✅</span>
+        <span>Chat template successfully copied to clipboard!</span>
+    </div>
+
+    <script>
+        // Tab switching
+        function switchTemplate(template) {
+            // Update tabs
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.template-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(template + '-template').classList.add('active');
+        }
+
+        // Collapsible sections
+        function toggleSection(header) {
+            header.classList.toggle('active');
+            const content = header.nextElementSibling;
+            content.classList.toggle('active');
+        }
+
+        // Date formatting
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function formatDateShort(dateString) {
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // ============================================
+        // DEPLOYMENT STAGING FUNCTIONS
+        // ============================================
+
+        function setDeploymentToday() {
+            const today = new Date();
+            document.getElementById('deployment-date').value = today.toISOString().split('T')[0];
+        }
+
+        function setDeploymentTomorrow() {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('deployment-date').value = tomorrow.toISOString().split('T')[0];
+        }
+
+        function setDeploymentNextFriday() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            const daysUntilFriday = (5 - dayOfWeek + 7) % 7 || 7;
+            const nextFriday = new Date(today);
+            nextFriday.setDate(today.getDate() + daysUntilFriday);
+            document.getElementById('deployment-date').value = nextFriday.toISOString().split('T')[0];
+        }
+
+        function generateDeploymentChat() {
+            const version = document.getElementById('deployment-version').value || '2025.11.v4';
+            const rslSchedule = document.getElementById('deployment-rsl').value || '9540';
+            const dateInput = document.getElementById('deployment-date').value;
+            const time = document.getElementById('deployment-time').value || '16.30';
+            const threadLink = document.getElementById('deployment-thread').value;
+
+            if (!dateInput) {
+                alert('⚠️ Please select a deployment date!');
+                return;
+            }
+
+            const formattedDate = formatDateShort(dateInput);
+            const servicesLink = `https://space.shopee.io/release/portal/regression_management/regression_schedule?tab=2&rsl_schedule=${rslSchedule}`;
+            
+            const chat = `Hi All,
+
+Kindly help to follow up these Staging deployment services.
+
+Services:
+${servicesLink}
+📋 Guide: https://space.shopee.io/release/portal/regression_management/regression_schedule?tab=2
+
+Docs:
+https://docs.google.com/spreadsheets/d/1UeaO0XwM0_RLVFPa0nAtkF1yG7-hp7tTnkm2LvyghA4/edit?gid=1498598204#gid=1498598204
+
+Reference confluence:
+https://confluence.shopee.io/pages/viewpage.action?spaceKey=IMD&title=Staging+and+Live+Deployment+Management+Guide
+
+Testing Schedule: ${version}-Staging
+
+Deployment start: ${formattedDate} ${time} Jakarta Time
+
+Notes:
+⚠️ ⚠️ PLEASE SEE THIS FOR NEW ROLE in https://confluence.shopee.io/display/IMD/Staging+and+Live+Deployment+Management+Guide#heading-OverrideDeployment
+
+Focus only priority P1 + P2
+
+Follow-up all status
+
+Deployment Thread:
+${threadLink || '💬 Check in MKP Regression Group'}
+
+Thanks~!`;
+
+            document.getElementById('deployment-preview').textContent = chat;
+        }
+
+        function copyDeploymentToClipboard() {
+            const preview = document.getElementById('deployment-preview').textContent;
+            if (preview.includes('Preview will appear')) {
+                alert('⚠️ Please generate chat first!');
+                return;
+            }
+            copyToClipboard(preview);
+        }
+
+        function resetDeploymentForm() {
+            if (confirm('🔄 Reset all fields to default values?')) {
+                document.getElementById('deployment-version').value = '2025.11.v4';
+                document.getElementById('deployment-rsl').value = '';
+                document.getElementById('deployment-date').value = '';
+                document.getElementById('deployment-time').value = '16.30';
+                document.getElementById('deployment-thread').value = '';
+                document.getElementById('deployment-preview').innerHTML = '<em style="color: #888;">Preview will appear here after you fill in the form and click "Generate Chat"</em>';
+            }
+        }
+
+        // ============================================
+        // STAGING REGRESSION FUNCTIONS
+        // ============================================
+
+        function setStagingToday() {
+            const today = new Date();
+            document.getElementById('staging-date').value = today.toISOString().split('T')[0];
+        }
+
+        function setStagingNextMonday() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            const daysUntilMonday = (8 - dayOfWeek) % 7 || 7;
+            const nextMonday = new Date(today);
+            nextMonday.setDate(today.getDate() + daysUntilMonday);
+            document.getElementById('staging-date').value = nextMonday.toISOString().split('T')[0];
+        }
+
+        function setStagingCustomDate(days) {
+            const today = new Date();
+            const customDate = new Date(today);
+            customDate.setDate(today.getDate() + days);
+            document.getElementById('staging-date').value = customDate.toISOString().split('T')[0];
+        }
+
+        function generateStagingChat() {
+            const version = document.getElementById('staging-version').value || '2025.11.v4';
+            const dateInput = document.getElementById('staging-date').value;
+            
+            if (!dateInput) {
+                alert('⚠️ Please select a date!');
+                return;
+            }
+
+            const formattedDate = formatDate(dateInput);
+            const spreadsheet = document.getElementById('staging-spreadsheet').value || 'https://docs.google.com/spreadsheets/d/1YIO68EZ-mOGHx2QUwtMZTEkFR6iIAivDSzpjdTigeyw/edit?gid=1710049128#gid=1710049128';
+            const jiraSeller = document.getElementById('staging-jira-seller').value || 'https://jira.shopee.io/browse/SPQAA-XXXX';
+            const jiraBuyer = document.getElementById('staging-jira-buyer').value || 'https://jira.shopee.io/browse/SPQAA-XXXX';
+            
+            const shopeeIos = document.getElementById('staging-shopee-ios').value || '3.63.44';
+            const shopeeAndroid = document.getElementById('staging-shopee-android').value || '3.63.23@regression (36323)';
+            const shopeeRnTime = document.getElementById('staging-shopee-rn-time').value || '11.30 SG Time';
+            
+            const sellerIos = document.getElementById('staging-seller-ios').value || '3.47.41';
+            const sellerAndroid = document.getElementById('staging-seller-android').value || '3.47.47@1-5-regression (34747)';
+            const sellerIdIos = document.getElementById('staging-seller-id-ios').value || '3.48.1-test-seller-master';
+            const sellerIdAndroid = document.getElementById('staging-seller-id-android').value || '3.47.42@regression (34742)';
+            const sellerRn = document.getElementById('staging-seller-rn').value || '[Version number tag]';
+            
+            const liteVersion = document.getElementById('staging-lite-version').value || '2.93.48@regression (773)';
+            const liteRn = document.getElementById('staging-lite-rn').value || '5.60.30';
+            
+            const targetTime = document.getElementById('staging-target-time').value || '18:00 WIB';
+            const outstanding = document.getElementById('staging-outstanding').value || '[Fill with latest deployment link thread]';
+
+            const chat = `Hii All~ 👋
+
+Here are checklists for Staging Regression ${version}
+
+🗓️ Date:
+${formattedDate}
+
+📝 Regression Tasks:
+Test Case & QA PIC:
+${spreadsheet}
+📋 Guide: Check your email, or check in MP Report Group for test case
+Sample: https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41Kk7STtvXNAhNTSsR-YuCYADFNMEN9H-oAU_GXz
+
+🎟️ Main Jira Ticket:
+Seller App: ${jiraSeller}
+Buyer App: ${jiraBuyer}
+📋 Guide: SPQAA most recent created - https://jira.shopee.io/issues/?filter=150230
+
+🏷️ Label error:
+regression_staging_bug_country
+regression_staging_bug_ID
+regression_staging_bug_BR
+regression_staging_bug_TW
+regression_staging_bug_SG
+regression_staging_bug_VN
+regression_staging_bug_PH
+regression_staging_bug_MY
+regression_staging_bug_TH
+regression_staging_bug_CO
+regression_staging_bug_CL
+regression_staging_bug_MX
+
+📱 Shopee App version:
+iOS ${shopeeIos} or latest for Regression
+Android ${shopeeAndroid} or latest for Regression
+🔗 Check version: https://app.sea.com/apps/246
+
+⚙️ Shopee App RN version:
+Available ${shopeeRnTime}
+
+📱 Seller App version:
+Shopee Seller Internal Build
+iOS ${sellerIos}
+Android ${sellerAndroid}
+🔗 Check Version: https://app.sea.com/apps/305
+
+Shopee Seller ID Internal Build
+iOS ${sellerIdIos}
+Android ${sellerIdAndroid}
+🔗 Check Version: https://app.sea.com/apps/306
+
+⚙️ Seller App RN version:
+${sellerRn}
+📋 Guide: can check in MKP Group
+Sample: https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41KkGdJ_vXNAhNTJhQttCvhbz-cvu6U9NmT0tLDQ
+
+📱 Shopee Lite App version:
+${liteVersion} or latest for Regression
+🔗 Check Version: https://app.sea.com/apps/196
+
+⚙️ Shopee Lite RN version:
+${liteRn}
+🔗 Check Version: https://confluence.shopee.io/pages/viewpage.action?spaceKey=SPAT&title=%5B2024%5D+Shopee+Lite+RN+Release+Memo
+
+🌏 Country Supported:
+Shopee App
+Main Country: ID, BR, TW
+Additional Test cases: SG, PH, TH, VN, MY, CO, CL, MX
+Platform: Android, IOS, PC, Admin
+Mari Bank & Sea Bank Test Case: 10, 12, 28 {PH,SG,ID}
+Environment: Staging
+
+Shopee Lite:
+Country: ID
+Platform: Android
+Environment: Staging
+
+Promotion Admin:
+Country: Mostly ID
+Platform: PC
+Environment: Staging
+
+📌 Internal Target:
+${formattedDate}, before ${targetTime}
+💡 Guide: Today before ${targetTime}
+
+‼️ Important notes:
+Please be aware of some outstanding services in here and start your testing accordingly:
+${outstanding}
+
+Thank you~! 🙏✨`;
+
+            document.getElementById('staging-preview').textContent = chat;
+        }
+
+        function copyStagingToClipboard() {
+            const preview = document.getElementById('staging-preview').textContent;
+            if (preview.includes('Preview will appear')) {
+                alert('⚠️ Please generate chat first!');
+                return;
+            }
+            copyToClipboard(preview);
+        }
+
+        function resetStagingForm() {
+            if (confirm('🔄 Reset all fields to default values?')) {
+                document.getElementById('staging-version').value = '2025.11.v4';
+                document.getElementById('staging-date').value = '';
+                document.getElementById('staging-spreadsheet').value = '';
+                document.getElementById('staging-jira-seller').value = '';
+                document.getElementById('staging-jira-buyer').value = '';
+                document.getElementById('staging-shopee-ios').value = '';
+                document.getElementById('staging-shopee-android').value = '';
+                document.getElementById('staging-shopee-rn-time').value = '';
+                document.getElementById('staging-seller-ios').value = '';
+                document.getElementById('staging-seller-android').value = '';
+                document.getElementById('staging-seller-id-ios').value = '';
+                document.getElementById('staging-seller-id-android').value = '';
+                document.getElementById('staging-seller-rn').value = '';
+                document.getElementById('staging-lite-version').value = '';
+                document.getElementById('staging-lite-rn').value = '';
+                document.getElementById('staging-target-time').value = '18:00 WIB';
+                document.getElementById('staging-outstanding').value = '';
+                document.getElementById('staging-preview').innerHTML = '<em style="color: #888;">Preview will appear here after you fill in the form and click "Generate Chat"</em>';
+            }
+        }
+
+        // ============================================
+        // LIVE REGRESSION FUNCTIONS
+        // ============================================
+
+        function setLiveToday() {
+            const today = new Date();
+            document.getElementById('live-date').value = today.toISOString().split('T')[0];
+        }
+
+        function setLiveNextWednesday() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            const daysUntilWednesday = (3 - dayOfWeek + 7) % 7 || 7;
+            const nextWednesday = new Date(today);
+            nextWednesday.setDate(today.getDate() + daysUntilWednesday);
+            document.getElementById('live-date').value = nextWednesday.toISOString().split('T')[0];
+        }
+
+        function setLiveCustomDate(days) {
+            const today = new Date();
+            const customDate = new Date(today);
+            customDate.setDate(today.getDate() + days);
+            document.getElementById('live-date').value = customDate.toISOString().split('T')[0];
+        }
+
+        function generateLiveChat() {
+            const version = document.getElementById('live-version').value || '2025.11.v4';
+            const dateInput = document.getElementById('live-date').value;
+            
+            if (!dateInput) {
+                alert('⚠️ Please select a date!');
+                return;
+            }
+
+            const formattedDate = formatDate(dateInput);
+            const buyerMaster = document.getElementById('live-buyer-master').value || '[Buyer Master]';
+            const orderopsMaster = document.getElementById('live-orderops-master').value || '[Order Ops Master]';
+            const sellerMaster = document.getElementById('live-seller-master').value || '[Seller Master]';
+            const promotionMaster = document.getElementById('live-promotion-master').value || '[Promotion Master]';
+            
+            const spreadsheet = document.getElementById('live-spreadsheet').value || 'https://docs.google.com/spreadsheets/d/...';
+            const jiraMain = document.getElementById('live-jira-main').value || 'https://jira.shopee.io/browse/SPQAA-XXXX';
+            const jiraSpmr = document.getElementById('live-jira-spmr').value || 'https://jira.shopee.io/browse/SPMR-XXXX';
+            const rnVersion = document.getElementById('live-rn-version').value || 'rn-v6.83.0-rc.2';
+            
+            const startTime = document.getElementById('live-start-time').value || '15:00 WIB';
+            const endTime = document.getElementById('live-end-time').value || '17:00 WIB';
+
+            const date = new Date(dateInput);
+            const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+            const monthName = date.toLocaleDateString('en-US', { month: 'long' });
+            const day = date.getDate();
+            const year = date.getFullYear();
+            const startTimeFormatted = `${dayName} ${monthName.substring(0, 3)} ${day}, ${year} ${startTime}`;
+            const endTimeFormatted = `${dayName} ${monthName.substring(0, 3)} ${day}, ${year} ${endTime}`;
+
+            const chat = `Hi Master
+@${buyerMaster} (Buyer)
+@${orderopsMaster} (Order Ops)
+@${sellerMaster} (Seller (backup))
+@${promotionMaster} (Promotion)
+📋 Guide: Check names at https://docs.google.com/spreadsheets/d/19nAfyhqtf-Evdl78peuoDOvs6SIoo9j0bpgvf1lIYAM/edit?gid=398695652#gid=398695652&range=A24
+
+Here are the checklist for ID Live Regression today
+
+📅 Date:
+${formattedDate}
+
+📝 Live Regression TCs & PIC:
+${spreadsheet}
+📋 Guide: can duplicate from here - https://docs.google.com/spreadsheets/d/1xcWWD9HbYodGfdtVeDPNrHd3PePdsleTSF3l4F3i-1U/edit?gid=2068996028#gid=2068996028
+
+🎟️ Main Jira Ticket:
+${jiraMain}
+📋 Guide: Check Recent JIRA Ticket - https://jira.shopee.io/issues/?filter=150230
+
+🎟️ SPMR Jira Ticket:
+${jiraSpmr}
+📋 Sample: https://jira.shopee.io/browse/SPMR-1448
+
+📱 RN version:
+${rnVersion}
+🔗 Check version: In MKP group
+Sample: https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41KkS1X6vXNAhNTJhQsRBO6xTT7EV-MdguHG2Am9
+
+📱 App version:
+iOS: latest from App Store
+Android: latest from Play Store
+
+⚙️ QR RN:
+https://app.shopee.io/rn-release/version-selection
+
+🛠️ Environment:
+Live
+
+🇮🇩 Country:
+ID
+
+📌 Internal Target:
+Start: ${startTimeFormatted}
+End: ${endTimeFormatted}
+
+⚠️ Important notes:
+No need to wait for outstanding services deployment
+Today we will try to finish the Live Testing under 2 hours
+
+Thank you all.`;
+
+            document.getElementById('live-preview').textContent = chat;
+        }
+
+        function copyLiveToClipboard() {
+            const preview = document.getElementById('live-preview').textContent;
+            if (preview.includes('Preview will appear')) {
+                alert('⚠️ Please generate chat first!');
+                return;
+            }
+            copyToClipboard(preview);
+        }
+
+        function resetLiveForm() {
+            if (confirm('🔄 Reset all fields to default values?')) {
+                document.getElementById('live-version').value = '2025.11.v4';
+                document.getElementById('live-date').value = '';
+                document.getElementById('live-buyer-master').value = '';
+                document.getElementById('live-orderops-master').value = '';
+                document.getElementById('live-seller-master').value = '';
+                document.getElementById('live-promotion-master').value = '';
+                document.getElementById('live-spreadsheet').value = '';
+                document.getElementById('live-jira-main').value = '';
+                document.getElementById('live-jira-spmr').value = '';
+                document.getElementById('live-rn-version').value = '';
+                document.getElementById('live-start-time').value = '15:00 WIB';
+                document.getElementById('live-end-time').value = '17:00 WIB';
+                document.getElementById('live-preview').innerHTML = '<em style="color: #888;">Preview will appear here after you fill in the form and click "Generate Chat"</em>';
+            }
+        }
+
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const successMessage = document.getElementById('successMessage');
+                successMessage.classList.add('show');
+                
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 3000);
+            }).catch(err => {
+                alert('❌ Failed to copy: ' + err);
+            });
+        }
+
+        // Initialize
+        window.onload = function() {
+            setDeploymentToday();
+            setStagingToday();
+            setLiveToday();
+        };
+    </script>
+</body>
+</html>
+

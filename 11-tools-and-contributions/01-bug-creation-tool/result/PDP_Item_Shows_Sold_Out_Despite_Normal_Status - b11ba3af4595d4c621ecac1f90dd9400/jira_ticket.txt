@@ -1,0 +1,88 @@
+*Summary*:
+PDP shows item as "sold_out" despite item status being NORMAL in admin and bassiteminfo returning normal status
+
+*Configuration*:
+- app / os version: Web Browser / Chrome
+- env (test, staging, live) and country info: Test environment, LA region
+- pfb build: n/a
+- account (user / id): User ID: 7155759302
+- toggles: none
+
+*Impact*
+- user impact summary: Buyers cannot purchase the item because PDP incorrectly displays it as "sold_out". Item pitem 2303859249 shows abnormal_status: "sold_out" on frontend despite being NORMAL status in Seller Center admin (https://seller.test.shopee.cn/admin/sip/mskus/detail/pitem/2303859249) and bassiteminfo also returning normal status.
+- test impact summary: Blocking testing of SIP items in LA region. Cannot verify item purchase flow for cross-border items.
+- any workaround: None available. Item cannot be purchased from buyer side.
+
+
+*Reproducible Steps*
+1. Open Seller Center admin: https://seller.test.shopee.cn/admin/sip/mskus/detail/pitem/2303859249
+2. Verify item status shows as NORMAL
+3. Check bassiteminfo API response - confirms item status is normal
+4. Open PDP on buyer side for the same item (shop_id: 1013355932, item_id: 2303859249)
+5. Observe the response shows "abnormal_status": "sold_out"
+
+*Expected Result*
+- Item should be displayed as available for purchase on PDP
+- "abnormal_status" field should be null or not present
+- "Add to Cart" button should be enabled
+- Shipping options should be visible
+
+*Actual*
+- Item shows "abnormal_status": "sold_out" on PDP
+- Item cannot be added to cart
+- TraceID: b11ba3af4595d4c621ecac1f90dd9400 (around 2025-12-10 17:41:23 UTC)
+
+*Evidence and Troubleshooting*
+[x] screenshot / video (attach file)
+[x] trace link (_show_debug_info=2)
+[x] log URL from log platform
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue - PDP Service
+
+Based on log analysis, the root cause is in the PDP service's logic for determining item availability. The issue chain:
+
+1. **Admin & BassItemInfo Status = NORMAL** ✅
+   - Seller Center admin shows item status is NORMAL
+   - bass.shop.batch_get_shop_with_ext_info returns success (code: 0)
+   - Item data from backend services shows normal status
+
+2. **Logistics Planning Fails** ❌
+   - Service: prefulfilment-fulfilmentplanning-test-la
+   - Error: "no_valid_seller_channel_id" 
+   - Warning: "unknown_retcode" (retcode=-10501)
+   - Shipping fee calculation fails with ShippingFeeCalculationError
+
+3. **PDP Incorrectly Marks as Sold Out** ❌
+   - PDP service receives logistics failure
+   - Instead of showing "shipping not available" or similar error
+   - PDP sets "abnormal_status": "sold_out"
+   - This is misleading because item is NOT sold out - it has logistics configuration issues
+
+**Root Cause**: PDP service is incorrectly interpreting logistics/shipping failures as "sold_out" status. When shipping fee calculation fails or no valid shipping channels are found, PDP should either:
+- Show a more accurate status like "shipping_not_available" 
+- Display an error message about shipping configuration
+- NOT mark the item as "sold_out" when the actual item status is NORMAL
+
+**Technical Details**:
+- Logistics config service returns empty channel list (mplogistics-logisticsconfig-test-la)
+- LPS API fails with error -10501 (ShippingFeeCalculationError) 
+- COD validation fails with error -20213 (CODExtraShippingFeeNotMatch)
+- PDP interprets these logistics errors as item being "sold_out"
+
+**Impact**: This creates confusion because:
+- Seller sees item as NORMAL in admin ✅
+- Backend APIs return item as NORMAL ✅  
+- But buyer sees item as "sold_out" ❌
+- The actual issue is logistics configuration, not item availability
+
+**Suggested Fix**: 
+PDP team should review the logic that sets "abnormal_status" and ensure logistics/shipping errors are handled separately from actual item availability status. Consider adding a new status like "shipping_unavailable" or showing appropriate error messaging instead of marking as "sold_out".
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist (Remove this section in the bug. It is for your reference when creating the bug ticket. If any check is not true, please contact huanglh@sea.com for coaching)
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[x] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[x] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[x] If applicable, you have provided the detailed information about your toggle setting.
+[x] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+

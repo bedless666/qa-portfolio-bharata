@@ -1,0 +1,366 @@
+h1. Create RN QAoD Helper (Chat Generator)
+
+*Type:* Task - Tool Enhancement
+*Created:* 2025-12-01
+*Owner:* [~bharata.aryaseta]
+*Status:* {{Done}}
+*Category:* QA Tools
+
+----
+
+h2. Summary
+
+Created a web-based chat template generator tool to streamline RN regression task distribution for QAoD team. The tool generates standardized chat messages for three regression scenarios: Deployment Staging, Staging Regression, and Live Regression, with embedded reference links for version checking and documentation.
+
+{panel:title=Key Features|bgColor=#DEEBFF}
+* Three template types: Deployment Staging, Staging Regression, Live Regression
+* Quick date fill buttons (Today, Tomorrow, Next Friday/Monday/Wednesday)
+* Real-time preview of generated chat
+* One-click copy to clipboard functionality
+* Collapsible sections for better form organization
+* Reference links embedded for version checking and documentation
+{panel}
+
+----
+
+h2. Problem Statement
+
+*Before Enhancement:*
+
+*Existing workflow:*
+# Manually type chat messages for each regression cycle
+# Search for reference links (Release Portal, App versions, JIRA filters)
+# Copy-paste from previous messages and update details
+# Prone to missing critical information or links
+# Time-consuming process (5-10 minutes per message)
+# Inconsistent message format across different QA members
+
+{warning}
+*Pain Points:*
+* Manual typing leads to typos and inconsistencies
+* Difficult to remember all required reference links
+* Version numbers and dates need manual formatting
+* Time-consuming to create messages for multiple regression types
+* No standardized template across team
+{warning}
+
+*Limitations:*
+
+|| Issue || Impact ||
+| Manual message creation | 5-10 minutes per message |
+| Missing reference links | Team members need to ask for links |
+| Inconsistent format | Confusion in task distribution |
+| Version info scattered | Need to check multiple sources |
+
+----
+
+h2. Solution Implementation
+
+*Web-Based Single-Page Application:*
+
+*Description:*
+Created a standalone HTML file with embedded CSS and JavaScript that can be opened directly in any browser without server requirements.
+
+*Key features:*
+* Tab-based interface for three template types
+* Form validation for required fields
+* Date helper functions for common date selections
+* Live preview with syntax preservation
+* Clipboard API integration for easy copying
+
+*Template Types Implemented:*
+
+*Template 1: Deployment Staging*
+* RSL Schedule integration
+* Deployment time and date
+* Outstanding services tracking
+* Confluence guide references
+
+*Template 2: Staging Regression*
+* Comprehensive app version tracking (Shopee, Seller, Lite)
+* RN version availability time
+* Test case spreadsheet link
+* JIRA ticket references for Buyer & Seller
+* Country and platform support details
+* Internal target time tracking
+
+*Template 3: Live Regression*
+* Team master mentions (@mentions ready)
+* Live TC spreadsheet
+* SPMR ticket integration
+* RN version with QR code link
+* Time window configuration
+* Simplified for quick execution
+
+----
+
+h2. Technical Implementation
+
+*File Structure:*
+
+*Single File:* {{rn-regression-chat-generator.html}}
+
+*Technology Stack:*
+* HTML5 for structure
+* CSS3 with modern gradients and animations
+* Vanilla JavaScript (no dependencies)
+* Responsive design (mobile-friendly)
+
+{noformat}
+RN Regression (QAoD)/
+├── rn-regression-chat-generator.html    (Main tool - 1,241 lines)
+└── JIRA_TICKET_RN_CHAT_GENERATOR.txt   (This documentation)
+{noformat}
+
+*Key Functions:*
+
+{code:javascript}
+// Quick date fill functions for each template
+setDeploymentToday()
+setDeploymentTomorrow()
+setDeploymentNextFriday()
+
+setStagingToday()
+setStagingNextMonday()
+setStagingCustomDate(days)
+
+setLiveToday()
+setLiveNextWednesday()
+setLiveCustomDate(days)
+
+// Template generation functions
+generateDeploymentChat()
+generateStagingChat()
+generateLiveChat()
+
+// Utility functions
+formatDate(dateString)
+formatDateShort(dateString)
+copyToClipboard(text)
+toggleSection(header)
+{code}
+
+----
+
+h2. Usage Examples
+
+*Example 1: Creating Deployment Staging Message*
+
+*Use Case:* Notify team about upcoming staging deployment
+
+*Steps:*
+# Open {{rn-regression-chat-generator.html}} in browser
+# Click "Deployment Staging" tab (default)
+# Fill in Version Number: {{2025.11.v4}}
+# Fill in RSL Schedule Number: {{9540}}
+# Click "Today" or "Tomorrow" for quick date fill
+# Add deployment time: {{16.30}} Jakarta Time
+# Click "Generate Chat"
+# Review preview and click "Copy to Clipboard"
+# Paste into SeaTalk/Slack channel
+
+*Output:* Formatted message with all reference links included
+
+{info}
+All reference links are auto-included: Release Portal, Confluence Guide, Docs spreadsheet
+{info}
+
+*Example 2: Creating Staging Regression Message*
+
+*Use Case:* Distribute staging regression tasks to team
+
+*Steps:*
+# Switch to "Staging Regression" tab
+# Fill basic info: Version {{2025.11.v4}}, Date
+# Fill app versions (or use defaults)
+# Add test case spreadsheet URL
+# Add JIRA ticket URLs
+# Specify RN available time
+# Click "Generate Chat"
+# Copy and distribute to team
+
+*Output:* Comprehensive message with version info, test cases, and all platform details
+
+*Example 3: Creating Live Regression Message*
+
+*Use Case:* Quick live regression announcement with team mentions
+
+*Steps:*
+# Switch to "Live Regression" tab
+# Fill team master names (Buyer, Order Ops, Seller, Promotion)
+# Set date (use "Next Wednesday" for quick fill)
+# Add spreadsheet and JIRA links
+# Set time window (default 15:00-17:00 WIB)
+# Generate and copy
+
+*Output:* Message ready with @mentions placeholders and all required info
+
+----
+
+h2. Benefits & Impact
+
+*Time Savings:*
+
+|| Task || Before || After || Time Saved ||
+| Create deployment message | 5 minutes | 30 seconds | 4.5 minutes |
+| Create staging regression message | 8 minutes | 1 minute | 7 minutes |
+| Create live regression message | 5 minutes | 45 seconds | 4.25 minutes |
+| Look up reference links | 2 minutes | 0 seconds | 2 minutes |
+
+*Estimated Time Saved:* {{~5-7 minutes per message}}
+*Weekly Impact:* {{~30-45 minutes saved}} (assuming 6 messages per week)
+*Monthly Impact:* {{~2-3 hours saved per person}}
+
+*Quality Improvements:*
+
+* (/) Consistent message format across all team members
+* (/) All reference links automatically included
+* (/) No missing critical information
+* (/) Date formatting handled automatically
+* (/) Version numbers properly formatted
+* (/) Reduced typos and manual errors
+
+*Usability:*
+
+* (/) No installation required - runs in browser
+* (/) Works offline - standalone HTML file
+* (/) Mobile-friendly responsive design
+* (/) Quick date fill buttons for common scenarios
+* (/) Collapsible sections for better UX
+* (/) Real-time preview before copying
+* (/) One-click copy to clipboard
+
+----
+
+h2. Reference Links Embedded
+
+*Deployment Staging:*
+
+* Release Portal: {{https://space.shopee.io/release/portal/regression_management/regression_schedule?tab=2}}
+* Confluence Guide: {{https://confluence.shopee.io/pages/viewpage.action?spaceKey=IMD&title=Staging+and+Live+Deployment+Management+Guide}}
+* Docs Spreadsheet: {{https://docs.google.com/spreadsheets/d/1UeaO0XwM0_RLVFPa0nAtkF1yG7-hp7tTnkm2LvyghA4}}
+
+*Staging Regression:*
+
+* Test Case Template: {{https://docs.google.com/spreadsheets/d/1YIO68EZ-mOGHx2QUwtMZTEkFR6iIAivDSzpjdTigeyw}}
+* MP Report Group: {{https://link.seatalk.io/message/open?message_id=...}}
+* JIRA Filter: {{https://jira.shopee.io/issues/?filter=150230}}
+* App Versions:
+** Shopee App: {{https://app.sea.com/apps/246}}
+** Seller App: {{https://app.sea.com/apps/305}}
+** Seller ID: {{https://app.sea.com/apps/306}}
+** Shopee Lite: {{https://app.sea.com/apps/196}}
+* Lite RN Release Memo: {{https://confluence.shopee.io/pages/viewpage.action?spaceKey=SPAT&title=%5B2024%5D+Shopee+Lite+RN+Release+Memo}}
+
+*Live Regression:*
+
+* Live TC Template: {{https://docs.google.com/spreadsheets/d/1xcWWD9HbYodGfdtVeDPNrHd3PePdsleTSF3l4F3i-1U}}
+* Master Names Sheet: {{https://docs.google.com/spreadsheets/d/19nAfyhqtf-Evdl78peuoDOvs6SIoo9j0bpgvf1lIYAM}}
+* SPMR Sample: {{https://jira.shopee.io/browse/SPMR-1448}}
+* RN QR Code: {{https://app.shopee.io/rn-release/version-selection}}
+
+----
+
+h2. Testing & Validation
+
+*Test Cases Executed:*
+
+|| Feature || Test Case || Result ||
+| Deployment template | Generate message with all fields | {color:green}Pass{color} - All fields rendered correctly |
+| Staging template | Generate with default values | {color:green}Pass{color} - Defaults work as expected |
+| Live template | Generate with team mentions | {color:green}Pass{color} - @mention format preserved |
+| Quick date fill | All date buttons (Today, Tomorrow, etc.) | {color:green}Pass{color} - Dates calculated correctly |
+| Copy to clipboard | Copy functionality across templates | {color:green}Pass{color} - Clipboard API works |
+| Collapsible sections | Expand/collapse in staging template | {color:green}Pass{color} - UI smooth and functional |
+| Reset buttons | Clear all fields | {color:green}Pass{color} - Forms reset properly |
+| Preview | Real-time preview updates | {color:green}Pass{color} - Preview accurate |
+
+*Browser Compatibility:*
+
+*Tested on:*
+# Chrome (latest) - {color:green}Fully functional{color}
+# Firefox (latest) - {color:green}Fully functional{color}
+# Safari (macOS) - {color:green}Fully functional{color}
+# Edge (latest) - {color:green}Fully functional{color}
+
+{color:green}All features working as expected across all major browsers{color}
+
+----
+
+h2. Comparison: Before vs After
+
+|| Aspect || Before || After ||
+| *Time to create message* | {color:red}5-10 minutes{color} | {color:green}30 seconds - 1 minute{color} |
+| *Reference links* | {color:red}Manual search and copy{color} | {color:green}Auto-included{color} |
+| *Consistency* | {color:yellow}Varies by person{color} | {color:green}Standardized{color} |
+| *Error rate* | {color:red}High (typos, missing info){color} | {color:green}Minimal{color} |
+| *Learning curve* | {color:yellow}Need to know all links{color} | {color:green}All links embedded{color} |
+| *Mobile usage* | {color:red}Difficult{color} | {color:green}Responsive design{color} |
+| *Maintenance* | {color:red}Update multiple places{color} | {color:green}Single file to update{color} |
+
+----
+
+h2. Resources & Links
+
+*Tool Location:*
+
+*File:* {{rn-regression-chat-generator.html}}
+
+*Local Path:*
+{{/Users/bharata.aryaseta/Documents/Docs/Bharata Repository/RN Regression (QAoD)/}}
+
+*Usage:*
+Simply open the HTML file in any modern web browser. No server or installation required.
+
+*Related Documentation:*
+
+* RN Regression Process: Confluence QAoD section
+* Release Portal Guide: {{https://space.shopee.io/release/portal}}
+* JIRA QA Filters: {{https://jira.shopee.io/issues/?filter=150230}}
+
+----
+
+h2. Future Enhancements
+
+Potential improvements for next version:
+
+* [ ] Add browser bookmark/extension for quick access
+* [ ] Save form data to localStorage for faster re-fill
+* [ ] Add export to different formats (Markdown, Plain Text)
+* [ ] Integration with SeaTalk API for direct posting
+* [ ] Template customization (save custom templates)
+* [ ] Version history tracking
+* [ ] Multi-language support
+* [ ] Dark mode theme
+* [ ] Share template via URL parameters
+* [ ] Add more regression types (if needed)
+
+----
+
+h2. Adoption & Distribution
+
+*How to share with team:*
+# Copy {{rn-regression-chat-generator.html}} to shared drive
+# Or host on internal web server
+# Or share file directly via SeaTalk
+
+*Training required:*
+* Minimal - UI is self-explanatory
+* Quick 2-minute demo covers all features
+
+*Feedback collection:*
+* Team members can suggest improvements
+* Contact [~bharata.aryaseta] for feature requests
+
+----
+
+{info}
+*Tool Status:* Ready for team use
+*Maintenance:* Update reference links as needed
+*Support:* Contact [~bharata.aryaseta] for questions or issues
+{info}
+
+_Document created: 2024-12-02_
+_Tool version: v1.0.0_
+_Repository: Personal Dev Tools - Bharata Repository_
+

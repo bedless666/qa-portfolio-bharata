@@ -1,0 +1,50 @@
+⚠️ STRICT TEMPLATE - FOLLOW EXACTLY AS SHOWN BELOW ⚠️
+DO NOT ADD ANY EXTRA SECTIONS NOT LISTED HERE
+ONLY FILL IN THE SECTIONS THAT ARE EXPLICITLY DEFINED
+
+*Summary*:
+Can create hero sku, error : [ERROR_PARAM] [PromotionIDList] must > 0
+
+*Configuration*:
+- app / os version: n/a
+- env (test, staging, live) and country info: staging / ID
+- pfb build: n/a
+- account (user / id): n/a
+- toggles: none
+
+*Impact*
+- user impact summary: Users cannot create hero SKU items with promotions. This blocks sellers from setting up promotional items, affecting their ability to run marketing campaigns and promotions.
+- test impact summary: Testers cannot create hero SKU items with promotions in staging environment, blocking promotion-related test scenarios and hero SKU feature validation.
+- any workaround: Create hero SKU without promotions, or ensure PromotionIDList contains valid promotion IDs > 0
+
+
+*Reproducible Steps*
+1. Attempt to create a hero SKU item
+2. Include promotion information in the request
+3. Submit the creation request
+
+*Expected Result*
+- Hero SKU should be created successfully with associated promotions
+
+*Actual*
+- Request fails with error: [ERROR_PARAM] [PromotionIDList] must > 0
+- TraceID: d841bee0485354820a4733b313a53200 (around 2026-01-14)
+
+*Evidence and Troubleshooting*
+[x] screenshot / video (attach file)
+[ ] trace link (_show_debug_info=2)
+[ ] log URL from log platform
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue
+Parameter validation error occurs when creating hero SKU. The PromotionIDList parameter is either missing, empty, or contains invalid values (not > 0). This is a backend validation issue where the service expects PromotionIDList to contain at least one valid promotion ID greater than 0, but the request either doesn't include this parameter or includes an invalid value. Error code 6000006 (ERROR_PARAM) indicates a parameter validation failure at the API level.
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist (Remove this section in the bug. It is for your reference when creating the bug ticket. If any check is not true, please contact huanglh@sea.com for coaching)
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[] If applicable, you have provided the detailed information about your toggle setting.
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+
+⚠️ END OF TEMPLATE - DO NOT ADD ANYTHING BEYOND THIS POINT ⚠️
+

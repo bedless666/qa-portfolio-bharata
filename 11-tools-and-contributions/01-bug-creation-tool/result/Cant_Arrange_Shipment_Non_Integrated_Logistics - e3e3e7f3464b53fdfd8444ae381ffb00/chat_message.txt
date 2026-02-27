@@ -1,0 +1,16 @@
+Hi @Logistics-Team @SIP-Team
+
+Found issue in ID staging environment.
+
+Issue: Can't arrange shipment for product with non-integrated logistics - system timeout
+
+TraceID: e3e3e7f3464b53fdfd8444ae381ffb00
+Error Code: 120510041
+Error: context deadline exceeded
+
+Root Cause: Timeout/Service Integration Issue - Logistics Integration Service is timing out when attempting to arrange shipment for products with non-integrated logistics providers. The service needs to validate provider integration status before making external API calls.
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate? Thanks!
+

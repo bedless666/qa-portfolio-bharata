@@ -1,0 +1,16 @@
+Hi @[Team-Name]
+
+Found issue in [REGION] [ENVIRONMENT] environment.
+
+Issue: [Brief description of the problem]
+
+TraceID: [trace_id]
+Error Code: [error_code]
+Error: [error_message]
+
+Root Cause: [Error type] - [Service name]
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate? Thanks!
+

@@ -1,0 +1,51 @@
+⚠️ STRICT TEMPLATE - FOLLOW EXACTLY AS SHOWN BELOW ⚠️
+DO NOT ADD ANY EXTRA SECTIONS NOT LISTED HERE
+ONLY FILL IN THE SECTIONS THAT ARE EXPLICITLY DEFINED
+
+*Summary*:
+Cannot change language in TW region Seller Center (3.61.41)
+
+*Configuration*:
+- app / os version: [e.g., "Shopee Seller Center 3.61.41 / Android [version]" or "Shopee Seller Center 3.61.41 / iOS [version]"]
+- env (test, staging, live) and country info: [environment - test/staging/live] TW
+- pfb build: [build tag or "n/a" if you are not using pfb]
+- account (user / id): [test user or ID for TW region]
+- toggles: [list toggles changed e.g RN, Feature, BE, DRE, Experiment or "none"]
+
+*Impact*
+- user impact summary: [Sellers cannot change language in Seller Center, blocking user experience for those who want to use a different language]
+- test impact summary: [Testing for language selection feature in TW region is blocked]
+- any workaround: [No known workaround]
+
+*Reproducible Steps*
+1. Login user TW
+2. Go to Me page
+3. Scroll down
+4. Tap language
+5. User won't redirect to language selection screen
+
+*Expected Result*
+- User should be redirected to language selection screen after tapping language
+
+*Actual*
+- User is not redirected to language selection screen after tapping language
+- TraceID: [trace_id] (around [date and time])
+
+*Evidence and Troubleshooting*
+[ ] screenshot / video (attach file)
+[ ] trace link (_show_debug_info=2)
+[ ] log URL from log platform
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* [Front End issue / Backend issue / Unknown]
+[This issue occurs on fresh install and upgrade install, also happens on several devices. Further investigation needed to determine root cause]
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist (Remove this section in the bug. It is for your reference when creating the bug ticket. If any check is not true, please contact huanglh@sea.com for coaching)
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[] If applicable, you have provided the detailed information about your toggle setting.
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+
+⚠️ END OF TEMPLATE - DO NOT ADD ANYTHING BEYOND THIS POINT ⚠️
+

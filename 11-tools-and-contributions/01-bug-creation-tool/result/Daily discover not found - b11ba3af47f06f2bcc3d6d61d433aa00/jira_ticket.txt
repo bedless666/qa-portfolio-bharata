@@ -1,0 +1,57 @@
+⚠️ STRICT TEMPLATE - FOLLOW EXACTLY AS SHOWN BELOW ⚠️
+DO NOT ADD ANY EXTRA SECTIONS NOT LISTED HERE
+ONLY FILL IN THE SECTIONS THAT ARE EXPLICITLY DEFINED
+
+*Summary*:
+Daily discover not found
+
+*Configuration*:
+- app / os version: Chrome on macOS
+- env (test, staging, live) and country info: staging / ID
+- pfb build: n/a
+- account (user / id): userid: 4334884013
+- toggles: none
+
+*Impact*
+- user impact summary: Users cannot see Daily Discover feed content. The feed returns empty data, blocking discovery of recommended products and affecting user engagement with the discovery feature.
+- test impact summary: Testing of Daily Discover functionality is blocked. Cannot verify feed content, recommendations, or user experience flow for discovery features.
+- any workaround: None identified
+
+*Reproducible Steps*
+1. Access Daily Discover page/feed
+2. Request Daily Discover content (bundle: daily_discover_main)
+3. System attempts to fetch feed data from cache and recommendation service
+4. Error occurs: "empty DD feed data from fallback cache"
+
+*Expected Result*
+- Daily Discover feed should display recommended products/content
+
+*Actual*
+- Feed returns empty with error message: "empty DD feed data from fallback cache"
+- TraceID: b11ba3af47f06f2bcc3d6d61d433aa00 (around 2026-01-09 16:37:23)
+
+*Evidence and Troubleshooting*
+[ ] screenshot / video (attach file)
+[ ] trace link (_show_debug_info=2)
+[x] log URL from log platform
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue
+Root cause: Data/Cache issue - Multiple failures in the data retrieval chain:
+1. User group info check failed (ERROR_NOT_FOUND) for userID 4334884013, group "affiliate_ams_visibility_whitelist_id"
+2. New user cache data is missing ("daily discover: no new user cache data")
+3. Fallback cache returns null for all cache keys (all 60 fallback cache responses are null)
+4. RPC dependency error (ERROR_DEP_MIXER_INTERNAL) when calling recommendation service
+5. Parameter validation error (ERROR_PARAMS) when checking nuz user attribute
+
+The service chain shows: discoverlanding-pagesbff → recommendation service → user group check → cache retrieval. All fallback mechanisms failed, resulting in empty feed data. This indicates either missing user data setup, cache population issue, or recommendation service dependency problem.
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist (Remove this section in the bug. It is for your reference when creating the bug ticket. If any check is not true, please contact huanglh@sea.com for coaching)
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[] If applicable, you have provided the detailed information about your toggle setting.
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+
+⚠️ END OF TEMPLATE - DO NOT ADD ANYTHING BEYOND THIS POINT ⚠️
+

@@ -1,0 +1,18 @@
+TraceID/Request ID: d841bee0485354820a4733b313a53200
+Summary: Can create hero sku, error : [ERROR_PARAM] [PromotionIDList] must > 0
+Environment: staging 
+Region: ID
+Account (optional):
+Reproducible Steps (optional): 
+Expected Result (optional): 
+Actual Result (optional): 
+Error Response (optional): 
+{
+    "error_list": [
+        {
+            "error_code": 6000006,
+            "error_msg": "[ERROR_PARAM] [PromotionIDList] must \u003e 0",
+            "component_id": 0
+        }
+    ]
+}

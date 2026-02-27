@@ -1,0 +1,116 @@
+*Summary*:
+Can't add address in AR shop (from CNSC) - Hardy routing error: AR region not configured in database sharding
+
+*Configuration*:
+- app / os version: CNSC (China Seller Center) - seller.staging.shopee.cn
+- env (test, staging, live) and country info: Staging, AR (Argentina)
+- pfb build: n/a
+- account (user / id): user_id=8093951849, shop_id=305929322, merchant_id=1000001745, sub_account_id=65020
+- toggles: none
+
+*Impact*
+- user impact summary: All sellers in Argentina (AR) region cannot add or manage addresses through CNSC (China Seller Center). This blocks seller onboarding, address updates, shipping address management, and any address-related operations for AR sellers using CNSC.
+- test impact summary: QA team cannot test any address-related features for AR region through CNSC. All address creation, update, and retrieval operations are blocked.
+- any workaround: None - requires database routing configuration update
+
+*Reproducible Steps*
+1. Login to CNSC (China Seller Center) staging: seller.staging.shopee.cn
+2. Navigate to Settings > Shipping > Address Management
+3. Select AR (Argentina) as target region (shop_id: 305929322)
+4. Fill in address details:
+   - Name: Anisa Home
+   - Phone: 8608162753462
+   - Country: CN (China)
+   - State: 云南省
+   - City: 丽江市
+   - District: 古城区
+   - Address: No 05
+   - Zip Code: 8732672
+5. Click "Add Address" button
+6. System tries to query buyer_address_tab database
+
+*Expected Result*
+- Address should be created successfully
+- Database query should route to correct AR region database
+- User should see new address in address list
+- Success message displayed
+
+*Actual*
+- Address creation fails with error code 120030000 (unknown system error)
+- Hardy routing error: "eval sharding expression failed when use region: ar to format region expression"
+- Database query cannot find routing configuration for AR region
+- User sees generic error message: "unknown system error"
+- TraceID: e3e3e7f34415ca4b8ceab7a948835301 (21 Nov 2025, 15:30:39 AR time)
+
+*Evidence and Troubleshooting*
+[x] trace link (_show_debug_info=2)
+[x] log URL from log platform
+[ ] screenshot / video (attach file)
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue
+
+**Root Cause:**
+Hardy database routing configuration for `shopee_account_address_db` cluster does not include AR (Argentina) region in the supported regions list. The sharding expression only includes: [br, cl, co, id, mx, my, ph, sg, th, tw, vn], but AR is missing.
+
+**Technical Details:**
+- Service: `location-userlocation-staging-ar`
+- Database Cluster: `shopee_account_address_db`
+- Table: `buyer_address_tab`
+- Hardy Version: v0.11.0
+- CRDS ID: sddl_10007290
+- Error Code: Hardy 3027 (eval sharding expression failed)
+- User-facing Error: 120030000 (unknown system error), 433300000 (account.address failed)
+
+**Error Chain:**
+1. CNSC user attempts to create address for AR shop (user_id: 8093951849, shop_id: 305929322)
+2. Request goes through: sellerplatform-gatewayacl-staging-cn → selleraddress-cnmisc-staging-cn
+3. Service calls `account.address_pii.create_private_address` (region: AR)
+4. Service calls `account.address.internal_create_private_address_without_pii`
+5. Hardy routing tries to evaluate sharding expression with region: ar
+6. Hardy finds AR is not in configured regions list: [br, cl, co, id, mx, my, ph, sg, th, tw, vn]
+7. Hardy returns error: "eval sharding expression failed when use region: ar to format region expression"
+8. Error propagates back: 433300000 (account.address failed) → 120030000 (unknown system error)
+9. User sees generic error message in CNSC
+
+**Log Evidence:**
+```
+2025-11-21 15:30:39.258096|INFO|e3e3e7f34415ca4b8ceab7a948835301
+hardy (3027): eval sharding expression failed when use region: ar to format region expression
+central region: <nil>
+regions: [br cl co id mx my ph sg th tw vn]
+cluster: shopee_account_address_db
+sharding_hint: region:ar
+query: SELECT ... FROM buyer_address_tab WHERE userid = ? AND status > ?
+```
+
+**User-facing Error:**
+```
+2025-11-21 15:30:39.260581|ACCESS|e3e3e7f34415ca4b8ceab7a948835301
+POST /api/seller_address/misc/add_address
+Response: {"code":120030000,"message":"unknown system error"}
+```
+
+**Why AR is Missing:**
+The Hardy routing configuration (CRDS ID: sddl_10007290) for the `shopee_account_address_db` cluster was created before AR region was added to the platform, or AR was intentionally excluded. The configuration needs to be updated to include AR in the regions list.
+
+**Affected Operations:**
+- Create address (internal_create_private_address_without_pii)
+- Count addresses (SELECT query with userid filter)
+- Any database operations on buyer_address_tab for AR region
+- CNSC address management features for AR shops
+
+**Additional Context:**
+There's also a CID mismatch warning in sellerplatform-gatewayacl-staging-cn:
+```
+Spex error code 10019: viewercontext contains mismatched cid flag: 
+CID from flag=sg but CID from env=cn
+```
+This suggests CNSC routing might have configuration issues when accessing AR region services.
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[x] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[x] If applicable, you have provided the detailed information about your toggle setting.
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}

@@ -1,0 +1,80 @@
+*Summary*:
+Seller unable to arrange shipment for order with non-integrated logistics - OMS forder/init API timeout
+
+*Configuration*:
+- app / os version: Seller Center Web / Browser
+- env (test, staging, live) and country info: staging, ID (Indonesia)
+- pfb build: n/a
+- account (user / id): Shop ID: 300563615, User ID: 102549904
+- toggles: none
+
+*Impact*
+- user impact summary: Sellers cannot arrange shipment for orders with non-integrated logistics. This blocks order fulfillment workflow and prevents sellers from progressing orders to shipped status. Critical for seller operations.
+- test impact summary: QA testing for shipment arrangement with non-integrated logistics is blocked. Cannot verify the complete order fulfillment flow in staging environment.
+- any workaround: None available - the API timeout needs to be fixed
+
+*Reproducible Steps*
+1. Login to Seller Center with Shop ID 300563615
+2. Navigate to order 219837985207773 (Order SN: 251219RCDVY1EW)
+3. Attempt to arrange shipment with non-integrated logistics mode
+4. Click "Arrange Shipment" button
+
+*Expected Result*
+- Shipment should be successfully arranged within reasonable time (< 5 seconds)
+- User should see confirmation that shipment is arranged
+- Order status should update accordingly
+
+*Actual*
+- Request times out after 10 seconds
+- Error message displayed: "Oops! Something went wrong, please try it again, or report the problem to us."
+- Shipment arrangement fails
+- TraceID: e3e3e7f3464b53fdfd8444ae381ffb00 (around 2025-12-19 18:13:25 - 18:13:36)
+
+*Evidence and Troubleshooting*
+[ ] screenshot / video (attach file)
+[ ] trace link (_show_debug_info=2)
+[x] log URL from log platform
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue
+
+**Technical Analysis:**
+Based on log analysis, this is a backend performance/timeout issue in the OMS (Order Management System) service.
+
+**Root Cause:**
+The `/api/forder/init` endpoint in OMS service (order-fulfilment) is taking more than 10 seconds to respond, causing the sellerfulfillment-shipment service to timeout with error code 120510041 ("context deadline exceeded").
+
+**Service Call Chain:**
+1. Seller Center UI → POST /api/fulfillment/shipment/v2/init (sellerfulfillment-shipment service)
+2. sellerfulfillment-shipment → POST https://oms.staging.shopee.co.id/api/forder/init (OMS service)
+3. OMS service times out after 10 seconds without responding (status_code=-1)
+4. Error propagates back to user
+
+**Log Evidence:**
+```
+2025-12-19 18:13:36.282397|ERROR|e3e3e7f3464b53fdfd8444ae381ffb00
+uhttp_client_request_error - context deadline exceeded
+url=https://oms.staging.shopee.co.id/api/forder/init
+method=POST
+elapsed_millis=10000
+status_code=-1
+```
+
+**Impact:**
+- Order ID: 219837985207773
+- Package: OFG219837985206382
+- Shipping mode: non_integrated
+- The timeout occurs specifically when initializing fulfillment packages for orders with non-integrated logistics
+
+**Teams to Contact:**
+Primary: @OMS-Team (Order Fulfilment)
+- The forder/init API endpoint is timing out and needs performance investigation
+- Need to check why order 219837985207773 takes >10 seconds to initialize
+
+Secondary: @Seller-Fulfilment-Team
+- May need to review timeout configuration (currently 10 seconds)
+- Verify if this timeout duration is appropriate for non-integrated logistics orders
+
+
+
+

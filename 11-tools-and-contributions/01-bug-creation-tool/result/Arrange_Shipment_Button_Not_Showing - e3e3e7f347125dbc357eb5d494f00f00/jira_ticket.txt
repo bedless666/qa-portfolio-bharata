@@ -1,0 +1,78 @@
+*Summary*:
+Arrange Shipment button not showing in Seller Center after COD order confirmation (To Ship status)
+
+*Configuration*:
+- app / os version: Seller Center Web / Browser
+- env (test, staging, live) and country info: staging / ID
+- pfb build: n/a
+- account (user / id): Shop ID: 301881182, User ID: 5110492066
+- toggles: Feature toggle issue with key "sz_motorcycle_loan_seller"
+
+*Impact*
+- user impact summary: Sellers cannot arrange shipment for COD orders that are in "To Ship" status, completely blocking the order fulfilment workflow in staging environment
+- test impact summary: All COD order fulfilment testing is blocked in staging, preventing regression testing and new feature validation
+- any workaround: None available - button cannot be rendered due to backend configuration error
+
+*Reproducible Steps*
+1. Create COD order in staging ID environment
+2. Confirm COD payment (order moves to "To Ship" status)
+3. Go to Seller Center > My Orders > To Ship
+4. Observe the order package details
+
+*Expected Result*
+- "Arrange Shipment" button should be visible in the order package
+- btn_info_list should contain button action data
+- Seller can click button to proceed with shipment arrangement
+
+*Actual*
+- "Arrange Shipment" button is not visible
+- btn_info_list returns null
+- btn_type is set to 3 but no button actions are generated
+- TraceID: e3e3e7f347125dbc357eb5d494f00f00 (around 2025-12-29 15:41:08)
+
+*Evidence and Troubleshooting*
+[x] screenshot / video (attach file)
+[x] trace link (_show_debug_info=2)
+[x] log URL from log platform
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue - Feature Toggle Configuration Error
+
+Technical Analysis:
+The issue is caused by a missing or corrupted feature toggle configuration in the staging environment. The button generation logic in sellerfulfillment-shipment service attempts to check feature toggle "sz_motorcycle_loan_seller" but encounters error code 30030 ("field[is_in] is not exists"). This causes the button action generation to fail with error code 30000 (unknown system error), resulting in btn_info_list being null.
+
+Log Evidence:
+1. Feature Toggle Error (sellerplatform-featuretogglespex-staging-sg):
+   - Error: "feature key not exist in all regions"
+   - Debug message: "feature key not exist in all regions"
+
+2. Feature Check Failure (sellerfulfillment-shipment-staging-id):
+   - Error: IsShopInFeatureToggleApi err, shopId:301881182, whitelistKey:sz_motorcycle_loan_seller
+   - Message: {"code":30030,"message":"field[is_in] is not exists."}
+
+3. Button Action Generation Failure:
+   - Error: got an error when getting btn_action
+   - Message: {"code":30000,"message":"unknown system error"}
+
+Affected Order Details:
+- Order ID: 220691851208175
+- Order SN: 251229M4ARQ9FF
+- Package: OFG220693149207373
+- Shop: 301881182
+- Status: logistics_status=9 (To Ship)
+- COD Confirmed: Yes
+- Ready for fulfilment: Yes
+- order_can_arrange_shipment: 1 (allowed)
+- package_arrange_shipment_status: 1 (ready)
+
+All conditions for showing the button are met except the feature toggle check fails, blocking button rendering.
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist (Remove this section in the bug. It is for your reference when creating the bug ticket. If any check is not true, please contact huanglh@sea.com for coaching)
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[x] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[x] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[x] If applicable, you have provided the detailed information about your toggle setting.
+[x] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+
+
+

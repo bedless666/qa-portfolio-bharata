@@ -92,37 +92,48 @@ This portfolio showcases **3+ years of QA engineering work** across **e-commerce
 
 ---
 
+#### 6. [Tools & Contributions](./11-tools-and-contributions/)
+**Problem:** Manual QA tasks consuming 60-70% of team time; lack of automation for repetitive workflows.
+
+**Solution:** Created 6 automation tools and 1 process methodology using AI-assisted development (Cursor AI, ChatGPT) combined with Python, JavaScript, and Google Apps Script.
+
+**Impact:** Reduced manual QA tasks by 60-70%, improved team efficiency, and established reusable automation patterns.
+
+**Tech Stack:** Python, JavaScript, Node.js, Google Apps Script, Cursor AI, JIRA API, Shark API
+
+---
+
 ### 🎓 Learning & Skill Development Projects
 
-#### 6. [Web + API Automation Framework](./05-web-api-framework/)
+#### 7. [Web + API Automation Framework](./05-web-api-framework/)
 Unified test automation framework combining Web UI (Selenium) and API (Rest Assured) testing with Cucumber BDD and GitHub Actions CI/CD.
 
 **Highlights:** Dual testing capability, Page Object Model, automated CI/CD
 
 ---
 
-#### 7. [Cucumber UI Framework](./06-cucumber-ui-framework/)
+#### 8. [Cucumber UI Framework](./06-cucumber-ui-framework/)
 Focused UI automation framework demonstrating BDD with Cucumber, Selenium, and clean Page Object Model architecture.
 
 **Highlights:** BDD fundamentals, clean architecture, Gherkin scenarios
 
 ---
 
-#### 8. [Final Project Framework](./07-final-project-framework/)
+#### 9. [Final Project Framework](./07-final-project-framework/)
 Advanced automation framework with robust error handling, comprehensive test coverage, and production-ready implementation.
 
 **Highlights:** Advanced Selenium techniques, alert handling, E2E testing
 
 ---
 
-#### 9. [API Testing Basics](./08-api-testing-basics/)
+#### 10. [API Testing Basics](./08-api-testing-basics/)
 Foundational API automation with TestNG and Apache HTTP Client, demonstrating core API testing concepts.
 
 **Highlights:** TestNG setup, HTTP client usage, test organization
 
 ---
 
-#### 10. [Java Gradle Setup](./09-java-gradle-setup/)
+#### 11. [Java Gradle Setup](./09-java-gradle-setup/)
 Basic Java + Gradle project setup demonstrating build configuration and dependency management fundamentals.
 
 **Highlights:** Gradle configuration, project structure, dependency management
@@ -185,5 +196,5 @@ Basic Java + Gradle project setup demonstrating build configuration and dependen
 ---
 
 **Last Updated:** February 18, 2026  
-**Total Projects:** 10 (1 AI-assisted + 4 professional work + 5 learning projects)  
+**Total Projects:** 11 (1 AI-assisted + 5 professional work + 5 learning projects)  
 **Portfolio Status:** ✅ Published & Active

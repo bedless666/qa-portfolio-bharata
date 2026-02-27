@@ -1,0 +1,17 @@
+Hi @Cart-Team
+
+Found issue in KH Test environment.
+
+Issue: Valid item showing invalid in cart - Add-On Deal main item not found causing cart validation failure
+
+TraceID: b11ba3af44a22e5b448bdbf2b2dca902
+Error Code: N/A (WARN level)
+Error: UpdateMainItemPromoInfo, item_not_found_in_cart | Add-On Deal: "fallback all valid subs due to no valid main exists"
+
+Root Cause: Cart State Synchronization Issue - cartservice-core-test-kh
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate? Thanks!
+
+

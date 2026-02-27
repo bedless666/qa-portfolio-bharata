@@ -1,0 +1,152 @@
+*Summary*:
+Failed to sync item with error Channel logistic whitelist
+
+*Configuration*:
+- app / os version: Chrome 142 on macOS 10.15.7
+- env (test, staging, live) and country info: Test / KH (Cambodia) - viewed from CN Seller Operation Platform
+- pfb build: n/a
+- account (user / id): bharata.aryaseta@shopee.com / Admin User ID: 39671
+- toggles: none
+
+*Impact*
+- user impact summary: Sellers cannot sync SIP (Shopee Integrated Platform) items from P-shop (Primary shop) to A-shop (Affiliated shop) in KH region. The sync process fails due to logistics channel whitelist validation, blocking the entire SIP cross-border listing flow for KH market.
+- test impact summary: QA team blocked from testing SIP item synchronization functionality in KH test environment. Cannot verify P-item to A-item sync workflow, which is critical for SIP cross-border operations.
+- any workaround: None available. The issue is caused by logistics channel configuration mismatch between P-shop and A-shop requirements. Requires backend configuration fix.
+
+*Steps to reproduce*:
+1. Login to Seller Operation Platform (seller.test.shopee.cn) as admin
+2. Navigate to SIP MSKU detail page for P-item 3044833293 (Shop ID: 1013210519, Merchant ID: 1000019935)
+3. Attempt to sync/create A-item for KH region (A-shop ID: 1013210527)
+4. Click "Sync Related A-item" button
+5. Observe the error response
+
+*Expected result*:
+- A-item should be successfully created/synced in KH A-shop (1013210527)
+- Sync operation should complete without errors
+- A-item should inherit logistics configuration from P-item
+
+*Actual result*:
+- Sync operation fails with error code 405300005
+- Error message: "external api error : call crossupload.api error:|create aitem fail for affiShopid:1013210527, reason:pshop not hit logistics channel whitelist|"
+- A-item is not created in KH region
+- Sync workflow is blocked
+
+*Error Response*:
+```json
+{
+    "code": 405300005,
+    "msg": "external api error : call crossupload.api error:|create aitem fail for affiShopid:1013210527, reason:pshop not hit logistics channel whitelist|",
+    "data": null
+}
+```
+
+*Root Cause Analysis*:
+
+**Issue Type:** SIP Logistics Channel Whitelist Validation Failure
+
+**Root Cause:** 
+The P-shop (VN shop 1013210519) has configured logistics channel ID **50039** for the P-item (3044833293). However, when attempting to sync/create the A-item in KH A-shop (1013210527), the system validates whether this logistics channel is in the KH region's whitelist for cross-border SIP operations.
+
+The validation fails because:
+1. **Logistics Channel 50039** is configured on the P-item in VN region
+2. **KH A-shop (1013210527)** has a different set of whitelisted logistics channels for SIP cross-border operations
+3. The crossupload API performs a **logistics channel whitelist check** before creating A-items
+4. Channel 50039 is **NOT in the KH region's SIP logistics whitelist**
+5. The sync operation is rejected with error "pshop not hit logistics channel whitelist"
+
+**Technical Details:**
+- **TraceID:** e3e3e7f34467e6f897fca796ae5a2701
+- **Error Code:** 405300005 (ERROR_EXTERNAL)
+- **Error Message:** "create aitem fail for affiShopid:1013210527, reason:pshop not hit logistics channel whitelist"
+- **Service:** crossuploadbff-admin → crossupload.api
+- **API Endpoint:** PUT /crossuploadbff/admin/sync_related_aitem
+- **Request Body:** `{"mst_itemid":3044833293,"action_type":"create_asku"}`
+
+**Affected Components:**
+1. **crossuploadbff-admin** (Seller Operation Platform BFF)
+2. **crossupload.api** (SIP Item Sync Service)
+3. **Logistics Channel Whitelist Configuration** (KH region)
+
+**Data Points:**
+- **P-shop ID:** 1013210519 (VN region)
+- **P-item ID:** 3044833293
+- **P-item MTSKU ID:** 3044833291
+- **Merchant ID:** 1000019935
+- **A-shop ID:** 1013210527 (KH region)
+- **Logistics Channel:** 50039 (configured on P-item)
+- **Logistics Info (Base64 decoded):** `{"50039":{"enabled":true,"wms_location_list":null,"seller_location_list":null,"cover_shipping_fee":false,"size":0}}`
+
+**Log Evidence:**
+```
+2025-11-25 17:28:27.854897|DATA|e3e3e7f34467e6f897fca796ae5a2701|hspex_request_data
+destination_url: http://c-api-sellersip.test.shopeemobile.com/crossuploadbff/admin/sync_related_aitem
+command: mkt_http.crossuploadbff.admin.put_crossuploadbff_admin_sync05frelated05faitem
+error_code: 0
+raw_response: {"code":405300005,"msg":"external api error : call crossupload.api error:|create aitem fail for affiShopid:1013210527, reason:pshop not hit logistics channel whitelist|","data":null}
+```
+
+```
+2025-11-25 17:28:27.841034|ERROR|e3e3e7f34467e6f897fca796ae5a2701|indicator-api-test-sg
+metric is invalid
+payload: {"items":[{"be_errors":[{"count":1,"error_name":"370201032"},{"count":1,"error_name":"pshop not hit logistics channel whitelist"}],"item_id":0}]}
+```
+
+**Why This Happens:**
+The SIP (Shopee Integrated Platform) system requires that when syncing items from P-shop to A-shop across different regions, the logistics channels configured on the P-item must be compatible with and whitelisted for the target A-shop's region. This is to ensure that:
+1. Cross-border logistics can actually be fulfilled
+2. Shipping methods are available in the target region
+3. Logistics partners support the cross-border route
+
+In this case, logistics channel 50039 (likely a VN-specific channel) is not whitelisted for KH cross-border SIP operations, causing the sync to fail.
+
+*Solution*:
+
+**Immediate Fix (Backend Configuration):**
+1. **Option A - Add Channel to Whitelist:** Add logistics channel 50039 to KH region's SIP cross-border logistics whitelist
+   - Update whitelist configuration in crossupload.api service
+   - Verify channel 50039 supports VN → KH cross-border shipping
+   
+2. **Option B - Use Compatible Channel:** Configure P-item with a logistics channel that is whitelisted for KH region
+   - Identify KH-compatible logistics channels
+   - Update P-item logistics configuration
+   - Retry sync operation
+
+**Long-term Fix:**
+1. **Improve Validation Messaging:**
+   - Return specific error indicating which logistics channels are invalid
+   - Suggest compatible logistics channels for target region
+   - Add pre-sync validation in Seller Operation Platform UI
+
+2. **Add Logistics Channel Compatibility Check:**
+   - Implement API to check logistics channel compatibility before sync
+   - Show warnings in UI when selecting incompatible channels
+   - Provide logistics channel recommendations based on target regions
+
+3. **Documentation:**
+   - Document logistics channel whitelist per region
+   - Create SIP logistics setup guide for sellers
+   - Add troubleshooting guide for sync failures
+
+**Verification Steps:**
+1. Verify logistics channel 50039 is added to KH whitelist (or P-item is reconfigured)
+2. Retry sync operation for P-item 3044833293 to KH A-shop 1013210527
+3. Verify A-item is successfully created with correct logistics configuration
+4. Test end-to-end: P-item update → A-item sync → logistics validation
+5. Verify no similar issues for other regions (TH, PH, etc.)
+
+*Teams to notify*:
+- @SIP-Platform-Team (Primary - owns crossupload.api and sync logic)
+- @Logistics-Configuration-Team (owns logistics channel whitelist configuration)
+- @Seller-Platform-Infrastructure (owns Seller Operation Platform)
+
+*Priority*: High - Blocks SIP cross-border item listing for KH region
+
+*Labels*: SIP, Logistics, Whitelist, Cross-Border, Item-Sync, KH
+
+*Related Items*:
+- P-item ID: 3044833293 (VN shop 1013210519)
+- MTSKU ID: 3044833291
+- A-shop ID: 1013210527 (KH region)
+- Merchant ID: 1000019935
+- Logistics Channel: 50039
+

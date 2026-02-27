@@ -1,0 +1,44 @@
+Hi @SIP-Platform-Team @Listing-Service-Team
+
+Found critical SIP synchronization issue in KH Test environment.
+
+Issue: A-item is unlisted but P-item is available with correct logistics configured. Buyers cannot add A-item to cart.
+
+TraceID: b11ba3af44678700e2947cc5c2f43002
+Error Code: 15020015 (User-facing), 184803007 (Internal ERROR_ITEM_IS_UNLISTED)
+Error: "Sorry, the item is currently unlisted."
+
+Root Cause: SIP Item Status Synchronization Failure
+
+The A-item (Item ID: 2303838543, Model ID: 310001393599) in A-shop (Shop ID: 1013045290) is marked as "unlisted" in the database, but the corresponding P-item is available and properly configured. This indicates the SIP synchronization mechanism failed to update A-item status when P-item was listed.
+
+Details:
+- Shop ID: 1013045290 (A-shop in KH)
+- Item ID: 2303838543 (A-item - UNLISTED ❌)
+- Model ID: 310001393599
+- P-item: Available and listed ✅
+- Logistics: Properly configured ✅
+- A-item status: Unlisted (inconsistent with P-item)
+
+Service Chain:
+- cart-bff-test-kh → cartservice-core-test-kh
+- Item status validation fails with "item_unlisted" error
+- Add to cart blocked
+
+Impact:
+- All KH buyers cannot purchase this SIP A-item
+- Blocks testing of SIP cross-border shopping flow
+- HIGH severity - core SIP functionality broken
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate the SIP synchronization logs and fix the A-item status? We may need to:
+1. Check why synchronization failed for this item
+2. Manually trigger re-sync from P-item to A-item
+3. Fix the synchronization mechanism if broken
+
+Thanks!
+
+cc: @Cart-Service-Team (for item status validation verification)
+cc: @Database-Operations (may need manual DB fix if sync is broken)
+

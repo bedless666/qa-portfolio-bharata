@@ -1,0 +1,74 @@
+h1. [SPAPP-53682] 16KB Page Size Crash - Quick Summary
+
+*Status:* {color:green}RESOLVED{color} | *Priority:* {color:red}P0{color} | *Fixed Build:* {{fix-16kb-1204}}
+
+----
+
+h2. Problem
+
+Shopee app crashes on Android 15 devices with 16KB page size (Pixel 8 Pro, etc.)
+
+*Error:* {{Program alignment (4096) smaller than system page size (16384)}}
+
+|| Test || Device || Result ||
+| 16KB Device | Pixel 8 Pro API 35 | {color:red}CRASH{color} |
+| 4KB Device | Pixel 8 API 34 | {color:green}WORKS{color} |
+
+----
+
+h2. Timeline
+
+|| Date || Event ||
+| 2025-11-25 | Issue discovered by ClientSecurity QA |
+| 2025-11-26 | Escalated to [~hoang] → App Performance Team |
+| 2025-11-29 | [~ren.jiaxin] started fix development |
+| 2025-12-03 | Fix completed: {{fix-16kb-1204}} |
+| 2025-12-04 | [~aryo] verified fix {color:green}PASS{color} |
+
+----
+
+h2. Solution
+
+[~ren.jiaxin] recompiled native libraries with 16KB alignment support
+
+*Affected Libraries:*
+* {{libglog_v2.so}}
+* {{libjsi.so}}
+* {{libshadowhook.so}}
+* {{libnative-crash.so}}
+
+----
+
+h2. Verification
+
+{panel:title=Test Results|bgColor=#E3FCEF}
+|| Test Case || Result ||
+| App launch on 16KB device | {color:green}✓ PASS{color} |
+| Native library loading | {color:green}✓ PASS{color} |
+| Backward compatibility (4KB) | {color:green}✓ PASS{color} |
+| Overall Status | {color:green}VERIFIED{color} |
+{panel}
+
+----
+
+h2. Action Required
+
+{warning}
+*[~aryo]* needs to sign off JIRA ticket SPAPP-53682
+*[~ren.jiaxin]* will merge code after sign-off
+{warning}
+
+----
+
+h2. Key Contributors
+
+* *Reporter:* ClientSecurity QA
+* *Escalation:* [~hoang]
+* *Fix Developer:* [~ren.jiaxin]
+* *QA Verification:* [~aryo]
+* *Support:* [~yin.shan], [~pengfei]
+
+----
+
+_Status: {color:yellow}PENDING SIGN-OFF{color}_
+

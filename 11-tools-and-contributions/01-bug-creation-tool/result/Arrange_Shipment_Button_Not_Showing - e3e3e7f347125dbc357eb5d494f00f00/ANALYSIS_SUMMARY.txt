@@ -1,0 +1,151 @@
+BUG ANALYSIS SUMMARY
+====================
+
+ISSUE OVERVIEW
+TraceID: e3e3e7f347125dbc357eb5d494f00f00
+Environment: staging
+Region: ID
+Severity: HIGH (Critical - Blocks order fulfilment)
+Date: 2025-12-29 15:41:08
+
+PROBLEM
+"Arrange Shipment" button is not showing in Seller Center for COD orders that have been confirmed and moved to "To Ship" status. The order is ready for fulfilment (all checks pass) but the button rendering fails due to a backend feature toggle configuration error. This completely blocks sellers from arranging shipment for their orders in staging environment.
+
+ERROR DETAILS
+Code: 30030 (primary), 30000 (secondary)
+Message: "field[is_in] is not exists" / "unknown system error"
+Service: sellerplatform-featuretogglespex-staging-sg, sellerfulfillment-shipment-staging-id
+Component: Feature Toggle Service / Button Generation Logic
+API Endpoint: IsShopInFeatureToggle / generate_single_ship_ui
+Timestamp: 2025-12-29 15:41:08
+
+ROOT CAUSE
+The issue is caused by a missing or incomplete feature toggle configuration in the staging environment. The button generation logic in the Seller Fulfilment service attempts to check if the shop is whitelisted for feature "sz_motorcycle_loan_seller" by calling the Feature Toggle service. However, this feature toggle configuration either:
+1. Does not exist in the staging environment
+2. Has an incomplete schema missing the required "is_in" field
+
+When the feature toggle check fails with error 30030 ("field[is_in] is not exists"), the button action generation code catches this error and returns error 30000 (unknown system error). This causes btn_info_list to be set to null, preventing the UI from rendering the "Arrange Shipment" button even though all other conditions for showing the button are met.
+
+SERVICE CHAIN
+1. Seller Center UI → Seller Platform Gateway ACL (entry point)
+2. Gateway → Seller Fulfilment Shipment Service (get button info)
+3. Seller Fulfilment → Feature Toggle Spex Service (check shop whitelist)
+4. Error occurred at Feature Toggle Service (reason: feature key "sz_motorcycle_loan_seller" not exist in all regions, field "is_in" missing)
+5. Error propagated back → Button action generation fails → btn_info_list set to null
+6. UI receives null button data → Button not rendered
+
+CONFIGURATION ISSUES
+- Missing configuration: Feature toggle "sz_motorcycle_loan_seller" in staging environment
+- Incorrect schema: Required field "is_in" does not exist in feature toggle configuration
+- Missing setup: Feature key not registered in all regions (currently missing in ID/SG regions)
+- Environment mismatch: Minor CID mismatch warning (ID flag vs SG env) may contribute to lookup issues
+
+DATA ISSUES
+Order data is correct and complete:
+- Order ID: 220691851208175
+- Order SN: 251229M4ARQ9FF
+- Package Number: OFG220693149207373
+- Shop ID: 301881182
+- User ID: 5110492066
+- Logistics Status: 9 (To Ship) ✓
+- COD Confirmed: Yes (shipping_confirm_time: 1766992655) ✓
+- order_can_arrange_shipment: 1 (allowed) ✓
+- package_arrange_shipment_status: 1 (ready) ✓
+- ready_for_fulfilment: true ✓
+
+Response data shows the issue:
+- btn_info_list: null ✗ (should contain button action data)
+- btn_type: 3 ✓ (button type is set)
+- btn_component: {"btn_flow": 0} ✓ (component defined)
+
+IMPACT ASSESSMENT
+User Impact:
+- All sellers in staging ID environment cannot arrange shipment for COD orders after confirmation
+- Order fulfilment workflow is completely blocked
+- No workaround available - requires backend fix
+- Business testing for COD feature is blocked
+
+System Impact:
+- Affects: sellerfulfillment-shipment service
+- Related features: All features dependent on feature toggle "sz_motorcycle_loan_seller"
+- Scope: Staging environment only (ID region, possibly other regions)
+- Button rendering logic fails for any shop when feature toggle check is involved
+
+TEAMS TO CONTACT
+Primary: @Seller-Platform-Team @Feature-Toggle-Team
+Reason: Own the feature toggle configuration service. Need to add the missing feature toggle "sz_motorcycle_loan_seller" to staging environment with proper schema including "is_in" field. Must ensure feature key is registered in all regions.
+
+Secondary: @Seller-Fulfilment-Team
+Reason: Own the button generation logic in sellerfulfillment-shipment service. Should add error handling/fallback mechanism so non-critical feature toggle checks don't block critical UI elements like "Arrange Shipment" button.
+
+Tertiary: @Platform-Infrastructure-Team
+Reason: Investigate CID mismatch between request flag (ID) and environment (SG) that may contribute to configuration lookup issues.
+
+SOLUTION STEPS
+1. Feature Toggle Team: Add feature toggle configuration for "sz_motorcycle_loan_seller" in staging environment with proper schema including "is_in" field
+2. Feature Toggle Team: Ensure the feature key is registered in all regions (ID, SG, TH, VN, etc.)
+3. Seller Fulfilment Team: Add try-catch and fallback logic in button generation code to handle feature toggle failures gracefully
+4. Verification: Call API again for order 220691851208175 and verify btn_info_list is not null
+5. Testing: Test with multiple shops and regions to ensure fix is applied globally
+
+VERIFICATION STEPS
+After the fix is deployed:
+1. Call the shipment API for order ID 220691851208175
+2. Verify btn_info_list contains button action data (not null)
+3. Open Seller Center UI and confirm "Arrange Shipment" button is visible
+4. Test with different shops to ensure fix works for all sellers
+5. Monitor feature toggle service logs for any error 30030/30000
+6. Verify no CID mismatch warnings in logs
+
+LOG EVIDENCE
+2025-12-29 15:41:08|ERROR|e3e3e7f347125dbc357eb5d494f00f00
+Service: sellerplatform-featuretogglespex-staging-sg
+Error: feature key not exist in all regions
+Details: debugmsg=feature key not exist in all regions
+
+2025-12-29 15:41:08|ERROR|e3e3e7f347125dbc357eb5d494f00f00
+Service: sellerfulfillment-shipment-staging-id
+Error: IsShopInFeatureToggleApi err, shopId:301881182, whitelistKey:sz_motorcycle_loan_seller
+Details: {"code":30030,"message":"field[is_in] is not exists."}
+
+2025-12-29 15:41:08|ERROR|e3e3e7f347125dbc357eb5d494f00f00
+Service: sellerfulfillment-shipment-staging-id
+File: generate_single_ship_ui.go:88
+Error: got an error when getting btn_action
+Details: {"code":30000,"message":"unknown system error"}
+
+API Response (showing the issue):
+{
+    "code": 0,
+    "data": {
+        "list": [{
+            "order_id": 220691851208175,
+            "package_list": [{
+                "package_number": "OFG220693149207373",
+                "btn_info_list": null,  ← ISSUE: Should contain button data
+                "package_arrange_shipment_status": 1,  ← Ready to ship
+                "btn_type": 3,  ← Button type defined
+                "btn_component": {"btn_flow": 0}
+            }],
+            "order_can_arrange_shipment": 1  ← Permission granted
+        }]
+    }
+}
+
+NEXT STEPS
+1. Create JIRA ticket (use jira_ticket.txt)
+2. Notify dev teams (use chat_message.txt)
+3. Wait for Feature Toggle Team to fix configuration
+4. Wait for Seller Fulfilment Team to add error handling (optional but recommended)
+5. Verify fix after resolution
+6. Retest the COD fulfilment scenario
+7. Test with multiple shops and regions
+8. Close ticket if resolved
+
+---
+Generated: 2025-12-29 15:41:08
+Analyzer Version: Bug Analyzer v2.2 (TXT-based)
+Analyzed By: Cursor AI
+
+
+

@@ -1,0 +1,57 @@
+Hi @SIP-Platform-Team @Logistics-Configuration-Team
+
+Found critical SIP sync issue in KH Test environment.
+
+Issue: Failed to sync P-item to A-item with logistics channel whitelist error. Cross-border item listing is completely blocked for KH region.
+
+TraceID: e3e3e7f34467e6f897fca796ae5a2701
+Error Code: 405300005 (ERROR_EXTERNAL)
+Error: "create aitem fail for affiShopid:1013210527, reason:pshop not hit logistics channel whitelist"
+
+Root Cause: Logistics Channel Whitelist Validation Failure
+
+The P-shop (VN shop 1013210519) has logistics channel **50039** configured on P-item 3044833293. When attempting to sync/create A-item in KH A-shop (1013210527), the crossupload.api service validates whether this channel is whitelisted for KH cross-border SIP operations. The validation fails because channel 50039 is NOT in KH's SIP logistics whitelist.
+
+Details:
+- P-shop ID: 1013210519 (VN region)
+- P-item ID: 3044833293 (MTSKU: 3044833291)
+- Merchant ID: 1000019935
+- A-shop ID: 1013210527 (KH region) 
+- Logistics Channel: 50039 (VN-specific, not whitelisted for KH)
+- Service: crossuploadbff-admin → crossupload.api
+- API: PUT /crossuploadbff/admin/sync_related_aitem
+
+Why This Happens:
+SIP requires logistics channels on P-items to be compatible with target A-shop regions. Channel 50039 (likely VN-specific) is not whitelisted for VN → KH cross-border shipping, causing sync rejection.
+
+Impact:
+- Sellers cannot sync SIP items from VN to KH
+- Blocks entire SIP cross-border listing workflow for KH
+- Affects all P-items using channel 50039 trying to sync to KH
+
+Solution Options:
+1. Add channel 50039 to KH's SIP logistics whitelist (if it supports VN → KH shipping)
+2. Configure P-item with a KH-compatible logistics channel
+3. Provide logistics channel compatibility check API for pre-sync validation
+
+Log Evidence:
+```
+2025-11-25 17:28:27.854897|DATA|e3e3e7f34467e6f897fca796ae5a2701
+raw_response: {"code":405300005,"msg":"external api error : call crossupload.api error:|create aitem fail for affiShopid:1013210527, reason:pshop not hit logistics channel whitelist|","data":null}
+```
+
+```
+2025-11-25 17:28:27.841034|ERROR|e3e3e7f34467e6f897fca796ae5a2701|indicator-api
+payload: {"items":[{"be_errors":[{"count":1,"error_name":"370201032"},{"count":1,"error_name":"pshop not hit logistics channel whitelist"}]}]}
+```
+
+Verification Needed:
+1. Check if channel 50039 supports VN → KH cross-border shipping
+2. Review KH region's SIP logistics whitelist configuration
+3. Identify all KH-compatible logistics channels
+4. Test sync with compatible channel
+
+Please investigate and advise on the correct fix approach.
+
+cc: @Seller-Platform-Infrastructure
+

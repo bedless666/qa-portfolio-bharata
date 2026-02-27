@@ -1,0 +1,108 @@
+*Summary*:
+Shopee App crashes immediately on startup in Android 15 Emulator with 16KB page size - Native SIGSEGV error
+
+*Configuration*:
+- app / os version: Shopee 3.64.03@regression / Android 15 (API 35)
+- env (test, staging, live) and country info: Test environment, ID region
+- pfb build: n/a (using regression build)
+- account (user / id): n/a (crash occurs before login)
+- toggles: none (default configuration)
+- device: Android Emulator Pixel 8 Pro API 35 with 16KB page size (ro.product.cpu.pagesize.max=16384)
+
+*Impact*
+- user impact summary: App is completely unusable on devices with 16KB page size. This affects all Android 15 devices with 16KB page configuration and future devices that will use 16KB pages as default.
+- test impact summary: Cannot perform any testing on 16KB page size emulators. Blocks all QA testing for 16KB page size compatibility verification.
+- any workaround: Use 4KB page size emulator (API 34 or lower) for testing. However, this doesn't verify 16KB compatibility which is required for future Android versions.
+
+*Reproducible Steps*
+1. Launch Android Emulator with 16KB page size (Pixel_8_Pro_API_35_16KB AVD)
+2. Verify page size: `adb shell getprop ro.product.cpu.pagesize.max` returns 16384
+3. Install Shopee APK (com.shopee.id.int version 3.64.03@regression)
+4. Launch app via launcher or `adb shell monkey -p com.shopee.id.int -c android.intent.category.LAUNCHER 1`
+5. Observe app shows splash screen briefly then crashes
+
+*Comparison Test - Non-16KB Device (Verification)*
+1. Launch Android Emulator with 4KB page size (Pixel_8_API_34 or similar)
+2. Verify page size: `adb shell getprop ro.product.cpu.pagesize.max` returns 4096
+3. Install same Shopee APK (com.shopee.id.int version 3.64.03@regression)
+4. Launch app via launcher
+5. ✅ App launches successfully without crash - confirms issue is specific to 16KB page size
+
+*Expected Result*
+- App should launch successfully and show homepage
+- App should be compatible with 16KB page size as per Android 15 requirements
+- No native crashes should occur
+
+*Actual*
+- App crashes immediately after splash screen with native SIGSEGV (Segmentation violation)
+- Crash occurs in native libraries during initialization
+- App becomes unresponsive and system shows "App not responding" dialog
+- Crash timestamp: 2025-12-03 17:03:37 (multiple occurrences)
+
+*Evidence and Troubleshooting*
+[x] screenshot / video (splash screen showing before crash)
+[x] logcat output showing native crash
+[x] page size verification (16384 bytes confirmed)
+[ ] trace link (_show_debug_info=2) - not applicable, crash before app fully loads
+[x] crash logs from native crash handler
+
+*Initial Judgment / Root Cause Analysis:* Backend/Native Library Issue
+
+**Technical Analysis:**
+
+**IMPORTANT: Issue is SPECIFIC to 16KB page size only**
+- ✅ Same APK works perfectly on 4KB page size devices (verified on API 34 emulator)
+- ❌ Same APK crashes immediately on 16KB page size devices (API 35 with 16KB config)
+- This confirms the root cause is 16KB page size incompatibility, not a general app bug
+
+1. **Native Crash Details:**
+   - Signal: SIGSEGV (Segmentation violation - invalid memory reference)
+   - Thread: JSBinder (React Native JavaScript bridge thread)
+   - Crashed Libraries:
+     * libshadowhook.so (BuildId: 8411b301c9aafef50292dca701d9bc8ce7f2172c)
+     * libglog_v2.so (BuildId: 91074802c9277d19b44f28656046452876539430)
+     * libnative-crash.so (BuildId: e63ab1e5d0386d44ba392cc0a248a615a760187b)
+
+2. **Root Cause:**
+   The APK's native libraries are not properly aligned for 16KB page size. Android 15 introduced support for 16KB page sizes, but apps need to be explicitly built with proper alignment:
+   
+   - Native libraries (.so files) must be aligned to 16KB boundaries
+   - Memory mapping must respect 16KB page boundaries
+   - Current APK has `extractNativeLibs=true` which may cause alignment issues
+   
+3. **Log Evidence:**
+   ```
+   12-03 17:03:17.593 NATIVE_STACK: #00 pc 000000000000b7ec libglog_v2.so
+   12-03 17:03:17.593 NATIVE_STACK: #05 pc 000000000000c2a0 libshadowhook.so
+   12-03 17:03:17.670 kwai_dlfcn: CHECK failed - dlopen: data.info_.dlpi_addr > 0: No such file or directory
+   12-03 17:03:37.738 NATIVE_CRASH_Common: onNativeCrash isMainThread->false crashThreadName->JSBinder 
+                       errClass->SIGSEGV sigMsg->Segmentation violation (invalid memory reference)
+   ```
+
+4. **16KB Page Size Verification:**
+   - Confirmed via `getprop ro.product.cpu.pagesize.max`: 16384 bytes
+   - Emulator: Pixel_8_Pro_API_35_16KB
+   - Android Version: API 35 (Android 15)
+
+5. **Build Configuration Issue:**
+   The APK needs to be rebuilt with 16KB page size support:
+   - Gradle: `android.bundle.enableUncompressedNativeLibs=false`
+   - NDK: Libraries must be page-aligned to 16KB
+   - Packaging: Use `useLegacyPackaging=false` for proper alignment
+
+**Recommended Actions:**
+1. Rebuild APK with 16KB page size alignment support
+2. Set `extractNativeLibs=false` in AndroidManifest.xml
+3. Ensure all native libraries are aligned to 16KB boundaries
+4. Test on 16KB page size emulator before release
+5. Update build.gradle with proper 16KB configuration
+
+**References:**
+- Android 16KB Page Size Guide: https://developer.android.com/guide/practices/page-sizes
+- Native Library Alignment: https://developer.android.com/ndk/guides/abis
+
+**Teams to Contact:**
+- @Native-Team: Primary - Need to rebuild native libraries with 16KB alignment
+- @Build-Team: Secondary - Update build configuration for 16KB support
+- @Android-Platform-Team: Tertiary - Verify 16KB compatibility requirements
+

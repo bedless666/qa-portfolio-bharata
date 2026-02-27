@@ -1,0 +1,99 @@
+BUG ANALYSIS SUMMARY
+====================
+
+ISSUE OVERVIEW
+TraceID: [trace_id]
+Environment: [environment]
+Region: [region]
+Severity: [severity]
+Date: [date]
+
+PROBLEM
+[Brief description of the problem - what happened and why it matters]
+
+ERROR DETAILS
+Code: [error_code]
+Message: [error_message]
+Service: [service_name]
+Component: [component_name]
+API Endpoint: [endpoint]
+Timestamp: [timestamp]
+
+ROOT CAUSE
+[Detailed technical explanation of why this error occurred]
+[Include: what failed, why it failed, and what was the trigger]
+
+SERVICE CHAIN
+[Show the service call chain if applicable]
+Example:
+1. User Action → Service A
+2. Service A → Service B (calls API X)
+3. Service B → Service C
+4. Error occurred at Service C (reason: [specific reason])
+
+CONFIGURATION ISSUES (if applicable)
+[Describe any configuration problems]
+- Missing configuration: [config_name]
+- Incorrect value: [current_value] (should be [expected_value])
+- Missing setup: [what's missing]
+
+DATA ISSUES (if applicable)
+[Describe any data-related problems]
+- Missing data: [data_name]
+- Invalid data: [data_description]
+- Data mismatch: [what doesn't match]
+
+IMPACT ASSESSMENT
+User Impact:
+- [Who is affected and how]
+- [Business impact]
+- [Workaround if available]
+
+System Impact:
+- [Which components are affected]
+- [Related features impacted]
+- [Scope of the issue]
+
+TEAMS TO CONTACT
+Primary: @[Team-Name]
+Reason: [Why this team should be contacted - what they own/need to fix]
+
+Secondary: @[Team-Name] (if applicable)
+Reason: [Why this team might be needed - supporting role]
+
+Tertiary: @[Team-Name] (if applicable)
+Reason: [Additional team for coordination or verification]
+
+SOLUTION STEPS
+1. [Team-Name]: [Specific action this team needs to take]
+2. [Team-Name]: [Specific action this team needs to take]
+3. Verification: [How to verify the fix works]
+4. Testing: [What to test after fix]
+
+VERIFICATION STEPS
+After the fix is deployed:
+1. [Specific verification step 1]
+2. [Specific verification step 2]
+3. [Specific verification step 3]
+4. [Monitor for X minutes/hours]
+
+LOG EVIDENCE
+[Include key log excerpts that show the error]
+Example:
+2025-11-25 17:28:27|ERROR|[trace_id]
+Service: [service_name]
+Error: [error_message]
+Details: [relevant details]
+
+NEXT STEPS
+1. Create JIRA ticket (use jira_ticket.txt)
+2. Notify dev teams (use chat_message.txt)
+3. Wait for team investigation
+4. Verify fix after resolution
+5. Retest the scenario
+6. Close ticket if resolved
+
+---
+Generated: [timestamp]
+Analyzer Version: Bug Analyzer v2.2 (TXT-based)
+Analyzed By: Cursor AI

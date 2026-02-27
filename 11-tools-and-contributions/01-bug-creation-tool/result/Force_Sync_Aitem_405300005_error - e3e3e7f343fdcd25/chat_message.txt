@@ -1,0 +1,18 @@
+Hi @Seller-Operation-Team @Listing-Upload-Team
+
+Found issue in KH Test environment.
+
+Issue: Force Sync Aitem to Pitem failing with external API error - SIP cross-region sync blocked
+
+TraceID: e3e3e7f343fdcd2521009576a4896e01
+Error Code: 405300005 (External API Error)
+Error: external api error : call crossupload.api error:|sync aitem fail for affiShopid:1013210527, reason:call marketplace.listing.upload.product error: external error: external error, source: seller.seller_operation.account_health_metric_api.get_shop_listing_limit, code: 10004, source: marketplace.listing.upload.lock.check_product_lock, code: 338300005|
+
+Root Cause: Timeout (10004) - seller.seller_operation.account_health_metric_api.get_shop_listing_limit
+
+The account_health_metric_api service is timing out when checking shop listing limits for KH shop 1013210527 during the product lock validation phase. This blocks the entire SIP item sync workflow from VN (Primary) to KH (Affiliated).
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate? Thanks!
+

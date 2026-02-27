@@ -1,0 +1,177 @@
+BUG ANALYSIS SUMMARY
+====================
+
+ISSUE OVERVIEW
+TraceID: b11ba3af44a22e5b448bdbf2b2dca902
+Environment: Test
+Region: KH (Cambodia)
+Severity: Medium-High
+Date: 2025-11-28 15:00:13 UTC+8
+
+PROBLEM
+Valid items are showing as invalid in the cart, preventing users from proceeding with checkout. The issue is caused by a cart state synchronization problem where Add-On Deal promotion main items are not properly registered in the cart, causing all related sub-items to be invalidated. Additionally, expired promotions are still being referenced, and Redis cache operations are timing out.
+
+ERROR DETAILS
+Code: N/A (WARN level, not a hard error)
+Message: UpdateMainItemPromoInfo, item_not_found_in_cart | Add-On Deal: "fallback all valid subs due to no valid main exists"
+Service: cartservice-core-test-kh
+Component: Cart promotion info updater, Add-On Deal calculator
+API Endpoint: Internal cart validation
+Timestamp: 2025-11-28 15:00:13.532396
+
+ROOT CAUSE
+This is a Cart State Synchronization Issue with multiple contributing factors:
+
+1. **Add-On Deal Main Item Missing (Primary)**
+   The main item (ItemID: 3344815530, ModelID: 2025231470) in the Add-On Deal promotion (PromoID: 385913276477948) is not properly registered in the cart state. When the cart service tries to update promotion information, it cannot find the main item, causing the entire Add-On Deal to fail validation. This triggers a fallback mechanism that invalidates all sub-items in the promotion.
+
+2. **Expired Promotion Still Active**
+   Item 3144815806 has a promotion (Type: 313, ID: 385913276477728) that expired at timestamp 1763630492, but the cart is still referencing it. The price-business service detects this mismatch ("price status is normal but promotion has ended"), causing price calculation inconsistencies that affect cart validation.
+
+3. **Missing Configuration**
+   Two configurations are missing in the test-KH environment: "item_model_tag_info_config" and "seller_streaming_session_batch_size". While these are logged as errors, they may contribute to incomplete cart item validation and metadata retrieval.
+
+4. **Redis Cache Timeout**
+   The promotion-rewardslogistics service is experiencing Redis cache write timeouts ("redis_setmany_err: context canceled"). This prevents discount information from being properly cached, which can lead to stale or missing promotion data in the cart.
+
+5. **Data Consistency Mismatch**
+   The cart shows a data mismatch for "total_can_buy_quantity" (Expected: 0, Actual: 400), indicating that the cart state and item availability data are out of sync.
+
+SERVICE CHAIN
+1. User Action → cartservice-core-test-kh (Load cart request)
+2. cartservice-core → price-business-test-kh (Get item prices and promotions)
+3. price-business → promotion-rewardslogistics-test-kh (Get shipping discounts)
+4. cartservice-core → marketplace.listing.itemtagservice (Get model labels - successful)
+5. Error occurred at cartservice-core (reason: Add-On Deal main item not found in cart state)
+6. Secondary error at price-business (reason: Expired promotion still referenced)
+7. Tertiary error at promotion-rewardslogistics (reason: Redis cache write timeout)
+
+CONFIGURATION ISSUES
+- Missing configuration: item_model_tag_info_config
+  Location: cartservice-core-test-kh
+  Impact: Cannot retrieve item/model tag information
+
+- Missing configuration: seller_streaming_session_batch_size
+  Location: cartservice-core-test-kh
+  Impact: Cannot batch process seller streaming sessions
+
+- Missing setup: Live streaming service not available in test-KH
+  Error: ERROR_SP_SERVICE_NOT_FOUND (code 104)
+  Impact: Non-critical, but causes service call failures
+
+DATA ISSUES
+- Missing data: Add-On Deal main item not in cart state
+  Item: ShopID 1013214384, ItemID 3344815530, ModelID 2025231470
+  Impact: Entire Add-On Deal promotion fails validation
+
+- Invalid data: Expired promotion still active
+  Promotion: Type 313, ID 385913276477728
+  End Time: 1763630492 (already expired)
+  Impact: Price calculation mismatch
+
+- Data mismatch: total_can_buy_quantity
+  Expected: 0
+  Actual: 400
+  Impact: Quantity validation failing, incorrect availability shown
+
+IMPACT ASSESSMENT
+User Impact:
+- Users cannot add certain items to cart or see them as invalid
+- Checkout process is blocked for affected items
+- Incorrect item availability and pricing information displayed
+- Affects multiple items across 2 shops (1013214384, 1013045290)
+- Workaround: Clear cart and re-add items, or avoid Add-On Deal items
+
+System Impact:
+- Cart service validation logic failing for Add-On Deal promotions
+- Price calculation inconsistencies due to expired promotions
+- Cache layer performance degradation (Redis timeouts)
+- Test environment only (not affecting production)
+- Affects QA testing of Add-On Deal and cart functionality
+
+TEAMS TO CONTACT
+Primary: @Cart-Team
+Reason: Owns cartservice-core. Need to fix cart state synchronization for Add-On Deal items. The main item is not being properly registered in cart state during Add-On Deal promotion validation.
+
+Secondary: @Promotion-Team
+Reason: Owns price-business and promotion-rewardslogistics services. Need to fix expired promotion cleanup process and improve Add-On Deal main item validation logic. Also need to investigate Redis cache timeout issues.
+
+Tertiary: @Infrastructure-Team
+Reason: Need to add missing configurations (item_model_tag_info_config, seller_streaming_session_batch_size) in test-KH environment and investigate Redis performance issues causing cache write timeouts.
+
+SOLUTION STEPS
+1. Cart-Team: Fix Add-On Deal cart state synchronization
+   - Ensure main items are properly registered in cart state before validation
+   - Improve error handling when main item is missing
+   - Add validation checks before updating promotion info
+
+2. Promotion-Team: Clean up expired promotions
+   - Remove expired promotion (ID: 385913276477728) from active promotion list
+   - Implement automatic cleanup process for expired promotions
+   - Fix Add-On Deal fallback logic to provide better error messages
+
+3. Infrastructure-Team: Add missing configurations and fix Redis
+   - Add item_model_tag_info_config to test-KH environment
+   - Add seller_streaming_session_batch_size configuration
+   - Investigate and fix Redis timeout issues in promotion-rewardslogistics
+
+4. Verification: Re-test cart with affected items
+   - Add ItemID 3344815530 to cart and verify it shows as valid
+   - Verify Add-On Deal promotion calculates correctly
+   - Check that expired promotions are no longer referenced
+
+5. Testing: Full regression test
+   - Test Add-On Deal promotions with multiple items
+   - Test cart validation with various promotion types
+   - Monitor Redis cache performance
+
+VERIFICATION STEPS
+After the fix is deployed:
+1. Login as UserID 7114504824 in Test-KH environment
+2. Add item (ShopID: 1013214384, ItemID: 3344815530, ModelID: 2025231470) to cart
+3. Verify item shows as valid with correct Add-On Deal promotion information
+4. Verify no warnings about "item_not_found_in_cart" in logs
+5. Verify expired promotions are not referenced in cart
+6. Monitor Redis cache operations for 30 minutes to ensure no timeouts
+7. Test with other Add-On Deal items to ensure fix is comprehensive
+
+LOG EVIDENCE
+2025-11-28 15:00:13.532396|WARN|b11ba3af44a22e5b448bdbf2b2dca902
+Service: cartservice-core-test-kh
+Error: UpdateMainItemPromoInfo, item_not_found_in_cart
+Details: {"request_type":"real","main_item_key":{"ShopID":1013214384,"ItemID":3344815530,"ModelID":2025231470}}
+
+2025-11-28 15:00:13.524054|WARN|b11ba3af44a22e5b448bdbf2b2dca902
+Service: price-business-test-kh
+Error: addOnDealSubCalculator: fallback all valid subs due to no valid main exists
+Details: itemID=3344815530, modelID=2025231470, promoID=385913276477948, groupID=385913276477948
+
+2025-11-28 15:00:13.520514|WARN|b11ba3af44a22e5b448bdbf2b2dca902
+Service: price-business-test-kh
+Error: price status is normal but promotion has ended
+Details: item_id=3144815806, model_id=0, promo_type=313, promo_id=385913276477728, end_time=1763630492
+
+2025-11-28 15:00:13.578221|ERROR|b11ba3af44a22e5b448bdbf2b2dca902
+Service: promotion-rewardslogistics-test-kh
+Error: redis_setmany_err: context canceled
+Details: Redis cache write timeout affecting discount information caching
+
+2025-11-28 15:00:13.535898|ERROR|b11ba3af44a22e5b448bdbf2b2dca902
+Service: cartservice-core-test-kh
+Error: err_get_config: key not found
+Details: config not found: item_model_tag_info_config
+
+NEXT STEPS
+1. Create JIRA ticket (use jira_ticket.txt)
+2. Notify dev teams (use chat_message.txt)
+3. Wait for team investigation
+4. Verify fix after resolution
+5. Retest the scenario
+6. Close ticket if resolved
+
+---
+Generated: 2025-11-28 15:00:13 UTC+8
+Analyzer Version: Bug Analyzer v2.2 (TXT-based)
+Analyzed By: Cursor AI
+
+

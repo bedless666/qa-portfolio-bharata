@@ -1,0 +1,107 @@
+*Summary*:
+Ship status not change after click ship and enter tracking number in seller center
+
+*Configuration*:
+- app / os version: Chrome 142 on macOS 10.15.7
+- env (test, staging, live) and country info: Staging / ID (Indonesia)
+- pfb build: n/a
+- account (user / id): moqa_id_seller_official / User ID: 102549904, Shop ID: 300563615
+- toggles: none
+
+*Impact*
+- user impact summary: Sellers in ID staging environment cannot ship orders. The ship initialization process fails silently due to CID routing mismatch, blocking the fulfillment workflow.
+- test impact summary: QA team blocked from testing ship order flow in staging environment for ID region. This affects testing of the entire order fulfillment pipeline.
+- any workaround: None available. The issue is caused by infrastructure-level CID routing misconfiguration.
+
+*Reproducible Steps*
+1. Login to Seller Center staging (seller.staging.shopee.co.id) with ID seller account
+2. Navigate to "My Sales" > "To Ship" orders
+3. Select an order that is ready to ship
+4. Click "Ship" button and enter tracking number
+5. Submit the shipment initialization request
+
+*Expected Result*
+- Order status should change from "To Ship" to "Shipped"
+- Tracking number should be recorded
+- Shipment initialization API should complete successfully
+- Order fulfillment flow should proceed normally
+
+*Actual*
+- Ship status does not change after clicking ship button
+- API request fails due to CID routing mismatch
+- TraceID: e3e3e7f34452b3118b39817e2148f101 (24 Nov 2025, 16:10:42 UTC)
+- Error: Spex error code 10019 - viewercontext contains mismatched cid flag: CID from flag=id but CID from env=sg
+
+*Evidence and Troubleshooting*
+[x] screenshot / video (attach file if available)
+[x] trace link (_show_debug_info=2)
+[x] log URL from log platform - TraceID: e3e3e7f34452b3118b39817e2148f101
+[x] FE traffic packets - Available in logs
+
+*Root Cause Analysis:*
+
+**Issue Type:** Backend Configuration Issue - CID Routing Mismatch
+
+**Technical Details:**
+The issue occurs in the `sellerplatform-gatewayacl-staging-sg` service during the authentication flow for shipment initialization. The service is deployed in Singapore (sg) environment but is receiving requests with Indonesia (id) CID flag, causing a mismatch.
+
+**Error Chain:**
+1. Frontend sends request to `/api/v3/shipment/init_order` with Region-Id: ID header
+2. Request is routed through `mall-sellergatewayunification-staging-global` gateway
+3. Gateway forwards to `sellerplatform-gatewayacl-staging-sg` (Singapore environment)
+4. Gateway ACL service detects CID mismatch: flag=id but env=sg
+5. Spex error code 10019 is triggered
+6. Authentication check fails, blocking the shipment initialization
+
+**Service Chain:**
+- mall-sellergatewayunification-staging-global (Entry point)
+  → sellerplatform-gatewayacl-staging-sg (Authentication - **ERROR HERE**)
+  → seller-fulfilment.order.i.staging.shopee.co.id (Target service)
+
+**Configuration Issue:**
+The `seller_cid_routing` plugin in the gateway is not correctly routing ID region requests to the ID-specific backend services. Instead, requests are being sent to the SG environment services, causing the CID validation to fail.
+
+**Affected Components:**
+- Service: sellerplatform-gatewayacl
+- Environment: staging-sg (should be staging-id for ID requests)
+- Plugin: seller_cid_routing-100
+- API: seller.platform.gateway_acl.get_seller_center_authentication
+
+**Impact Assessment:**
+- Severity: HIGH - Blocks critical seller fulfillment workflow
+- Scope: All ID sellers in staging environment
+- Business Impact: Cannot test order fulfillment flow for ID market
+
+**Action Items Required:**
+
+**Primary Team:** @Seller-Platform-Gateway / @Seller-Platform-Infrastructure
+**Reason:** CID routing configuration in gateway ACL service needs to be fixed
+
+**Secondary Team:** @Seller-Fulfillment-Team (for verification)
+**Reason:** Need to verify shipment flow works correctly after routing fix
+
+**Solution Steps:**
+1. **Gateway Team**: Review and fix `seller_cid_routing` plugin configuration in staging environment
+2. **Gateway Team**: Ensure ID region requests are routed to `sellerplatform-gatewayacl-staging-id` instead of `sellerplatform-gatewayacl-staging-sg`
+3. **Gateway Team**: Verify CID routing rules for all regions (ID, SG, TH, VN, PH, MY, TW, BR)
+4. **Gateway Team**: Deploy the configuration fix to staging environment
+5. **QA Team**: Retest the shipment initialization flow with the same TraceID scenario
+6. **Fulfillment Team**: Verify end-to-end order fulfillment flow works correctly
+
+**Verification Steps:**
+1. Login to ID seller account in staging
+2. Navigate to "To Ship" orders
+3. Click "Ship" button and enter tracking number
+4. Verify no CID mismatch error in logs
+5. Verify order status changes to "Shipped"
+6. Verify tracking number is recorded correctly
+7. Check logs to confirm request is routed to correct ID environment service
+
+**Related Information:**
+- Log Platform TraceID: e3e3e7f34452b3118b39817e2148f101
+- Service: sellerplatform-gatewayacl-staging-sg
+- Error Code: Spex 10019 (ERROR_CID_PARAM)
+- Timestamp: 2025-11-24 16:10:42.544234 UTC
+- Gateway: mall-sellergatewayunification-staging-global
+- Target API: /api/v3/shipment/init_order
+

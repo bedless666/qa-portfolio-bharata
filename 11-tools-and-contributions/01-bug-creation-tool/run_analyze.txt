@@ -1,0 +1,40 @@
+Bug Analyzer Workflow
+=====================
+
+1. Check if mode specified in command
+   - If YES: Use specified mode
+   - If NO: Ask user to choose (1=default, 2=analyze, 3=jira, 4=chat)
+
+2. Collect bug data from @bug-data.txt (summary, env, region, account, TraceID, steps, expected/actual result)
+
+3. Use TraceID → @QAFoundBugs log analysis → identify root cause, API responses, error codes
+
+4. Detect error type (SIP Config/DB Routing/Item Status/Permission/etc)
+
+5. Based on selected mode, generate output:
+   
+   MODE: default
+   - Create folder: result/[Bug_Title] - [RequestID]
+   - Generate 3 files using templates:
+     • jira_ticket.txt → use @templates/jira_ticket_template.txt (STRICT - follow exactly, no extra sections)
+     • chat_message.txt → use @templates/chat_message_template.txt
+     • ANALYSIS_SUMMARY.txt → use @templates/ANALYSIS_SUMMARY_template.txt
+   
+   MODE: analyze
+   - Perform full analysis with root cause
+   - Show analysis result in chat response
+   - DO NOT create any files
+   - Include: error type, root cause, service chain, teams to contact
+   
+   MODE: jira
+   - Create folder: result/[Bug_Title] - [RequestID]
+   - Generate ONLY: jira_ticket.txt → use @templates/jira_ticket_template.txt (STRICT - follow exactly, no extra sections)
+   
+   MODE: chat
+   - Create folder: result/[Bug_Title] - [RequestID]
+   - Generate ONLY: chat_message.txt → use @templates/chat_message_template.txt
+
+6. Add detailed root cause: WHY, service/component
+
+⚠️ IMPORTANT: When generating jira_ticket.txt, ONLY use sections defined in the template.
+   DO NOT add extra sections like "Required Actions", "Solution Steps", etc.

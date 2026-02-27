@@ -1,0 +1,59 @@
+*Summary*:
+Failed to sync item from PShop to AShop - PShop not hit logistics channel whitelist
+
+*Configuration*:
+- app / os version: CN Seller Operation Platform (Web)
+- env (test, staging, live) and country info: Test environment, KH region
+- pfb build: n/a
+- account (user / id): CN Seller attempting to sync to KH AShop (AShop ID: 1013210527, PShop ID: 1013210519)
+- toggles: none
+
+*Impact*
+- user impact summary: CN Sellers cannot sync items to KH affiliated shops, blocking cross-border item listing operations
+- test impact summary: SIP item sync testing blocked for KH region, affecting cross-border seller onboarding validation
+- any workaround: Manual whitelist addition by SIP team required
+
+
+*Reproducible Steps*
+1. Login to CN Seller Operation Platform
+2. Navigate to item sync feature for KH region
+3. Attempt to sync item from PShop (1013210519) to AShop (1013210527)
+4. Observe error response
+
+*Expected Result*
+- Item should sync successfully from PShop to AShop
+- CrossUpload API should complete item creation for affiliated shop
+
+*Actual*
+- Item sync fails with error code 405300005
+- Error message: "external api error : call crossupload.api error:|create aitem fail for affiShopid:1013210527, reason:pshop not hit logistics channel whitelist|"
+- TraceID: e3e3e7f34467e6f897fca796ae5a2701 (around 27 Nov 2025, Test environment)
+
+*Evidence and Troubleshooting*
+[x] screenshot / video (attach file)
+[ ] trace link (_show_debug_info=2)
+[x] log URL from log platform
+[ ] FE traffic packets
+
+*Initial Judgment / Root Cause Analysis:* Backend issue - SIP Configuration Error
+
+**Technical Analysis:**
+This is a **SIP (Seller Integration Platform) logistics whitelist configuration issue**. The PShop (Primary Shop ID: 1013210519) attempting to sync items to KH AShop (1013210527) is not registered in the KH region's logistics channel whitelist.
+
+**Root Cause:**
+- The CrossUpload API validates logistics channel eligibility before creating affiliated items
+- PShop 1013210519 is missing from KH logistics channel whitelist configuration
+- This is a prerequisite check that prevents item sync when logistics support is not configured
+
+**Service Chain:**
+CN Seller Platform → CrossUpload API → Logistics Whitelist Validation → Item Creation (BLOCKED)
+
+**Why This Happened:**
+When setting up cross-border SIP operations, each PShop must be explicitly added to the destination region's logistics channel whitelist. This ensures that only sellers with confirmed logistics support can list items in that region. The PShop in question was likely not added to the KH whitelist during initial setup.
+
+{color:#ff8b00}Debug/Troubleshooting Artifact Checklist (Remove this section in the bug. It is for your reference when creating the bug ticket. If any check is not true, please contact huanglh@sea.com for coaching)
+[x] You are using PFB to test and have provided the PFB information in the ticket.
+[] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
+[] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
+[] If applicable, you have provided the detailed information about your toggle setting.
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}

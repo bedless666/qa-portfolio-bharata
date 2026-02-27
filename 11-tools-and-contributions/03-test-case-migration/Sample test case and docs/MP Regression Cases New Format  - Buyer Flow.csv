@@ -1,0 +1,2394 @@
+Case name,Components Involved ,Pre-condition,Platform,Steps,Expected Result,,,,
+[1]Test buyer check pdp without login,PDP,"Shopee app
+region=ID/BR/TW
+User still not login ",IOS/ANDROID/PC,Go to PDP ,"1.Successfully load PDP page
+2.Video auto plays under wifi",,,,
+,,,,Click add to cart,"Non-guest cart whitelist user: Redirect to login page
+guest cart whitelist user: able to successfully add to cart",,,,
+[1]Test buyer check pdp with login,PDP,"Shopee app
+region=ID/BR/TW
+User is already login",IOS/ANDROID/PC,Complete login,"[Non-guest cart whitelist user]
+1.Login successfully
+2.Return back to PDP page
+
+[Guest Cart whitelist user]
+1. Select Checkout in Guest Cart
+2. Redirect to Login
+3. Login Successfully
+4. Items are merged from Guest Cart to Main Cart",,,,1.Click search icon at the top right
+,,,,Complete login,"[PC]
+1. Success show pop-up image
+2. Show previous and next arrow
+3. Show thumbnail image in grid image
+[RN]
+1. Success go to image page
+2. Success show :
+- search icon
+- cart icon
+- modal with cart icon and button Buy Now
+- shop icon
+- share button",,,,2.Enter correct data to search order (Order SN)
+"[1]Test buyer pdp image, shop, voucher, shipping fee, rating, buyer gallery","PDP, rating, voucher","Shopee app
+region=ID/BR/TW",IOS/ANDROID/PC,Swipe item image,can swipe to view all images,,,,3.Click Order Received
+,,,,Check shop voucher section,"[PC]dispaly first 5 vouchers
+[RN]display first 2 vouchers",,,,"4.Click CONFIR""1.Click search icon at the top right"
+,,,,Click claim button in shop voucher,Claim successfully,,,,2.Enter correct data to search order (Order SN)
+,,,,Click use in shop voucher,Redirect to voucher_wallet_landing page,,,,3.Click Order Received
+,,,,Click return button at the top left,Return to PDP page,,,,4.Click CONFIRM in pop up
+,,,,"Click ""See More"" under shop voucher component",Display Shop Vouchers: will show all available shop vouchers,,,,"5.Click Return to button"" ""1.Redirect to Search Order Page"
+,,,,"
+Click Close","
+Return to PDP page",,,,2.Able to search successfully
+,,,,Click Shipping fee,Display Shipping Fee Information,,,,3.Popup display release amount to seller
+,,,,Click Shipping to,Redirect to Shipping Location,,,,"4.Receive sucessfully"" M in pop up"
+,,,,Update shipping location,Update successful，Return to Shipping Fee Information Page,,,,5.Click Return to button
+,,,,Click OK,Return to PDP Page,,,,
+,,,,"Click ""See More"" under the Description component",can view full description,,,,
+,,,,Check description in Product Ratings ,Correct Display rating score,,,,
+,,,,Click See All [don't have test on PC],"Redirect to Ratings Page, Page display corresponding information",,,,
+,,,,"Click ""Return to "" button at the top left [don't have test on PC]",Return to PDP Page,,,,
+,,,,Check Buyer Gallery,Correct Display ,,,,
+,,,,Click the picture or video under Buyer Gallery,Correctly zoom in to the picture or play the video,,,,
+,,,,"Click ""Return to"" at the top left","Return to Buyer Gallery Page，and display Chat Now，Add to Cart，Buy Now, etc. buttons",,,,
+,,,,"Click ""Return to"" at the top left",Return to PDP Page,,,,
+"[1]Test buyer pdp add on deal, add to cart",PDP,"Shopee app
+region=ID/BR/TW",IOS/ANDROID/PC,Click View More under Add-on Deals,"1. Redirect to the Add-on Deals Landing Page
+2. Correct Display for main item and sub item(item name, variations,item image,item price and item quantity)
+3. The selector box of main item is grey out and the main item has been selected",,,,
+,,,,Click Variations of main item,Can select the variations and confirm,,,,
+,,,,Click Variations of sub item,Can select the variations and confirm,,,,
+,,,,Click the selector box of sub item,Can select the sub item and auto popup the variations box,,,,
+,,,,"Click the ""plus"" symbol of main item","1. Can add the main item
+2. The plus will be greyed out when reach the purchase limit of main item or limit of stock",,,,
+,,,,"Click the ""minus"" symbol of main item","1. Can minus the main item
+2. Can reduce to at least 1",,,,
+,,,,"Click the ""plus"" symbol of sub item","1. Can add the sub item
+2. The plus will be greyed out when reach the purchase limit of sub item or limit of stock
+",,,,
+,,,,"Click the ""minus"" symbol of sub item","Can minus the sub item
+",,,,
+,,,,"Click the ""plus"" symbol and exceed the max purchase limit  and then Click Add To Cart","1. Can't add the sub items into cart successfully
+2. Display the reason:""You can select up to X add-on items""",,,,
+,,,,Minus the sub items and can less than or equal to the max purchase limit and then Click Add To Cart,"1. Can add the sub items into cart successfully
+2. Redirect to the cart page automatically",,,,
+,,,, Click the image of main item in the cart page,Redirect to the PDP page,,,,
+,,,,Click ViewMore button under Add-on Deals,Redirect to Add-on Deals Page,,,,
+,,,,"Click ""Return to"" button at the top left of the Add-on Deals Page",Return to PDP Page,,,,
+,,,,Click Add-on Deals arrow at the bottom right,Display aod main item and aod sub item，with preselect variation,,,,
+,,,,"Click Add-on Deals ""Add to Cart"" button at the bottom right",Successfully add to cart,,,,
+,,,,Click shopping cart icon at the top right of the PDP Page,"login user: Enter main cart Page
+non-login user: Enter guest cart page",,,,
+[1]Test buyer check cart page for AOD banner,Cart,"Shopee app
+region=ID/BR/TW",IOS/ANDROID/PC,"Click ""-"" AOD sub item quantity",Pop up display “Do you want to remove this product”,,,,
+,,,,Click Yes,Successfully deleted AOD sub item，AOD main item still in shopping cart,,,,
+,,,,Check add on deal banner,"1.Icon: new icon (attached image)
+2.Text field: Add-on deals at lower prices
+3 Redirection text:  Not display",,,,
+,,,,Click Add in add on deal banner,Redirect to Add-on deals Page,,,,
+,,,,Select add on deal sub item,Display cart panel Page,,,,
+,,,,Select variation,success,,,,
+,,,,Click CONFIRM,Return to Add-on deals Page,,,,
+,,,,Click OK,Return to cart Page，aod main item preslected，aod sub item correctly displayed,,,,
+,,,,select add on deal main item,success select add on deal main item,,,,
+,,,,Check add on deal banner,"1.Icon: new icon (attached image)
+2.Text field: Selected {no. of selected add-on items} add-on items  
+3.Redirection text: Not dispay",,,,
+,,,,Check aod sub item icon,Add-On,,,,
+,,,,Click variation under aod main item,Display cart panel Page,,,,
+,,,,Select another variation,Successfully Check the box,,,,
+,,,,Click CONFIRM,"Return to cart Page, successfully change variaton，display the new variation ",,,,
+,,,,Click aod sub item variation,Display cart panel Page,,,,
+,,,,Select another variation,Sucessfully Check the box of the new variation,,,,
+,,,,Click CONFIRM,Return to cart Page，successfully hange variaton，display new variation,,,,
+[1]Test buyer change AOD main and sub item ,"Cart, Voucher","Shopee app
+region=ID/BR/TW",IOS/ANDROID/PC,Change aod main item quantity less than purchase limit,success,,,,
+,,,,Change aod main item quantity larger than purchase limit,"Popup display ""Sorry, you have crossed the purchase limit to enjoy the add on discount/ free gift.""",,,,
+,,,,Click OK,Return to cart Page,,,,
+,,,,Change aod sub item quantity smaller than purchase limit,success,,,,
+,,,,Click OK,success,,,,
+,,,,Change aod sub item quantity larger than purchase limit,"Popup display ""You can only buy max {max_qty} of this add on item""",,,,
+,,,,Click OK,Return to cart Page，aod sub item qty is equal to max_qty,,,,
+,,,,Check text field in coin component,Insufficient Coin Balance,,,,
+,,,,"Click ""?"" in coin component",Popup display ”You did not fulfill the criteria for Coins to be redeemed“,,,,
+,,,,"Click ""Ok button"" in popup",Return to cart Page,,,,
+,,,,Check voucher,"[TH/MY]Already auto apply shop voucher；The platform voucher and fsv will only auto apply one sheet.
+[other country]Already auto apply shop voucher, platform voucher and fsv",,,,
+,,,,"Check price component 
+",All Discount Detail Page components displayed correctly,,,,
+,,,,"[aod main/sub item qty less than Purchase Limit]
+Click Check Out","Popup display ""You don't have delivery address yet, please create a new one.""",,,,
+[1]Test buyer place order success,"Checkout, Prefulfilment","Success checkout
+Shopee app
+region=ID/BR/TW",IOS/ANDROID/PC,Click OK,Redirect to New Address page,,,,
+,,,,"After filling in the following content : 
+1.Full Name: Fill in any
+2.Phone Number(0062+11 digits)
+3.Province, District, Postal Code
+4.Street Name, Building, House No.
+5.Label
+6.Set as Default Address
+the click submit","1.add address successfully
+2.Return to Checkout Page
+3.the address is displayed on the top of the Checkout interface",,,,
+,,,,Check item label,[PH/MY/ID/VN/SG]Change of Mind text displayed in red ,,,,
+,,,,"Click shipping option，set ""Delivery at office hours""",success,,,,
+,,,,Click Select payment method,Redirect to Payment Method Page,,,,
+,,,,Select Cash On Delivery，click CONFIRM,Return to OPC Page,,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information",All data displayed correctly ,,,,
+,,,,Click Place Order,"1.Redirect to OSP
+2.Payment is in pending status",,,,
+,,,,Click My Purchases button,"1.Redirect to My Purchases Page
+2.Stop at To Ship tab",,,,
+"[1]Test buyer place order success, local seller arrange shipment using shopee app",Seller fulfilment,"Success Checkout 
+region=ID/BR/TW
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login seller Center → My Orders → To Ship → To Process",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,In search bar ，search Order ID(actually is the Order SN)，Click Reset,"Search bar reset to """" (empty)",,,,
+,,,,In search bar ，search Order ID(actually is the Order SN)，Click search,Able to search successfully,,,,
+,,,,Click Arrange Shipment,Popup display Ship Order,,,,
+,,,,Select I Will Arrange Drop-Off，and click Confirm,"1.Popup displayDrop-off Detail
+2.After a while, tracking number is displayed",,,,
+,,,,Click Print Waybill,Successfully Redirect to the next Page,,,,
+"[1]Test buyer place order success, local seller arrange shipment using sellep app ",Seller fulfilment,"Region=ID/BR/TW
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login [Seller App] → My Orders → To Ship → Processed",IOS/ANDROID/PC,Click Processed,Successfully change tab,,,,
+,,,,Check the order with Drop-off selected ,"1.Display Drop-Off order
+2.Blue button displayed：View Shipping Details and Print Waybill",,,,
+,,,,Click view Shipping Details,Popup Display Drop-off Detail,,,,
+"[1]Test buyer place order success, local seller arrange shipment , update fullfillment status in order admin ",Order Data & Ops,"Region=ID/BR/TW
+Enter Order admin → Orders → Orders
+",PC,Order ID or other information and click Search,Search successfully,,,,
+,,,,Click Order ID,Redirect to Order Details Page,,,,
+,,,,Click Status & Timeline,success,,,,
+,,,,Click OFG ID,Redirect to Order Fulfilment Group Detail Page,,,,
+,,,,Click Update Fulfilment Status，Change Status To Request Created,success,,,,
+,,,,Click Update Fulfilment Status，Change Status To Outbound Successful,success,,,,
+,,,,Click Update Fulfilment Status，Change Status to Successful,success,,,,
+,,,,"Check Order Detail , Click Operator Action Tab ",Should show Download Invoice,,,,
+,,,,Click Download Invoice Button,Should download invoice successfully,,,,
+[1]Test local seller check detail order,Seller fulfilment,"Region=ID/BR/TW
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login [Seller App] → My Orders → Shipping",IOS/ANDROID/PC,Click Shipping,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,In search box，search Order ID(Actually is the Order SN),Able to search successfully,,,,
+[1]Test buyer complete order(receive parcel),Rating,"Success updated fullfillment Order 
+Shopee App
+Region=ID/BR/TW
+",IOS/ANDROID/PC,"Return to client side
+Click ""Check Details""","1.Enter Order Details Page
+2. Page display data accordingly ",,,,
+,,,,Click Me page → View Purchases → To Receive,"1.Enter My Purchases Page
+2.Stop at To Receive Page",,,,
+,,,,Click search icon at the top right,Redirect to Search Order Page,,,,
+,,,,Enter correct data to search order (Order SN),Able to search successfully,,,,
+,,,,Click Order Received,Popup display release amount to seller,,,,
+,,,,Click CONFIRM in pop up,Receive sucessfully,,,,
+,,,,Click Return to button,success click return to button,,,,
+,,,,My Purchases Page switch from To Receive to Completed,Display previous order under Completed tab,,,,
+,,,,Check order data ,"1.Status：Completed
+2.Quantity，Amount and Order Total details etc are correct
+3.Display Rate button ",,,,
+,,,,Click Rate,Redirect to Rate Product Page,,,,
+,,,,Enter description in rating，Click Submit,"1.Able to rate successfully 
+2.Return to completed tab",,,,
+,,,,Check order data ,"1.Status：Completed
+2.Quantity, Amount and Order Total details etc are correct
+3.Display Buy Again button ",,,,
+,,,,verify the invoice generated ,"1. invoice is generated
+2. can see the invoice with correct value",,,,
+,,,,Click Buy Again,"1.success 
+2.Redirect to cart Page
+3.The same item is pre-selected in the cart page ",,,,
+[1]Test local seller check detail order after buyer completed order,Seller Order,"[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Completed",IOS/ANDROID/PC,In search box，search Order ID(Actually is the Order SN),Able to search successfully,,,,
+,,,,Click Check Details,"1.Enter Order Details Page
+2. Page data is displayed correctly",,,,
+[2](ID N/A)Test buyer check voucher and PDP item PWG,"Voucher, PDP","Shopee app
+region=BR/TW
+
+1.seller: CB
+2.shop type: mall
+
+3.user has logged in 
+4.user has set address
+
+5.promotion: PWG
+6.no variation
+
+7.shop voucher: 
+7.1 have discount voucher
+7.2 have shop voucher not applied
+7.3 have shop voucher not claimed
+8.platform voucher: discount voucher
+9.fsv: 
+9.1 have fsv
+9.2 have platform voucher not applied
+
+10.coin: can redeem part of balance due to the limit: cap %purchase value limit
+11.coin earn
+
+12.shipping option: Integrated
+13.preferred delivery time: any time
+14.payment method: Bank Transfer",IOS/ANDROID/PC,Me interface-My Wallet-My Vouchers,"Successfully enter My Vouchers interface
+",,,,
+,,,,Switch tabs to check the voucher display,Various types of vouchers are displayed correctly,,,,
+,,,,Go to PDP ,Successfully load PDP Page,,,,
+,,,,Check price display ,display final price and original price,,,,
+,,,,Click Price With Voucher,"1.Popup Display Price Breakdown，Correct Display with the following info:
+Original Price
+Platform Voucher Discount
+Shop Voucher Discount
+Estimated Price
+2.Platform Voucher Discount is from applicable best global shopee discount voucher
+3.Shop Voucher Discount is from applicable best discount shop voucher",,,,
+,,,,Click View More under PWG,"1.Redirect to PWG landing page
+2.The main items and free gifts can be displayed correctly
+(item image,item name, item price)",,,,
+,,,,"Click ""cart"" icon on the main item card","1. Popup the variations selector box If there are multiple models 
+2. Add to cart succssfully if there is a model for the main item(don't need to select variations)",,,,
+,,,,"[The item has multiple models]
+Select the variations and quantity",success to select the variant and quantity,,,,
+,,,,"
+Click Add To Cart
+","1. The main item can be added into the cart
+2. Display "" Item has been added your shipping cart""
+3. Can display Total:XXX Spend another XXX to get X free gift at the bottom left",,,,
+,,,,Click View Gifts,"1. Can't select the free gift
+2. The selector box is greyed out",,,,
+,,,,Add main items and can reach the min spend,"Can display: ""Please select X gift"" at the bottom left",,,,
+,,,,"[There are no main item which is added to cart or the total price of main item can't reach the min spend]
+Click View Gifts",Popup the gift selector window,,,,
+,,,,Click the selector box on the left,"1. The free gift can be selected.
+2. The other selector boxes will be greyed out when the free gift reached the purchase limit",,,,
+,,,,"[Selected the free gift]
+Click Done","1. Display ""The item has been added to your cart""
+2. Display ""You have selected X gift"" at the bottom left
+",,,,
+[2](ID N/A)Test buyer check PDP item PWG and add to cart,"PDP, Cart","Shopee app
+region=BR/TW
+",IOS/ANDROID/PC,Click Go to Cart,Redirect to the Cart page,,,,
+,,,,Click image of main item,Redirect to the PDP,,,,
+,,,,Click View More under PWG,Redirect to Get Free Gift(s) with min. spend Page,,,,
+,,,,"
+Click 'Return to"" button on the top left of Get Free Gift(s) with min. spend Page",Return to PDP Page,,,,
+,,,,Click“Buy with Voucher Price” button ,Display cart panel,,,,
+,,,,"Click ""buy now"" under cart panel",Successfully redirect to OPC Page,,,,
+,,,,"Click ""Return to"" button on OPC Page",Return to PDP Page,,,,
+,,,,Click Add to Cart,Successfully add to cart,,,,
+,,,,Click cart icon at the top right of PDP Page,Enter cart Page,,,,
+,,,,Check PWG banner,"1.Icon : New Gift (attached image)
+2.Textfield : Spend {min. spend} to get free gift
+3.Redirection text : not display",,,,
+,,,,Select PWG main item,"1.success
+
+2.Display PWG sub item
+2.1 Price is grey, display Free icon
+2.2 Icon : Gift
+2.3 change: display change text (RN only)
+
+3.PWG main item banner
+3.1 Icon : New Gift
+3.2 Textfield : Selected X free gifts
+3.3 Redirection Textfield : not display",,,,
+,,,,Swipe left on PWG sub item，Click Delete,"1.Delete successfully
+
+2.PWG main item banner
+2.1 Icon : New Gift
+3.2 Textfield : Free Gift
+3.3 Redirection Textfield : not display",,,,
+,,,,Click PWG banner,Redirect to Get Free Gift(s) with min. spend Page,,,,
+,,,,Click Select Gifts,Popup displaySelect your Free Gift(s),,,,
+,,,,Select PWG sub item，click Done,Return to Get Free Gift(s) with min. spend Page,,,,
+,,,,"
+Click ""Return to"" button on top left of Get Free Gift(s) with min. spend Page
+","
+
+Return to cart Page，PWG main item preslected，PWG sub item displayd correctly",,,,
+,,,,click change in the sub item card,"Redirect to Get Free Gift(s) with min. spend Page, popup displaySelect your Free Gift(s)",,,,
+,,,,Select PWG sub item，click Done,Return to Get Free Gift(s) with min. spend Page,,,,
+,,,,"Click """"Return to"""" button on top left of Get Free Gift(s) with min. spend Page",Return to cart Page，PWG main item preslected，PWG sub item displayd correctly,,,,
+,,,,"refresh cart page
+",display changed PWG sub item ,,,,
+[2](ID N/A)Test buyer change PWG quantity and check  voucher,"Cart, Voucher","Shopee app
+region=BR/TW
+",IOS/ANDROID/PC,Change PWG main item quantity less than Purchase Limit,success,,,,
+,,,,Change PWG main item quantity more than Purchase Limit,"Popup display""Sorry, you have crossed the purchase limit to enjoy the add on discount/ free gift.""",,,,
+,,,,"
+Click OK","
+Return to cart Page",,,,
+,,,,Click shop voucher entrance,Display voucher drawer,,,,
+,,,,Click Claim,Claim voucher successfully,,,,
+,,,,"enter shop voucher code, click Apply",Apply vucher successfully,,,,
+,,,,manually select discount voucher,Success,,,,
+,,,,Click OK,Back to cart page，applly discount voucher successfully,,,,
+,,,,Click platform voucher entrance,Display voucher drawer,,,,
+,,,,"enter platform voucher code, click Apply",Apply voucher successfully,,,,
+,,,,manually select fsv,Success [TH/MY can just apply one of fsv and shopee voucher],,,,
+,,,,manually select discount voucher,"
+Success [TH/MY can just apply one of fsv and shopee voucher]",,,,
+,,,,Click OK,Back to cart page，applly discount voucher and fsv successfully,,,,
+,,,,redeem coin,success,,,,
+,,,,Check Textfield in coin component,Redeem m Shopee Coins,,,,
+,,,,"Click ""?"" in coin component ",Popup display”This is the maximum amount of Coins you can redeem for the current product selection.“,,,,
+,,,,Click Read More in popup,Redirect to coin details page,,,,
+,,,,"Click ""Return to"" button at the top left of coin details page",Return to cart Page,,,,
+,,,,Check amount in price component ,Discount Detail Page information correctly displayed ,,,,
+,,,,Click Check Out,Redirect to OPC Page,,,,
+[2](ID N/A)Test buyer place order item PWG use bank transfer as payment method,"Checkout, Voucher, Discount & Coins","Shopee app
+region=BR/TW
+
+",IOS/ANDROID/PC,Click Select payment method,Redirect to Payment Method Page,,,,
+,,,,select Bank Transfer，Click CONFIRM,Return to OPC Page,,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information",Information is correct ,,,,
+,,,,"Check OPC Page for 
+1. buyer service fee
+2. buyer transaction fee
+3. click place order","1. Information is correct 
+2. Information is correct 
+2. place order succesfully",,,,
+,,,,Click Place Order,"1.Redirect to OSP
+2.Payment in pending status",,,,
+,,,,"Click ""Return to"" button at the top left","1.Redirect to My Purchases Page
+2.Redirect to To Pay tab",,,,
+[2](ID N/A)Test seller CB check the unpaid order,Order Payment,"Shopee app
+region=BR/TW
+Login seller Center → My Orders → Unpaid",IOS/ANDROID/PC,"
+Click Unpaid","1. Display Unpaid Orders
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Click Check Details,"1.Enter Order Details Page
+2. Page information Display Correct ",,,,
+[2](ID N/A)Test buyer paid order PWG,Order Payment,https://shark.test.shopee.io/create-order?type=Tool&subType=41,PC,"
+Enter Region and Order ID information ，Click submit",Submit success,,,,
+[2](ID N/A)Test buyer check order success payment,Order Payment,"Shopee app
+region=BR/TW",IOS/ANDROID/PC,"
+Click Me page → To Ship","1.Enter My Purchases Page
+2.Stop at To Ship Page
+3.Display Paid orders",,,,
+[2](ID N/A)Test seller CB for shipping arrangement ,Seller fulfilment,"region=BR/TW
+[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+Login seller Center → My Orders → To Ship → To Process]",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Search buyer name in search bar,Search successfully ,,,,
+,,,,Click Arrange Shipment,Popup display Ship Order,,,,
+,,,,select I Will Arrange Pickup，and click confirm,Display Arrange Shipment,,,,
+,,,,Click Confirm,"1.Popup displayPickup Details
+2.Wait a while for tracking number to display",,,,
+,,,,"
+Click Processed",Can switch tab successfully,,,,
+,,,,Check previous Pick-Uporder,"1.Display Pick-Up order
+2.Blue button exists ：View Pickup Details and Print Waybill",,,,
+,,,,Click View Pickup Details,Pop-up Display Pickup Details,,,,
+[2](ID N/A)Test buyer update order status fullfillment for order PWG,Order Data & Ops,"region=BR/TW
+Enter Order admin → Orders → Orders",PC,Enter Order ID or other information then click Search ,Search successfully,,,,
+,,,,Click Order ID,Redirect to Order Details Page,,,,
+,,,,Click Status & Timeline,success,,,,
+,,,,Click OFG ID,Redirect to Order Fulfilment Group Detail Page,,,,
+,,,,Click Update Fulfilment Status，Change Status To Request Created,success,,,,
+,,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,,,,
+,,,,Click Update Fulfilment Status，Change Status to Successful,,,,,
+[2](ID N/A)Test Seller CB check the order detail ,Seller fulfilment,"region=BR/TW
+[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+Login Seller Center → My Orders → Shipping",IOS/ANDROID/PC,Click Shipping,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Search Buyer name in search bar,Search successfully,,,,
+,,,,Click Check Details,"1.Enter Order Details Page
+2. Page information Display Correct ",,,,
+[2](ID N/A)Test buyer completed order (receive parcel),Order Data & Ops,"Shopee app
+region=BR/TW
+[Buyer]Return to client side",IOS/ANDROID/PC,"
+Click Me page → To Receive","1.Enter My Purchases Page
+2.Stop at To Receive Page",,,,
+,,,,Find the order created，click Order Received,1.Popup display Release amount to seller,,,,
+,,,,Click CONFIRM in pop-up,2.Receive parcel successfully,,,,
+,,,,"
+
+Click ""Return to"" button","
+3.Receive parcel successfully",,,,
+,,,,Switch tab from To Receive to Completed in My Purchases Page,Successfully Display the completed order,,,,
+,,,,Check  order  information ,"1.Status：Completed
+2.Qty，Amount and Order Total etc information are correct 
+3.Display Rate button ",,,,
+,,,,Click order,Enter Order Details Page,,,,
+,,,,Click Order Details Page Rate,Redirect to Rate Product Page,,,,
+,,,,Enter review comment information ，Click Submit,"1. Rating success
+2.Return to Order Details Page",,,,
+,,,,"Click ""Buy Again"" in Order Details Page","1.success 
+2.Redirect to cart Page
+3.Same item in cart Page already pre-selected",,,,
+,,,,"Click ""Return to"" button at the top left of Order Details Page","1.Return to My Purchases Page
+2.stop at Completed Page",,,,
+,,,,Check  order  information ,"1.Status：Rated
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Buy Again button ",,,,
+[3] test buyer check banner flash sales item,"PDP,Cart","Shopee app
+region=ID/TW
+
+1.shop type: mall
+
+2.promotion: PWP + upcoming flash sale
+3.no variation
+
+4.shop voucher: coin cashback
+5.platform voucher: no voucher
+6.fsv: no voucher
+
+7.coin: can redeem the total coin balance
+8.coin earn
+
+9.shipping option: non-Integrated
+10.payment method: ShopeePay",IOS/ANDROID/PC,Click product card in shop page,Successfully load PDP Page,,,,
+,,,,Check flash sale banner,"1. display upcoming flash sale banner 
+2. display original price ",,,,
+,,,,Click flash sale banner,Redirect to FLASH_SALE_PAGE,,,,
+,,,,"Click ""Return to"" button on the top right",Return to PDP Page,,,,
+,,,,"Click ""View More""","1. Redirect to the PWP landing page
+2. The main item and sub item can be disaplayed correctly(item image, item price, item name and so on)",,,,
+,,,,"[The item has multiple models]
+Click ""cart"" icon on the main item card","1. Popup the variations selector box If there are multiple models 
+2. Add to cart succssfully if there is a model for the main item(don't need to select variations)",,,,
+,,,,"Click ""cart"" icon on the main item card",The main item can be added into the cart.,,,,
+,,,,Select the variations and quantity,"1.Display "" Item has been added to your shipping cart""
+2.Can display ""XXX left to X Add-on"" at the bottom if can't reach the min spend / min quantity",,,,
+,,,,Click Add To Cart,"Can display ""You can select X Add-ons now"" if reach the min spend / min quantity",,,,
+,,,,"[Can't reach the min spend / min quantity]
+Click ""Select Add-ons""","1. Popup the sub item selector window
+2. The selector box can be greyed out
+3. The quantity can't be changed and grey out
+4. The Done button can be greyed out",,,,
+,,,,"[Reach the min sped / min quantity]
+Click ""Select Add-ons""","1. Popup the sub item selector window
+2. Can select the sub items
+",,,,
+,,,,"Click ""Plus"" symbol","1. Can increase the quantity of sub item.
+2. The ""Plus"" will be greyout when reach the max purchase limit",,,,
+,,,,"Click ""Minus"" symbol",1. Can minus the quantity of sub item,,,,
+,,,,Click selector box on the left,"1. The selector box can be ticked
+2. The other selector boxes will be greyed out when the selected sub item quantity reaching the max purchase limit",,,,
+,,,,"Click ""Done""","Display ""The item has been added to your cart""",,,,
+,,,,Click item card of main item,Redirect to the PDP,,,,
+,,,,"Click ""View More"" in  Spend Min. amount to get Add-On Deals",Redirect to Buy More And Get Add-ons Page,,,,
+,,,,Click Cart icon at the right bottom of PWP main item,Successfully add to cart,,,,
+,,,,"Click ""Return to"" button on the top left of Buy More And Get Add-ons Page",.Return to PDP Page,,,,
+,,,,Click cart carousel,success,,,,
+,,,,Click Add to Cart,"1.Display cart panel Page
+2. and preselect variation",,,,
+[3] test buyer check cart for banner PWP,"Cart,Voucher","Shopee app
+region=ID/TW",IOS/ANDROID/PC,Click cart panel Page > Add to Cart,Successfully add to cart,,,,
+,,,,Click Icon at the top right of the PDP Page,Enter cart Page,,,,
+,,,,Check the banner of PWP,"1.Icon : new icon (attached image)
+2.Textfield : Add {min_spend} / {min_qty} more to get add-on deals
+3.Redirection Textfield : Not display",,,,
+,,,,Select PWP main item,"1.success
+
+3.PWP main item banner
+3.1 Icon : new icon (attached image)
+3.2 Textfield : Add {min_spend - total price of selected items} more to get add-on deals
+3.3 Redirection Text field : Not display",,,,
+,,,,Add product qty until you can redeem PWP sub item,"success
+3.PWP main item banner
+3.1 Icon : new icon (attached image)
+3.2 Textfield :  Add-on deal at lower prices
+3.3 Redirection Text field : Not display",,,,
+,,,,Click banner,Redirect to Buy More And Get Add-ons Page，且Popup displaySelect Add-ons,,,,
+,,,,Select PWP sub item Click Done,Return to Buy More And Get Add-ons Page,,,,
+,,,,"Click ""rReturn to"" button in the top left of Buy More And Get Add-ons Page",Return to cart Page,,,,
+,,,,Check cart PagePWP main item,"1.Icon : new icon (attached image)
+2.Textfield : Selected {quantity} items
+3.Redirection Textfield : Not display",,,,
+,,,,Check cart PagePWP sub item,"1.Display PWP sub item
+2.Icon : ""Add on"" when not free and ""Free"" for free sub item
+3.Display promo price orginal price",,,,
+,,,,Change PWP main item quantity less than Purchase Limit,success,,,,
+,,,,Change PWP main item quantity more than Purchase Limit,"Popup display""Sorry, you have crossed the purchase limit to enjoy the add on discount/ free gift.""",,,,
+,,,,Click OK,Return to cart Page,,,,
+,,,,Change PWP sub item quantity less than Purchase Limit and Click OK,success,,,,
+,,,,ChangePWP sub item quantity more than Purchase Limit and Click OK,"1.Popup display""You can only buy max {max_qty} of this add on item""
+2.Return to cart Page，pwp sub item qty equal to max_qty",,,,
+,,,,redeem coin,success,,,,
+,,,,Check textfield under coin component,Redeem m Shopee Coins,,,,
+,,,,"Click ""?"" under coin component ",Popup display”This is the amount of coins available for redemption.“,,,,
+,,,,Click OK in Pop-up,Return to cart Page,,,,
+,,,,Check voucher,already auto apply shop voucher,,,,
+,,,,Check anount in price component,Discount Detail Page information is Correct ,,,,
+,,,,Click Check Out,Redirect to OPC Page,,,,
+[3] test buyer select non-integrated shipping option,"Checkout, Prefulfilment","Shopee app
+region=ID/TW",IOS/ANDROID/PC,Click Shipping option，select Non-Integrated Logistics,success,,,,
+,,,,Click Select payment method,Redirect to Payment Method Page,,,,
+,,,,select ShopeePay，Click CONFIRM,Return to OPC Page,,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information", information Correct ,,,,
+,,,,Click Place Order,redirect to OSP,,,,
+,,,,"Click ""Return to"" button at the top left","1.Redirect to My Purchases Page
+2.Redirect to To Ship tab",,,,
+[3] test seller use ship method to send goods,Seller fulfilment,"[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+Login seller Center → My Orders → To Ship → To Process",IOS/ANDROID/PC,"
+Click To Ship","1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Under search bar ，search product，Click Search,"1.Search successfully
+2.Display Ship
+3.Display Print Waybill",,,,
+,,,,Click Print Waybill,"1.Redirect to Print Preview Page
+2.Cam Click Print the Document",,,,
+,,,,Click Ship,Popup display“Ship # Order ID”,,,,
+,,,,Enter any Tracking Number，Click Ship,success,,,,
+[3] test seller check shipping detail item,Seller fulfilment,"[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+[Login seller Center → My Orders → Shipping",IOS/ANDROID/PC,"
+Click Shipping","1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,In the search bar ，search Product,Search successfully,,,,
+,,,,Click Check Details,"1.Enter Order Details Page
+2. Page information Display Correct ",,,,
+[3] test buyer completed order ,Rating,"Shopee app
+region=ID/TW",IOS/ANDROID/PC,"[[Buyer] Return to client side]
+Click Me page → To Receive","1.Enter My Purchases Page
+2.stop at To Receive Page",,,,
+,,,,Find the order order ，Click Order Received,Popup displayRelease  amount  to seller,,,,
+,,,,Click CONFIRM in Pop-up,Successfully receive the order,,,,
+,,,,"Click ""Return to"" button",Successfully receive the order,,,,
+,,,,Swtich from To Receive to Completed under my purchases page ,Successfully display completed order ,,,,
+,,,,Check order information ,"1.Status：Completed
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Rate button ",,,,
+,,,,Click order,Enter Order Details Page,,,,
+,,,,Click Order Details PageRate,Redirect to Rate Product Page,,,,
+,,,,Enter review/rating information ，Click Submit,"1.Review/rating sucess
+2.Return to Order Details Page",,,,
+,,,,Click Order Details Page Buy Again,Same item preselected in Cart Page,,,,
+,,,,"Click ""Return to"" buton at the top left of order detals page","1.Return to My Purchases Page
+2.stop at Completed Page",,,,
+,,,,Check order information ,"1.Status：Rated
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Buy Again button ",,,,
+[4]test buyer select item variantion with flash sale,"PDP,Cart,Voucher,Checkout,Prefulfilment,Seller fulfilment, Order Data & Ops, Discount & Coins","Shopee app
+region=ID/TW
+
+1.promotion: ongoing flash sale
+2.2 tiers variation
+
+3.shop voucher: multiple discount vouchers
+4.platform voucher: multiple discount vouchers
+5.fsv: have multiple fsv
+
+6.coin: can redeem part of balance due to the limit: daily maximum value limit
+
+7.shipping option: Integrated
+8.payment method: non COD(payment_method != 6)
+
+9. items: bundle item + normal item",IOS/ANDROID/PC,Enter PDP Page,Successfully load PDP Page,,,,
+,,,,Check flash sale banner,"1.Display cart panel Page
+2.Select success 
+3.Succesfully redirected to OPC Page",,,,
+,,,,"[selected variation can trigger flash sale]
+Click Buy Now",display cart panel page,,,,
+,,,,select variation,success select variantion,,,,
+,,,,"
+Click ""Buy now"" in cart panel",Redirect to OPC Page,,,,
+,,,,"Click ""Return to"" button in OPC Page",Return to PDP Page,,,,
+,,,,Click Add to Cart,Display cart panel Page,,,,
+,,,,select variation,Select success ,,,,
+,,,,"Click ""Add to cart"" in cart panel","
+Add to cart success",,,,
+,,,,Click Icon at the top right of the PDP Page,Enter cart Page,,,,
+[4]test buyer check item and variantion flash sale in cart ,Cart,"Shopee app
+region=ID/TW
+Cart page",IOS/ANDROID/PC,Check item,"1.Correct Display variation
+2.Display price with slash
+3.""FLASH SALE Ends at {{datetime}}"" displayed",,,,
+,,,,Select item,success,,,,
+,,,,Unselect item,success,,,,
+,,,,Click variation,Display cart panel Page,,,,
+,,,,Update Variation， and Click CONFIRM,Update successful，Return to car Page，and item is selected,,,,
+,,,,Change item quantity more than purchase limit,"Popup display“This price is limited to max {price_max_qty} items, price will be changed to {next_price}“",,,,
+,,,,Click OK,"1.Return to cart Page
+2.""FLASH SALE Ends at {{datetime}}"" not displayed ",,,,
+,,,,Change item quantity less than Purchase Limit,success,,,,
+,,,,"[Re-add this item to cart and select]
+Click ""Edit"" on the right of shop",Display Similar and Delete,,,,
+,,,,Click Similar,Redirect to Similar Products Page,,,,
+,,,,"
+Click Return to button",Return to cart Page,,,,
+,,,,Click Delete,Successfully deleted item,,,,
+"[4]test buyer edit item, redeem coin, check voucher in cart ","Cart,Voucher","Shopee app
+region=ID/TW
+Cart page",IOS/ANDROID/PC,"Click ""Edit"" at top right of cart Page",Display Move to My Likes and Delete,,,,
+,,,,Click Move to My Likes,"1.success
+2.Return to cart Page",,,,
+,,,,"Click ""Done"" at top right of cart Page",No longer display Move to My Likes and Delete,,,,
+,,,,"[Me-My Likes]
+Check item",Contains item that has just been added to Move to My Likes,,,,
+,,,,Click shopping cart icon at the bottom right,Display cart panel Page,,,,
+,,,,select variation,Select success ,,,,
+,,,,"Click ""Add to cart"" under cart panel",Added successfully,,,,
+,,,,Click shopping cart icon at the top right of My Likes Page,Enter cart Page,,,,
+,,,,redeem coin,success,,,,
+,,,,Check textfield in coin component,Redeem m Shopee Coins,,,,
+,,,,"Click ""?"" in coin component ",Popup display”This is the maximum amount of Coins you can redeem today.“,,,,
+,,,,"Click ""OK"" in Pop-up ",Return to cart Page,,,,
+,,,,Check voucher,already auto apply shop voucher and fsv,,,,
+,,,,Check amount in price amount,Discount Detail Page information Correct ,,,,
+,,,,Click Check Out,"1.Page load normally
+2.voucher preselected",,,,
+[4]test buyer select integrated shipping option,"Checkout, Prefulfilment","Shopee app
+region=ID/TW",IOS/ANDROID/PC,Check voucher,OPC Page already auto apply shop voucher and fsv,,,,
+,,,,Click Shop Vouchers,Enter voucher Page,,,,
+,,,,Manually select another shop voucher，Click OK,success,,,,
+,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Manually select another fsv and non-fsv，Click OK,success,,,,
+,,,,Click shipping option，select Integrated Logistics,success,,,,
+,,,,Click Select payment method,Redirect to Payment Method Page,,,,
+,,,,"
+select SpayLater，Click CONFIRM",Return to OPC Page,,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information", information Correct ,,,,
+,,,,Click Place Order,"1.redirect to OSP
+2.Payment status is paid",,,,
+,,,,Click My Purchases button,"1.Redirect to My Purchases Page
+2.Redirect to To Ship tab",,,,
+"[4]test buyer select integrated shipping option, seller use only supported (pick up) method to arrange shipment.","Seller fulfilment
+","region=ID/TW
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+Login seller Center → My Orders → To Ship → To Process",IOS/ANDROID/PC,"
+Click To Ship","1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,"[the order only support Pickup]
+Find the order ，Click Arrange Pickup",Display Arrange Shipment,,,,
+,,,,Enter any Tracking Number，Click Ship,success,,,,
+,,,,Click Confirm,"1.Popup displayPickup Details
+2. Wait a while for Display tracking number to load",,,,
+,,,,Click Processed,Able to change tab successfully,,,,
+,,,,Check the Pick-Up order ,"1.Display Pick-Up order 
+2.Blue button ：View Pickup Details and Print Waybill",,,,
+[4]test order admin update status fullfillment ,Order Data & Ops,"Region=ID/TW
+Enter Order admin → Orders → Orders",PC,"[Enter Order admin → Orders → Orders]
+After Entering Order ID or other information, Click Search",Search successfully,,,,
+,,,,Click Order ID,Redirect to Order Details Page,,,,
+,,,,Click Status & Timeline,success,,,,
+,,,,Click OFG ID,Redirect to Order Fulfilment Group Detail Page,,,,
+,,,,Click Update Fulfilment Status，Change Status To Request Created,success,,,,
+,,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,,,,
+,,,,Click Update Fulfilment Status，Change Status to Successful,,,,,
+"[4]test buyer select integrated shipping option, seller use only supported (pick up) method to arrange shipment.","Seller fulfilment
+","region=ID/TW
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+Login seller Center → My Orders → Shipping",IOS/ANDROID/PC,"
+Click Shipping","1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Find the order ，Click Check Details,"1.Enter Order Details Page
+2. Page information Display Correct ",,,,
+[4]test buyer completed order and give rating,Rating,"Shopee app
+region=ID/TW
+[Buyer] Return to client side",IOS/ANDROID/PC,"
+Click Me page → To Receive","1.Enter My Purchases Page
+2.stop at To Receive Page",,,,
+,,,,Find the order ，Click order ,Enter Order details Page,,,,
+,,,,Click Copy on the right of Delivery Address,Popup Copied successfully,,,,
+,,,,Click Order Received,Popup displayFinish Order,,,,
+,,,,Click CONFIRM,Popup displayRate,,,,
+,,,,Rate,Redirect to Rate Product Page,,,,
+,,,,Switch from To Receive to Completed tab in My Purchases Page,Successfully displayed the order,,,,
+,,,,Click Order Details Page Rate,Redirect to Rate Product Page,,,,
+,,,,Enter rating information ，Click Submit,"1.Rate successfully
+2.Return to Order Details Page",,,,
+,,,,Click Buy Again in Order Details Page,"1.success 
+2.Redirect to cart Page
+3.Same item preselected in Cart Page",,,,
+,,,,"Click ""Return to"" button on the top left of the Order Details Page","1.Return to My Purchases Page
+2.stop at To Receive Page",,,,
+,,,,Click Completed,Redirect to Completed Page,,,,
+,,,,Check  order  information ,"1.Status：Rated
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Buy Again button ",,,,
+,,,,Click order ,Enter Order Details Page,,,,
+"[4]After buyer receive parcel, buyer request return and refund",Return Refund,"Shopee app
+region=ID/TW",IOS/ANDROID/PC,Click Return/Refund,Enter Item Selection section,,,,
+,,,,Check Item Selection section,"1. Bundle Item card display ""Bundle Buy X get Y free"" on the buttom
+2. Top banner is ""If you have multiple products to refund, please submit all products in a single request.""
+3. Seletion box default to be unselect status
+4. Increase return qty if click plus button
+5. Decrease return qty if click minus button
+6. Select successfully and display a toast ""Max quantity applied for all items"" if click [select all]
+7. Display error toast ""Please select an item before proceeding"" if click [Next] button without select any item
+8. Enter Issue Type selection page if click [Next] button with select bundle item",,,,
+,,,,Check Issue Type Selection Page,"1. Title is ""What happened to your order?""
+2. Issue type and reason code shown
+3. Select issue type success
+4. Change issue type if click back button return previos page and reselect
+5. Enter RRRP if click [Continue] button",,,,
+,,,,Click Select Reason,Popup display Select Reason,,,,
+,,,,select Change of mind， and Click Confirm,"1.Return to Request Return/Refund Page
+2.Correct Display  selected reason",,,,
+,,,,leave description,success,,,,
+,,,,add photo,success,,,,
+,,,,add video,success,,,,
+,,,,fill in Email,success,,,,
+,,,,Click Submit,"1.Enter Return/Refund Details Page
+2.Display Case under review
+3.Display information related to due date below Case under review",,,,
+,,,,Click Cancel Request,Popup displayCancel Request,,,,
+,,,,Click OK,Successfully Cancel,,,,
+,,,,Click Me page → Completed,"1.Enter My Purchases Page
+2.stop at Completed Page",,,,
+,,,,Check  order  information ,"1.Status：Rated
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Buy Again button ",,,,
+[5](ID N/A)Test buyer check PDP for item bundle deal ,"PDP,Cart","Shopee app
+region=BR/TW
+[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+
+1.seller: local
+2.shop type: mall
+
+3.promotion: bundle deal[Buy X number of items with Y% off] + exclusive price
+4.variation: have two tiers variation
+
+5.shop voucher: discount voucher
+6.platform voucher: coin cashback voucher
+7.fsv: have fsv
+
+8.coin: can redeem coin
+9.coin earn
+
+10.shipping option: non-Integrated
+11.payment method: Credit / Debit Card",IOS/ANDROID/PC,Enter PDP Page,Successfully load PDP Page,,,,
+,,,,check banner,can see exclusive banner,,,,
+,,,,Click “Any qty for Y% off” below price component,Popup displayPromotion Details,,,,
+,,,,Click Bundle Deal,Redirect to Bundle Deals Page,,,,
+,,,,Click Cart Icon at the bottom right of the product,Successfully add to cart,,,,
+,,,,Click Bundle Savings,Display Discount detail， information Correct ,,,,
+,,,,Click Go to Cart,"Enter CartPage, with the added item selected",,,,
+,,,,"[Return to PDP Page]
+Click Buy Now",Successfully redirected to OPC Page,,,,
+,,,,"
+Click Return to  button in OPC page",Return to PDP Page,,,,
+,,,,Click Select Variation,Display cart panel Page,,,,
+,,,,Select variation in cart panel Page,success,,,,
+,,,,Click Add to Cart,Successfully added to cart,,,,
+[5](ID N/A)Test buyer check cart for item bundle ,Cart,"Shopee app
+region=BR/TW
+User in PDP page",IOS/ANDROID/PC,Click Icon at the top right of the PDP Page,Enter cart Page,,,,
+,,,,Check Bundle Deal banner,"1.Icon : new icon (attached image)
+2.Textfield : Add qty more for Y% off
+3.Redirection Textfield : Not display",,,,
+,,,,Select item,"1.success
+
+2.bundle deal banner
+2.1 Icon : new icon (attached image)
+2.2 Textfield : Any {qty - cart qty} more for Y% off
+2.3 Redirection Textfield : Not display",,,,
+,,,,"Change the item qty to enjoy bundle deal promotion
+item has multiple tiers bundle deal","1.success
+
+2.bundle deal banner
+2.1 Icon : new icon (attached image)
+3.2 Textfield : Save X amount! Add {next tier qty - cart qty} more for Y% off
+3.3 Redirection Textfield : Not display",,,,
+,,,,"Change the item qty to enjoy bundle deal promotion
+No more tier bundle deal","1.success
+
+2.bundle deal banner
+2.1 Icon : new icon (attached image)
+3.2 Textfield : Save X amount! 
+3.3 Redirection Textfield : Not display",,,,
+,,,,Cancel selection of item,success,,,,
+,,,,"[item is in selected (ticked) Status]
+Check voucher","already auto apply shop voucher, platform voucher and fsv
+[TH/MY can just apply one of fsv and shopee voucher]",,,,
+,,,,Click Shop Vouchers,Enter voucher Page,,,,
+,,,,Manually select another shop discount voucher，Click OK,success,,,,
+,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Manually select another fsv and coin cashback voucher，Click OK,success,,,,
+,,,,redeem coin,success,,,,
+,,,,Check amount in price component,Information in Discount Detail Page is Correct ,,,,
+,,,,Click Check Out,Page load as expeced,,,,
+[5](ID N/A)Test buyer place order success,"Checkout, Prefulfilment","Shopee app
+Region=BR/TW",IOS/ANDROID/PC,Check voucher,Same with the voucher selected at cart page,,,,
+,,,,Click Shop Vouchers,Enter voucher Page,,,,
+,,,,Manually select another shop discount voucher，Click OK,success,,,,
+,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Manually select another fsv and coin cashback voucher，Click OK,success,,,,
+,,,,Click Shipping option，select Non-Integrated Logistics,success,,,,
+,,,,Click Select payment method,Redirect to Payment Method Page,,,,
+,,,,select Credit / Debit Card，Click CONFIRM,Return to OPC Page,,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information", information Correct ,,,,
+,,,,Click Place Order,"1.redirect to OSP
+2.Order is in paid Status",,,,
+,,,,Click Home button,Return to homepage,,,,
+,,,,Click Me page → To Ship,"1.Enter My Purchases Page
+2.stop at To Receive Page",,,,
+"[5](ID N/A)Test buyer place order success, local seller arrange shipment.",Seller Fullfillment,"region=BR/TW
+[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,"Click To Ship
+","load order list page successfully
+",,,,
+,,,,"Check bundle deal information in payment info section
+- unit price 
+- quantity
+- subtotal","bundle deal information display correctly in payment info section
+- unit price is price before discount 
+- qty is correct if user choose multiple qty
+- subtotal price is price after discount ",,,,
+,,,,Check non bundle deal information in payment info section,"non-bundle deal information display correctly in payment info section
+- unit price is price before discount 
+- qty is correct if user choose multiple qty
+- subtotal price is price after discount ",,,,
+,,,,"Check other information 
+- buyer info
+- item info
+- total price
+- order status
+- logistic status
+- action buttons
+- orderID","display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Find order ，Click Arrange Shippment，complete arrange shipment ,success,,,,
+[5](ID N/A)Test order admin update status fullfillment,Order Data & Ops,"Region=BR/TW
+Enter Order admin → Orders → Orders
+",PC,"[Enter Order admin → Orders → Orders]
+After Entering Order ID or other information, Click Search",Search successfully,,,,
+,,,,Click Order ID,Redirect to Order Details Page,,,,
+,,,,Click Status & Timeline,success,,,,
+,,,,Click OFG ID,Redirect to Order Fulfilment Group Detail Page,,,,
+,,,,Click Update Fulfilment Status，Change Status to Request Created,success,,,,
+,,,,Click Update Fulfilment Status，Change Status to Outbound Successful,success,,,,
+,,,,Click Update Fulfilment Status，Change Status to Successful,success,,,,
+[5](ID N/A)Test local seller arrange shipment,Seller Fullfillment,"region=BR/TW
+[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+Login seller Center → My Orders → Shipping",IOS/ANDROID/PC,"
+Click Shipping","1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Find the order ，Click Check Details,"1.Enter Order Details Page
+2. Page information Display Correct ",,,,
+[5](ID N/A)Test buyer completed order,Order Data & Ops,"Shopee app
+Region=BR/TW 
+Order is already in tab To Receive
+",IOS/ANDROID/PC,"[[Buyer] Return to client side]
+Click Me page → To Receive","1.Enter My Purchases Page
+2.stop at To Receive Page",,,,
+,,,,Click the order ,"1.Enter Order Details Page
+2.Display Your order is on the way / Your order has been delivered",,,,
+[5](ID N/A)Test buyer request return/refund before receiving parcel,Return Refund,"Shopee app
+Region=BR/TW 
+[FE
+1.Refund stage: To-Receive
+
+BE
+2.""physical_return_allowed"": true
+3.""flow_type"": 2
+4.""integration_type"": 0 (non-integrated)]",IOS/ANDROID/PC,"
+To Receive PageClick Return/Refund",Enter How can we help Page，Guide to refund,,,,
+,,,,select I have received all of my items but there are issues,Enter Request Return/Refund Page,,,,
+,,,,Click Select Reason,Popup displaySelect Reason,,,,
+,,,,select Change of mind， and Click Confirm,"1.Return to Request Return/Refund Page
+2.Correctly display selected reason",,,,
+,,,,Click Icon on the right of Refund Amount,Pop-up Display Propose Refund Amount,,,,
+,,,,Check  amount details,Correct ,,,,
+,,,,Click Confirm in Pop-up,Return to Request Return/Refund Page,,,,
+,,,,leave description,success,,,,
+,,,,add photo,success,,,,
+,,,,add video,success,,,,
+,,,,Fill in Email,success,,,,
+,,,,Click Submit,"1.Enter Return/Refund Details Page
+2.Display Case under review
+3.Display due date relevant information below Case under review",,,,
+,,,,Click Icon on the right of Refund Amount,Pop-up Display Propose Refund Amount,,,,
+,,,,Check  amount details,Correct ,,,,
+,,,,Click cross at the corner,Return to Return/Refund Details Page,,,,
+,,,,Return to Me Page,success,,,,
+,,,,Me → Return/Refund,"1.Enter My Purchase Page
+2.stop at Return Refund tab",,,,
+,,,,Check order Status,"1.Status：Shopee Reviewing
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Return Refund Details button ",,,,
+[5](ID N/A)Test Order Admin check Return Status,"Return Refund, Order Data & Ops","Order Admin
+Region=BR/TW 
+order admin-Return & Refund Details-Refund",PC,order admin-Return & Refund Details set Return Status: PROCESSING,success,,,,
+[5](ID N/A)Test buyer self arrange shipping,Return Refund,"Shopee app
+Region=BR/TW ",IOS/ANDROID/PC,Me → Return/Refund → Check order Status,"1.Status：Return Pending
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Return Refund Details button ",,,,
+,,,,Click order ，Enter Return/Refund Details Page,"1.Display Select Return Method
+2.Display due date relevant nformation below Select Return Method ",,,,
+,,,,Click Select Return Option,Enter Select Return Option Page,,,,
+,,,,select Self Arrange， and Click Confirm,"1.Enter Return/Refund Details Page
+2.Display Input Shipping Information",,,,
+,,,,Click Download,Correct Redirection ,,,,
+,,,,Click Return to at the top left,Redirect to Return/Refund Details Page,,,,
+,,,,Click Input Shipping Proof,Redirect to Shipping Information Page,,,,
+,,,,Shipping Information PageSelect Carrier、Set Tracking Number and add photo,success,,,,
+,,,,Shipping Information Page Click Submit,Return to Return/Refund Details Page,,,,
+,,,,Click More Shipping Instructions,Successfully redirected and information displayed is correct,,,,
+[5](ID N/A)Test Seller request return/refund,Return Seller,Login seller Center → My Orders → Return/Refund,IOS/ANDROID/PC,"
+Click Expand Filter",Expanded filter options,,,,
+,,,,Set Request Creation Date to latest month,success,,,,
+,,,,Click Export,Successfully generate report,,,,
+,,,,Click Download,Successfully Download,,,,
+,,,,Enter Return Request ID (即Return SN) then ClickApply,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status,return reason, action buttons, order ID successfully",,,,
+,,,,Check action buttons,"1.Full Refund
+2.Offer Partial Refund
+3.More",,,,
+,,,,Click More,"1.Enter Return/Refund Details Page， Page information Correct 
+2. 3 buttons ：
+Wait for Return
+Offer Partial Refund
+Full Refund",,,,
+,,,,Click Wait for Return,"1.success
+2. order Status is Return Pending
+3. button display Refund",,,,
+[5](ID N/A)Test buyer arrange shipment for order return,Return Refund,"Shopee app
+Region=BR/TW 
+[Buyer] order admin-Return & Refund Details设置Logistics Status: DELIVERY_DONE",IOS/ANDROID/PC,"
+Me → Return/Refund → Check order Status","1.Status：Validation In Progress
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Return Refund Details button ",,,,
+,,,,Click order ，Enter Return/Refund Details Page,"1.Display Validation In Progress
+2.Display due date relevant information below Select Return Method",,,,
+,,,,Click View on the right of Return Shipping Details,Enter Return Shipping Details Page，Display Self Arrange text and Return Address,,,,
+,,,,"Click ""Return to"" button at the top left",Return to Return/Refund Details Page,,,,
+[5](ID N/A)Test seller Return Refund,Return Seller,"region=BR/TW
+[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,"
+Enter Return Request ID (also Return SN) then Click Apply","1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status,return reason, action buttons, order ID successfully",,,,
+,,,,Check action buttons,"1.Refund
+2.Dispute
+3.Return Refund Details",,,,
+,,,,Click order ，Enter Return/Refund Details Page,Display Deliver Address(TW don't display) and Pick Up Address,,,,
+[5](ID N/A)Test seller accept refund,Return Refund,"region=BR/TW
+[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+Login seller Center → My Orders → Return/Refund configure Refund",IOS/ANDROID/PC,Click Refund,Popup displayAccept Refund(Full),,,,
+,,,,Click Accept,success，prompt Refund in Progress,,,,
+[5](ID N/A)Test buyer for refund approved,Return Refund,"Shopee app
+Region=BR/TW ",IOS/ANDROID/PC,"
+Client side Click order ，Enter Return/Refund Details Page",Refund approved,,,,
+[5](ID N/A)Test order admin for refund completed,,,,Client side Click order ，Enter Return/Refund Details Page,Display Refund Completed,,,,
+[5](ID N/A)Test buyer for voucher and coin returned,"Voucher,Discount & Coins","Shopee app
+Region=BR/TW ",IOS/ANDROID/PC,"
+Check voucher、coin and  amount etc, field returned",All field returned,,,,
+[5](ID N/A)Test seller for checking refund completed,Return Refund,"region=BR/TW
+[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,"
+Check  order Status",Refund Completed,,,,
+,,,,Click Return Refund Details,"1.Enter Return/Refund Details Page， Page information Correct 
+2.Status is Refund Completed",,,,
+[6]Test buyer check PDP for bundle deal item ,"PDP,Cart","Shopee app
+Region=BR/TW ",IOS/ANDROID/PC,Enter PDP Page,Successfully load PDP Page,,,,
+,,,,Click Add to Cart,Successfully added variation A,,,,
+,,,,Click cart icon at the top right of Me Page,Enter cart Page,,,,
+,,,,Check  product  information ,Display variation A,,,,
+,,,,"[Use another account to buy all the stock of product variation A]
+Enter cart Page",Enter cart Page,,,,
+,,,,Check  product  information ,Display select variation,,,,
+,,,,Click select variation,Successfully changed to variation B,,,,
+,,,,Check Bundle Deal banner,"1.Icon : new icon (attached image)
+2.Textfield : Any qty more for Y off
+3.Redirection Textfield : Not display",,,,
+,,,,Select item,"1.success
+
+2.bundle deal banner
+2.1 Icon : new icon (attached image)
+2.2 Textfield : Any qty more for Y off
+2.3 Redirection Textfield : Not display",,,,
+,,,,"Change the item qty to enjoy bundle deal promotion
+item has multiple tiers bundle deal","1.success
+
+2.bundle deal banner
+2.1 Icon : new icon (attached image) 
+2.2 Textfield : Save X amount! Add {next tier qty - cart qty} more for Y amount off
+2.3 Redirection Textfield : Not display",,,,
+,,,,"Change the item qty to enjoy bundle deal promotion
+No more tier bundle deal","1.success
+
+2.bundle deal banner
+2.1 Icon : new icon (attached image) 
+3.2 Textfield : Save X amount!
+3.3 Redirection Textfield : Not display",,,,
+,,,,Unselect item,success,,,,
+,,,,"[item is in selected (ticked) Status]
+Check voucher","already auto apply shop voucher, platform voucher and fsv
+[TH/MY can just apply one of fsv and shopee voucher]",,,,
+,,,,Click Shop Vouchers,Enter voucher Page,,,,
+,,,,Unselect shop voucher，Click OK,success,,,,
+,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Unselect platform voucher and fsv,success,,,,
+,,,,redeem coin,cannot redeem,,,,
+,,,,Check price component  amount ,Discount Detail Page information are correct ,,,,
+,,,,Click Check Out,Page load successfully,,,,
+[6]Test buyer place order success,"Voucher, Checkout, Prefulfilment","Shopee app
+Region=BR/TW ",IOS/ANDROID/PC,Check voucher,voucher component is empty,,,,
+,,,,Click Shop Vouchers,Enter voucher Page,,,,
+,,,,Manually select shop voucher，Click OK,success,,,,
+,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Manually select fsv and platform voucher，Click OK,success,,,,
+,,,,Click Shipping option，select Integrated Logistics,success,,,,
+,,,,Check Payment Option,pre select Cash On Delivery,,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information", information Correct ,,,,
+,,,,Click Place Order,"1.redirect to OSP
+2.Payment in pending status",,,,
+,,,,Click cart Icon on the top right,Redirect to cart Page,,,,
+,,,,Click Return to button in cart page,Return to OSP Page,,,,
+,,,,Click Home button,Return to homepage,,,,
+,,,,Me-To Ship,"1.Redirect to To Ship Page
+2.Able to view that order ",,,,
+,,,,Click the order ,Enter Order Details Page,,,,
+,,,,"Click ""Change"" on the right of Delivery Address",Redirect to Address Selection Page,,,,
+,,,,select new address,Popup display “Change Delivery Address”,,,,
+,,,,Click COMFIRM on Popup,Return to Order Details Page，address Update successful,,,,
+,,,,Click visit Shop,Enter shop page,,,,
+,,,,Click Product,Enter product_snapshot_page,,,,
+,,,,"Click ""COPY"" on the right of Order ID",Prompt Copied successfully,,,,
+,,,,Click Contact Seller,Enter chat Page,,,,
+[6]Test seller CB seller arrange shipment,Seller fulfilment,"[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Find the order ，Click Arrange Shippment，Complete arrange shipment,success,,,,
+[6]Test order admin for update status fullfillment,Order Data & Ops,"Order Admin
+Region=BR/TW 
+Enter Order admin → Orders → Orders",PC,Enter Order ID or other  information then Click Search,Search successfully,,,,
+,,,,Click Order ID,Redirect to Order Details Page,,,,
+,,,,Click Status & Timeline,success,,,,
+,,,,Click OFG ID,Redirect to Order Fulfilment Group Detail Page,,,,
+,,,,Click Update Fulfilment Status，Change Status To Request Created,success,,,,
+,,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,,,,
+[6]Test buyer check order ,Order Data & Ops,"1.[Buyer] Return to client side
+2. time now < expected_receive_time",IOS/ANDROID/PC,Click Me page → View Purchases → To Receive,"1.Enter My Purchases Page
+2.stop at To Receive Page",,,,
+,,,,Click order ,Enter Order Details Page,,,,
+,,,,Check action buttons,not show return buttion,,,,
+[6]Test order admin for update status fullfillment,Seller fulfilment,"Order Admin
+Region=BR/TW 
+Enter Order admin → Orders → Orders",PC,Click Update Fulfilment Status，Change Status to Successful,success,,,,
+[6]Test CB seller arrange shipment,Seller fulfilment,"Order Admin
+Region=BR/TW 
+[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login seller Center → My Orders → Shipping",IOS/ANDROID/PC,Click Shipping,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Find the order ，Click Check Details,"1.Enter Order Details Page
+2. Page information Display Correct ",,,,
+,,,,Switch tab from To Receive to Completed in My Purchases Page,Order displayed under completed tab,,,,
+,,,,Check  order  information ,"1.Status：Completed
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Rate button ",,,,
+,,,,Click order ,Enter Order Details Page,,,,
+"[6]Test buyer place order success, CB seller arrange shipment, request return/refund after receive parcel",Return & Refund,"FE
+1.Refund stage: Received package
+
+BE
+2.""physical_return_allowed"": true
+3.""flow_type"": 2
+4.""integration_type"": 1 (integrated)
+
+DMS portal: https://dms.cs.test.shopee.com.br/portal/info/search",PC,Click Return/Refund on order details pages under Info Search in DMS portal,success,,,,
+,,,,Click Select Reason,Popup displaySelect Reason,,,,
+,,,,select reason as NOT Counterfeit， and Click Confirm,"1.Return to Request Return/Refund Page
+2.Correct Display  selected Reason",,,,
+,,,,Click Select Solution,Popup displaySelect Solution,,,,
+,,,,select Return and Refund，Click Confirm,"1.Return to Request Return/Refund Page
+2.Correct Display selected Solution",,,,
+,,,,Click Icon on the right of Refund Amount,Pop-up Display Propose Refund Amount,,,,
+,,,,Check amount details,Correct,,,,
+,,,,Click confirm button in Pop-up,Return to Request Return/Refund Page,,,,
+,,,,leave description,success,,,,
+,,,,add photo,success,,,,
+,,,,add video,success,,,,
+,,,,Click Submit,success ,,,,
+"[6]Test buyer place order success, CB seller arrange shipment, request return/refund after receive parcel",Return & Refund,"Order Admin
+Region=BR/TW 
+Enter Order admin → Orders → Return Refund
+
+
+
+",PC,Check Order Admin Return status and Reverse Logistics status,"1. Return Status is Processing
+2. Reverse Logistics Status is Pending Arrange",,,,
+"[6]Test buyer place order success, CB seller arrange shipment, request return/refund after receive parcel",Return & Refund,"Shopee app
+Region=BR/TW ",IOS/ANDROID/PC,Me → Return/Refund → Check order Status,"1.Status：Return Pending
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Return Refund Details button ",,,,
+,,,,Click order ，Enter Return/Refund Details Page,"1.Display Select Return Method
+2.Display Cancel Request
+3.Display due date relevant information below Select Return Method",,,,
+,,,,"Click Select Return Method, select shipping option as Drop Off",success,,,,
+,,,,Me → Return/Refund → Check order Status,"1.Status: Pending Drop off
+2.Hint text is shown
+3.Action button list: {Cancel Request}",,,,
+[6]Test check order admin negotiation status and reverse logistic status ,Return & Refund,"Order Admin
+Region=BR/TW 
+Enter Order admin → Orders → Return Refund
+
+
+
+",PC,Check Order Admin Negotiation status and Reverse Logistics status,"1. Reverse Logistics Status is Ready
+2. Negotiation Status is Pending",,,,
+[6]Test buyer offer partial refund ,Return Seller,"[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login Seller Center → Return/Refund",IOS/ANDROID/PC,Enter Return Request ID (also known as Return SN) then click apply,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status,return reason, action buttons, order ID successfully",,,,
+,,,,Check action buttons,"1.Full Refund
+2.Offer Partial Refund
+3.More",,,,
+,,,,Click order ,"1.Enter Return/Refund Details Page， Page information Correct 
+2. 3 buttons：
+Wait for Return
+Offer Partial Refund
+Full Refund",,,,
+,,,,Click offer partial Refund,Popup display Offer Partial Refund,,,,
+,,,,Enter  amount > Max refundable,"1. Show ""Amount limit exceeded"" error message at the bottom of Refund Amount in popup
+2. Submit button is not clickable
+",,,,
+,,,,Enter  amount <= Max refundable then click Submit,Popup display Propose Refund of  amount ,,,,
+,,,,Click confirm,"1.Return to Return/Refund Details Page， Page information Correct 
+2. 2 buttons：
+Full Refund
+Modify Offer",,,,
+[6]Test check order admin negotiation status ,Return & Refund,"Order Admin
+Region=BR/TW 
+Enter Order admin → Orders → Return Refund
+
+
+
+",PC,Check Order Admin Negotiation status,1. Negotiation Status is Ongoing,,,,
+[6]Test seller counter refund,Return & Refund,"Shopee app
+Region=BR/TW 
+[Buyer]",IOS/ANDROID/PC,Me → Return/Refund → Check order Status,"1.Status：Pending Your Review
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Return Refund Details button ",,,,
+,,,,Click order ，Enter Return/Refund Details Page,"1.Display The Seller has proposed Refund of  amount 
+2.Display dude date information below
+3.Display Action button list: {Accept Refund, Reject and Return, Discuss with Seller}",,,,
+,,,,Click discuss,"1.Redirect to Discuss Page
+2.Display Counter and Accept
+3.Send text message success
+4.Send image message success
+5.Send video message success",,,,
+,,,,Click counter,Display Counter Refund Page,,,,
+,,,,Enter  amount ，Click Confirm,Popup displayCounter: Refund of  amount ,,,,
+,,,,Click confirm,Prompt ounter success,,,,
+"[6]Test buyer to respond 
+
+",Return Seller,"[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login Seller Center → Return/Refund",IOS/ANDROID/PC,Enter Return Request ID (Return SN)ClickApply,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status,return reason, action buttons, order ID successfully",,,,
+,,,,Check action buttons,Respond,,,,
+,,,,Click Respond,"1.Enter Return/Refund Details Page， Page information Correct 
+2. 3 buttons：
+Full Refund
+Accept Proposal
+Counter",,,,
+"[6]Test buyer continue with return 
+
+
+
+",Return & Refund,"Shopee app
+Region=BR/TW 
+[Buyer]",IOS/ANDROID/PC,Me → Return/Refund → Check order Status,"1.Status：Pending Seller's Response
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Return Refund Details button ",,,,
+,,,,Click order ，Enter Return/Refund Details Page,"1.Display You have proposed a refund of  amount 
+2.Display dude date information below",,,,
+,,,,Click Continue with return,Popup displayProceed to Return,,,,
+,,,,Click Confirm,Display Select Return Method,,,,
+"[6]Test seller order return refund
+
+
+
+",Return Seller,"[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login Seller Center → Return/Refund",IOS/ANDROID/PC,Enter Return Request ID (Return SN) then click apply,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status,return reason, action buttons, order ID successfully",,,,
+,,,,Check action buttons,Refund,,,,
+,,,,Click order ,"1.Enter Return/Refund Details Page， Page information Correct 
+2. 1 button ：
+Refund",,,,
+"[6]Test buyer arrange shipment
+
+
+
+",Return & Refund,"Shopee app
+Region=BR/TW 
+[Buyer]",IOS/ANDROID/PC,"Click Select Shipping option
+","Redirect to Shipping Information Page
+",,,,
+,,,,select Pick Up,success,,,,
+,,,,Click Confirm,Enter Return/Refund Details Page，Display Pending Pick up,,,,
+,,,,Check Return/Refund Details Pagepick up related information ,"1.Pick Up by logistics， information Correct 
+2.Correct Display Pickup Time
+3.Correct Display Pickup Address
+4.Correct Display tracking number
+5.Correct Display  Page information ",,,,
+,,,,Click Download Label,success,,,,
+,,,,Click More Shipping Instructions,Sucessfully redirected page and information are displayed correctly,,,,
+,,,,Click CHANGE,Redirect to Change Return Method Page,,,,
+,,,,select Drop Off,success,,,,
+,,,,Click Confirm,Popup displayConfirm changes?,,,,
+,,,,Click Confirm,Enter Return/Refund Details Page，Display Pending Drop off,,,,
+"[6]Test order admin check order return refund
+
+
+
+",Return & Refund,"Region=BR/TW 
+Order admin-Return & Refund Details set Logistics Status: DELIVERY_DONE",PC,Me → Return/Refund → Check order Status,"1.Status：Validation In Progress
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Return Refund Details button ",,,,
+,,,,Click order ，Enter Return/Refund Details Page,"1.Display Validation In Progress
+2.Display due date information at the bottom",,,,
+"[6]Test seller check return request order
+
+
+
+",Return Seller,"[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login Seller cEnter → Return/Refund",IOS/ANDROID/PC,Click Refund button in Return List Page,success,,,,
+,,,,Check Return List Page,"1. Return status: Request Refund 
+2. no Hint text shown
+3. no action button shown",,,,
+,,,,Check Return Detail Page,"1. Return status: Return Pending 
+2. Hint text is shown
+3. Action button is {View Details}",,,,
+,,,,Click View Details button,Open Discuss History With Buyer popup,,,,
+[6]Test order admin to check return refund,Return & Refund,"Region=BR/TW 
+Order admin-Return & Refund Details
+Order admin-Return & Refund Details-Refund Information-Refund ID set Refund Status: REFUND_CREATED → REFUND_VERIFIED → REFUND_PAYOUT → REFUND_PAID",PC,Check Return Status,Return Status is ACCEPTED,,,,
+,,,,Click order ，Enter Return/Refund Details Page,Display Refund Completed,,,,
+[6]Test buyer check voucher and coin returned,"Voucher, Discount & Coins","Shopee app
+Region=BR/TW 
+[Buyer]",IOS/ANDROID/PC,Check voucher and coin returned,"1.for coin: return
+2.for platform voucher > yes
+3.for shop voucher > it depends.
+If the shop voucher applies two items, and u only return 1 item, then this voucher will not be returned; if u return two items, then this voucher will be returned. the principle is that we will only return vouchers when all items that apply voucher's discount are refunded",,,,
+[6]Test seller rating order,Return Seller,"Region=BR/TW 
+[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,Check  order ,Completed refund,,,,
+,,,,Click Rating in Return Detail page,"1. Open Rating popup
+2. Submit rating feedback success",,,,
+,,,,Refresh Return Detail page,The submitted rating feedback still be retained,,,,
+"[6]Test buyer rating order
+
+",Rating,"Shopee app
+Region=BR/TW 
+[Buyer]",IOS/ANDROID/PC,Click Rating in Return Detail page,"1. Open Rating popup
+2. Submit rating feedback success",,,,
+,,,,Refresh Return Detail page,The submitted rating feedback still be retained,,,,
+"[7]Test buyer add normal item, AOD , PWP and PWG to cart","PDP, Voucher, Discount & Coins","Shopee app
+Region=ID/BR
+1.shop type: mall
+2.item
+1)normal item
+2)normal item with aod
+3)normal item with pwp
+4)normal item with pwg
+
+3.shop voucher: any voucher
+4.platform voucher: any voucher
+5.fsv: have fsv
+
+6.coin: cannot redeem coin
+
+7.used Bank Transfer last time
+8.payment method: pre select Bank Transfer
+
+9. rr async flow toggle on",IOS/ANDROID/PC,"Add normal item, AOD , PWP and PWG from the same shop into cart",success,,,,
+,,,,Enter cart Page,success,,,,
+,,,,Click on Checkbox on shop level,Successfully selected all products under that shop,,,,
+,,,,Change item quanitity to get the previously set promotions (AOD/PWP/PWG etc),success,,,,
+,,,,Check voucher,"already auto apply shop voucher, platform voucher and fsv
+[TH/MY can just apply one of fsv and shopee voucher]",,,,
+,,,,redeem coin,cannot redeem,,,,
+,,,,Check amount in price component,Information in Discount Detail Page  displayed correctly,,,,
+,,,,Click Check Out,Redirect to OPC Page,,,,
+,,,,"Click ""Return to"" button in OPC Page",Return to cart Page,,,,
+[7]Test buyer place order success,"Checkout, Voucher","Shopee app
+Region=ID/BR
+At OPC Page",IOS/ANDROID/PC,Check voucher,Same voucher auto applied in cart page,,,,
+,,,,Click Shop Vouchers,Enter voucher Page,,,,
+,,,,Cancel select shop voucher，Click OK,success,,,,
+,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Cancel select fsv and platform voucher，Click OK,success,,,,
+,,,,Check Payment Option,pre select Bank Transfer,,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information", information Correct ,,,,
+,,,,Click Place Order,"1.redirect to OSP
+2.Payment in pending status",,,,
+,,,,Click Home button,Return to homepage,,,,
+[7]Test buyer change delivery address,Order Payment,"Shopee app
+Region=ID/BR
+Me-To Pay",IOS/ANDROID/PC,Me-To Pay,"1.Redirect to To Pay
+2.Order displayed under To-Pay",,,,
+,,,,Click the order,Enter Order Details Page,,,,
+,,,,"Click ""CHANGE"" on right of Delivery Address",Redirect to Address Selection Page,,,,
+,,,,select new address,Popup display“Change Delivery Address”,,,,
+,,,,"Click ""CONFIRM"" in Pop-up",Return to Order Deatils Page，address Update successful,,,,
+,,,,Click Visit Shop,Enter shop page,,,,
+,,,,Click product,Enter product_snapshot_page,,,,
+,,,,product_snapshot_page page Click Live View,Enter PDP Page,,,,
+,,,,Click arrow at the right of Order Total component,Display order datail,,,,
+,,,,"Click ""COPY"" on the right of Order ID",Prompt Copied successfully,,,,
+,,,,Click Contact Seller,Enter chat Page,,,,
+,,,,"Click ""CHANGE"" on the right of Payment Method",Enter Payment Method Page,,,,
+,,,,select new payment method: ShopeePay,select success,,,,
+,,,,Click CONFIRM,"1. Click successfully
+2. Redirect to payment Page",,,,
+,,,,Complete payment,"
+success",,,,
+[7]Test seller spilt order,Seller fulfilment,"
+Region=ID/BR
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Find the order ，Click Split order，complete arrange shipment,Redirect to Split Order Page,,,,
+,,,,Select product，Click Move to A New Package,success,,,,
+,,,,Complete arrange shipment,success,,,,
+[7]Test order admin update the status fullfillment,Order Data & Ops,"
+Region=ID/BR
+Enter Order admin → Orders → Orders",PC,Enter Order ID or other  information then Click Search,Search successfully,,,,
+,,,,Click Order ID,Redirect to Order Details Page,,,,
+,,,,Click Status & Timeline,success,,,,
+,,,,Click OFG ID,Redirect to Order Fulfilment Group Detail Page,,,,
+,,,,Click Update Fulfilment Status，Change Status To Request Created,success,,,,
+,,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,,,,
+,,,,Click Update Fulfilment Status，Change Status to Successful,,,,,
+[7]Test seller arrange shipment,Seller fulfilment,"
+Region=ID/BR
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Shipping",IOS/ANDROID/PC,Click Shipping,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Find the order ，Click Check Details,"1.Enter Order Details Page
+2. Page information Display Correct ",,,,
+[7]Test buyer completed order ,Order Data & Ops,"Shopee app
+Region=ID/BR
+[Buyer] Return to client side",IOS/ANDROID/PC,Click Me page → View Purchases → To Receive,"1.Enter My Purchases Page
+2.stop at To Receive Page",,,,
+,,,,Click Order Received,Successfully completed order,,,,
+,,,,Switch tab from To-Receive to Completed in My Purchases Page,Order displayed under completed tab,,,,
+,,,,Check  order  information ,"1.Status：Completed
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Rate button ",,,,
+,,,,Click order ,Enter Order Details Page,,,,
+[7]Test buyer chatbot raise RR,Return & Refund,"Shopee app
+Region=ID/BR
+FE
+1.Refund stage: To-receive
+
+BE
+2.""physical_return_allowed"": true
+3.""flow_type"": 2
+4.warehouse validate(warehouse validate的条件)",IOS/ANDROID/PC,"Chatbot Raise RR with
+ - return reason = any
+ - return solution = ""Return and Refund""",Raise RR success,,,,
+"[7]Test buyer place order success, seller arrange shipment, buyer raise return/refund before receive parcel( return refund-full non adjustable-Pickup)",Return & Refund,"Region=ID/BR
+Order admin-Return & Refund Details
+",PC,Check Order Admin Return Status,Return status is Judging,,,,
+[7]Test buyer discuss with agent ,Return & Refund,"Shopee app
+Region=ID/BR",IOS/ANDROID/PC,Check Return Detail Page,"1. Return status is ""Case Under Review""
+2. Hint text is shown
+3. Action Button list {Discuss with Agent, Cancel Request}",,,,
+,,,,Click Discuss with Agent button,"1. navigate to a chat room
+2. send text message success
+3. send image message success
+4. send video message success",,,,
+[7]Test buyer check return ,Return & Refund,"Region=ID/BR
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries",IOS/ANDROID/PC,Check Return List Page,"1. Return status is ""In Shopee Review""
+2. Hint text is shown
+3. Action Button list {Refund}",,,,
+,,,,Check Return Detail Page,"1. Return status is ""Case Under Review""
+2. Hint text is shown
+3. Action Button list {Refund}",,,,
+[7]Test order admin for return status ,Return & Refund,"Region=ID/BR
+Order admin-Return & Refund Details set Logistics Status: DELIVERY_DONE
+",PC,order admin-Return & Refund Details set Return Status: Processing,success,,,,
+[7]Test seller Offer Partial Refund ,Return Seller,"Region=ID/BR
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries",IOS/ANDROID/PC,Click Offer Partial Refund button in Return List Page,success,,,,
+,,,,Input Refund Amount <= Max refundable then click Submit button,success,,,,
+[7]Test buyer Reject and Refund ,Return & Refund,"Shopee app
+Region=ID/BR
+[Buyer] Return Detail Page",IOS/ANDROID/PC,Click [Discuss with Seller],"1. navigate to a chat room
+2. send text message success
+3. send image message success
+4. send video message success",,,,
+,,,,Click Reject and Refund button,success,,,,
+[7]Test order admin check negotiation status,Return & Refund,"Region=ID/BR
+Order admin-Return & Refund Details
+",PC,Check OA negotiation status,OA negotiation status is TERMINATED,,,,
+[7]Test buyer select shipping option for return,Return & Refund,"Shopee app
+Region=ID/BR
+Return to buyer app >> order detail",IOS/ANDROID/PC,Click Select Shipping option,Redirect to Shipping Information Page,,,,
+,,,,Click Select Shipping option,Redirect to Shipping Information Page,,,,
+,,,,select Self Arrange,success,,,,
+,,,,Click Confirm,Enter Return/Refund Details Page，Display Input Shipping Proof button,,,,
+,,,,Click [Input Shipping Proof] button in buyer RDP,"select Courier success, input Tracking Number success",,,,
+,,,,Select Courier,upload 3 images success,,,,
+,,,,Input Tracking Number,click [Submit] button and confirm success,,,,
+,,,,Upload 3 images,buyer RDP shipping proof is same as submitted,,,,
+,,,,Check Return Detail Page,show correct data,,,,
+[7]Test check order admin for reverse logistics status,Return & Refund,"Region=ID/BR
+Order admin-Return & Refund Details set Logistics Status: DELIVERY_DONE
+",PC,Check OA reverse logistics status,return logistics is PCKUP_DONE,,,,
+[7]Test buyer request refund,Return Seller,"
+Region=ID/BR
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → Return/Refund","IOS/ANDROID/PC
+
+
+
+
+",Enter Return Request ID (Return SN) then click apply,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status,return reason, action buttons, order ID successfully",,,,
+,,,,Check action buttons,Refund,,,,
+,,,,Click order ,"1.Enter Return/Refund Details Page
+2.Status: Return In Progress
+3. 2  button ：
+Refund
+Cannot click greyed out Dispute",,,,
+[7]Test buyer return/refund,Return & Refund,"Region=ID/BR
+Order admin-Return & Refund Details set Logistics Status: DELIVERY_DONE
+",IOS/ANDROID/PC,Me → Return/Refund → Check order status,"1.Status：Validation In Progress
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Return Refund Details button ",,,,
+,,,,Click order ，Enter Return/Refund Details Page,"1.Display Validation In Progress
+2.Display due date information below",,,,
+[7]Test seller doing dispute,Return Seller,"Region=ID/BR
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → Return/Refund",IOS/ANDROID/PC,Enter Return Request ID (Return SN) then click apply,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status,return reason, action buttons, order ID successfully",,,,
+,,,,Check action buttons,"1.Refund
+2.Dispute",,,,
+,,,,Click order ,"1.Enter Return/Refund Details Page
+2.Status: Validation In Progress
+3. 2  button ：
+Refund
+Dispute
+4. only Display Deliver Address(Do not display in TW )",,,,
+,,,,Click [Dispute] button in seller RLP,success click dispute button,,,,
+,,,,"Select dispute reason as ""Received incomplete return products(missing quantity/accessories)""",success select dispute reason ,,,,
+,,,,Click [Continue] button,success click continue button,,,,
+,,,,"
+Upload image and video",success to upload image and video,,,,
+,,,,Click [Submit] button,success submit dispute,,,,
+[7]Test buyer discuss with agent ,Return & Refund,"Shopee app
+Region=ID/BR",IOS/ANDROID/PC,Check Return List Page,"1. Return status is ""In Dispute""
+2. No Hint Text
+3. No Action Button",,,,
+,,,,Check Return Detail Page,"1. Return status is ""Case under review""
+2. Hint text is shown
+3. Action Button list {Evidence/File History}",,,,
+,,,,Check OA return status,return status is SELLER_DISPUTE,,,,
+,,,,Check Return Detail Page,"1. Return status is ""Seller has raised dispute""
+2. Hint text is shown
+3. Action Button list {Discuss with Agent}",,,,
+,,,,Click Discuss with Agent button,"1. navigate to a chat room
+2. send text message success
+3. send image message success
+4. send video message success",,,,
+[7]Test DMS portal ,Return & Refund,"
+Region=ID/BR
+DMS portal: https://dms.cs.test.shopee.com.br/dispute/overview",PC,Open DMS portal and switch to Dispute tab,success to open dispute tab,,,,
+,,,,Search by RSN and assign the case to yourself,able to search RSN and show the list,,,,
+,,,,Click [View] button and nagivate to Dispute Case Detial page,success navigate to dispute case detail,,,,
+,,,,Click [Judge] and select [Accept Refund Only] ,success to click jugde and accept refund only,,,,
+,,,,Fill in the form then click [Confirm],success click confirm,,,,
+,,,,Check OA return status,return status is ACCEPTED,,,,
+[7]Test buyer download invoice,Return & Refund,"Region=ID/BR
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Validate API
+
+Order admin-Return & Refund Details-Refund Information-Refund ID set Refund Status: REFUND_PAID
+Order admin-order details page",IOS/ANDROID/PC,Click order ，Enter Return/Refund Details Page,Display Refund approved,,,,
+,,,,Click order ，Enter Return/Refund Details Page,Display Refund Completed,,,,
+,,,,Click order ,able to download invoice,,,,
+[7]Test buyer check invoice generated ,Order Data & Ops,"Shopee app
+Region=ID/BR",IOS/ANDROID/PC,Check ShopeePay amount,Correcty refunded,,,,
+,,,,Check order completed list,"1. invoice is generated
+2. Can see the invoice with correct value",,,,
+[7]Test seller completed refund ,Order Data & Ops,"
+Region=ID/BR
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,Check  order ,Completed refund,,,,
+[8]Test buyer PDP and cart,"PDP, Cart, Voucher, Discount & Coins","Shopee app
+Region=ID/TW
+1.shop type: supermarket
+
+2.vsku item
+
+3.shop voucher: no voucher
+4.platform voucher: no voucher
+5.fsv: have fsv
+
+6.coin: cannot redeem coin
+
+7.used ShopeePay last time
+8.balance is sufficient
+9.payment method: pre select ShopeePay",IOS/ANDROID/PC,Enter PDP Page,Successfully load PDP Page,,,,
+,,,,Click Buy Now,Successfully redirected to OPC Page,,,,
+,,,,Click Return to  button in OPC page ,Return to PDP Page,,,,
+,,,,Click Add to Cart,Successfully add to cart,,,,
+,,,,Click Icon at the top right of the PDP Page,Enter cart Page,,,,
+,,,,"Click ""ALL"" at bottom left of cart Page",Successfully Check item,,,,
+,,,,Cancel selected item,success,,,,
+,,,,"item is in selected (ticked) Status
+Change item quantity more than 1",success,,,,
+,,,,Check voucher,"1.Have not applied shop voucher
+2.Have not applied platform voucher
+3.auto apply fsv",,,,
+,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Manually Click fsv，Click OK,"1,success
+2.Return to cart Page",,,,
+,,,,redeem coin,cannot redeem,,,,
+,,,,Check amount in price component,Information in Discount Detail Page displayed correctly,,,,
+,,,,Click Check Out,page load successfully ,,,,
+,,,,Check voucher,voucher information  and cart Page are the same,,,,
+,,,,Check Payment Option,pre select ShopeePay,,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information", information Correct ,,,,
+,,,,Click Place Order,"1.redirect to OSP
+2.Payment status is paid",,,,
+,,,,Click My Purchases button,"1.Redirect to My Purchases Page
+2.Redirect to To Ship tab",,,,
+,,,,Click the order ,Redirect to Order Details Page,,,,
+[8]Test seller arrange shipment,Seller fulfilment,"[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Click the order ,"1.Enter Order Details Page
+2. Page information displayed accurately",,,,
+,,,,"Find the order, check button",no arrange shipment button,,,,
+,,,,Clcik the same order again,"1.Enter Order Details Page
+2. Page information displayed accurately",,,,
+[8]Order admin update status fullfillment,Order Data & Ops,Enter Order admin → Orders → Orders,PC,Enter Order ID or other  information then Click Search,Search successfully,,,,
+,,,,Click Order ID,Redirect to Order Details Page,,,,
+,,,,Click Status & Timeline,success,,,,
+,,,,Click OFG ID,Redirect to Order Fulfilment Group Detail Page,,,,
+,,,,Click Update Fulfilment Status，Change Status To Request Created,success,,,,
+,,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,,,,
+,,,,Click Update Fulfilment Status，Change Status to Successful,,,,,
+[8]Test seller check order detail on tab shipping,Seller fulfilment,"[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Shipping",IOS/ANDROID/PC,Click Shipping,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Find the order ，Click Check Details,"1.Enter Order Details Page
+2. Page information Display Correct ",,,,
+[8]Test buyer order receive,Return & Refund,"Shopee app
+Region=ID/TW
+[Buyer] Return to buyer side",IOS/ANDROID/PC,Click Me page → View Purchases → To Receive,"1.Enter My Purchases Page
+2.stop at To Receive Page",,,,
+,,,,Click the order ,Redirect to Order Details Page,,,,
+,,,,Click Order Received,Order completed,,,,
+,,,,Switch from To-Receive tab to Completed tab under My Purchases Page,Successfully display order under complete tab,,,,
+,,,,Check  order  information ,"1.Status：Completed
+2.Qty, Amount and Order Total etc. information are correct
+3.Display Rate button ",,,,
+,,,,Click order ,Enter Order Details Page,,,,
+"[8]Test buyer request return/refund after recieving product
+
+
+
+",Return & Refund,"Shopee app
+Region=ID/TW
+FE
+1.Refund stage: Received Package
+
+BE
+2.""flow_type"": 2",IOS/ANDROID/PC,Click Return/Refund in the order details page under completed tab,Enter How can we help Page，guide to refund,,,,
+,,,,Click I didn't receive some/all of my items,Enter Select Products Page,,,,
+,,,,select some product ，change return qty，Click Next,Enter Request Return/Refund Page,,,,
+,,,,Click Select Reason,Popup displaySelect Reason,,,,
+,,,,select Missing quantity/accessories， and Click Confirm,"1.Return to Request Return/Refund Page
+2.Correct Display selected Reason",,,,
+,,,,Click Select Solution,Popup displaySelect Solution,,,,
+,,,,select Refund Only，Click Confirm,"1.Return to Request Return/Refund Page
+2.Correct Display selected Solution",,,,
+,,,,"Click ""Edit"" beside Refund Amount",Popup display change refund amount,,,,
+,,,,Change refund amount,success,,,,
+,,,,Click Confirm,"1.Return to Request Return/Refund Page
+2.Correct Display newly set amount",,,,
+,,,,add photo,success,,,,
+,,,,add video,success,,,,
+,,,,Click Submit,"1.Enter Return/Refund Details Page
+2.Display Evidence requested",,,,
+,,,,Click Discuss,Enter Discuss With Shopee Page,,,,
+,,,,Click Upload Evidence,Enter Upload Evidence Page,,,,
+,,,,Upload Photo/Video， and Click Submit,"1.Return to Return/Refund Details Page
+2.Display Evidence submitted",,,,
+"[8]Test buyer refund completed
+",Return & Refund,"Shopee App
+Region=ID/TW
+https://cs.test.shopee.co.id/dms/user/manage/account set accept judging
+",IOS/ANDROID/PC,Enter Return/Refund Details Page,Display Refund Completed,,,,
+[8]Test buyer check shopeepay balance and voucher,Voucher,"Shopee app
+Region=ID/TW",IOS/ANDROID/PC,Check ShopeePay balance and voucher,Amount successfully refunded to shopee pay,,,,
+[8]Test check order admin for compensation status,Return & Refund,"Region=ID/TW
+Order admin ",PC,Check OA compensation status,Compensation status is Pending Request,,,,
+[8]Test seller dispute,Return Seller,"Region=ID/TW
+[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,Check  order ,Refund successlly completed,,,,
+,,,,Check Return List Page,"1. Return status is ""In Seller View""
+2. Hint Text is shown
+3. Action Button list {Dispute and Accepted}",,,,
+,,,,Check Return Detail Page,"1. Return status is ""Pending your Review""
+2. Hint text is shown
+3. Action Button list {Accept, Dispute to Shopee}",,,,
+,,,,Click [Dispute] button in seller RLP,success click dispute button,,,,
+,,,,"Select dispute reason as ""Buyer has been refunded wrong amount""",success select dispute reason ,,,,
+,,,,Click [Continue] button,success click continue button,,,,
+,,,,Upload image and video,success to upload image and video,,,,
+,,,,Click [Submit] button,success submit dispute,,,,
+,,,,Check Return List Page,"1. Return status is ""In Dispute""
+2. No Hint text
+3. No Action Button",,,,
+,,,,Check Return Detail Page,"1. Return status is ""Case under review""
+2. No Hint text
+3. Action Button list {Evidence/File History, Withdraw Dispute}",,,,
+[8]Test order admin check compensation status,Return & Refund,"Region=ID/TW
+order admin
+[CS] Judge the dispute case
+https://cs.test.shopee.co.id/dms/dispute/overview ",PC,Check OA compensation status,Compensation status is Requested,,,,
+,,,,search return ID，assign to yourself，Click view,Enter Dispute detail page,,,,
+,,,,"[ Execution: Reject Compenstaion Request]
+Fill in the form and click comfirn",success,,,,
+,,,,Check OA compensation status,Compensation status is Rejected,,,,
+,,,,Check OA grace period dispute status,Grace period dispute status is INITIAL_STAGE,,,,
+,,,, Open DMS portal and switch Info Search tab,success to open DMS portal,,,,
+,,,,Search by RSN and negivate to return detail page,There is re raise dispute button in Info Search page,,,,
+,,,,Click [re raise dispute] button in DMS portal Info Search page,success to click re raise dispute,,,,
+,,,,"Select dispute reason as ""Buyer claim is correct, but I have other concerns""",success to select dispute reason,,,,
+,,,,"
+Click [Submit] button",success to submit the dispute,,,,
+,,,,Check OA grace period dispute status,Grace period dispute status is PENDIND EVIDENCE,,,,
+[8]Test seller check return detail ,Return & Refund,"Region=ID/TW
+[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,Check Return List Page,"1. Return status is ""In Dispute""
+2. Hint text shown
+3. Action Button list is {Upload Evidence}",,,,
+,,,,Check Return Detail Page,"1. Return status is ""In Dispute""
+2. Hint text shown
+3. Action Button list is {Upload Evidence}",,,,
+,,,,Click Upload Evidence in Return List Page,success to click upload evidence,,,,
+,,,,Upload image and video and click [Submit] button,success to upload image and video and success to submit envidence,,,,
+,,,,Check Return List Page,"1. Return status is ""In Dispute""
+2. Hint text shown
+3. Action Button list is {Upload Evidence}",,,,
+,,,,Check Return Detail Page,,,,,
+"[8]Buyer place order success, seller arrange shipment, buyer request return/refund after recieving product",Return & Refund,"Region=ID/TW
+[CS] Judge the dispute case
+https://cs.test.shopee.co.id/dms/dispute/overview ",PC,Check OA grace period dispute status,Grace period dispute status is REQUESTED,,,,
+,,,,search return ID，assign to yourself，Click view,Enter Dispute detail page,,,,
+,,,," [Execution: Approve Compenstaion Request]
+Fill in the form and click comfirn",success,,,,
+,,,,Check Return List Page,"1. Return status is ""Dispute Approved""
+2. Hint text shown
+3. No Action Button",,,,
+,,,,Check Return Detail Page,"1. Return status is ""Dispute Approved""
+2. Hint text shown
+3. No Action Button",,,,
+,,,,Check OA grace period dispute status,Grace period dispute status is APPROVED,,,,
+[9]Test Buyer success to add product from the video and check cart page,"PDP, Cart","Shopee app
+Region=ID/BR
+
+1.shop type: normal
+
+2.vsku item
+
+3.shop voucher: no voucher
+4.platform voucher: no voucher
+5.fsv: have fsv
+
+6.coin: cannot redeem coin
+
+7.used SpayLater last time
+8.payment method: pre select SpayLater
+
+9.Fulfilled by local seller
+
+10.seller in user tag - AUTO_RETURN_ACCEPTED
+11.buyer in user tag - HIGH_SEVERITY_BUYER_WATCHLIST
+(auto refund condition doc)",IOS/ANDROID/PC,Add product from the video,Successfully add to cart,,,,
+,,,,Click video display product,Enter PDP Page,,,,
+,,,,Click Icon at the top right of the PDP Page,Enter cart Page,,,,
+,,,,Select item,success,,,,
+,,,,Check voucher,"1.Have not applied shop voucher
+2.Have not applied platform voucher
+3.auto apply fsv",,,,
+,,,,redeem coin,cannot redeem,,,,
+,,,,Check amount in price component,Information in Discount Detail Page displayed correctly,,,,
+,,,,Click Check Out,page load successfully ,,,,
+,,,,"Click ""Return to"" button at the top left of OPC Page",Return to cart Page，and item is selected ,,,,
+,,,,Check voucher,voucher information  and cart Page are the same,,,,
+,,,,Check Payment Option,pre select SpayLater,,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information", information Correct ,,,,
+,,,,Click Place Order,"1.redirect to OSP
+2.Payment status is paid",,,,
+,,,,Click My Purchases button,"1.Redirect to My Purchases Page
+2.Redirect to To Ship tab",,,,
+,,,,Click the order,Redirect to Order Details Page,,,,
+"[9]Test Buyer place order successfully, seller arrange shipment",Seller fulfilment,"
+Region=ID/BR
+[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Page information displayed accurately,"1.Enter Order Details Page
+2. Page information displayed accurately",,,,
+,,,,"Find the order, complete arrange shipment",success,,,,
+,,,,Click the order again,"1.Enter Order Details Page
+2. Page information displayed accurately",,,,
+[9]Order admin success update fulfilment status,Order Data & Ops,"
+Region=ID/BR
+Enter Order admin → Orders → Orders",PC,Enter Order ID or other  information then click search,Search successfully,,,,
+,,,,Click Order ID,Redirect to Order Details Page,,,,
+,,,,Click Status & Timeline,success,,,,
+,,,,Click OFG ID,Redirect to Order Fulfilment Group Detail Page,,,,
+,,,,Click Update Fulfilment Status，Change Status To Request Created,success,,,,
+,,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,,,,
+,,,,Click Update Fulfilment Status，Change Status to Successful,,,,,
+[9]Test Seller check order in shipping tab,Order Data & Ops,"
+Region=ID/BR
+[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Shipping",IOS/ANDROID/PC,Click Shipping,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Find the order ，click Check details,"1.Enter Order Details Page
+2. Page information Display Correct ",,,,
+[9]Test Buyer check order detail in tab to received,Order Data & Ops,"Shopee app
+Region=ID/BR
+[Buyer] Return to client side",IOS/ANDROID/PC,Click Me page → View Purchases → To Receive,"1.Enter My Purchases Page
+2.stop at To Receive Page",,,,
+,,,,Click the order,Redirect to Order Details Page,,,,
+[9]Test buyer request return/refund before receving parcel,Return & Refund,"Shopee app
+Region=ID/BR
+FE
+1.item: vsku item
+2.Refund stage: Buyer have not received parcel
+
+BE
+3.""flow_type"": 2
+4.seller validate",,Click Return/Refund in order details page under To Receive tab,Enter How can we help Page，guide to refund,,,,
+,,,,select I have received all of my items but there are issues,Enter Select Products Page,,,,
+,,,,select all product ，Click Next,Enter Request Return/Refund Page,,,,
+,,,,Click Select Reason,Popup displaySelect Reason,,,,
+,,,,select Missing quantity/accessories， and Click Confirm,"1.Return to Request Return/Refund Page
+2.Correct Display selected Reason",,,,
+,,,,Click Select Solution,Popup displaySelect Solution,,,,
+,,,,select Refund Only，Click Confirm,"1.Return to Request Return/Refund Page
+2.Correct Display selected Solution",,,,
+,,,,"Click ""Edit"" beside Refund Amount",Popup display changee refund amount,,,,
+,,,,Change efund amount,success,,,,
+,,,,Click Confirm,"1.Return to Request Return/Refund Page
+2.Correct Display newly set amount",,,,
+,,,,add photo,success,,,,
+,,,,add video,success,,,,
+,,,,Click Submit,"1.Enter Return/Refund Details Page
+2.Display Case Under Review
+3.TimelineDisplay Shopee Review-Refund(grey)",,,,
+[9]Test Order admin check the detail return order ,Return & Refund,"
+Region=ID/BR
+Enter Admin: https://order-admin.test.shopee.co.id/returns/return_list",PC,search the return order，Enter return details page,"1.Check return Status: RETURN_REQUESTED
+2.Check Initial Status
+Eligible for Auto Refund: Yes",,,,
+[9]Test Buyer check the detail order return status,Return & Refund,"Shopee app
+Region=ID/BR
+[Buyer]",IOS/ANDROID/PC,Me → Return/Refund → Check order status,"1.Redirect to Return Refund Page
+2. Able to view the return order
+3. Display return status Case Under Review
+4. Display hint text
+5. Display action button [Cancel Request]",,,,
+[9]Test Seller to check order return status,Return Seller,"[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Return/Refund → search current return SN",IOS/ANDROID/PC,"return list page, Check  order Status","1.Request Status=In Shopee Review
+2.Action button list={Refund}",,,,
+[9]test cronjob auto_refund_after_return_requested,Return & Refund,"
+Region=ID/BR
+run cronjob - auto_refund_after_return_requested
+https://space.shopee.io/leap/cronjobs/table/#/shopee/shopee-return/return_request?filterGroupTree=true&current=1&pageSize=10&sortBy=start_time&sortDirection=descend 
+Enter Admin: https://order-admin.test.shopee.co.id/returns/return_list",PC,▶️run cronjob，select corresponding CID to run the cronjob,cronjob run successfully,,,,
+,,,,search the return order，Enter return details page,"1.Check return Status: RETURN_ACCEPT
+2.Check Compensation Status: PENDING_REQUEST",,,,
+,,,,click Refund information-Refund ID link，push Refund Status to REFUND_PAID （Created-Verified-Verified-Paid）,,,,,
+[9]Test buyer check the RR order status and the refund SpayLater amount and voucher,Return & Refund,"Shopee app
+Region=ID/BR
+[Buyer]",IOS/ANDROID/PC,Me → Return/Refund → Check order status,"1.Redirect to Return Refund Page
+2. Able to view the return order
+3.Display Refund Completed
+4.TimelineDisplay Shopee Review-Refund(all highlight)",,,,
+,,,,Check SpayLater amount and voucher,Refund successful,,,,
+[9]Test Seller request dispute to shopee,Return Seller,"
+Region=ID/BR
+[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Return/Refund → search current return SN",IOS/ANDROID/PC,return list pageCheck  order Status,"1.Request Status=In Seller Review
+2.Action button list={Dispute, Accept}",,,,
+,,,,Click Enter return detail page,"1.Header=Pending Your Review
+2.Hint text contain dispute due date dd-mm-yyyy
+3.Action button list={Accept(orange), Dispute to Shopee}",,,,
+,,,,Click Dispute to Shopee,Pop-up Dispute to Shopee appears,,,,
+,,,,select reason - I have shipped the item(s) and have proof of shipment，Click Continue,Pop-up upload evidence appears,,,,
+,,,,"Upload photo & video, and click submit","Pop-up with ""Are you sure you want to raise a dispute to Shopee?"" displayed",,,,
+,,,,Click Confirm,Dispute success,,,,
+,,,,Check return detail pageDisplay ,"header=Case Under Review
+hint text=Case is under review. We aim to provide you with an update in 2 days.
+Action button={Evidence/File History, Withdraw Dispute}",,,,
+[9]Test DMS approve the dispute,Return & Refund,"
+Region=ID/BR
+[CS] Judge the dispute case
+https://cs.test.shopee.co.id/dms/dispute/overview ",PC,search return ID，assign to yourself，Click view,Enter Dispute detail page,,,,
+,,,,Click SOP-Judge-Judge Action(ALL)-Judge on the right column,success,,,,
+,,,,Execution: Approve Compenstaion Request,success,,,,
+,,,,Judging Reason: select any one,success,,,,
+,,,,Edit Compensation Amount,success,,,,
+,,,,Click Confirm,Judge Successfully,,,,
+[9]Test Order admin for return order ,"Return & Refund, Order Data & Ops","
+Region=ID/BR
+Enter Admin: https://order-admin.test.shopee.co.id/returns/return_list
+dispute already approve from DMS",PC,search return order，Enter return details page,"1.Check return Status: ACCEPTED
+2.Check Compensation Status: APPROVED
+3.Check Seller Compensation information ，Compensation Amount is equal to the CS portalEnter amount ",,,,
+[9]Test Seller check order return refund detail,Return & Refund,"
+Region=ID/BR
+[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Return/Refund → search current return SN",IOS/ANDROID/PC,return list pageCheck  order Status,"1.Request Status=Dispute Approve
+2.Action button lis is empty",,,,
+,,,,Click Enter return detail page,"1.Header=Compensation Approved
+2.Hint text=Shopee has reviewed the case and decided to provide you with a compensation of {compensation amount}. The amount will be credited to your Seller Balance.",,,,
+,,,,Check refunds and voucher returns,All have been successfully returned,,,,
+[10]Test new buyer check the item in PDP and cart,"PDP, Cart","Shopee app
+Region=ID/BR
+1.user: new user
+
+2.welcome package
+
+3.shop voucher: no voucher
+4.platform voucher: has voucher，but voucher can only be used with ShopeePay
+5.fsv: have fsv
+
+6.coin: cannot redeem coin
+
+7.payment method:
+[ID/SG/PH]seabank
+[other country]any payment method
+8.Buyer unable to use Shopeepay due to various reason such as balanace not enough or buyer being blacklisted....
+
+9.Non-receipt Automation(NRA) logic doc",IOS/ANDROID/PC,Enter PDP Page,Successfully load PDP Page,,,,
+,,,,Check item banner and price,"1.dispaly welcome package banner
+2.Display price with slash",,,,
+,,,,Click Buy Now,Successfully Redirected to OPC Page,,,,
+,,,,"
+Click ""Return to"" button in OPC Page",Return to PDP Page,,,,
+,,,,Click Add to Cart,Successfully add to cart,,,,
+,,,,Click Add to Cart again,"Popup display""Every new user can only choose one of each exclusive deals.""",,,,
+,,,,Click Icon at the top right of the PDP Page,Enter cart Page,,,,
+,,,,Check item,"1.Display New User Price
+2.Cannot change item qty",,,,
+,,,,Select item,success,,,,
+,,,,Cancel select item,success,,,,
+,,,,"[item is in selected (ticked) Status]
+Check voucher","1.Have not applied shop voucher
+2.auto apply platform voucher
+3.auto apply fsv
+[TH/MY can just apply one of fsv and shopee voucher]",,,,
+,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Manually Click fsv，Click OK,"1,success
+2.Return to cart Page",,,,
+,,,,redeem coin,cannot redeem,,,,
+,,,,Check amount in price component,Information in Discount Detail Page displayed correctly,,,,
+,,,,Click Check Out,"1.page load successfully 
+2.payment method is not preselect",,,,
+,,,,"Click""Return to"" button at the top left of OPC Page",Return to cart Page，and item is selected,,,,
+[10]Test buyer successfully place order welcome package[RN],"PDP, Cart, Order Payment","Shopee app
+Region=ID/BR
+User in OPC page",IOS/ANDROID/PC,Check voucher,voucher information and cart Page are the same,,,,
+,,,,"Click Select payment method
+","Redirect to Payment Method Page
+",,,,
+,,,,"select
+[ID/SG/PH]seabank
+[other country]any payment method",success select payment method,,,,
+,,,,click CONFIRM,Return to OPC Page，Popup display that user voucher wll be removed and successfully removed voucher,,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information",information Correct,,,,
+,,,,Click Place Order,"1.redirect to OSP
+2.Payment in pending status",,,,
+,,,,"Click ""Return to"" button at the top left","1.Redirect to My Purchases Page
+2.Redirect to To Pay tab",,,,
+,,,,Click the order,Enter Order Details Page,,,,
+,,,,Click Pay Now,Redirect to Payment Page,,,,
+,,,,"Click ""Return to"" button at the top left",redirect to OSP，Payment in pending status,,,,
+,,,,Click Change Payment Method,Enter Payment Method Page,,,,
+,,,,select new payment method: SpayLater,select successfully,,,,
+,,,,Click CONFIRM,Click successful,,,,
+,,,,Completed payment,"1.Redirect to payment Page
+2.success",,,,
+[10]Test seller sent package,Seller fulfilment,"Region=ID/BR
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Click the order,"1.Enter Order Details Page
+2. Page information displayed accurately",,,,
+,,,,"Find the order, complete arrange shipment",success,,,,
+,,,,Click the order again,"1.Enter Order Details Page
+2. Page information displayed accurately",,,,
+[10]Order admin success update fulfilment status,Order Data & Ops,"
+Region=ID/BR
+Enter Order admin → Orders → Orders",PC,"After Entering Order ID or other information, Click Search",Search successfully,,,,
+,,,,Click Order ID,Redirect to Order Details Page,,,,
+,,,,Click Status & Timeline,success,,,,
+,,,,Click OFG ID,Redirect to Order Fulfilment Group Detail Page,,,,
+,,,,Click Update Fulfilment Status，Change Status To Request Created,success,,,,
+,,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,,,,
+,,,,open coding monkey from OFG page，record rts_status,success,,,,
+,,,,compare with shopee config cEnter → non_receipt_automation_config → region → phase_{x}_config,rts_status_threshold = rts_status,,,,
+,,,,Call Api to update order Delivey_time & expected_receive_time < now,call api successfully,,,,
+[10]Test seller check the order detail in shipping tab,Order Data & Ops,"Region=ID/BR
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Shipping","IOS/ANDROID/PC
+
+",Click Shipping,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,"Find the order, Click Check Details","1.Enter Order Details Page
+2. Page information Display Correct",,,,
+[10]Test buyer check the order detail in to receive tab,Order Data & Ops,"Shopee app
+Region=ID/BR
+[Buyer] Return to buyer side","IOS/ANDROID/PC
+
+",Click Me page → View Purchases → To Receive,"1.Enter My Purchases Page
+2.stop at To Receive Page",,,,
+,,,,Click the order,Redirect to Order Details Page,,,,
+[10]Test buyer refund before receiving package (full refund-full adjustable-Non receipt automation),Order Data & Ops,"Shopee app
+Region=ID/BR
+FE
+1.Refund stage: After pickup_done
+
+BE
+2.""flow_type"": 2
+3.now>expected_delivery_date
+4.order logicstic_status=2(in-transit)
+5.Refund Amount<Item Value Threshold
+6.(After NRA phase 3)Order logistic channel should set as included in admin: https://order-admin.test.shopee.co.id/return/non_receipt_automation/same_day_delivery_3pl_config 
+7.Compare with shopee config cEnter-non_receipt_automation_config: region → phase_{x}_config → rts_status_threshold = rts_status","IOS/ANDROID/PC
+
+",In order details page under To Receive tab，Click Return/Refund,Enter How can we help Page，guide to refund,,,,
+,,,,select I didn't receive some/all of my items,Enter Select Products Page,,,,
+,,,,select all product ，Click Next,Enter Request Return/Refund Page,,,,
+,,,,Click Select Reason,Popup displaySelect Reason,,,,
+,,,,select parcel not deliveried， and click confirm,"1.Return to Request Return/Refund Page
+2.Correct Display selected Reason",,,,
+,,,,Check Solution,Refund Only,,,,
+,,,,add photo,success,,,,
+,,,,Click submit,"1.Enter Return/Refund Details Page
+2.Display Refund approved
+3.TimelineDisplay Request Pending-Shopee Review-Refund(All highlight)",,,,
+[10]Test seller check order deatil after buyer refund,Order Data & Ops,"
+Region=ID/BR
+Buyer success submit refund
+[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Return/Refund → search current return SN
+","IOS/ANDROID/PC
+
+","return list page, Check order Status","1.Request Status=In Seller Review
+2.Action button list={Dispute, Accept}",,,,
+,,,,Click Enter return detail page,"1.Header=Pending Your Review
+2.Hint text contain dispute due date dd-mm-yyyy
+3.Action button list={Accept(orange), Dispute to Shopee}",,,,
+[11]Test buyer successcully place an order for upcoming deep discount item，Seller sent package，buyer refund before receiving good(return refund-full adjustable-accelerate refund),"PDP, Cart","Shopee app
+Region=ID/BR 
+
+1.shop type: preferred+
+
+2.promotion: upcoming deep discount
+
+3.shop voucher: no voucher
+4.platform voucher: has voucher，and voucher can only be used with Credit / Debit Card and any payment method B
+5.fsv: have fsv
+
+6.coin: cannot redeem coin
+
+7.used Credit / Debit Card  last time
+8.payment method: pre select Credit / Debit Card","IOS/ANDROID/PC
+",Enter PDP Page,Successfully load PDP Page,,,,
+,,,,Check item banner and price,"1.display upcoming deep discount banner 
+2.Display discount price",,,,
+,,,,"click ""reminder me"" in deep discount banner",item can be added to cart,,,,
+,,,,Click Add to Cart,Successfully add to cart,,,,
+,,,,Click Icon at the top right of the PDP Page,Enter cart Page,,,,
+,,,,Check item label,Display ”harga Sesial  amount “,,,,
+,,,,Select item,success,,,,
+,,,,Cancel selection of item,success,,,,
+,,,,"[item is in selected (ticked) Status]
+Check voucher","1.Have not applied shop voucher
+2.auto apply platform voucher
+3.auto apply fsv
+[TH/MY can just apply one of fsv and shopee voucher]",,,,
+,,,,redeem coin,cannot redeem,,,,
+,,,,Check amount in price component,Information in Discount Detail Page displayed correctly,,,,
+,,,,"Click ""Return to"" at the top left of cart Page",Return to PDP Page,,,,
+,,,,Click Buy Now,Successfuly redirected to OPC Page,,,,
+,,,,"[OPC Page]
+Check voucher",voucher information  and cart Page are the same,,,,
+,,,,Check Payment Option,pre select Credit / Debit Card,,,,
+,,,,Reselect payment method B,success,,,,
+,,,,Reselct any Payment Option(other than Credit / Debit Card and payment method B),"1.success
+2.Popup display that user voucher will be removed 
+3.Successfully remove voucher",,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information", information Correct ,,,,
+,,,,Click Place Order,"1.redirect to OSP
+2.Payment status is paid",,,,
+,,,,Click My Purchases button,"1.Redirect to My Purchases Page
+2.Redirect to To Ship tab",,,,
+,,,,Click the order,Redirect to Order Details Page,,,,
+[11]Test buyer successcully place an order for upcoming deep discount item，Seller sent package，buyer refund before receiving good(return refund-full adjustable-accelerate refund),Seller fulfilment,"""[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → To Ship""","IOS/ANDROID/PC
+",Click To Ship,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Click the order,"1.Enter Order Details Page
+2. Page information displayed accurately",,,,
+,,,,"Find the order, complete arrange shipment",success,,,,
+,,,,Click the order again,"1.Enter Order Details Page
+2. Page information displayed accurately",,,,
+[11]Test order admin update fullfillment status,Order Data & Ops,Enter Order admin → Orders → Orders,PC,Enter Order ID or other  information then click search,Search successfully,,,,
+,,,,Click Order ID,Redirect to Order Details Page,,,,
+,,,,Click Status & Timeline,success,,,,
+,,,,Click OFG ID,Redirect to Order Fulfilment Group Detail Page,,,,
+,,,,Click Update Fulfilment Status，Change Status To Request Created,success,,,,
+,,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,,,,
+,,,,Click Update Fulfilment Status，Change Status to Successful,,,,,
+[11]Test buyer check order detail page in tab to receive,Order Data & Ops,"Shopee app
+Region=ID/BR 
+[Buyer] Return to client side",IOS/ANDROID/PC,Click Me page → View Purchases → To Receive,"1.Enter My Purchases Page
+2.stop at To Receive Page",,,,
+,,,,Click the order,Redirect to Order Details Page,,,,
+[11]Test buyer request refund before receiving good(return refund-full adjustable-accelerate refund),Return & Refund,"Shopee app
+Region=ID/BR 
+FE
+1.Refund stage: pending goods received
+
+BE
+2.""physical_return_allowed"": true
+3.""flow_type"": 2
+
+4.seller in user tag: ACCELERATED_REFUND_AFTER_RETURN_PICKUP_DONE_SELLER_TAG
+5.refund amount<threshold
+6.buyer accelerate refund times<monthly quota",IOS/ANDROID/PC,Click Return/Refund,Enter How can we help Page，guide to refund,,,,
+,,,,select I have received all of my items but there are issues,Enter Select Products Page,,,,
+,,,,Check Select All，Click Next,Enter Request Return/Refund Page,,,,
+,,,,Click Select Reason,Popup displaySelect Reason,,,,
+,,,,select Missing quantity/accessories， and Click Confirm,"1.Return to Request Return/Refund Page
+2.Correct Display selected Reason",,,,
+,,,,Click Select Solution,Popup displaySelect Solution,,,,
+,,,,select Return and Refund，Click Confirm,"1.Return to Request Return/Refund Page
+2.Correct Display selected Solution",,,,
+,,,,leave description,success,,,,
+,,,,add photo,success,,,,
+,,,,add video,success,,,,
+,,,,Click Submit,"1.Enter Return/Refund Details Page
+2.Display Return Pending",,,,
+,,,,Click Select Shipping option,Redirect to Shipping Information Page,,,,
+,,,,Click Select Shipping option,Redirect to Shipping Information Page,,,,
+,,,,select Drop off,success,,,,
+,,,,Click Confirm,Enter Return/Refund Details Page，Display Pending Drop off,,,,
+,,,,Click CHANGE,Redirect to Change Return Method Page,,,,
+,,,,select Pick Up,success,,,,
+,,,,Click Confirm,Popup display Confirm changes?,,,,
+,,,,Click Confirm,Enter Return/Refund Details Page，Display Pending Pick up,,,,
+,,,,Check Return/Refund Details Pagepick up related nformation ,"1.Pick Up by logistic channel， information Correct 
+2.Correct Display Pickup Time
+3.Correct Display Pickup Address
+4.Correct Display  Page information ",,,,
+,,,,Click More Shipping Instructions,Successfully redirected  Page and information displayed Correctly,,,,
+[11]Test buyer order detail return refund,Return & Refund,Order admin-Return & Refund Details set Logistics Status: PICKUP_DONE,IOS/ANDROID/PC,Click order ，Enter Return/Refund Details Page,"1.Display Return In Progress
+2.Display due date information below",,,,
+,,,,"Click ""VIEW"" on the right of Return Shipping Details",Redirect to Return Shipping Details Page， PagePick Up information Display Correct ,,,,
+,,,,"Click ""Return to"" button at the top left",Return to Return/Refund Details Page,,,,
+,,,,Check Return/Refund Details Page information Display ,"1.Return In Progress
+2.Seller respond due date dd-mm-yyyy",,,,
+,,,,search the return order，Enter details page,"1.Check return Status: PROCESSING
+2.Enter coding monkey，Check eligible_for_accelerated_refund_after_return_pickup_done: true
+3.Check eligible_for_accelerated_refund_after_return_pickup_done_due_time configured",,,,
+[11]Test run cron job,Return & Refund,"Shopee app
+Region=ID/BR ",PC,▶️run cronjob，select corresponding country(CID),run succeessfully,,,,
+[11]Test Order admin for order detail return refund ,Return & Refund,"Region=ID/BR
+Enter Admin: https://order-admin.test.shopee.co.id/returns/return_list",PC,search return order，Enter details page,"1.Check return Status: RETURN_ACCEPT → REFUND_PAID
+2.Check Compensation Status: INITIAL_STAGE",,,,
+[11]Test Order admin for return status,Return & Refund,"Region=ID/BR
+success run cron job
+1.now>eligible_for_accelerated_refund_after_return_pickup_done_due_time
+2.Enter https://space.shopee.io/leap/cronjobs/table/#/shopee/shopee-return/return_logistics?filterGroupTree=true&current=1&pageSize=10&sortBy=start_time&sortDirection=descend run cronjob - accelerate_refund_after_pickup_done",PC,click Refund information-Refund ID link，push Refund Status to REFUND_PAID （Created-Verified-Verified-Paid）,Check return Status: REFUND_PAID,,,,
+[11]Test buyer check order detail after refund completed,Return & Refund,"Shopee app
+Region=ID/BR ",IOS/ANDROID/PC,Me → Return/Refund → Check order status,"1.Redirect to Return Refund Page
+2.Able to see order from just now 
+3.Display Refund Completed
+4.TimelineDisplay Return Item-Item Validation-Refund(all highlight)",,,,
+[11]Test seller check order detail after refund completed,Order Data & Ops,"Region=ID/BR 
+[Shopee App > SC]: BR & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → Return/Refund",IOS/ANDROID/PC,Enter Return Request ID (Return SN) then click apply,"1. load order list page successfully
+2. Request Solution: Return and Refund 
+3. Request status: Request Refunded",,,,
+,,,,Check action buttons,No action button,,,,
+,,,,Click order ,"Header=Refund Completed
+Hint text=The buyer's request has been approved with refund of Rp200. Any remaining payment will be released to you.",,,,
+[12]Test Buyer check pdp and the item have platform sale,"PDP, Voucher","Shopee app
+Region=ID/TW
+1.promotion: platform sale
+
+2.payment installment：SpayLater & cc
+
+3.fsv: no fsv
+
+4.payment method: 
+[SG]MariBank
+[other country]any payment method",IOS/ANDROID/PC,Enter PDP Page,Successfully load PDP Page,,,,
+,,,,"[Non-TW/Non-BR region，this is new logic ，TW/BR have yet to be whitelisted]
+Check installment information under the price component ",Display installment data,,,,
+,,,,Click installment information,Redirect to Installment Plans Page，Display relevant info，consitats of cc installment and spl installment,,,,
+,,,,"
+Click OK","
+Return to PDP Page",,,,
+,,,,Click Add to Cart,Successfully add to cart,,,,
+,,,,Click cart Icon on top right corner of PDP Page,Enter cart Page,,,,
+,,,,tick to select item,success,,,,
+,,,,Check voucher,No fsv applied,,,,
+,,,,Check price amount ,Information in Discount Detail Page displayed correctly,,,,
+,,,,Click Check Out,page load successfully ,,,,
+,,,,"Click ""Return to"" button on OPC Page top left corner",Loads Return to cart Page and item is in Checked Status,,,,
+,,,,Check voucher,voucher information and cart page info matches,,,,
+,,,,Click Select payment method,Redirect to Payment Method Page,,,,
+,,,,"select
+[SG]MariBank
+[other country]any payment method",success select the payment method,,,,
+,,,,Click CONFIRM,Return to OPC Page,,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information", information Correct ,,,,
+,,,,Click Place Order,"1.redirect to OSP
+2.Payment in pending status",,,,
+,,,,Click Home button,Return to homepage,,,,
+[12]Test Buyer successfully place order for platform sale item,"Order Payment, Order Data & Ops","Shopee app
+Region=ID/TW 
+Success to place order",IOS/ANDROID/PC,Me-To Pay,"1.Redirect to To Pay
+2.Able to see order from just now ",,,,
+,,,,Click the order,Enter Order Details Page,,,,
+,,,,Click CHANGE on right of Payment Method,Enter Payment Method Page,,,,
+,,,,select new payment method: Credit / Debit Card,select success,,,,
+,,,,Click CONFIRM,"Click success, Redirect to payment Page",,,,
+,,,,Complete payment,success,,,,
+,,,,Click My Purchases button,"1.Redirect to My Purchases Page
+2.Redirect to To Ship tab",,,,
+,,,,Click the order,Redirect to Order Details Page,,,,
+,,,,Click Cancel Order,Pop-up “Select Cancellation Reason”,,,,
+,,,,"choose ""Need to change delivery address"" and click on Confirm","1.Redirect to Refund Details Page
+2. page Display Refund in Progress",,,,
+,,,,Click Return to button at top left of Refund Details Page,"1.Enter My Purchases Page
+2.stop at Cancelled Page",,,,
+,,,,Check Cancelled order  details,"1.Cancelled
+2.Buy Again
+3.Quantity, Unit price, Order Total is Correct ",,,,
+,,,,Click the order,"1.Redirect to Refund Details Page
+2. page Display You have been refunded",,,,
+,,,,Click Order Detail,Enter Order Details Page,,,,
+,,,,Click View Refund details,"1.Redirect to Refund Details Page
+2. page Display You have been refunded",,,,
+,,,,"[Order Details Page]
+Click Buy Again",Redirect to cart Page，and item is pre-selected,,,,
+[12]Test Order admin check query order_unit_migration_togle information,Order Data & Ops,"Region=ID/TW
+Enter Order admin → Orders → Orders",PC,"After Entering Order ID or other information, Click Search",Search successfully,,,,
+,,,,Click Order ID,Redirect to Order Details Page,,,,
+,,,,Click Coding Monkey,success,,,,
+,,,,Query order_unit_migration_toggle information ,Value is 2,,,,
+[12]Test Seller to check the cancellation order,Order Data & Ops,"[Shopee App > SC]: ID & BR
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Cancellation",IOS/ANDROID/PC,Click Cancellation,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Click Cancelled tab,"1.Successfully load page 
+2.Able to view the order cancelled just now",,,,
+,,,,Click Check Details,"1.Enter Order Details Page
+2. Page information Display Correct ",,,,
+[13]Test Buyer pdp and able to place order for membership gift,"PDP, Cart","Shopee app
+Region=ID/TW 
+1.membership gift
+
+2.payment method: Bank Transfer
+
+3.Seller Center → Marketing cEnter → Market Tools>Brand Membership, set discounts",IOS/ANDROID/PC,Add to cart product from the shop which has membership added,success,,,,
+,,,,Click shop name in cart page,Enter shop Page,,,,
+,,,,Click Membershop,Prompt Join Membership,,,,
+,,,,Click Join Membership Now,Display New Member Benefits,,,,
+,,,,Click Redeem,Popup displayRedeem this product for 1 points?,,,,
+,,,,Click Redeem,Successfully add to cart,,,,
+,,,,Check item information ,"1.Display label: Member Gift
+2.Display slash price
+3.Display Membership Gift: Ends at {{datetime}}",,,,
+,,,,Click product ,Enter PDP Page,,,,
+,,,,Click Add to Cart,"Add to cart failed, Prompt """"This product has been added into your Shopping Cart as a Membership Item. If you want to buy more with normal price, you must place an order of the Membership Item or remove it from the Shopping Cart first.""""",,,,
+,,,,Click Return to button in top left of PDP Page,Return to cart Page,,,,
+,,,,Check (tick) item,success,,,,
+,,,,UnCheck item (untick),success,,,,
+,,,,Check price amount,Information in Discount Detail Page displayed correctly,,,,
+,,,,Click Check Out,page load successfully ,,,,
+,,,,"Click ""Return to"" button on OPC Page top left corner",Loads Return to cart Page and item is in Checked Status,,,,
+,,,,Check voucher,voucher information and cart page info matches,,,,
+,,,,Click Select payment method,Redirect to Payment Method Page,,,,
+,,,,select Bank Transfer，Click CONFIRM,Return to OPC Page,,,,
+,,,,"Check OPC Page for 
+1. shop,
+2. item,
+3. voucher,
+4. coins,
+5. Payment Details information", information Correct ,,,,
+,,,,Click Place Order,"1.redirect to OSP
+2.Payment in pending status",,,,
+,,,,Click Home button,Return to homepage,,,,
+[13]Test Buyer change ,"Order Data & Ops, Order Payment","Shopee app
+Region=ID/TW 
+success to place order",IOS/ANDROID/PC,Me-To Pay,"1.Redirect to To Pay
+2.Able to see order from just now ",,,,
+,,,,Click the order,Enter Order Details Page,,,,
+,,,,Click CHANGE on right of Payment Method,Enter Payment Method Page,,,,
+,,,,select new payment method: Cash On Delivery,select success,,,,
+,,,,Click CONFIRM,redirect to OSP,,,,
+,,,,Complete payment,Payment in pending status,,,,
+,,,,Click My Purchases button,"1.Redirect to My Purchases Page
+2.Redirect to To Ship tab",,,,
+,,,,Click the order,Redirect to Order Details Page,,,,
+,,,,Click Cancel Order,Pop-up “Select Cancellation Reason”,,,,
+,,,,"choose ""Need to change delivery address"" and click on Confirm","1.Redirect to Refund Details Page
+2. page Display Refund in Progress",,,,
+,,,,"Click ""Return to"" button on top left of the Refund Details Page","1.Enter My Purchases Page
+2.stop at Cancelled Page",,,,
+,,,,Check Canceled order ,"1.Cancelled
+2.Buy Again
+3.Quantity, Unit price, Order Total is Correct ",,,,
+,,,,Click the order,"1.Redirect to Refund Details Page
+2. page Display You have been refunded",,,,
+,,,,Click Order Detail,Enter Order Details Page,,,,
+,,,,Click View Refund details,"1.Redirect to Refund Details Page
+2. page Display You have been refunded",,,,
+,,,,Click Buy Again,"Redirect to cart page, and item is pre-selected",,,,
+[13]Test Buyer able to place order for membership gift,Order Data & Ops,Enter Order admin → Orders → Orders,PC,"After Entering Order ID or other information, Click Search",Search successfully,,,,
+,,,,Click Order ID,Redirect to Order Details Page,,,,
+,,,,Click Coding Monkey,success,,,,
+,,,,Query order_unit_migration_toggle information ,Value is zero,,,,
+[13]Test Buyer able to place order for membership gift,Order Data & Ops,"[Shopee App > SC]: ID & TW
+[Standalone Seller App]: Other countries
+
+Login Seller Center → My Orders → Cancellation",IOS/ANDROID/PC,Click Cancellation,"1. load order list page successfully
+2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
+,,,,Click Cancelled tab,"1.Successfully load page 
+2.Able to view the order cancelled just now",,,,
+,,,,Click Check Details,"1.Enter Order Details Page
+2. Page information Display Correct ",,,,

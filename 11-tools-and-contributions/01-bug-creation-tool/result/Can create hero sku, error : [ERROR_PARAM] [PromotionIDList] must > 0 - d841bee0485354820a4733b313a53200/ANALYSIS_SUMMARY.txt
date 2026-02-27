@@ -1,0 +1,111 @@
+BUG ANALYSIS SUMMARY
+====================
+
+ISSUE OVERVIEW
+TraceID: d841bee0485354820a4733b313a53200
+Environment: staging
+Region: ID
+Severity: Medium
+Date: 2026-01-14
+
+PROBLEM
+When attempting to create a hero SKU item with promotions, the request fails with a parameter validation error. The system requires PromotionIDList to contain at least one valid promotion ID greater than 0, but the request either doesn't include this parameter or includes invalid values. This blocks sellers from creating promotional hero SKU items, affecting their ability to run marketing campaigns.
+
+ERROR DETAILS
+Code: 6000006
+Message: [ERROR_PARAM] [PromotionIDList] must > 0
+Service: Backend Service (likely promotion/item service)
+Component: Parameter Validation Layer
+API Endpoint: Hero SKU Creation API
+Timestamp: 2026-01-14
+
+ROOT CAUSE
+The error occurs during parameter validation when creating a hero SKU. The backend service expects the PromotionIDList parameter to contain at least one valid promotion ID with a value greater than 0. The validation fails because:
+1. The PromotionIDList parameter may be missing from the request
+2. The PromotionIDList may be empty or null
+3. The PromotionIDList may contain invalid values (0 or negative numbers)
+4. The promotion IDs in the list may not exist or be invalid
+
+This is a backend validation issue where the API contract requires PromotionIDList to be properly populated with valid promotion IDs, but the request payload doesn't meet this requirement.
+
+SERVICE CHAIN
+1. User Action → Create Hero SKU Request
+2. Frontend/API Gateway → Backend Service (Hero SKU Creation)
+3. Backend Service → Parameter Validation Layer
+4. Error occurred at Parameter Validation Layer (reason: PromotionIDList validation failed - must be > 0)
+
+CONFIGURATION ISSUES (if applicable)
+- Missing or incorrect PromotionIDList parameter in request payload
+- Validation rule requires PromotionIDList to contain values > 0
+
+DATA ISSUES (if applicable)
+- PromotionIDList may contain invalid promotion IDs
+- Promotion IDs may not exist in the system
+- Promotion IDs may be 0 or negative values
+
+IMPACT ASSESSMENT
+User Impact:
+- Sellers cannot create hero SKU items with promotions
+- Blocks marketing campaign setup for hero SKU items
+- Affects seller ability to promote featured products
+- Workaround: Create hero SKU without promotions (limits functionality)
+
+System Impact:
+- Hero SKU creation feature partially blocked
+- Promotion association feature affected
+- Related features that depend on hero SKU promotions impacted
+- Scope: Affects all hero SKU creation attempts with promotions in staging ID
+
+TEAMS TO CONTACT
+Primary: @[Backend-Team-Name]
+Reason: This is a backend parameter validation issue. The team needs to investigate why PromotionIDList validation is failing and ensure proper handling of promotion IDs in hero SKU creation requests.
+
+Secondary: @[Promotion-Team-Name] (if applicable)
+Reason: May need to verify promotion ID validation logic and ensure promotion IDs are properly formatted and validated before being passed to hero SKU creation service.
+
+Tertiary: @[Item-Service-Team] (if applicable)
+Reason: Hero SKU creation service may need to handle promotion ID validation or coordinate with promotion service to validate promotion IDs.
+
+SOLUTION STEPS
+1. Backend-Team-Name: Investigate hero SKU creation API to identify why PromotionIDList validation is failing. Check if the parameter is being properly extracted from request payload.
+2. Backend-Team-Name: Review parameter validation logic to ensure PromotionIDList accepts valid promotion IDs (> 0) and handles edge cases properly.
+3. Promotion-Team-Name: Verify promotion ID validation and ensure promotion IDs exist and are valid before being used in hero SKU creation.
+4. Verification: Test hero SKU creation with valid promotion IDs to confirm fix works.
+5. Testing: Test various scenarios including empty lists, invalid IDs, and valid promotion IDs.
+
+VERIFICATION STEPS
+After the fix is deployed:
+1. Attempt to create hero SKU with valid promotion IDs (> 0)
+2. Verify hero SKU is created successfully with promotions associated
+3. Test edge cases: empty promotion list, invalid IDs, non-existent promotion IDs
+4. Monitor for 24 hours to ensure no regression
+
+LOG EVIDENCE
+Error Response:
+{
+    "error_list": [
+        {
+            "error_code": 6000006,
+            "error_msg": "[ERROR_PARAM] [PromotionIDList] must > 0",
+            "component_id": 0
+        }
+    ]
+}
+
+TraceID: d841bee0485354820a4733b313a53200
+Error Type: ERROR_PARAM
+Validation Rule: PromotionIDList must contain values > 0
+
+NEXT STEPS
+1. Create JIRA ticket (use jira_ticket.txt)
+2. Notify dev teams (use chat_message.txt)
+3. Wait for team investigation
+4. Verify fix after resolution
+5. Retest the scenario
+6. Close ticket if resolved
+
+---
+Generated: 2026-01-14 13:39:52
+Analyzer Version: Bug Analyzer v2.2 (TXT-based)
+Analyzed By: Cursor AI
+

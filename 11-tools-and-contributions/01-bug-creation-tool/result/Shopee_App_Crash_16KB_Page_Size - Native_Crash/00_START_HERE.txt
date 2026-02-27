@@ -1,0 +1,131 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║   BUG REPORT: Shopee App Crash on 16KB Page Size                         ║
+║   Priority: P0 - Critical                                                 ║
+║   Date: 2025-12-03                                                        ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📋 QUICK START GUIDE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Step 1: Read README.md
+   → Get quick overview of the issue
+
+Step 2: Create JIRA Ticket
+   → Copy content from: jira_ticket.txt
+   → Paste into JIRA
+   → Get JIRA ticket URL
+
+Step 3: Notify Teams
+   → Copy content from: chat_message.txt
+   → Replace [JIRA_TICKET_URL] with actual URL from Step 2
+   → Send to @Native-Team and @Build-Team
+
+Step 4: Share Technical Details
+   → Share ANALYSIS_SUMMARY.md with technical teams
+   → Contains detailed root cause and solution steps
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 FILES IN THIS REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ README.md (3.5 KB)
+   Quick summary and overview
+
+✅ jira_ticket.txt (4.8 KB)
+   Ready-to-paste JIRA ticket
+   → Copy this to create JIRA ticket
+
+✅ chat_message.txt (1.7 KB)
+   Ready-to-send message for dev teams
+   → Remember to update [JIRA_TICKET_URL]
+
+✅ ANALYSIS_SUMMARY.md (14 KB)
+   Detailed technical analysis
+   → Full root cause analysis
+   → Step-by-step solution guide
+   → Verification procedures
+   → Log evidence
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 ISSUE SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Problem:
+   Shopee app crashes immediately on startup when running on Android 15
+   devices with 16KB page size configuration.
+
+Root Cause:
+   Native libraries (.so files) are not properly aligned for 16KB page
+   boundaries. App is built for 4KB pages only.
+
+Verification:
+   ✅ Same APK works fine on 4KB page size devices (API 34)
+   ❌ Same APK crashes on 16KB page size devices (API 35)
+   → Confirms issue is specific to 16KB incompatibility
+
+Impact:
+   • App completely unusable on 16KB devices
+   • Blocks Android 15 (16KB) compatibility testing
+   • Will affect future devices using 16KB as default
+
+Teams Involved:
+   • @Native-Team (Primary) - Rebuild libraries with 16KB alignment
+   • @Build-Team (Secondary) - Update build configuration
+   • @Android-Platform-Team (Tertiary) - Verify compliance
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚡ KEY TECHNICAL DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Error Type:        SIGSEGV (Segmentation violation)
+Crashed Thread:    JSBinder (React Native bridge)
+Crashed Libraries: libshadowhook.so, libglog_v2.so, libnative-crash.so
+App Version:       Shopee 3.64.03@regression
+Android Version:   API 35 (Android 15)
+Page Size:         16384 bytes (16KB) ← Problem!
+Expected:          Libraries aligned to 16KB boundaries
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 REQUIRED FIX (High Level)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Native Team:
+   → Rebuild all .so files with 16KB alignment flag
+   → Add: -Wl,-z,max-page-size=16384
+
+2. Build Team:
+   → Set extractNativeLibs="false" in AndroidManifest.xml
+   → Add useLegacyPackaging=false in build.gradle
+   → Test on 16KB emulator
+
+3. Verification:
+   → Install on 16KB emulator
+   → Verify app launches without crash
+   → Run full regression tests
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 REFERENCES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• Android 16KB Guide:
+  https://developer.android.com/guide/practices/page-sizes
+
+• NDK Build Guide:
+  https://developer.android.com/ndk/guides/abis
+
+• 16KB Best Practices:
+  https://source.android.com/docs/core/architecture/kernel/16kb-page-size
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Need help? Contact QA Team
+Report generated: 2025-12-03
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

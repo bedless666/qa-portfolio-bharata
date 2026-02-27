@@ -1,0 +1,23 @@
+Hi @CMT-Team @Campaign-Scene-Team
+
+Found issue in KH Test environment.
+
+Issue: Flash Sale review page returns error 204 - Session data not found for pending auto review count
+
+TraceID: 86e88e0843fe67ebf6e3fcfeb94ab000
+Error Code: 204 (No Content/Data Not Found)
+Error: API `/api/gateway/v1/cmt/commonscene/pending_auto_review_count` returns {"data": null, "error": 204, "error_msg": ""}
+
+Root Cause: Data Not Found - Session ID 170000000005035 data is missing or inaccessible
+
+The pending_auto_review_count API returns error 204 with null data when querying session 170000000005035. Permission checks pass successfully, but the actual session data retrieval fails. This blocks campaign managers from accessing the Flash Sale review page and completing the review workflow.
+
+Possible causes:
+- Session doesn't exist in KH test database
+- Session data was deleted/expired
+- Data inconsistency or invalid session state
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate and either fix the session data or create valid test data? Thanks!
+

@@ -43,16 +43,17 @@ qa-portfolio-bharata/
 │   ├── 02-japanese-n5-learning/   # Interactive learning tool
 │   └── 03-html-prompting-interfaces/ # Themed UI showcase
 │
-├── 01-regression-automation/      # Professional Work
-├── 02-jira-optimization/          # Professional Work
-├── 03-documentation-samples/      # Professional Work
-├── 04-test-templates/             # Professional Work
+├── 02-regression-automation/      # Professional Work
+├── 03-jira-optimization/          # Professional Work
+├── 04-documentation-samples/      # Professional Work
+├── 05-test-templates/             # Professional Work
+├── 11-tools-and-contributions/    # Professional Work
 │
-├── 05-web-api-framework/          # Learning Projects
-├── 06-cucumber-ui-framework/      # Learning Projects
-├── 07-final-project-framework/    # Learning Projects
-├── 08-api-testing-basics/         # Learning Projects
-├── 09-java-gradle-setup/          # Learning Projects
+├── 06-web-api-framework/          # Learning Projects
+├── 07-cucumber-ui-framework/      # Learning Projects
+├── 08-final-project-framework/    # Learning Projects
+├── 09-api-testing-basics/         # Learning Projects
+├── 10-java-gradle-setup/          # Learning Projects
 │
 └── .docs/                         # Internal documentation
     ├── SESSION-NOTES.md
@@ -72,14 +73,15 @@ Cutting-edge AI integration demonstrating modern QA capabilities:
 - Prompt engineering for test documentation
 - Zero-dependency standalone applications
 
-### 2. **Professional Work Projects (01-04)**
+### 2. **Professional Work Projects (02-05, 11)**
 Real-world QA solutions from e-commerce and fintech experience:
 - Regression automation with AI integration
 - JIRA workflow optimization tools
 - Technical documentation standards
 - E-commerce test templates
+- Automation tools & contributions (6 tools + 1 methodology)
 
-### 3. **Learning Projects (05-09)**
+### 3. **Learning Projects (06-10)**
 Skill development projects from bootcamp training:
 - Full-stack automation frameworks
 - BDD/Cucumber implementations
@@ -105,7 +107,10 @@ Hybrid menu-style system for portfolio management:
 → Check [01-regression-automation](./01-regression-automation/) for production automation
 
 **"Show me your automation skills"**
-→ Browse projects 05-09 for framework implementations
+→ Browse projects 06-10 for framework implementations
+
+**"What tools have you built?"**
+→ Check [11-tools-and-contributions](./11-tools-and-contributions/) for automation tools
 
 **"What's your testing approach?"**
 → Read [PROJECT-PROGRESS.md](./PROJECT-PROGRESS.md) for methodology
@@ -136,9 +141,9 @@ Hybrid menu-style system for portfolio management:
 
 | Metric | Value |
 |--------|-------|
-| **Total Projects** | 10 |
-| **AI-Assisted Projects** | 1 parent (2 sub-projects) |
-| **Professional Work** | 4 projects |
+| **Total Projects** | 11 |
+| **AI-Assisted Projects** | 1 parent (3 sub-projects) |
+| **Professional Work** | 5 projects |
 | **Learning Projects** | 5 projects |
 | **Years of Experience** | 3+ years |
 | **Completion Status** | 100% |
@@ -154,7 +159,7 @@ Hybrid menu-style system for portfolio management:
 - Internal URLs replaced with placeholders
 
 ### Learning Projects Disclaimer
-Projects 05-09 were developed during professional bootcamp training and represent educational work rather than production implementation from employment. They showcase learning ability and technical foundation.
+Projects 06-10 were developed during professional bootcamp training and represent educational work rather than production implementation from employment. They showcase learning ability and technical foundation.
 
 ---
 

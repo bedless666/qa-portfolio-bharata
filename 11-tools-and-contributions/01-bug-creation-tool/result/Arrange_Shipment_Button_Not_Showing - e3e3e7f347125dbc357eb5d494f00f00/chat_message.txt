@@ -1,0 +1,25 @@
+Hi @Seller-Platform-Team @Feature-Toggle-Team
+
+Found issue in ID staging environment.
+
+Issue: Arrange Shipment button not showing in Seller Center for COD orders in "To Ship" status
+
+TraceID: e3e3e7f347125dbc357eb5d494f00f00
+Error Code: 30030
+Error: field[is_in] is not exists
+
+Root Cause: Feature Toggle Configuration Error - sellerplatform-featuretogglespex service
+
+The feature toggle key "sz_motorcycle_loan_seller" is missing or has incomplete configuration in staging. The required field "is_in" does not exist in the feature toggle schema, causing button action generation to fail (error 30000). This blocks sellers from arranging shipment for COD orders.
+
+Affected Order:
+- Order ID: 220691851208175
+- Shop ID: 301881182
+- Status: Ready for fulfilment, all conditions met except feature toggle check
+
+Created ticket with full analysis: [JIRA_TICKET_URL]
+
+Could you please help investigate and fix the feature toggle configuration? This is blocking COD fulfilment testing in staging. Thanks!
+
+
+
