@@ -1,0 +1,3479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QAoD Regression Task Generator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 28px; margin-bottom: 8px; }
+        .header .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        
+        .main-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .main-tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .main-tab:hover { background: #e8e9ea; }
+        .main-tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+        
+        .section { display: none; padding: 30px; }
+        .section.active { display: block; }
+        
+        .sub-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .sub-tab {
+            padding: 12px 20px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .sub-tab:hover { background: #e0e0e0; }
+        .sub-tab.active {
+            background: linear-gradient(135deg, #ee7752 0%, #e73c7e 100%);
+            color: white;
+        }
+        #rn-section .sub-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        #seller-section .sub-tab.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .template { display: none; }
+        .template.active { display: block; }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #333;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .form-group small {
+            display: block;
+            margin-top: 4px;
+            color: #888;
+            font-size: 12px;
+        }
+        .required { color: #e74c3c; }
+        
+        /* Region Grid */
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 8px;
+        }
+        .region-item {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .region-item input {
+            width: auto;
+            margin-right: 6px;
+            accent-color: #667eea;
+        }
+        
+        /* PIC Multi-Select */
+        .pic-selector {
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f8fafc;
+        }
+        .pic-item {
+            display: flex;
+            align-items: center;
+            padding: 6px;
+            margin-bottom: 4px;
+            background: white;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .pic-item input {
+            width: auto;
+            margin-right: 8px;
+            accent-color: #667eea;
+        }
+        .pic-item:hover {
+            background: #e0e7ff;
+        }
+        
+        /* Quick Fill Date Buttons */
+        .quick-fill {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .quick-fill-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        .quick-fill-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .quick-btn {
+            padding: 6px 12px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        .quick-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        /* Region-PIC Mapping */
+        .region-pic-mapping {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f8fafc;
+            margin-top: 8px;
+        }
+        .region-pic-row {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 15px;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+        .region-pic-row:hover {
+            border-color: #667eea;
+        }
+        .region-pic-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+        }
+        .region-pic-row select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 13px;
+            background: white;
+            cursor: pointer;
+        }
+        .region-pic-row select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .link-helper {
+            display: flex;
+            gap: 8px;
+            margin-top: 5px;
+            flex-wrap: wrap;
+        }
+        .link-helper a {
+            font-size: 11px;
+            color: #667eea;
+            text-decoration: none;
+            padding: 4px 8px;
+            background: #e0e7ff;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .link-helper a:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 5px;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #374151;
+        }
+        .radio-group input[type="radio"] {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #666;
+        }
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .preview-box {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 300px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .api-response-box {
+            background: #1e1e1e;
+            color: #2ecc71;
+            border: 2px solid #2ecc71;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 150px;
+            max-height: 400px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            overflow-y: auto;
+        }
+        .api-response-box.error {
+            color: #e74c3c;
+            border-color: #e74c3c;
+        }
+        .api-response-box.loading {
+            color: #f39c12;
+            border-color: #f39c12;
+        }
+        
+        .success-msg {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        .success-msg.show { opacity: 1; }
+        
+        .info-box {
+            background: #e0e7ff;
+            border-left: 4px solid #667eea;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        .info-box strong {
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .sub-tabs { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 QAoD Regression Task Generator</h1>
+            <p>Generate chat templates & Auto-create Jira + SeaTalk via API</p>
+            <div class="badge" id="envBadge">✨ With Workflow Automation</div>
+        </div>
+
+        <div class="main-tabs">
+            <div class="main-tab active" onclick="switchMainTab('native')">📱 QAoD Native App</div>
+            <div class="main-tab" onclick="switchMainTab('rn')">🚀 RN Regression Helper</div>
+            <div class="main-tab" onclick="switchMainTab('seller')">🛒 Seller App</div>
+        </div>
+
+        <!-- SELLER APP SECTION -->
+        <div id="seller-section" class="section">
+            <div class="info-box">
+                <strong>🚀 New Feature:</strong> Click "Send to API & Create Jira" button to automatically create Jira ticket, SeaTalk message, and thread!
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab active" onclick="switchTemplate('seller', 'rn-staging')">🚀 RN Staging Regression</button>
+                <button class="sub-tab" onclick="switchTemplate('seller', 'native-adhoc')">🚨 Native Adhoc Regression</button>
+                <button class="sub-tab" onclick="switchTemplate('seller', 'native-live')">🔴 Native Live Regression</button>
+                <button class="sub-tab" onclick="switchTemplate('seller', 'native-hotfix')">⚡ Native Hotfix Regression</button>
+            </div>
+
+            <!-- RN STAGING REGRESSION (ACTIVE BY DEFAULT) -->
+            <div id="seller-rn-staging" class="template active">
+                <h3>🚀 RN Staging Regression - Seller App</h3>
+                
+                <!-- Quick Fill Date Section -->
+                <div class="quick-fill">
+                    <div class="quick-fill-title">📅 Quick Fill Date:</div>
+                    <div class="quick-fill-buttons">
+                        <button class="quick-btn" onclick="setStagingToday()">Today</button>
+                        <button class="quick-btn" onclick="setStagingNextMonday()">Next Monday</button>
+                        <button class="quick-btn" onclick="setStagingCustomDate(7)">+7 Days</button>
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div>
+                        <!-- Basic Information -->
+                        <h4>📅 Basic Information</h4>
+                        <div class="form-group">
+                            <label>Version Number <span class="required">*</span></label>
+                            <input type="text" id="s-rn-stg-version" placeholder="e.g., 2025.11.v4">
+                        </div>
+                        <div class="form-group">
+                            <label>Date <span class="required">*</span></label>
+                            <input type="date" id="s-rn-stg-date">
+                        </div>
+                            <div class="form-group">
+                                <label>Test Case Spreadsheet URL <span class="required">*</span></label>
+                                <input type="url" id="s-rn-stg-spreadsheet" placeholder="https://docs.google.com/spreadsheets/d/...">
+                                <div class="link-helper">
+                                    <a href="https://docs.google.com/spreadsheets/d/1KTW9hUwEqiePHyx4xB4R3Xq2IPw7KIow4OVvr2u1oA0/edit?gid=1710049128#gid=1710049128" target="_blank">📋 Template</a>
+                                    <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41Kk7STtvXNAhNTSsR-YuCYADFNMEN9H-oAU_GXz" target="_blank">💬 Check in MP Report</a>
+                                </div>
+                            </div>
+                        
+                        <!-- Template -->
+                        <h4>📋 Template</h4>
+                        <div class="form-group">
+                            <label>💬 Check in MP Report</label>
+                            <input type="text" id="s-rn-stg-mp-report" placeholder="Optional">
+                        </div>
+                            <div class="form-group">
+                                <label>Seller App Jira Ticket <span class="required">*</span></label>
+                                <input type="url" id="s-rn-stg-seller-jira" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                                <div class="link-helper">
+                                    <a href="https://jira.shopee.io/issues/?filter=150230" target="_blank">🎫 Recent SPQAA Tickets</a>
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <label>🎫 Recent SPQAA Tickets</label>
+                            <input type="text" id="s-rn-stg-recent-tickets" placeholder="Optional">
+                        </div>
+                        <div class="form-group">
+                            <label>Buyer App Jira Ticket <span class="required">*</span></label>
+                            <input type="url" id="s-rn-stg-buyer-jira" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                        </div>
+                        
+                        <!-- Shopee App -->
+                        <h4>📱 Shopee App</h4>
+                            <div class="form-group">
+                                <label>iOS Version <span class="required">*</span></label>
+                                <input type="text" id="s-rn-stg-shopee-ios" placeholder="e.g., 3.63.44">
+                                <div class="link-helper">
+                                    <a href="https://app.sea.com/apps/246" target="_blank">🔗 Check Version</a>
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <label>Android Version <span class="required">*</span></label>
+                            <input type="text" id="s-rn-stg-shopee-android" placeholder="e.g., 3.63.23@regression (36323)">
+                        </div>
+                        <div class="form-group">
+                            <label>RN Available Time</label>
+                            <input type="text" id="s-rn-stg-rn-time" placeholder="e.g., 11.30 SG Time">
+                        </div>
+                    </div>
+                    <div>
+                        <!-- Seller App -->
+                        <h4>🏪 Seller App</h4>
+                            <div class="form-group">
+                                <label>iOS Version (Internal Build) <span class="required">*</span></label>
+                                <input type="text" id="s-rn-stg-seller-ios" placeholder="e.g., 3.47.41">
+                                <div class="link-helper">
+                                    <a href="https://app.sea.com/apps/305" target="_blank">🔗 Check Version</a>
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <label>Android Version (Internal Build) <span class="required">*</span></label>
+                            <input type="text" id="s-rn-stg-seller-android" placeholder="e.g., 3.47.47@1-5-regression (34747)">
+                        </div>
+                            <div class="form-group">
+                                <label>iOS Version (ID Internal Build) <span class="required">*</span></label>
+                                <input type="text" id="s-rn-stg-seller-ios-id" placeholder="e.g., 3.48.1-test-seller-master">
+                                <div class="link-helper">
+                                    <a href="https://app.sea.com/apps/306" target="_blank">🔗 Check Version</a>
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <label>Android Version (ID Internal Build) <span class="required">*</span></label>
+                            <input type="text" id="s-rn-stg-seller-android-id" placeholder="e.g., 3.47.42@regression (34742)">
+                        </div>
+                            <div class="form-group">
+                                <label>Seller App RN Version <span class="required">*</span></label>
+                                <input type="text" id="s-rn-stg-seller-rn-version" placeholder="e.g., rn-v6.60.0">
+                                <div class="link-helper">
+                                    <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41KkGdJ_vXNAhNTJhQttCvhbz-cvu6U9NmT0tLDQ" target="_blank">💬 Check in MKP Group</a>
+                                </div>
+                            </div>
+                        
+                        <!-- Shopee Lite -->
+                        <h4>🌟 Shopee Lite</h4>
+                            <div class="form-group">
+                                <label>App Version</label>
+                                <input type="text" id="s-rn-stg-lite-version" placeholder="e.g., 2.93.48@regression (773)">
+                                <div class="link-helper">
+                                    <a href="https://app.sea.com/apps/196" target="_blank">🔗 Check Version</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>RN Version</label>
+                                <input type="text" id="s-rn-stg-lite-rn" placeholder="e.g., 5.60.30">
+                                <div class="link-helper">
+                                    <a href="https://confluence.shopee.io/pages/viewpage.action?spaceKey=SPAT&title=%5B2024%5D+Shopee+Lite+RN+Release+Memo" target="_blank">📖 Check in Confluence</a>
+                                </div>
+                            </div>
+                        
+                        <!-- Additional Information -->
+                        <h4>⚙️ Additional Information</h4>
+                        <div class="form-group">
+                            <label>Internal Target Time</label>
+                            <input type="text" id="s-rn-stg-target-time" placeholder="e.g., 18:00 WIB">
+                        </div>
+                        <div class="form-group">
+                            <label>Outstanding Services Link (Optional)</label>
+                            <input type="url" id="s-rn-stg-outstanding" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline</label>
+                            <input type="text" id="s-rn-stg-deadline" value="EOD" placeholder="e.g., EOD">
+                            <small>Default: EOD</small>
+                        </div>
+                        <div class="form-group">
+                            <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
+                            <select id="s-rn-stg-qaod-assignee">
+                                <option value="" disabled selected>Select QAoD Assignee</option>
+                            </select>
+                            <small>This person will be the main assignee for SPMR ticket</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Region Focus <span class="required">*</span></label>
+                            <div class="region-grid" id="s-rn-stg-regions"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Region-PIC Assignment <span class="required">*</span></label>
+                            <div class="region-pic-mapping" id="s-rn-stg-region-pic-mapping"></div>
+                            <small>Assign one PIC per region (each region can only have one PIC)</small>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generate('seller-rn-staging')">✨ Generate Preview</button>
+                            <button class="btn btn-success" onclick="sendToAPI('seller-rn-staging')" id="s-rn-stg-api-btn">🚀 Send to API & Create Jira</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Preview Title (SeaTalk):</label>
+                    <div id="s-rn-stg-preview-title" class="preview-box">Title will appear here...</div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('s-rn-stg-preview-title')">📋 Copy Title</button>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Preview Description (Thread):</label>
+                    <div id="s-rn-stg-preview-thread" class="preview-box">Thread content will appear here...</div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('s-rn-stg-preview-thread')">📋 Copy Description</button>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>🔧 API Response:</label>
+                    <div id="s-rn-stg-api-response" class="api-response-box">API response will appear here after sending request...</div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('s-rn-stg-api-response')">📋 Copy Response</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NATIVE ADHOC REGRESSION -->
+            <div id="seller-native-adhoc" class="template">
+                <h3>🚨 Native Adhoc Regression - Seller App</h3>
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Platform <span class="required">*</span></label>
+                            <select id="s-adhoc-platform">
+                                <option value="Android/iOS">Android/iOS</option>
+                                <option value="Android Only">Android Only</option>
+                                <option value="iOS Only">iOS Only</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Region Focus <span class="required">*</span></label>
+                            <div class="region-grid" id="s-adhoc-regions"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Version <span class="required">*</span></label>
+                            <input type="text" id="s-adhoc-version" placeholder="e.g., v3.61.55">
+                            <small>Version number (e.g., v3.61.55)</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline <span class="required">*</span></label>
+                            <input type="datetime-local" id="s-adhoc-deadline">
+                        </div>
+                        <div class="form-group">
+                            <label>Test Case Spreadsheet <span class="required">*</span></label>
+                            <input type="url" id="s-adhoc-spreadsheet" placeholder="https://docs.google.com/spreadsheets/d/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Android New Version <span class="required">*</span></label>
+                            <input type="text" id="s-adhoc-android-new-ver" placeholder="e.g., v3.61.55">
+                        </div>
+                        <div class="form-group">
+                            <label>Android New Build URL <span class="required">*</span></label>
+                            <input type="url" id="s-adhoc-android-new-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Previous Version <span class="required">*</span></label>
+                            <input type="text" id="s-adhoc-android-prev-ver" placeholder="e.g., v3.61.46">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Previous Build URL <span class="required">*</span></label>
+                            <input type="url" id="s-adhoc-android-prev-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>iOS New Version <span class="required">*</span></label>
+                            <input type="text" id="s-adhoc-ios-new-ver" placeholder="e.g., v3.61.42">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS New Build URL <span class="required">*</span></label>
+                            <input type="url" id="s-adhoc-ios-new-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Previous Version <span class="required">*</span></label>
+                            <input type="text" id="s-adhoc-ios-prev-ver" placeholder="e.g., v3.61.40">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Previous Build URL <span class="required">*</span></label>
+                            <input type="url" id="s-adhoc-ios-prev-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
+                            <select id="s-adhoc-qaod-assignee">
+                                <option value="" disabled selected>Select QAoD Assignee</option>
+                            </select>
+                            <small>This person will be the main assignee for SPMR ticket</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Region-PIC Assignment <span class="required">*</span></label>
+                            <div class="region-pic-mapping" id="s-adhoc-region-pic-mapping"></div>
+                            <small>Assign one PIC per region (each region can only have one PIC)</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Important Notes</label>
+                            <textarea id="s-adhoc-notes" rows="4">Please make sure the version is correct
+For the upgrade test cases, download previous version first -> download the version that we test
+please update your sub task when it finished</textarea>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generate('seller-native-adhoc')">✨ Generate Preview</button>
+                            <button class="btn btn-success" onclick="sendToAPI('seller-native-adhoc')" id="s-adhoc-api-btn">🚀 Send to API & Create Jira</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Preview Title (SeaTalk):</label>
+                    <div id="s-adhoc-preview-title" class="preview-box">Title will appear here...</div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('s-adhoc-preview-title')">📋 Copy Title</button>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Preview Description (Thread):</label>
+                    <div id="s-adhoc-preview-thread" class="preview-box">Thread content will appear here...</div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('s-adhoc-preview-thread')">📋 Copy Description</button>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>🔧 API Response:</label>
+                    <div id="s-adhoc-api-response" class="api-response-box">API response will appear here after sending request...</div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('s-adhoc-api-response')">📋 Copy Response</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NATIVE LIVE REGRESSION -->
+            <div id="seller-native-live" class="template">
+                <h3>🔴 Native Live Regression - Seller App</h3>
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Platform <span class="required">*</span></label>
+                            <select id="s-native-live-platform">
+                                <option value="Android/iOS">Android/iOS</option>
+                                <option value="Android Only">Android Only</option>
+                                <option value="iOS Only">iOS Only</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Region Focus <span class="required">*</span></label>
+                            <div class="region-grid" id="s-native-live-regions"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Version <span class="required">*</span></label>
+                            <input type="text" id="s-native-live-version" placeholder="e.g., v3.61.55">
+                            <small>Version will be used in auto-generated title</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Start Date <span class="required">*</span></label>
+                            <input type="date" id="s-native-live-start-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline <span class="required">*</span></label>
+                            <input type="datetime-local" id="s-native-live-deadline">
+                        </div>
+                        <div class="form-group">
+                            <label>Test Case Spreadsheet <span class="required">*</span></label>
+                            <input type="url" id="s-native-live-spreadsheet" placeholder="https://docs.google.com/spreadsheets/d/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Latest Version <span class="required">*</span></label>
+                            <input type="text" id="s-native-live-android-latest-ver" placeholder="e.g., 3.61.46">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Latest Build URL <span class="required">*</span></label>
+                            <input type="url" id="s-native-live-android-latest-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Previous Version <span class="required">*</span></label>
+                            <input type="text" id="s-native-live-android-prev-ver" placeholder="e.g., 3.61.42">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Previous Build URL <span class="required">*</span></label>
+                            <input type="url" id="s-native-live-android-prev-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>iOS Latest Version <span class="required">*</span></label>
+                            <input type="text" id="s-native-live-ios-latest-ver" placeholder="e.g., 3.61.38">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Latest Build URL <span class="required">*</span></label>
+                            <input type="url" id="s-native-live-ios-latest-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Previous Version <span class="required">*</span></label>
+                            <input type="text" id="s-native-live-ios-prev-ver" placeholder="e.g., 3.61.36">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Previous Build URL <span class="required">*</span></label>
+                            <input type="url" id="s-native-live-ios-prev-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>RN Version (Optional)</label>
+                            <input type="text" id="s-native-live-rn-version" placeholder="e.g., v6.68.0">
+                        </div>
+                        <div class="form-group">
+                            <label>RN Prepackage Version (Optional)</label>
+                            <input type="text" id="s-native-live-rn-prepackage" placeholder="e.g., v6.63.3">
+                        </div>
+                        <div class="form-group">
+                            <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
+                            <select id="s-native-live-qaod-assignee">
+                                <option value="" disabled selected>Select QAoD Assignee</option>
+                            </select>
+                            <small>This person will be the main assignee for SPMR ticket</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Region-PIC Assignment <span class="required">*</span></label>
+                            <div class="region-pic-mapping" id="s-native-live-region-pic-mapping"></div>
+                            <small>Assign one PIC per region (each region can only have one PIC)</small>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generate('seller-native-live')">✨ Generate Preview</button>
+                            <button class="btn btn-success" onclick="sendToAPI('seller-native-live')" id="s-native-live-api-btn">🚀 Send to API & Create Jira</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Preview Title (SeaTalk):</label>
+                    <div id="s-native-live-preview-title" class="preview-box">Title will appear here...</div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('s-native-live-preview-title')">📋 Copy Title</button>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Preview Description (Thread):</label>
+                    <div id="s-native-live-preview-thread" class="preview-box">Thread content will appear here...</div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('s-native-live-preview-thread')">📋 Copy Description</button>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>🔧 API Response:</label>
+                    <div id="s-native-live-api-response" class="api-response-box">API response will appear here after sending request...</div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('s-native-live-api-response')">📋 Copy Response</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NATIVE HOTFIX REGRESSION -->
+            <div id="seller-native-hotfix" class="template">
+                <h3>⚡ Native Hotfix Regression - Seller App</h3>
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Platform <span class="required">*</span></label>
+                            <select id="s-native-hotfix-platform">
+                                <option value="Android/iOS">Android/iOS</option>
+                                <option value="Android">Android</option>
+                                <option value="iOS">iOS</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Region Focus <span class="required">*</span></label>
+                            <div class="region-grid" id="s-native-hotfix-regions"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Version <span class="required">*</span></label>
+                            <input type="text" id="s-native-hotfix-version" placeholder="e.g., v3.61.55">
+                            <small>Version will be used in auto-generated title</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Start Date <span class="required">*</span></label>
+                            <input type="date" id="s-native-hotfix-start-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline <span class="required">*</span></label>
+                            <input type="datetime-local" id="s-native-hotfix-deadline">
+                        </div>
+                        <div class="form-group">
+                            <label>Test Case Spreadsheet <span class="required">*</span></label>
+                            <input type="url" id="s-native-hotfix-spreadsheet" placeholder="https://docs.google.com/spreadsheets/d/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Latest Version</label>
+                            <input type="text" id="s-native-hotfix-android-latest-ver" placeholder="e.g., 3.61.40">
+                            <small>Required if Android selected</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Android Latest Build URL</label>
+                            <input type="url" id="s-native-hotfix-android-latest-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Previous Version</label>
+                            <input type="text" id="s-native-hotfix-android-prev-ver" placeholder="e.g., 3.61.38">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Previous Build URL</label>
+                            <input type="url" id="s-native-hotfix-android-prev-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>iOS Latest Version</label>
+                            <input type="text" id="s-native-hotfix-ios-latest-ver" placeholder="e.g., 3.61.40">
+                            <small>Required if iOS selected</small>
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Latest Build URL</label>
+                            <input type="url" id="s-native-hotfix-ios-latest-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Previous Version</label>
+                            <input type="text" id="s-native-hotfix-ios-prev-ver" placeholder="e.g., 3.61.38">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Previous Build URL</label>
+                            <input type="url" id="s-native-hotfix-ios-prev-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>RN Version (Optional)</label>
+                            <input type="text" id="s-native-hotfix-rn-version" placeholder="e.g., v6.69.0">
+                        </div>
+                        <div class="form-group">
+                            <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
+                            <select id="s-native-hotfix-qaod-assignee">
+                                <option value="" disabled selected>Select QAoD Assignee</option>
+                            </select>
+                            <small>This person will be the main assignee for SPMR ticket</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Region-PIC Assignment <span class="required">*</span></label>
+                            <div class="region-pic-mapping" id="s-native-hotfix-region-pic-mapping"></div>
+                            <small>Assign one PIC per region (each region can only have one PIC)</small>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generate('seller-native-hotfix')">✨ Generate Preview</button>
+                            <button class="btn btn-success" onclick="sendToAPI('seller-native-hotfix')" id="s-native-hotfix-api-btn">🚀 Send to API & Create Jira</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Preview Title (SeaTalk):</label>
+                    <div id="s-native-hotfix-preview-title" class="preview-box">Title will appear here...</div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('s-native-hotfix-preview-title')">📋 Copy Title</button>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Preview Description (Thread):</label>
+                    <div id="s-native-hotfix-preview-thread" class="preview-box">Thread content will appear here...</div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('s-native-hotfix-preview-thread')">📋 Copy Description</button>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>🔧 API Response:</label>
+                    <div id="s-native-hotfix-api-response" class="api-response-box">API response will appear here after sending request...</div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="btn btn-secondary" onclick="copyToClipboard('s-native-hotfix-api-response')">📋 Copy Response</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QAOD NATIVE APP SECTION -->
+        <div id="native-section" class="section active">
+            <div class="info-box">
+                <strong>📱 QAoD Native App:</strong> Templates for Buyer App regression testing with auto Jira + SeaTalk creation.
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab active" onclick="switchTemplate('native', 'prereg')">📦 Pre-Regression</button>
+                <button class="sub-tab" onclick="switchTemplate('native', 'productline')">📱 Product Line</button>
+                <button class="sub-tab" onclick="switchTemplate('native', 'live')">🔴 Live Regression</button>
+                <button class="sub-tab" onclick="switchTemplate('native', 'adhoc')">🚨 Adhoc/Hotfix</button>
+                <button class="sub-tab" onclick="switchTemplate('native', 'thirdparty')">🔌 3rd Party</button>
+            </div>
+
+            <!-- PRE-REGRESSION -->
+            <div id="native-prereg" class="template active">
+                <h3>📦 Pre-Regression Template</h3>
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Region Focus <span class="required">*</span></label>
+                            <div class="region-grid" id="n-prereg-regions"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Version <span class="required">*</span></label>
+                            <input type="text" id="n-prereg-version" placeholder="e.g., 3.68">
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline <span class="required">*</span></label>
+                            <input type="datetime-local" id="n-prereg-deadline">
+                        </div>
+                        <h4 style="margin-top: 15px; color: #4CAF50;">📱 New Version</h4>
+                        <div class="form-group">
+                            <label>Android Version <span class="required">*</span></label>
+                            <input type="text" id="n-prereg-android-ver" placeholder="e.g., 3.68.29">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Build URL <span class="required">*</span></label>
+                            <input type="url" id="n-prereg-android-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Version <span class="required">*</span></label>
+                            <input type="text" id="n-prereg-ios-ver" placeholder="e.g., 3.68.27">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Build URL <span class="required">*</span></label>
+                            <input type="url" id="n-prereg-ios-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <h4 style="margin-top: 15px; color: #FF9800;">📦 Prev Build</h4>
+                        <div class="form-group">
+                            <label>Android Prev Version <span class="required">*</span></label>
+                            <input type="text" id="n-prereg-prev-android-ver" placeholder="e.g., 3.67.23">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Prev URL <span class="required">*</span></label>
+                            <input type="url" id="n-prereg-prev-android-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Prev Version <span class="required">*</span></label>
+                            <input type="text" id="n-prereg-prev-ios-ver" placeholder="e.g., 3.67.23">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Prev URL <span class="required">*</span></label>
+                            <input type="url" id="n-prereg-prev-ios-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Test Case URL <span class="required">*</span></label>
+                            <input type="url" id="n-prereg-testcase" placeholder="https://docs.google.com/spreadsheets/d/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Android SPAPP Ticket <span class="required">*</span></label>
+                            <input type="url" id="n-prereg-android-jira" placeholder="https://jira.shopee.io/browse/SPAPP-XXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS SPAPP Ticket <span class="required">*</span></label>
+                            <input type="url" id="n-prereg-ios-jira" placeholder="https://jira.shopee.io/browse/SPAPP-XXXXX">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
+                            <select id="n-prereg-qaod-assignee">
+                                <option value="" disabled selected>Select QAoD Assignee</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Region-PIC Assignment <span class="required">*</span></label>
+                            <small>Assign one PIC for each selected region</small>
+                            <div class="region-pic-mapping" id="n-prereg-region-pic-mapping"></div>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generate('native-prereg')">✨ Generate Preview</button>
+                            <button class="btn btn-success" onclick="sendToAPI('native-prereg')">🚀 Send to API & Create Jira</button>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>Preview Title:</label>
+                            <div id="n-prereg-preview-title" class="preview-box" style="min-height: 80px;">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Preview Thread:</label>
+                            <div id="n-prereg-preview-thread" class="preview-box">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>API Response:</label>
+                            <div id="n-prereg-api-response" class="api-response-box">API response will appear here...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCT LINE -->
+            <div id="native-productline" class="template">
+                <h3>📱 Product Line Template</h3>
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Region Focus <span class="required">*</span></label>
+                            <div class="region-grid" id="n-pl-regions"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Version <span class="required">*</span></label>
+                            <input type="text" id="n-pl-version" placeholder="e.g., 3.64">
+                            <small>Major version only (e.g., 3.64)</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Start Date <span class="required">*</span></label>
+                            <input type="date" id="n-pl-start">
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline <span class="required">*</span></label>
+                            <input type="datetime-local" id="n-pl-deadline">
+                        </div>
+                        <div class="form-group">
+                            <label>Test Case URL <span class="required">*</span></label>
+                            <input type="url" id="n-pl-testcase" placeholder="https://docs.google.com/spreadsheets/d/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Version <span class="required">*</span></label>
+                            <input type="text" id="n-pl-android-ver" placeholder="e.g., 3.64.03">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Build URL <span class="required">*</span></label>
+                            <input type="url" id="n-pl-android-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Version <span class="required">*</span></label>
+                            <input type="text" id="n-pl-ios-ver" placeholder="e.g., 3.64.03 or Not Ready Yet">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Build URL</label>
+                            <input type="url" id="n-pl-ios-url" placeholder="https://app-release.shopee.io/...">
+                            <small>Leave empty if not ready yet</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Android SPAPP Ticket <span class="required">*</span></label>
+                            <input type="url" id="n-pl-android-jira" placeholder="https://jira.shopee.io/browse/SPAPP-XXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS SPAPP Ticket <span class="required">*</span></label>
+                            <input type="url" id="n-pl-ios-jira" placeholder="https://jira.shopee.io/browse/SPAPP-XXXXX">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
+                            <select id="n-pl-qaod-assignee">
+                                <option value="" disabled selected>Select QAoD Assignee</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Region-PIC Assignment <span class="required">*</span></label>
+                            <small>Assign one PIC for each selected region</small>
+                            <div class="region-pic-mapping" id="n-pl-region-pic-mapping"></div>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generate('native-productline')">✨ Generate Preview</button>
+                            <button class="btn btn-success" onclick="sendToAPI('native-productline')">🚀 Send to API & Create Jira</button>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>Preview Title:</label>
+                            <div id="n-pl-preview-title" class="preview-box" style="min-height: 80px;">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Preview Thread:</label>
+                            <div id="n-pl-preview-thread" class="preview-box">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>API Response:</label>
+                            <div id="n-pl-api-response" class="api-response-box">API response will appear here...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIVE REGRESSION -->
+            <div id="native-live" class="template">
+                <h3>🔴 Live Regression Template</h3>
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Region Focus <span class="required">*</span></label>
+                            <div class="region-grid" id="n-live-regions"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Platform <span class="required">*</span></label>
+                            <select id="n-live-platform">
+                                <option value="Android/iOS">Android/iOS</option>
+                                <option value="Android Only">Android Only</option>
+                                <option value="iOS Only">iOS Only</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Version <span class="required">*</span></label>
+                            <input type="text" id="n-live-version" placeholder="e.g., 3.68">
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline <span class="required">*</span></label>
+                            <input type="datetime-local" id="n-live-deadline">
+                        </div>
+                        <h4 style="margin-top: 15px; color: #4CAF50;">📱 New Version</h4>
+                        <div class="form-group">
+                            <label>Android Version <span class="required">*</span></label>
+                            <input type="text" id="n-live-android-ver" placeholder="e.g., 3.68.29">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Build URL <span class="required">*</span></label>
+                            <input type="url" id="n-live-android-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Version <span class="required">*</span></label>
+                            <input type="text" id="n-live-ios-ver" placeholder="e.g., 3.68.27">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Build URL <span class="required">*</span></label>
+                            <input type="url" id="n-live-ios-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <h4 style="margin-top: 15px; color: #FF9800;">📦 Prev Build</h4>
+                        <div class="form-group">
+                            <label>Android Prev Version <span class="required">*</span></label>
+                            <input type="text" id="n-live-prev-android-ver" placeholder="e.g., 3.67.23">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Prev URL <span class="required">*</span></label>
+                            <input type="url" id="n-live-prev-android-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Prev Version <span class="required">*</span></label>
+                            <input type="text" id="n-live-prev-ios-ver" placeholder="e.g., 3.67.23">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Prev URL <span class="required">*</span></label>
+                            <input type="url" id="n-live-prev-ios-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Test Case URL <span class="required">*</span></label>
+                            <input type="url" id="n-live-testcase" placeholder="https://docs.google.com/spreadsheets/d/...">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
+                            <select id="n-live-qaod-assignee">
+                                <option value="" disabled selected>Select QAoD Assignee</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Region-PIC Assignment <span class="required">*</span></label>
+                            <small>Assign one PIC for each selected region</small>
+                            <div class="region-pic-mapping" id="n-live-region-pic-mapping"></div>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generate('native-live')">✨ Generate Preview</button>
+                            <button class="btn btn-success" onclick="sendToAPI('native-live')">🚀 Send to API & Create Jira</button>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>Preview Title:</label>
+                            <div id="n-live-preview-title" class="preview-box" style="min-height: 80px;">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Preview Thread:</label>
+                            <div id="n-live-preview-thread" class="preview-box">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>API Response:</label>
+                            <div id="n-live-api-response" class="api-response-box">API response will appear here...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADHOC/HOTFIX -->
+            <div id="native-adhoc" class="template">
+                <h3>🚨 Adhoc/Hotfix Template</h3>
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Region Focus <span class="required">*</span></label>
+                            <div class="region-grid" id="n-adhoc-regions"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Platform <span class="required">*</span></label>
+                            <select id="n-adhoc-platform">
+                                <option value="Android/iOS">Android/iOS</option>
+                                <option value="Android Only">Android Only</option>
+                                <option value="iOS Only">iOS Only</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Version <span class="required">*</span></label>
+                            <input type="text" id="n-adhoc-version" placeholder="e.g., 3.68.xx">
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline <span class="required">*</span></label>
+                            <input type="datetime-local" id="n-adhoc-deadline">
+                        </div>
+                        <h4 style="margin-top: 15px; color: #4CAF50;">📱 New Version</h4>
+                        <div class="form-group">
+                            <label>Android Version <span class="required">*</span></label>
+                            <input type="text" id="n-adhoc-android-ver" placeholder="e.g., 3.68.xx (or TBA)">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Build URL</label>
+                            <input type="text" id="n-adhoc-android-url" placeholder="https://... or TBA">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Version</label>
+                            <input type="text" id="n-adhoc-ios-ver" placeholder="e.g., 3.68.xx (or N/A)">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Build URL</label>
+                            <input type="text" id="n-adhoc-ios-url" placeholder="https://... or - for N/A">
+                        </div>
+                        <h4 style="margin-top: 15px; color: #FF9800;">📦 Prev Build</h4>
+                        <div class="form-group">
+                            <label>Android Prev Version</label>
+                            <input type="text" id="n-adhoc-prev-android-ver" placeholder="e.g., 3.67.27 (or N/A)">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Prev URL</label>
+                            <input type="text" id="n-adhoc-prev-android-url" placeholder="https://... or - for N/A">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Prev Version</label>
+                            <input type="text" id="n-adhoc-prev-ios-ver" placeholder="e.g., 3.67.27 (or N/A)">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Prev URL</label>
+                            <input type="text" id="n-adhoc-prev-ios-url" placeholder="https://... or - for N/A">
+                        </div>
+                        <div class="form-group">
+                            <label>Test Case URL <span class="required">*</span></label>
+                            <input type="url" id="n-adhoc-testcase" placeholder="https://docs.google.com/spreadsheets/d/...">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
+                            <select id="n-adhoc-qaod-assignee">
+                                <option value="" disabled selected>Select QAoD Assignee</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Region-PIC Assignment <span class="required">*</span></label>
+                            <small>Assign one PIC for each selected region</small>
+                            <div class="region-pic-mapping" id="n-adhoc-region-pic-mapping"></div>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generate('native-adhoc')">✨ Generate Preview</button>
+                            <button class="btn btn-success" onclick="sendToAPI('native-adhoc')">🚀 Send to API & Create Jira</button>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>Preview Title:</label>
+                            <div id="n-adhoc-preview-title" class="preview-box" style="min-height: 80px;">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Preview Thread:</label>
+                            <div id="n-adhoc-preview-thread" class="preview-box">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>API Response:</label>
+                            <div id="n-adhoc-api-response" class="api-response-box">API response will appear here...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3RD PARTY -->
+            <div id="native-thirdparty" class="template">
+                <h3>🔌 3rd Party Template</h3>
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Region Focus <span class="required">*</span></label>
+                            <div class="region-grid" id="n-3rd-regions"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Platform <span class="required">*</span></label>
+                            <select id="n-3rd-platform">
+                                <option value="Android/iOS">Android/iOS</option>
+                                <option value="Android Only">Android Only</option>
+                                <option value="iOS Only">iOS Only</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Version <span class="required">*</span></label>
+                            <input type="text" id="n-3rd-version" placeholder="e.g., 3.68">
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline <span class="required">*</span></label>
+                            <input type="datetime-local" id="n-3rd-deadline">
+                        </div>
+                        <h4 style="margin-top: 15px; color: #4CAF50;">📱 New Version</h4>
+                        <div class="form-group">
+                            <label>Android Version <span class="required">*</span></label>
+                            <input type="text" id="n-3rd-android-ver" placeholder="e.g., 3.68.29">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Build URL <span class="required">*</span></label>
+                            <input type="url" id="n-3rd-android-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Version <span class="required">*</span></label>
+                            <input type="text" id="n-3rd-ios-ver" placeholder="e.g., 3.68.27">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Build URL <span class="required">*</span></label>
+                            <input type="url" id="n-3rd-ios-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <h4 style="margin-top: 15px; color: #FF9800;">📦 Prev Build</h4>
+                        <div class="form-group">
+                            <label>Android Prev Version <span class="required">*</span></label>
+                            <input type="text" id="n-3rd-prev-android-ver" placeholder="e.g., 3.67.23">
+                        </div>
+                        <div class="form-group">
+                            <label>Android Prev URL <span class="required">*</span></label>
+                            <input type="url" id="n-3rd-prev-android-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Prev Version <span class="required">*</span></label>
+                            <input type="text" id="n-3rd-prev-ios-ver" placeholder="e.g., 3.67.23">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Prev URL <span class="required">*</span></label>
+                            <input type="url" id="n-3rd-prev-ios-url" placeholder="https://app-release.shopee.io/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Test Case URL <span class="required">*</span></label>
+                            <input type="url" id="n-3rd-testcase" placeholder="https://docs.google.com/spreadsheets/d/...">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
+                            <select id="n-3rd-qaod-assignee">
+                                <option value="" disabled selected>Select QAoD Assignee</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Region-PIC Assignment <span class="required">*</span></label>
+                            <small>Assign one PIC for each selected region</small>
+                            <div class="region-pic-mapping" id="n-3rd-region-pic-mapping"></div>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generate('native-thirdparty')">✨ Generate Preview</button>
+                            <button class="btn btn-success" onclick="sendToAPI('native-thirdparty')">🚀 Send to API & Create Jira</button>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>Preview Title:</label>
+                            <div id="n-3rd-preview-title" class="preview-box" style="min-height: 80px;">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Preview Thread:</label>
+                            <div id="n-3rd-preview-thread" class="preview-box">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>API Response:</label>
+                            <div id="n-3rd-api-response" class="api-response-box">API response will appear here...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- RN REGRESSION HELPER SECTION -->
+        <div id="rn-section" class="section">
+            <div class="info-box">
+                <strong>🚀 RN Regression Helper:</strong> Templates for RN deployment and regression testing with auto Jira + SeaTalk creation.
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab active" onclick="switchTemplate('rn', 'deployment')">📦 Deployment Staging</button>
+                <button class="sub-tab" onclick="switchTemplate('rn', 'staging')">🧪 Staging Regression</button>
+                <button class="sub-tab" onclick="switchTemplate('rn', 'live')">🔴 Live RN Regression</button>
+            </div>
+
+            <!-- DEPLOYMENT STAGING -->
+            <div id="rn-deployment" class="template active">
+                <h3>📦 Deployment Staging</h3>
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Version <span class="required">*</span></label>
+                            <input type="text" id="r-dep-version" placeholder="e.g., 2025.11.v4">
+                        </div>
+                        <div class="form-group">
+                            <label>RSL Schedule Number <span class="required">*</span></label>
+                            <input type="text" id="r-dep-rsl" placeholder="e.g., 9540">
+                            <div class="link-helper">
+                                <a href="https://space.shopee.io/release/portal/regression_management/regression_schedule?tab=2" target="_blank">📋 Open Release Portal</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Deployment Date <span class="required">*</span></label>
+                            <input type="date" id="r-dep-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Deployment Time (Jakarta)</label>
+                            <input type="text" id="r-dep-time" value="16.30" placeholder="e.g., 16.30">
+                            <small>Default: 16.30 Jakarta Time</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Thread Link (Optional)</label>
+                            <input type="url" id="r-dep-thread" placeholder="https://link.seatalk.io/message/...">
+                            <small>Link to MKP Regression Group deployment thread</small>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
+                            <select id="r-dep-qaod-assignee">
+                                <option value="" disabled selected>Select QAoD Assignee</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generate('rn-deployment')">✨ Generate Preview</button>
+                            <button class="btn btn-success" onclick="sendToAPI('rn-deployment')">🚀 Send to API & Create Jira</button>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>Preview Title:</label>
+                            <div id="r-dep-preview-title" class="preview-box" style="min-height: 80px;">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Preview Thread:</label>
+                            <div id="r-dep-preview-thread" class="preview-box">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>API Response:</label>
+                            <div id="r-dep-api-response" class="api-response-box">API response will appear here...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGING REGRESSION -->
+            <div id="rn-staging" class="template">
+                <h3>🧪 Staging Regression</h3>
+                <div class="quick-fill">
+                    <div class="quick-fill-title">Quick Fill Date:</div>
+                    <div class="quick-fill-buttons">
+                        <button class="quick-btn" onclick="setStagingToday()">Today</button>
+                        <button class="quick-btn" onclick="setStagingNextMonday()">Next Monday</button>
+                        <button class="quick-btn" onclick="setStagingCustomDate(7)">+7 Days</button>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div>
+                        <!-- 📅 Basic Information -->
+                        <h4 style="margin-top: 0;">📅 Basic Information</h4>
+                        <div class="form-group">
+                            <label>Version <span class="required">*</span></label>
+                            <input type="text" id="r-stg-version" placeholder="e.g., 2025.11.v4">
+                        </div>
+                        <div class="form-group">
+                            <label>Date <span class="required">*</span></label>
+                            <input type="date" id="r-stg-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline <span class="required">*</span></label>
+                            <input type="datetime-local" id="r-stg-deadline">
+                        </div>
+                        <div class="form-group">
+                            <label>Test Case Spreadsheet <span class="required">*</span></label>
+                            <input type="url" id="r-stg-spreadsheet" placeholder="https://docs.google.com/spreadsheets/d/...">
+                            <div class="link-helper">
+                                <a href="https://docs.google.com/spreadsheets/d/1KTW9hUwEqiePHyx4xB4R3Xq2IPw7KIow4OVvr2u1oA0/edit?gid=1710049128#gid=1710049128" target="_blank">📋 Template</a>
+                                <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41Kk7STtvXNAhNTSsR-YuCYADFNMEN9H-oAU_GXz" target="_blank">💬 Check in MP Report</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Seller App Jira <span class="required">*</span></label>
+                            <input type="url" id="r-stg-jira-seller" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                            <div class="link-helper">
+                                <a href="https://jira.shopee.io/issues/?filter=150230" target="_blank">🎫 Recent SPQAA</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Buyer App Jira <span class="required">*</span></label>
+                            <input type="url" id="r-stg-jira-buyer" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                        </div>
+
+                        <!-- 📱 Shopee App -->
+                        <h4>📱 Shopee App</h4>
+                        <div class="form-group">
+                            <label>iOS Version <span class="required">*</span></label>
+                            <input type="text" id="r-stg-shopee-ios" placeholder="e.g., 3.63.44">
+                            <div class="link-helper">
+                                <a href="https://app.sea.com/apps/246" target="_blank">🔗 Check Version</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Android Version <span class="required">*</span></label>
+                            <input type="text" id="r-stg-shopee-android" placeholder="e.g., 3.63.23@regression (36323)">
+                        </div>
+                        <div class="form-group">
+                            <label>RN Available Time</label>
+                            <input type="text" id="r-stg-shopee-rn-time" placeholder="e.g., 11.30 SG Time">
+                        </div>
+
+                        <!-- 🏪 Seller App -->
+                        <h4>🏪 Seller App</h4>
+                        <div class="form-group">
+                            <label>iOS Version (Internal Build) <span class="required">*</span></label>
+                            <input type="text" id="r-stg-seller-ios" placeholder="e.g., 3.47.41">
+                            <div class="link-helper">
+                                <a href="https://app.sea.com/apps/305" target="_blank">🔗 Check Version</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Android Version (Internal Build) <span class="required">*</span></label>
+                            <input type="text" id="r-stg-seller-android" placeholder="e.g., 3.47.47@1-5-regression (34747)">
+                        </div>
+                        <div class="form-group">
+                            <label>iOS Version (ID Internal Build) <span class="required">*</span></label>
+                            <input type="text" id="r-stg-seller-id-ios" placeholder="e.g., 3.48.1-test-seller-master">
+                            <div class="link-helper">
+                                <a href="https://app.sea.com/apps/306" target="_blank">🔗 Check Version</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Android Version (ID Internal Build) <span class="required">*</span></label>
+                            <input type="text" id="r-stg-seller-id-android" placeholder="e.g., 3.47.42@regression (34742)">
+                        </div>
+                        <div class="form-group">
+                            <label>Seller App RN Version <span class="required">*</span></label>
+                            <input type="text" id="r-stg-seller-rn" placeholder="e.g., rn-v6.60.0">
+                            <div class="link-helper">
+                                <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41KkGdJ_vXNAhNTJhQttCvhbz-cvu6U9NmT0tLDQ" target="_blank">💬 Check in MKP Group</a>
+                            </div>
+                        </div>
+
+                        <!-- 🌟 Shopee Lite -->
+                        <h4>🌟 Shopee Lite</h4>
+                        <div class="form-group">
+                            <label>App Version</label>
+                            <input type="text" id="r-stg-lite-version" placeholder="e.g., 2.93.48@regression (773)">
+                            <div class="link-helper">
+                                <a href="https://app.sea.com/apps/196" target="_blank">🔗 Check Version</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>RN Version</label>
+                            <input type="text" id="r-stg-lite-rn" placeholder="e.g., 5.60.30">
+                            <div class="link-helper">
+                                <a href="https://confluence.shopee.io/pages/viewpage.action?spaceKey=SPAT&title=%5B2024%5D+Shopee+Lite+RN+Release+Memo" target="_blank">📖 Check in Confluence</a>
+                            </div>
+                        </div>
+
+                        <!-- ⚙️ Additional Information -->
+                        <h4>⚙️ Additional Information</h4>
+                        <div class="form-group">
+                            <label>Internal Target Time</label>
+                            <input type="text" id="r-stg-target-time" placeholder="e.g., 18:00 WIB" value="18:00 WIB">
+                        </div>
+                        <div class="form-group">
+                            <label>Outstanding Services Link (Optional)</label>
+                            <input type="url" id="r-stg-outstanding-link" placeholder="https://...">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
+                            <select id="r-stg-qaod-assignee">
+                                <option value="" disabled selected>Select QAoD Assignee</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generate('rn-staging')">✨ Generate Preview</button>
+                            <button class="btn btn-success" onclick="sendToAPI('rn-staging')">🚀 Send to API & Create Jira</button>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>Preview Title:</label>
+                            <div id="r-stg-preview-title" class="preview-box" style="min-height: 80px;">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Preview Thread:</label>
+                            <div id="r-stg-preview-thread" class="preview-box">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>API Response:</label>
+                            <div id="r-stg-api-response" class="api-response-box">API response will appear here...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIVE RN REGRESSION -->
+            <div id="rn-live" class="template">
+                <h3>🔴 Live RN Regression</h3>
+                <div class="form-grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Version <span class="required">*</span></label>
+                            <input type="text" id="r-live-version" placeholder="e.g., 2025.11.v4">
+                        </div>
+                        <div class="form-group">
+                            <label>Date <span class="required">*</span></label>
+                            <input type="date" id="r-live-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Deadline <span class="required">*</span></label>
+                            <input type="datetime-local" id="r-live-deadline">
+                        </div>
+                        <div class="form-group">
+                            <label>Test Case Spreadsheet <span class="required">*</span></label>
+                            <input type="url" id="r-live-spreadsheet" placeholder="https://docs.google.com/spreadsheets/d/...">
+                            <div class="link-helper">
+                                <a href="https://docs.google.com/spreadsheets/d/1xcWWD9HbYodGfdtVeDPNrHd3PePdsleTSF3l4F3i-1U/edit?gid=2068996028#gid=2068996028" target="_blank">📋 Duplicate Template</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Seller App Jira <span class="required">*</span></label>
+                            <input type="url" id="r-live-jira-seller" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                            <div class="link-helper">
+                                <a href="https://jira.shopee.io/issues/?filter=150230" target="_blank">🎫 Recent SPQAA</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Buyer App Jira <span class="required">*</span></label>
+                            <input type="url" id="r-live-jira-buyer" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                        </div>
+                        <div class="form-group">
+                            <label>RN Version <span class="required">*</span></label>
+                            <input type="text" id="r-live-rn-version" placeholder="e.g., rn-v6.83.0-rc.2">
+                            <div class="link-helper">
+                                <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41KkS1X6vXNAhNTJhQsRBO6xTT7EV-MdguHG2Am9" target="_blank">💬 Check MKP Group</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
+                            <select id="r-live-qaod-assignee">
+                                <option value="" disabled selected>Select QAoD Assignee</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="link-helper">
+                                <a href="https://docs.google.com/spreadsheets/d/19nAfyhqtf-Evdl78peuoDOvs6SIoo9j0bpgvf1lIYAM/edit?gid=398695652#gid=398695652&range=A24" target="_blank">📋 Check PIC List</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>PIC Assignment:</label>
+                        </div>
+                        <div class="form-group">
+                            <label>[1] TC1 [Received Order] <span class="required">*</span></label>
+                            <select id="r-live-pic-tc1">
+                                <option value="" disabled selected>Select PIC</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>[2] TC2 [RR Approved] <span class="required">*</span></label>
+                            <select id="r-live-pic-tc2">
+                                <option value="" disabled selected>Select PIC</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>[3] TC3 [RR Reject] <span class="required">*</span></label>
+                            <select id="r-live-pic-tc3">
+                                <option value="" disabled selected>Select PIC</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>[4] TC4 [Cancel Order] <span class="required">*</span></label>
+                            <select id="r-live-pic-tc4">
+                                <option value="" disabled selected>Select PIC</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="generate('rn-live')">✨ Generate Preview</button>
+                            <button class="btn btn-success" onclick="sendToAPI('rn-live')">🚀 Send to API & Create Jira</button>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label>Preview Title:</label>
+                            <div id="r-live-preview-title" class="preview-box" style="min-height: 80px;">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Preview Thread:</label>
+                            <div id="r-live-preview-thread" class="preview-box">Click Generate to preview...</div>
+                        </div>
+                        <div class="form-group">
+                            <label>API Response:</label>
+                            <div id="r-live-api-response" class="api-response-box">API response will appear here...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="successMsg" class="success-msg">✅ Copied to clipboard!</div>
+
+    <script>
+        // Configuration
+        const API_CONFIG = {
+            targetUrl: 'https://smart.shopee.io/apis/smart/v1/workflow_orchestrator/deployments/invoke',
+            corsProxyUrl: 'https://corsproxy.io/?',
+            localProxyUrl: '/api/proxy',
+            // Production SMART Workflow
+            endpoint_deployment_hash_id: 'g8c144fr5wr6jrvzcqty0gts',
+            endpoint_deployment_key: 'wxqjm1ghy5rynyb86ka51zre'
+        };
+
+        // Helper: Check if running in Electron
+        function isElectron() {
+            return window.electronAPI && window.electronAPI.isElectron;
+        }
+
+        // Helper: Check if running from local server (Electron or localhost)
+        function isLocalServer() {
+            return window.location.hostname === '127.0.0.1' ||
+                   window.location.hostname === 'localhost';
+        }
+
+        const REGIONS = ["ID", "BR", "TW", "TH", "MY", "PH", "VN", "CL", "MX", "SG", "AR", "BN", "KH", "MM", "LA", "All Region"];
+        
+        const PIC_LIST = [
+            { name: "Herrista Putri", email: "herrista.putri@shopee.com" },
+            { name: "Theresia Theresia", email: "theresia.theresia@shopee.com" },
+            { name: "Anisa Karina", email: "anisa.karina@shopee.com" },
+            { name: "Otniel Hussin", email: "otniel.hussin@shopee.com" },
+            { name: "Otavia Novi", email: "otavia.novi@shopee.com" },
+            { name: "Adelina Nataye", email: "adelina.nataye@shopee.com" },
+            { name: "Katriel Widjaja", email: "katriel.widjaja@shopee.com" },
+            { name: "Bharata Aryaseta", email: "bharata.aryaseta@shopee.com" },
+            { name: "Rika Wulandari", email: "rika.wulandari@shopee.com" },
+            { name: "Kevin Gosalim", email: "kevin.gosalim@shopee.com" },
+            { name: "Mirza Pradana", email: "mirza.pradana@shopee.com" },
+            { name: "Hanif Kusuma", email: "hanif.kusuma@shopee.com" },
+            { name: "Rizky Ashari", email: "rizky.ashari@shopee.com" },
+            { name: "Ivan Jond", email: "ivan.jond@shopee.com" },
+            { name: "Flavianus Delvin", email: "flavianus.delvin@shopee.com" },
+            { name: "Nickolas Jonathan", email: "nickolas.jonathan@shopee.com" }
+        ];
+
+        // Initialize regions and PICs
+        function initializeRegions(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.innerHTML = '';
+            REGIONS.forEach(region => {
+                const div = document.createElement('div');
+                div.className = 'region-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.name = 'region-' + containerId;
+                checkbox.value = region;
+                
+                if (region === "All Region") {
+                    checkbox.id = "check-all-" + containerId;
+                    checkbox.addEventListener('change', function() {
+                        const isChecked = this.checked;
+                        const otherCheckboxes = container.querySelectorAll('input[type="checkbox"]:not(#' + this.id + ')');
+                        otherCheckboxes.forEach(cb => {
+                            cb.disabled = isChecked;
+                            if (isChecked) cb.checked = false;
+                        });
+                    });
+                }
+                
+                div.appendChild(checkbox);
+                const label = document.createTextNode(" " + region);
+                div.appendChild(label);
+                container.appendChild(div);
+            });
+        }
+
+        function initializePICs(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.innerHTML = '';
+            PIC_LIST.forEach(pic => {
+                const div = document.createElement('div');
+                div.className = 'pic-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.name = 'pic-' + containerId;
+                checkbox.value = pic.email;
+                checkbox.id = 'pic-' + pic.email.split('@')[0];
+                
+                div.appendChild(checkbox);
+                const label = document.createTextNode(pic.name);
+                div.appendChild(label);
+                container.appendChild(div);
+            });
+        }
+
+        function initializeQAoDDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            if (!dropdown) return;
+            
+            PIC_LIST.forEach(pic => {
+                const option = document.createElement('option');
+                option.value = pic.email;
+                option.textContent = pic.name;
+                dropdown.appendChild(option);
+            });
+        }
+
+        function initializeRegionPICMapping(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.innerHTML = '';
+            const relevantRegions = REGIONS.filter(r => r !== "All Region");
+            
+            relevantRegions.forEach(region => {
+                const row = document.createElement('div');
+                row.className = 'region-pic-row';
+                
+                const label = document.createElement('div');
+                label.className = 'region-pic-label';
+                label.textContent = region;
+                
+                const select = document.createElement('select');
+                select.dataset.region = region;
+                select.name = 'pic-for-' + region;
+                
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Select PIC';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                select.appendChild(defaultOption);
+                
+                PIC_LIST.forEach(pic => {
+                    const option = document.createElement('option');
+                    option.value = pic.email;
+                    option.textContent = pic.name;
+                    select.appendChild(option);
+                });
+                
+                row.appendChild(label);
+                row.appendChild(select);
+                container.appendChild(row);
+            });
+        }
+
+        function getRegionPICMapping(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return {};
+            
+            const mapping = {};
+            const selects = container.querySelectorAll('select');
+            
+            selects.forEach(select => {
+                const region = select.dataset.region;
+                const picEmail = select.value;
+                if (picEmail) {
+                    mapping[region] = picEmail;
+                }
+            });
+            
+            return mapping;
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all seller templates
+            initializeRegions('s-adhoc-regions');
+            initializeRegionPICMapping('s-adhoc-region-pic-mapping');
+            initializeQAoDDropdown('s-adhoc-qaod-assignee');
+            
+            initializeRegions('s-rn-stg-regions');
+            initializeRegionPICMapping('s-rn-stg-region-pic-mapping');
+            initializeQAoDDropdown('s-rn-stg-qaod-assignee');
+            
+            initializeRegions('s-native-live-regions');
+            initializeRegionPICMapping('s-native-live-region-pic-mapping');
+            initializeQAoDDropdown('s-native-live-qaod-assignee');
+            
+            initializeRegions('s-native-hotfix-regions');
+            initializeRegionPICMapping('s-native-hotfix-region-pic-mapping');
+            initializeQAoDDropdown('s-native-hotfix-qaod-assignee');
+
+            // Initialize QAoD Native App templates
+            initializeRegions('n-prereg-regions');
+            initializeRegionPICMapping('n-prereg-region-pic-mapping');
+            initializeQAoDDropdown('n-prereg-qaod-assignee');
+
+            initializeRegions('n-pl-regions');
+            initializeRegionPICMapping('n-pl-region-pic-mapping');
+            initializeQAoDDropdown('n-pl-qaod-assignee');
+
+            initializeRegions('n-live-regions');
+            initializeRegionPICMapping('n-live-region-pic-mapping');
+            initializeQAoDDropdown('n-live-qaod-assignee');
+
+            initializeRegions('n-adhoc-regions');
+            initializeRegionPICMapping('n-adhoc-region-pic-mapping');
+            initializeQAoDDropdown('n-adhoc-qaod-assignee');
+
+            initializeRegions('n-3rd-regions');
+            initializeRegionPICMapping('n-3rd-region-pic-mapping');
+            initializeQAoDDropdown('n-3rd-qaod-assignee');
+
+            // Initialize RN Regression Helper templates
+            initializeRegions('r-dep-regions');
+            initializeRegionPICMapping('r-dep-region-pic-mapping');
+            initializeQAoDDropdown('r-dep-qaod-assignee');
+
+            initializeRegions('r-stg-regions');
+            initializeRegionPICMapping('r-stg-region-pic-mapping');
+            initializeQAoDDropdown('r-stg-qaod-assignee');
+
+            initializeRegions('r-live-regions');
+            initializeRegionPICMapping('r-live-region-pic-mapping');
+            initializeQAoDDropdown('r-live-qaod-assignee');
+            initializeQAoDDropdown('r-live-pic-tc1');
+            initializeQAoDDropdown('r-live-pic-tc2');
+            initializeQAoDDropdown('r-live-pic-tc3');
+            initializeQAoDDropdown('r-live-pic-tc4');
+            
+            // Update environment badge
+            const badge = document.getElementById('envBadge');
+            if (isElectron()) {
+                badge.innerHTML = '⚡ Electron App - Direct API Access';
+                badge.style.background = 'rgba(155, 89, 182, 0.3)';
+            } else if (isLocalServer()) {
+                badge.innerHTML = '🖥️ Local Server Mode';
+                badge.style.background = 'rgba(52, 152, 219, 0.3)';
+            } else {
+                badge.innerHTML = '🌐 Browser Mode (via CORS Proxy)';
+                badge.style.background = 'rgba(46, 204, 113, 0.3)';
+            }
+        });
+
+        function switchMainTab(tab) {
+            document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tab + '-section').classList.add('active');
+        }
+
+        function switchTemplate(section, template) {
+            const sectionEl = document.getElementById(section + '-section');
+            sectionEl.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            sectionEl.querySelectorAll('.template').forEach(t => t.classList.remove('active'));
+            document.getElementById(section + '-' + template).classList.add('active');
+        }
+
+        function getSelectedRegions(containerId) {
+            const checkboxes = document.querySelectorAll('#' + containerId + ' input[type="checkbox"]:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
+
+        function getSelectedPICs(containerId) {
+            const checkboxes = document.querySelectorAll('#' + containerId + ' input[type="checkbox"]:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
+
+        function formatDateTime(dtStr) {
+            if (!dtStr) return "[Deadline Not Set]";
+            const dt = new Date(dtStr);
+            return dt.toLocaleString('id-ID', {
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            }).replace(/\./g, ':');
+        }
+
+        // Format date for taskData: "20 Feb 2026 10:00 am" (matches working HTML format)
+        function formatTaskDataDate(dtStr) {
+            if (!dtStr) return "-";
+            const dt = new Date(dtStr);
+            return dt.toLocaleString('en-GB', { 
+                day: '2-digit', 
+                month: 'short', 
+                year: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                hour12: true 
+            }).replace(',', '');
+        }
+
+        // Get current timestamp for taskData startDate
+        function getCurrentTaskDataDate() {
+            const now = new Date();
+            return now.toLocaleString('en-GB', { 
+                day: '2-digit', 
+                month: 'short', 
+                year: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                hour12: true 
+            }).replace(',', '');
+        }
+
+        // Task metadata configuration for each template
+        const TASK_METADATA = {
+            'seller-native-adhoc': { title: 'Native Adhoc Regression', scopes: 'Seller App Regression' },
+            'seller-rn-staging': { title: 'RN Staging Regression', scopes: 'Seller App Regression' },
+            'seller-native-live': { title: 'Native Live Regression', scopes: 'Seller App Regression' },
+            'seller-native-hotfix': { title: 'Native Hotfix Regression', scopes: 'Seller App Regression' },
+            'native-prereg': { title: 'Pre-Regression', scopes: 'Shopee App Native Regression' },
+            'native-productline': { title: 'Product Line', scopes: 'Shopee App Native Regression' },
+            'native-live': { title: 'Native Live Regression', scopes: 'Shopee App Native Regression' },
+            'native-adhoc': { title: 'Adhoc/Hotfix', scopes: 'Shopee App Native Regression' },
+            'native-thirdparty': { title: '3rd Party Regression', scopes: 'Shopee App Native Regression' },
+            'rn-deployment': { title: 'Deployment Staging', scopes: 'Shopee App RN Regression' },
+            'rn-staging': { title: 'Staging Regression', scopes: 'Shopee App RN Regression' },
+            'rn-live': { title: 'RN Live Regression', scopes: 'Shopee App RN Regression' }
+        };
+
+        // Quick Fill Date Functions for RN Staging Regression
+        function setStagingToday() {
+            const today = new Date();
+            document.getElementById('r-stg-date').value = today.toISOString().split('T')[0];
+        }
+
+        function setStagingNextMonday() {
+            const today = new Date();
+            const dayOfWeek = today.getDay();
+            const daysUntilMonday = (8 - dayOfWeek) % 7 || 7;
+            const nextMonday = new Date(today);
+            nextMonday.setDate(today.getDate() + daysUntilMonday);
+            document.getElementById('r-stg-date').value = nextMonday.toISOString().split('T')[0];
+        }
+
+        function setStagingCustomDate(days) {
+            const today = new Date();
+            const customDate = new Date(today);
+            customDate.setDate(today.getDate() + days);
+            document.getElementById('r-stg-date').value = customDate.toISOString().split('T')[0];
+        }
+
+        function generate(template) {
+            if (template === 'seller-native-adhoc') {
+                const vals = {
+                    platform: document.getElementById('s-adhoc-platform').value,
+                    regions: getSelectedRegions('s-adhoc-regions'),
+                    version: document.getElementById('s-adhoc-version').value,
+                    deadline: document.getElementById('s-adhoc-deadline').value,
+                    spreadsheet: document.getElementById('s-adhoc-spreadsheet').value,
+                    androidNewVer: document.getElementById('s-adhoc-android-new-ver').value,
+                    androidNewUrl: document.getElementById('s-adhoc-android-new-url').value,
+                    androidPrevVer: document.getElementById('s-adhoc-android-prev-ver').value,
+                    androidPrevUrl: document.getElementById('s-adhoc-android-prev-url').value,
+                    iosNewVer: document.getElementById('s-adhoc-ios-new-ver').value,
+                    iosNewUrl: document.getElementById('s-adhoc-ios-new-url').value,
+                    iosPrevVer: document.getElementById('s-adhoc-ios-prev-ver').value,
+                    iosPrevUrl: document.getElementById('s-adhoc-ios-prev-url').value,
+                    notes: document.getElementById('s-adhoc-notes').value,
+                    qaodAssignee: document.getElementById('s-adhoc-qaod-assignee').value,
+                    regionPICMapping: getRegionPICMapping('s-adhoc-region-pic-mapping')
+                };
+
+                // Validation
+                const selectedRegionsForPIC = vals.regions.filter(r => r !== "All Region");
+                const mappedRegions = Object.keys(vals.regionPICMapping);
+                const allRegionsAssigned = selectedRegionsForPIC.every(region => mappedRegions.includes(region));
+                
+                if (!vals.version || !vals.deadline || !vals.spreadsheet || 
+                    vals.regions.length === 0 || !vals.qaodAssignee || !allRegionsAssigned) {
+                    alert('⚠️ Please fill all required fields including Region-PIC assignment for all selected regions!');
+                    return;
+                }
+
+                const deadlineFormatted = formatDateTime(vals.deadline);
+                const regionStr = vals.regions.includes("All Region") ? "All Region" : vals.regions.join(", ");
+                
+                // Generate label bug (escape underscore for markdown)
+                const labelBug = vals.regions.includes("All Region") 
+                    ? "native_adHoc_<CID>"
+                    : "native_adHoc_" + vals.regions.join(",");
+
+                // Title for SeaTalk (clean, no mentions)
+                const titleText = `[Seller][${vals.platform}][${regionStr}] adHoc Regression ${vals.version}
+Deadline : ${deadlineFormatted}`;
+
+                // Generate Region-PIC mentions (using Jira format for Input_Description)
+                let regionPICText = '';
+                Object.keys(vals.regionPICMapping).forEach(region => {
+                    const picEmail = vals.regionPICMapping[region];
+                    regionPICText += `${region} [~${picEmail}]\n`;
+                });
+
+                // Description for Jira (Jira Wiki Markup format)
+                let descText = `h2. How to test:
+Download and install file based on your device:
+
+*New Version*
+* Android {{${vals.androidNewVer}}} = ${vals.androidNewUrl}
+* IOS {{${vals.iosNewVer}}} = ${vals.iosNewUrl}
+
+*Prev Build*
+* Android {{${vals.androidPrevVer}}} = ${vals.androidPrevUrl}
+* IOS {{${vals.iosPrevVer}}} = ${vals.iosPrevUrl}
+
+h2. Test Case:
+${vals.spreadsheet}
+
+h2. Label Bug:
+{{${labelBug}}}
+
+h2. Important notes:
+${vals.notes}
+
+h2. Region-PIC Assignment:
+${regionPICText}`;
+
+                document.getElementById('s-adhoc-preview-title').textContent = titleText;
+                document.getElementById('s-adhoc-preview-thread').textContent = descText;
+
+                // Collect unique PICs for API call
+                const uniquePICs = [...new Set(Object.values(vals.regionPICMapping))];
+
+                // Store for API call
+                window.currentGeneration = {
+                    template: template,
+                    titleText: titleText,
+                    descText: descText,
+                    jiraTitle: `[Seller][${vals.platform}][${regionStr}] adHoc Regression ${vals.version}`,
+                    qaodAssignee: vals.qaodAssignee,
+                    pics: uniquePICs,
+                    regions: vals.regions,
+                    platform: vals.platform,
+                    version: vals.version,
+                    regionPICMapping: vals.regionPICMapping,
+                    deadline: vals.deadline,
+                    spreadsheet: vals.spreadsheet
+                };
+
+                return;
+            }
+            else if (template === 'seller-rn-staging') {
+                const vals = {
+                    // Basic Information
+                    version: document.getElementById('s-rn-stg-version').value,
+                    date: document.getElementById('s-rn-stg-date').value,
+                    spreadsheet: document.getElementById('s-rn-stg-spreadsheet').value,
+                    
+                    // Template
+                    mpReport: document.getElementById('s-rn-stg-mp-report').value,
+                    sellerJira: document.getElementById('s-rn-stg-seller-jira').value,
+                    recentTickets: document.getElementById('s-rn-stg-recent-tickets').value,
+                    buyerJira: document.getElementById('s-rn-stg-buyer-jira').value,
+                    
+                    // Shopee App
+                    shopeeIos: document.getElementById('s-rn-stg-shopee-ios').value,
+                    shopeeAndroid: document.getElementById('s-rn-stg-shopee-android').value,
+                    rnTime: document.getElementById('s-rn-stg-rn-time').value,
+                    
+                    // Seller App
+                    sellerIos: document.getElementById('s-rn-stg-seller-ios').value,
+                    sellerAndroid: document.getElementById('s-rn-stg-seller-android').value,
+                    sellerIosId: document.getElementById('s-rn-stg-seller-ios-id').value,
+                    sellerAndroidId: document.getElementById('s-rn-stg-seller-android-id').value,
+                    sellerRnVersion: document.getElementById('s-rn-stg-seller-rn-version').value,
+                    mkpGroup: document.getElementById('s-rn-stg-mkp-group').value,
+                    
+                    // Shopee Lite
+                    liteVersion: document.getElementById('s-rn-stg-lite-version').value,
+                    liteRn: document.getElementById('s-rn-stg-lite-rn').value,
+                    liteConfluence: document.getElementById('s-rn-stg-lite-confluence').value,
+                    
+                    // Additional Information
+                    targetTime: document.getElementById('s-rn-stg-target-time').value,
+                    outstanding: document.getElementById('s-rn-stg-outstanding').value,
+                    deadline: document.getElementById('s-rn-stg-deadline').value || 'EOD',
+                    qaodAssignee: document.getElementById('s-rn-stg-qaod-assignee').value,
+                    regions: getSelectedRegions('s-rn-stg-regions'),
+                    regionPICMapping: getRegionPICMapping('s-rn-stg-region-pic-mapping')
+                };
+
+                const selectedRegionsForPIC = vals.regions.filter(r => r !== "All Region");
+                const mappedRegions = Object.keys(vals.regionPICMapping);
+                const allRegionsAssigned = selectedRegionsForPIC.every(region => mappedRegions.includes(region));
+                
+                // Validation for required fields
+                if (!vals.version || !vals.date || !vals.spreadsheet || 
+                    !vals.sellerJira || !vals.buyerJira ||
+                    !vals.shopeeIos || !vals.shopeeAndroid ||
+                    !vals.sellerIos || !vals.sellerAndroid || !vals.sellerIosId || !vals.sellerAndroidId || !vals.sellerRnVersion ||
+                    vals.regions.length === 0 || !vals.qaodAssignee || !allRegionsAssigned) {
+                    alert('⚠️ Please fill all required fields including Region-PIC assignment for all selected regions!');
+                    return;
+                }
+
+                const regionStr = vals.regions.includes("All Region") ? "All Region" : vals.regions.join(", ");
+                const dateFormatted = new Date(vals.date).toLocaleDateString('en-US', { 
+                    weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' 
+                });
+
+                const titleText = `[Seller-App] RN Staging Regression ${vals.version} [${vals.sellerRnVersion}]
+Deadline: ${vals.deadline}`;
+
+                // Generate Region-PIC mentions (using Jira format for Input_Description)
+                let regionPICText = '';
+                Object.keys(vals.regionPICMapping).forEach(region => {
+                    const picEmail = vals.regionPICMapping[region];
+                    regionPICText += `${region} [~${picEmail}]\n`;
+                });
+
+                let descText = `h2. Test Date:
+${dateFormatted}
+
+h2. How to test:
+Download and install file based on your device:
+
+h3. Shopee App
+* iOS: {{${vals.shopeeIos}}}
+* Android: {{${vals.shopeeAndroid}}}${vals.rnTime ? `\n* RN Available Time: ${vals.rnTime}` : ''}
+
+h3. Seller App
+* iOS (Internal Build): {{${vals.sellerIos}}}
+* Android (Internal Build): {{${vals.sellerAndroid}}}
+* iOS (ID Internal Build): {{${vals.sellerIosId}}}
+* Android (ID Internal Build): {{${vals.sellerAndroidId}}}
+* Seller App RN Version: {{${vals.sellerRnVersion}}}${vals.mkpGroup ? `\n* 💬 Check in MKP Group: ${vals.mkpGroup}` : ''}
+
+h3. Shopee Lite${vals.liteVersion || vals.liteRn || vals.liteConfluence ? `
+* App Version: {{${vals.liteVersion || 'N/A'}}}
+* RN Version: {{${vals.liteRn || 'N/A'}}}${vals.liteConfluence ? `\n* 📖 Check in Confluence: ${vals.liteConfluence}` : ''}` : `
+* N/A`}
+
+h2. Test Case:
+${vals.spreadsheet}
+
+h2. Label error:
+{{regression_livebug_<CID>}}
+
+h2. Jira Tickets:
+* Seller App: ${vals.sellerJira}
+* Buyer App: ${vals.buyerJira}${vals.recentTickets ? `\n* 🎫 Recent SPQAA Tickets: ${vals.recentTickets}` : ''}${vals.mpReport ? `\n* 💬 Check in MP Report: ${vals.mpReport}` : ''}
+
+h2. Important notes:
+* Please link the jira bug ticket with main card ticket for tracking purposes
+* Don't forget add label error in jira bug ticket${vals.targetTime ? `\n* Internal Target Time: ${vals.targetTime}` : ''}${vals.outstanding ? `\n* Outstanding Services: ${vals.outstanding}` : ''}
+
+h2. Region-PIC Assignment:
+${regionPICText}`;
+
+                document.getElementById('s-rn-stg-preview-title').textContent = titleText;
+                document.getElementById('s-rn-stg-preview-thread').textContent = descText;
+
+                const uniquePICs = [...new Set(Object.values(vals.regionPICMapping))];
+
+                window.currentGeneration = {
+                    template: template,
+                    titleText: titleText,
+                    descText: descText,
+                    jiraTitle: `[Seller-App][${regionStr}] RN Staging Regression ${vals.version} [${vals.sellerRnVersion}]`,
+                    qaodAssignee: vals.qaodAssignee,
+                    pics: uniquePICs,
+                    regions: vals.regions,
+                    version: vals.version,
+                    regionPICMapping: vals.regionPICMapping,
+                    deadline: vals.deadline,
+                    spreadsheet: vals.spreadsheet
+                };
+                return;
+            }
+            else if (template === 'seller-native-live') {
+                const vals = {
+                    platform: document.getElementById('s-native-live-platform').value,
+                    regions: getSelectedRegions('s-native-live-regions'),
+                    version: document.getElementById('s-native-live-version').value,
+                    startDate: document.getElementById('s-native-live-start-date').value,
+                    deadline: document.getElementById('s-native-live-deadline').value,
+                    spreadsheet: document.getElementById('s-native-live-spreadsheet').value,
+                    androidLatestVer: document.getElementById('s-native-live-android-latest-ver').value,
+                    androidLatestUrl: document.getElementById('s-native-live-android-latest-url').value,
+                    androidPrevVer: document.getElementById('s-native-live-android-prev-ver').value,
+                    androidPrevUrl: document.getElementById('s-native-live-android-prev-url').value,
+                    iosLatestVer: document.getElementById('s-native-live-ios-latest-ver').value,
+                    iosLatestUrl: document.getElementById('s-native-live-ios-latest-url').value,
+                    iosPrevVer: document.getElementById('s-native-live-ios-prev-ver').value,
+                    iosPrevUrl: document.getElementById('s-native-live-ios-prev-url').value,
+                    rnVersion: document.getElementById('s-native-live-rn-version').value,
+                    rnPrepackage: document.getElementById('s-native-live-rn-prepackage').value,
+                    qaodAssignee: document.getElementById('s-native-live-qaod-assignee').value,
+                    regionPICMapping: getRegionPICMapping('s-native-live-region-pic-mapping')
+                };
+
+                const selectedRegionsForPIC = vals.regions.filter(r => r !== "All Region");
+                const mappedRegions = Object.keys(vals.regionPICMapping);
+                const allRegionsAssigned = selectedRegionsForPIC.every(region => mappedRegions.includes(region));
+                
+                if (!vals.version || !vals.startDate || !vals.deadline || !vals.spreadsheet ||
+                    !vals.androidLatestVer || !vals.androidLatestUrl || !vals.androidPrevVer || !vals.androidPrevUrl ||
+                    !vals.iosLatestVer || !vals.iosLatestUrl || !vals.iosPrevVer || !vals.iosPrevUrl ||
+                    vals.regions.length === 0 || !vals.qaodAssignee || !allRegionsAssigned) {
+                    alert('⚠️ Please fill all required fields including Deadline and Region-PIC assignment!');
+                    return;
+                }
+
+                const deadlineFormatted = formatDateTime(vals.deadline);
+                const regionStr = vals.regions.includes("All Region") ? "All Region" : vals.regions.join(", ");
+                
+                // Generate label bug (escape underscore for markdown)
+                const labelBug = vals.regions.includes("All Region") 
+                    ? "native_live_<CID>"
+                    : "native_live_" + vals.regions.join(",");
+
+                // Title for SeaTalk (clean, no mentions)
+                const titleText = `[Seller][${vals.platform}][${regionStr}] Live Regression ${vals.version}
+Deadline : ${deadlineFormatted}`;
+
+                // Generate Region-PIC mentions (using Jira format for Input_Description)
+                let regionPICText = '';
+                Object.keys(vals.regionPICMapping).forEach(region => {
+                    const picEmail = vals.regionPICMapping[region];
+                    regionPICText += `${region} [~${picEmail}]\n`;
+                });
+
+                // Description for Jira (Jira Wiki Markup format)
+                let descText = `h2. How to test:
+Download and install file based on your device:
+
+*New Version*
+* Android {{${vals.androidLatestVer}}} = ${vals.androidLatestUrl}
+* IOS {{${vals.iosLatestVer}}} = ${vals.iosLatestUrl}
+
+*Prev Build*
+* Android {{${vals.androidPrevVer}}} = ${vals.androidPrevUrl}
+* IOS {{${vals.iosPrevVer}}} = ${vals.iosPrevUrl}
+
+h2. Test Case:
+${vals.spreadsheet}
+`;
+
+                if (vals.rnVersion) {
+                    descText += `\nh2. RN:\n{{${vals.rnVersion}}}`;
+                }
+                if (vals.rnPrepackage) {
+                    descText += `\n*RN Prepackage:* {{${vals.rnPrepackage}}}`;
+                }
+
+                descText += `\n\nh2. Label Bug:\n{{${labelBug}}}
+
+h2. Main Ticket:
+[Auto-generated JIRA link]
+
+h2. Important notes:
+* Please make sure the version is correct
+* For the upgrade test cases, download previous version first -> download the version that we test
+* please update your sub task when it finished
+
+h2. Region-PIC Assignment:
+${regionPICText}`;
+
+                document.getElementById('s-native-live-preview-title').textContent = titleText;
+                document.getElementById('s-native-live-preview-thread').textContent = descText;
+
+                const uniquePICs = [...new Set(Object.values(vals.regionPICMapping))];
+
+                window.currentGeneration = {
+                    template: template,
+                    titleText: titleText,
+                    descText: descText,
+                    jiraTitle: `[Seller][${vals.platform}][${regionStr}] Live Regression ${vals.version}`,
+                    qaodAssignee: vals.qaodAssignee,
+                    pics: uniquePICs,
+                    regions: vals.regions,
+                    platform: vals.platform,
+                    version: vals.version,
+                    regionPICMapping: vals.regionPICMapping,
+                    deadline: vals.deadline,
+                    spreadsheet: vals.spreadsheet
+                };
+                return;
+            }
+            else if (template === 'seller-native-hotfix') {
+                const vals = {
+                    platform: document.getElementById('s-native-hotfix-platform').value,
+                    regions: getSelectedRegions('s-native-hotfix-regions'),
+                    version: document.getElementById('s-native-hotfix-version').value,
+                    startDate: document.getElementById('s-native-hotfix-start-date').value,
+                    deadline: document.getElementById('s-native-hotfix-deadline').value,
+                    spreadsheet: document.getElementById('s-native-hotfix-spreadsheet').value,
+                    androidLatestVer: document.getElementById('s-native-hotfix-android-latest-ver').value,
+                    androidLatestUrl: document.getElementById('s-native-hotfix-android-latest-url').value,
+                    androidPrevVer: document.getElementById('s-native-hotfix-android-prev-ver').value,
+                    androidPrevUrl: document.getElementById('s-native-hotfix-android-prev-url').value,
+                    iosLatestVer: document.getElementById('s-native-hotfix-ios-latest-ver').value,
+                    iosLatestUrl: document.getElementById('s-native-hotfix-ios-latest-url').value,
+                    iosPrevVer: document.getElementById('s-native-hotfix-ios-prev-ver').value,
+                    iosPrevUrl: document.getElementById('s-native-hotfix-ios-prev-url').value,
+                    rnVersion: document.getElementById('s-native-hotfix-rn-version').value,
+                    qaodAssignee: document.getElementById('s-native-hotfix-qaod-assignee').value,
+                    regionPICMapping: getRegionPICMapping('s-native-hotfix-region-pic-mapping')
+                };
+
+                const selectedRegionsForPIC = vals.regions.filter(r => r !== "All Region");
+                const mappedRegions = Object.keys(vals.regionPICMapping);
+                const allRegionsAssigned = selectedRegionsForPIC.every(region => mappedRegions.includes(region));
+                
+                if (!vals.version || !vals.startDate || !vals.deadline || !vals.spreadsheet ||
+                    vals.regions.length === 0 || !vals.qaodAssignee || !allRegionsAssigned) {
+                    alert('⚠️ Please fill all required fields including Deadline and Region-PIC assignment!');
+                    return;
+                }
+
+                // Platform-specific validation
+                if (vals.platform === 'Android' || vals.platform === 'Android/iOS') {
+                    if (!vals.androidLatestVer || !vals.androidLatestUrl || !vals.androidPrevVer || !vals.androidPrevUrl) {
+                        alert('⚠️ Please fill Android build information!');
+                        return;
+                    }
+                }
+                if (vals.platform === 'iOS' || vals.platform === 'Android/iOS') {
+                    if (!vals.iosLatestVer || !vals.iosLatestUrl || !vals.iosPrevVer || !vals.iosPrevUrl) {
+                        alert('⚠️ Please fill iOS build information!');
+                        return;
+                    }
+                }
+
+                const deadlineFormatted = formatDateTime(vals.deadline);
+                const regionStr = vals.regions.includes("All Region") ? "All Region" : vals.regions.join(", ");
+                
+                // Generate label bug (escape underscore for markdown)
+                const labelBug = vals.regions.includes("All Region") 
+                    ? "native_hotfix_<CID>"
+                    : "native_hotfix_" + vals.regions.join(",");
+
+                // Title for SeaTalk (clean, no mentions)
+                const titleText = `[Seller][${vals.platform}][${regionStr}] Hotfix ${vals.version}
+Deadline : ${deadlineFormatted}`;
+
+                // Generate Region-PIC mentions (using Jira format for Input_Description)
+                let regionPICText = '';
+                Object.keys(vals.regionPICMapping).forEach(region => {
+                    const picEmail = vals.regionPICMapping[region];
+                    regionPICText += `${region} [~${picEmail}]\n`;
+                });
+
+                // Description for Jira (Jira Wiki Markup format)
+                let descText = `h2. How to test:
+Download and install file based on your device:
+
+*New Version*
+`;
+
+                if (vals.platform === 'Android' || vals.platform === 'Android/iOS') {
+                    descText += `* Android {{${vals.androidLatestVer}}} = ${vals.androidLatestUrl}\n`;
+                }
+                if (vals.platform === 'iOS' || vals.platform === 'Android/iOS') {
+                    descText += `* IOS {{${vals.iosLatestVer}}} = ${vals.iosLatestUrl}\n`;
+                }
+
+                descText += `\n*Prev Build*\n`;
+
+                if (vals.platform === 'Android' || vals.platform === 'Android/iOS') {
+                    descText += `* Android {{${vals.androidPrevVer}}} = ${vals.androidPrevUrl}\n`;
+                }
+                if (vals.platform === 'iOS' || vals.platform === 'Android/iOS') {
+                    descText += `* IOS {{${vals.iosPrevVer}}} = ${vals.iosPrevUrl}\n`;
+                }
+
+                descText += `\nh2. Test Case:
+${vals.spreadsheet}
+`;
+
+                if (vals.rnVersion) {
+                    descText += `\nh2. RN:\n{{${vals.rnVersion}}}`;
+                }
+
+                descText += `\n\nh2. Label Bug:\n{{${labelBug}}}
+
+h2. Main Ticket:
+[Auto-generated JIRA link]
+
+h2. Important notes:
+* Please make sure the version is correct
+* For the upgrade test cases, download previous version first -> download the version that we test
+* please update your sub task when it finished
+
+h2. Region-PIC Assignment:
+${regionPICText}`;
+
+                document.getElementById('s-native-hotfix-preview-title').textContent = titleText;
+                document.getElementById('s-native-hotfix-preview-thread').textContent = descText;
+
+                const uniquePICs = [...new Set(Object.values(vals.regionPICMapping))];
+
+                window.currentGeneration = {
+                    template: template,
+                    titleText: titleText,
+                    descText: descText,
+                    jiraTitle: `[Seller][${vals.platform}][${regionStr}] Hotfix ${vals.version}`,
+                    qaodAssignee: vals.qaodAssignee,
+                    pics: uniquePICs,
+                    regions: vals.regions,
+                    platform: vals.platform,
+                    version: vals.version,
+                    regionPICMapping: vals.regionPICMapping,
+                    deadline: vals.deadline,
+                    spreadsheet: vals.spreadsheet
+                };
+                return;
+            }
+            // ==================== QAOD NATIVE APP TEMPLATES ====================
+            else if (template === 'native-prereg') {
+                const vals = {
+                    regions: getSelectedRegions('n-prereg-regions'),
+                    version: document.getElementById('n-prereg-version').value,
+                    deadline: document.getElementById('n-prereg-deadline').value,
+                    androidVer: document.getElementById('n-prereg-android-ver').value,
+                    androidUrl: document.getElementById('n-prereg-android-url').value,
+                    iosVer: document.getElementById('n-prereg-ios-ver').value,
+                    iosUrl: document.getElementById('n-prereg-ios-url').value,
+                    prevAndroidVer: document.getElementById('n-prereg-prev-android-ver').value,
+                    prevAndroidUrl: document.getElementById('n-prereg-prev-android-url').value,
+                    prevIosVer: document.getElementById('n-prereg-prev-ios-ver').value,
+                    prevIosUrl: document.getElementById('n-prereg-prev-ios-url').value,
+                    testcase: document.getElementById('n-prereg-testcase').value,
+                    androidJira: document.getElementById('n-prereg-android-jira').value,
+                    iosJira: document.getElementById('n-prereg-ios-jira').value,
+                    qaodAssignee: document.getElementById('n-prereg-qaod-assignee').value,
+                    regionPICMapping: getRegionPICMapping('n-prereg-region-pic-mapping')
+                };
+
+                const selectedRegionsForPIC = vals.regions.filter(r => r !== "All Region");
+                const mappedRegions = Object.keys(vals.regionPICMapping);
+                const allRegionsAssigned = selectedRegionsForPIC.every(region => mappedRegions.includes(region));
+
+                if (!vals.version || !vals.deadline || !vals.androidVer || !vals.androidUrl || !vals.iosVer || !vals.iosUrl || 
+                    !vals.prevAndroidVer || !vals.prevAndroidUrl || !vals.prevIosVer || !vals.prevIosUrl ||
+                    !vals.testcase || !vals.androidJira || !vals.iosJira || 
+                    vals.regions.length === 0 || !vals.qaodAssignee || !allRegionsAssigned) {
+                    alert('⚠️ Please fill all required fields!'); return;
+                }
+
+                const regionStr = vals.regions.includes("All Region") ? "All Region" : vals.regions.join(", ");
+                const labelBug = vals.regions.includes("All Region") ? "native_preregression_<CID>" : "native_preregression_" + vals.regions.join(",");
+                const deadlineFormatted = formatDateTime(vals.deadline);
+
+                const titleText = `[Buyer][Android/iOS][${regionStr}] Pre-Regression v${vals.version}
+Deadline: ${deadlineFormatted}`;
+
+                let regionPICText = '';
+                Object.keys(vals.regionPICMapping).forEach(region => {
+                    const picEmail = vals.regionPICMapping[region];
+                    regionPICText += `${region} [~${picEmail}]\n`;
+                });
+
+                const descText = `h2. How to test:
+Download and install file based on your device:
+
+*New Version*
+* Android {{v${vals.androidVer}}} = ${vals.androidUrl}
+* iOS {{v${vals.iosVer}}} = ${vals.iosUrl}
+
+*Prev Build*
+* Android {{v${vals.prevAndroidVer}}} = ${vals.prevAndroidUrl}
+* iOS {{v${vals.prevIosVer}}} = ${vals.prevIosUrl}
+
+h2. Test Case:
+${vals.testcase}
+
+h2. Main Ticket:
+[Auto-generated JIRA link]
+
+h2. Label Bug:
+{{${labelBug}}}
+
+h2. Jira Tickets:
+* Android SPAPP: ${vals.androidJira}
+* iOS SPAPP: ${vals.iosJira}
+
+h2. Important notes:
+* Please make sure the version is correct
+* For the upgrade test cases, download previous version first -> download the version that we test
+* please update your sub task when it finished
+
+h2. Region-PIC Assignment:
+${regionPICText}`;
+
+                document.getElementById('n-prereg-preview-title').textContent = titleText;
+                document.getElementById('n-prereg-preview-thread').textContent = descText;
+
+                const uniquePICs = [...new Set(Object.values(vals.regionPICMapping))];
+
+                window.currentGeneration = {
+                    template: template,
+                    titleText: titleText,
+                    descText: descText,
+                    jiraTitle: `[Buyer][Android/iOS][${regionStr}] Pre-Regression v${vals.version}`,
+                    qaodAssignee: vals.qaodAssignee,
+                    pics: uniquePICs,
+                    regions: vals.regions,
+                    regionPICMapping: vals.regionPICMapping,
+                    version: vals.version,
+                    deadline: vals.deadline,
+                    testCase: vals.testcase
+                };
+                return;
+            }
+            else if (template === 'native-productline') {
+                const vals = {
+                    regions: getSelectedRegions('n-pl-regions'),
+                    version: document.getElementById('n-pl-version').value,
+                    start: document.getElementById('n-pl-start').value,
+                    deadline: document.getElementById('n-pl-deadline').value,
+                    testcase: document.getElementById('n-pl-testcase').value,
+                    androidVer: document.getElementById('n-pl-android-ver').value,
+                    androidUrl: document.getElementById('n-pl-android-url').value,
+                    iosVer: document.getElementById('n-pl-ios-ver').value,
+                    iosUrl: document.getElementById('n-pl-ios-url').value,
+                    androidJira: document.getElementById('n-pl-android-jira').value,
+                    iosJira: document.getElementById('n-pl-ios-jira').value,
+                    qaodAssignee: document.getElementById('n-pl-qaod-assignee').value,
+                    regionPICMapping: getRegionPICMapping('n-pl-region-pic-mapping')
+                };
+
+                const selectedRegionsForPIC = vals.regions.filter(r => r !== "All Region");
+                const mappedRegions = Object.keys(vals.regionPICMapping);
+                const allRegionsAssigned = selectedRegionsForPIC.every(region => mappedRegions.includes(region));
+
+                if (!vals.version || !vals.start || !vals.deadline || !vals.testcase || 
+                    !vals.androidVer || !vals.androidUrl || !vals.iosVer || 
+                    !vals.androidJira || !vals.iosJira || 
+                    vals.regions.length === 0 || !vals.qaodAssignee || !allRegionsAssigned) {
+                    alert('⚠️ Please fill all required fields!'); return;
+                }
+
+                const regionStr = vals.regions.includes("All Region") ? "All Region" : vals.regions.join(", ");
+                const labelBug = vals.regions.includes("All Region") ? "native_productline_<CID>" : "native_productline_" + vals.regions.join(",");
+                const startDate = new Date(vals.start).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                const deadlineFormatted = formatDateTime(vals.deadline);
+
+                const titleText = `[Buyer][Android/iOS][${regionStr}] Product Line Regression v${vals.version}
+Deadline: ${deadlineFormatted}`;
+
+                let regionPICText = '';
+                Object.keys(vals.regionPICMapping).forEach(region => {
+                    const picEmail = vals.regionPICMapping[region];
+                    regionPICText += `${region} [~${picEmail}]\n`;
+                });
+
+                const descText = `h2. How to test:
+Download and install file based on your device:
+
+*Schedule:*
+* Start: ${startDate}
+* Deadline: ${deadlineFormatted}
+
+*Build Links:*
+* Android {{${vals.androidVer}}} = ${vals.androidUrl}
+* iOS {{${vals.iosVer}}} = ${vals.iosUrl || 'Not Ready Yet'}
+
+h2. Test Case:
+${vals.testcase}
+
+h2. Main Ticket:
+[Auto-generated JIRA link]
+
+h2. Label Bug:
+{{${labelBug}}}
+
+h2. Jira Tickets:
+* Android SPAPP: ${vals.androidJira}
+* iOS SPAPP: ${vals.iosJira}
+
+h2. Important notes:
+* Please make sure the version is correct
+* For the upgrade test cases, download previous version first -> download the version that we test
+* please update your sub task when it finished
+
+h2. Region-PIC Assignment:
+${regionPICText}`;
+
+                document.getElementById('n-pl-preview-title').textContent = titleText;
+                document.getElementById('n-pl-preview-thread').textContent = descText;
+
+                const uniquePICs = [...new Set(Object.values(vals.regionPICMapping))];
+
+                window.currentGeneration = {
+                    template: template,
+                    titleText: titleText,
+                    descText: descText,
+                    jiraTitle: `[Buyer][Android/iOS][${regionStr}] Product Line Regression v${vals.version}`,
+                    qaodAssignee: vals.qaodAssignee,
+                    pics: uniquePICs,
+                    regions: vals.regions,
+                    version: vals.version,
+                    regionPICMapping: vals.regionPICMapping,
+                    deadline: vals.deadline,
+                    testCase: vals.testcase
+                };
+                return;
+            }
+            else if (template === 'native-live') {
+                const vals = {
+                    regions: getSelectedRegions('n-live-regions'),
+                    platform: document.getElementById('n-live-platform').value,
+                    version: document.getElementById('n-live-version').value,
+                    deadline: document.getElementById('n-live-deadline').value,
+                    androidVer: document.getElementById('n-live-android-ver').value,
+                    androidUrl: document.getElementById('n-live-android-url').value,
+                    iosVer: document.getElementById('n-live-ios-ver').value,
+                    iosUrl: document.getElementById('n-live-ios-url').value,
+                    prevAndroidVer: document.getElementById('n-live-prev-android-ver').value,
+                    prevAndroidUrl: document.getElementById('n-live-prev-android-url').value,
+                    prevIosVer: document.getElementById('n-live-prev-ios-ver').value,
+                    prevIosUrl: document.getElementById('n-live-prev-ios-url').value,
+                    testcase: document.getElementById('n-live-testcase').value,
+                    qaodAssignee: document.getElementById('n-live-qaod-assignee').value,
+                    regionPICMapping: getRegionPICMapping('n-live-region-pic-mapping')
+                };
+
+                const selectedRegionsForPIC = vals.regions.filter(r => r !== "All Region");
+                const mappedRegions = Object.keys(vals.regionPICMapping);
+                const allRegionsAssigned = selectedRegionsForPIC.every(region => mappedRegions.includes(region));
+
+                if (!vals.version || !vals.androidVer || !vals.androidUrl || !vals.iosVer || !vals.iosUrl ||
+                    !vals.prevAndroidVer || !vals.prevAndroidUrl || !vals.prevIosVer || !vals.prevIosUrl ||
+                    !vals.deadline || !vals.testcase || 
+                    vals.regions.length === 0 || !vals.qaodAssignee || !allRegionsAssigned) {
+                    alert('⚠️ Please fill all required fields!'); return;
+                }
+
+                const regionStr = vals.regions.includes("All Region") ? "All Region" : vals.regions.join(", ");
+                const labelBug = vals.regions.includes("All Region") ? "native_liveregression_<CID>" : "native_liveregression_" + vals.regions.join(",");
+                const deadlineFormatted = formatDateTime(vals.deadline);
+
+                const titleText = `[Buyer][${vals.platform}][${regionStr}] Live Regression v${vals.version}
+Deadline: ${deadlineFormatted}`;
+
+                let regionPICText = '';
+                Object.keys(vals.regionPICMapping).forEach(region => {
+                    const picEmail = vals.regionPICMapping[region];
+                    regionPICText += `${region} [~${picEmail}]\n`;
+                });
+
+                const descText = `h2. How to test:
+Download and install file based on your device:
+
+*New Version*
+* Android {{v${vals.androidVer}}} = ${vals.androidUrl}
+* iOS {{v${vals.iosVer}}} = [TestFlight] ${vals.iosUrl}
+
+*Prev Build*
+* Android {{v${vals.prevAndroidVer}}} = ${vals.prevAndroidUrl}
+* iOS {{v${vals.prevIosVer}}} = [TestFlight] ${vals.prevIosUrl}
+
+h2. Test Case:
+${vals.testcase}
+
+h2. Main Ticket:
+[Auto-generated JIRA link]
+
+h2. Label Bug:
+{{${labelBug}}}
+
+h2. Important notes:
+* Please make sure the version is correct
+* For the upgrade test cases, download previous version first -> download the version that we test
+* please update your sub task when it finished
+
+h2. Region-PIC Assignment:
+${regionPICText}`;
+
+                document.getElementById('n-live-preview-title').textContent = titleText;
+                document.getElementById('n-live-preview-thread').textContent = descText;
+
+                const uniquePICs = [...new Set(Object.values(vals.regionPICMapping))];
+
+                window.currentGeneration = {
+                    template: template,
+                    titleText: titleText,
+                    descText: descText,
+                    jiraTitle: `[Buyer][${vals.platform}][${regionStr}] Live Regression v${vals.version}`,
+                    qaodAssignee: vals.qaodAssignee,
+                    pics: uniquePICs,
+                    regions: vals.regions,
+                    platform: vals.platform,
+                    version: vals.version,
+                    regionPICMapping: vals.regionPICMapping,
+                    deadline: vals.deadline,
+                    testCase: vals.testcase
+                };
+                return;
+            }
+            else if (template === 'native-adhoc') {
+                const vals = {
+                    regions: getSelectedRegions('n-adhoc-regions'),
+                    platform: document.getElementById('n-adhoc-platform').value,
+                    version: document.getElementById('n-adhoc-version').value,
+                    deadline: document.getElementById('n-adhoc-deadline').value,
+                    androidVer: document.getElementById('n-adhoc-android-ver').value,
+                    androidUrl: document.getElementById('n-adhoc-android-url').value || 'TBA',
+                    iosVer: document.getElementById('n-adhoc-ios-ver').value || 'N/A',
+                    iosUrl: document.getElementById('n-adhoc-ios-url').value || '-',
+                    prevAndroidVer: document.getElementById('n-adhoc-prev-android-ver').value || 'N/A',
+                    prevAndroidUrl: document.getElementById('n-adhoc-prev-android-url').value || '-',
+                    prevIosVer: document.getElementById('n-adhoc-prev-ios-ver').value || 'N/A',
+                    prevIosUrl: document.getElementById('n-adhoc-prev-ios-url').value || '-',
+                    testcase: document.getElementById('n-adhoc-testcase').value,
+                    qaodAssignee: document.getElementById('n-adhoc-qaod-assignee').value,
+                    regionPICMapping: getRegionPICMapping('n-adhoc-region-pic-mapping')
+                };
+
+                const selectedRegionsForPIC = vals.regions.filter(r => r !== "All Region");
+                const mappedRegions = Object.keys(vals.regionPICMapping);
+                const allRegionsAssigned = selectedRegionsForPIC.every(region => mappedRegions.includes(region));
+
+                if (!vals.version || !vals.deadline || !vals.androidVer || !vals.testcase || 
+                    vals.regions.length === 0 || !vals.qaodAssignee || !allRegionsAssigned) {
+                    alert('⚠️ Please fill all required fields!'); return;
+                }
+
+                const regionStr = vals.regions.includes("All Region") ? "All Region" : vals.regions.join(", ");
+                const labelBug = vals.regions.includes("All Region") ? "native_hotfix_<CID>" : "native_hotfix_" + vals.regions.join(",");
+                const deadlineFormatted = formatDateTime(vals.deadline);
+
+                const titleText = `[Buyer][${vals.platform}][${regionStr}] Adhoc/Hotfix v${vals.version}
+Deadline: ${deadlineFormatted}`;
+
+                let regionPICText = '';
+                Object.keys(vals.regionPICMapping).forEach(region => {
+                    const picEmail = vals.regionPICMapping[region];
+                    regionPICText += `${region} [~${picEmail}]\n`;
+                });
+
+                const descText = `h2. How to test:
+Download and install file based on your device:
+
+*New Version*
+* Android {{v${vals.androidVer}}} = ${vals.androidUrl}
+* iOS {{${vals.iosVer}}} = ${vals.iosUrl}
+
+*Prev Build*
+* Android {{v${vals.prevAndroidVer}}} = ${vals.prevAndroidUrl}
+* iOS {{${vals.prevIosVer}}} = ${vals.prevIosUrl}
+
+h2. Test Case:
+${vals.testcase}
+
+h2. Main Ticket:
+[Auto-generated JIRA link]
+
+h2. Label Bug:
+{{${labelBug}}}
+
+h2. Important notes:
+* Please make sure the version is correct
+* For the upgrade test cases, download previous version first -> download the version that we test
+* please update your sub task when it finished
+
+h2. Region-PIC Assignment:
+${regionPICText}`;
+
+                document.getElementById('n-adhoc-preview-title').textContent = titleText;
+                document.getElementById('n-adhoc-preview-thread').textContent = descText;
+
+                const uniquePICs = [...new Set(Object.values(vals.regionPICMapping))];
+
+                window.currentGeneration = {
+                    template: template,
+                    titleText: titleText,
+                    descText: descText,
+                    jiraTitle: `[Buyer][${vals.platform}][${regionStr}] Adhoc/Hotfix v${vals.version}`,
+                    qaodAssignee: vals.qaodAssignee,
+                    pics: uniquePICs,
+                    regions: vals.regions,
+                    platform: vals.platform,
+                    version: vals.version,
+                    regionPICMapping: vals.regionPICMapping,
+                    deadline: vals.deadline,
+                    testCase: vals.testcase
+                };
+                return;
+            }
+            else if (template === 'native-thirdparty') {
+                const vals = {
+                    regions: getSelectedRegions('n-3rd-regions'),
+                    platform: document.getElementById('n-3rd-platform').value,
+                    version: document.getElementById('n-3rd-version').value,
+                    deadline: document.getElementById('n-3rd-deadline').value,
+                    androidVer: document.getElementById('n-3rd-android-ver').value,
+                    androidUrl: document.getElementById('n-3rd-android-url').value,
+                    iosVer: document.getElementById('n-3rd-ios-ver').value,
+                    iosUrl: document.getElementById('n-3rd-ios-url').value,
+                    prevAndroidVer: document.getElementById('n-3rd-prev-android-ver').value,
+                    prevAndroidUrl: document.getElementById('n-3rd-prev-android-url').value,
+                    prevIosVer: document.getElementById('n-3rd-prev-ios-ver').value,
+                    prevIosUrl: document.getElementById('n-3rd-prev-ios-url').value,
+                    testcase: document.getElementById('n-3rd-testcase').value,
+                    qaodAssignee: document.getElementById('n-3rd-qaod-assignee').value,
+                    regionPICMapping: getRegionPICMapping('n-3rd-region-pic-mapping')
+                };
+
+                const selectedRegionsForPIC = vals.regions.filter(r => r !== "All Region");
+                const mappedRegions = Object.keys(vals.regionPICMapping);
+                const allRegionsAssigned = selectedRegionsForPIC.every(region => mappedRegions.includes(region));
+
+                if (!vals.version || !vals.androidVer || !vals.androidUrl || !vals.iosVer || !vals.iosUrl ||
+                    !vals.prevAndroidVer || !vals.prevAndroidUrl || !vals.prevIosVer || !vals.prevIosUrl ||
+                    !vals.testcase || !vals.deadline || 
+                    vals.regions.length === 0 || !vals.qaodAssignee || !allRegionsAssigned) {
+                    alert('⚠️ Please fill all required fields!'); return;
+                }
+
+                const regionStr = vals.regions.includes("All Region") ? "All Region" : vals.regions.join(", ");
+                const labelBug = vals.regions.includes("All Region") ? "native_3rdparty_<CID>" : "native_3rdparty_" + vals.regions.join(",");
+                const deadlineFormatted = formatDateTime(vals.deadline);
+
+                const titleText = `[Buyer][${vals.platform}][${regionStr}] 3rd Party Regression v${vals.version}
+Deadline: ${deadlineFormatted}`;
+
+                let regionPICText = '';
+                Object.keys(vals.regionPICMapping).forEach(region => {
+                    const picEmail = vals.regionPICMapping[region];
+                    regionPICText += `${region} [~${picEmail}]\n`;
+                });
+
+                const descText = `h2. How to test:
+Download and install file based on your device:
+
+*New Version*
+* Android {{v${vals.androidVer}}} = ${vals.androidUrl}
+* iOS {{v${vals.iosVer}}} = ${vals.iosUrl}
+
+*Prev Build*
+* Android {{v${vals.prevAndroidVer}}} = ${vals.prevAndroidUrl}
+* iOS {{v${vals.prevIosVer}}} = ${vals.prevIosUrl}
+
+h2. Test Case:
+${vals.testcase}
+
+h2. Main Ticket:
+[Auto-generated JIRA link]
+
+h2. Label Bug:
+{{${labelBug}}}
+
+h2. Important notes:
+* Please make sure the version is correct
+* For the upgrade test cases, download previous version first -> download the version that we test
+* P0 & P1 ONLY
+* please update your sub task when it finished
+
+h2. Region-PIC Assignment:
+${regionPICText}`;
+
+                document.getElementById('n-3rd-preview-title').textContent = titleText;
+                document.getElementById('n-3rd-preview-thread').textContent = descText;
+
+                const uniquePICs = [...new Set(Object.values(vals.regionPICMapping))];
+
+                window.currentGeneration = {
+                    template: template,
+                    titleText: titleText,
+                    descText: descText,
+                    jiraTitle: `[Buyer][${vals.platform}][${regionStr}] 3rd Party Regression v${vals.version}`,
+                    qaodAssignee: vals.qaodAssignee,
+                    pics: uniquePICs,
+                    regions: vals.regions,
+                    platform: vals.platform,
+                    version: vals.version,
+                    regionPICMapping: vals.regionPICMapping,
+                    deadline: vals.deadline,
+                    testCase: vals.testcase
+                };
+                return;
+            }
+            // ==================== RN REGRESSION HELPER TEMPLATES ====================
+            else if (template === 'rn-deployment') {
+                const vals = {
+                    version: document.getElementById('r-dep-version').value,
+                    rsl: document.getElementById('r-dep-rsl').value,
+                    date: document.getElementById('r-dep-date').value,
+                    time: document.getElementById('r-dep-time').value || '16.30',
+                    thread: document.getElementById('r-dep-thread').value,
+                    qaodAssignee: document.getElementById('r-dep-qaod-assignee').value
+                };
+
+                if (!vals.version || !vals.rsl || !vals.date || !vals.qaodAssignee) {
+                    alert('⚠️ Please fill all required fields!'); return;
+                }
+
+                const depDate = new Date(vals.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                const servicesLink = 'https://space.shopee.io/release/portal/regression_management/regression_schedule?tab=2&rsl_schedule=' + vals.rsl;
+
+                const titleText = `[RN] Deployment Staging ${vals.version}
+Deployment: ${depDate} ${vals.time} Jakarta Time`;
+
+                const descText = `h2. Staging Deployment Services:
+${servicesLink}
+
+h2. Guide:
+https://space.shopee.io/release/portal/regression_management/regression_schedule?tab=2
+
+h2. Docs:
+https://docs.google.com/spreadsheets/d/1UeaO0XwM0_RLVFPa0nAtkF1yG7-hp7tTnkm2LvyghA4/edit?gid=1498598204#gid=1498598204
+
+h2. Reference Confluence:
+https://confluence.shopee.io/pages/viewpage.action?spaceKey=IMD&title=Staging+and+Live+Deployment+Management+Guide
+
+h2. Testing Schedule:
+${vals.version}-Staging
+
+h2. Deployment Start:
+${depDate} ${vals.time} Jakarta Time
+
+h2. Important notes:
+* PLEASE SEE THIS FOR NEW ROLE: https://confluence.shopee.io/display/IMD/Staging+and+Live+Deployment+Management+Guide#heading-OverrideDeployment
+* Focus only priority P1 + P2
+* Follow-up all status
+
+h2. Deployment Thread:
+${vals.thread || 'Check in MKP Regression Group'}`;
+
+                document.getElementById('r-dep-preview-title').textContent = titleText;
+                document.getElementById('r-dep-preview-thread').textContent = descText;
+
+                window.currentGeneration = {
+                    template: template,
+                    titleText: titleText,
+                    descText: descText,
+                    jiraTitle: `[RN] Deployment Staging ${vals.version}`,
+                    qaodAssignee: vals.qaodAssignee,
+                    version: vals.version,
+                    deadline: '-',
+                    testCase: '-'
+                };
+                return;
+            }
+            else if (template === 'rn-staging') {
+                const vals = {
+                    version: document.getElementById('r-stg-version').value,
+                    date: document.getElementById('r-stg-date').value,
+                    deadline: document.getElementById('r-stg-deadline').value,
+                    spreadsheet: document.getElementById('r-stg-spreadsheet').value,
+                    jiraSeller: document.getElementById('r-stg-jira-seller').value,
+                    jiraBuyer: document.getElementById('r-stg-jira-buyer').value,
+                    shopeeIos: document.getElementById('r-stg-shopee-ios').value,
+                    shopeeAndroid: document.getElementById('r-stg-shopee-android').value,
+                    shopeeRnTime: document.getElementById('r-stg-shopee-rn-time').value,
+                    sellerIos: document.getElementById('r-stg-seller-ios').value,
+                    sellerAndroid: document.getElementById('r-stg-seller-android').value,
+                    sellerIdIos: document.getElementById('r-stg-seller-id-ios').value,
+                    sellerIdAndroid: document.getElementById('r-stg-seller-id-android').value,
+                    sellerRn: document.getElementById('r-stg-seller-rn').value,
+                    liteVersion: document.getElementById('r-stg-lite-version').value,
+                    liteRn: document.getElementById('r-stg-lite-rn').value,
+                    targetTime: document.getElementById('r-stg-target-time').value,
+                    outstandingLink: document.getElementById('r-stg-outstanding-link').value,
+                    qaodAssignee: document.getElementById('r-stg-qaod-assignee').value
+                };
+
+                if (!vals.version || !vals.date || !vals.spreadsheet || 
+                    !vals.jiraSeller || !vals.jiraBuyer || !vals.qaodAssignee ||
+                    !vals.shopeeIos || !vals.shopeeAndroid || 
+                    !vals.sellerIos || !vals.sellerAndroid || 
+                    !vals.sellerIdIos || !vals.sellerIdAndroid || !vals.sellerRn) {
+                    alert('⚠️ Please fill all required fields!'); return;
+                }
+
+                const labelBug = "regression_staging_<CID>";
+                const testDate = new Date(vals.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                const deadlineFormatted = formatDateTime(vals.deadline);
+
+                const titleText = `[RN] Staging Regression ${vals.version}
+Deadline: ${deadlineFormatted}`;
+
+                let descText = `h2. Staging Regression - ${vals.version}
+
+h2. Date:
+${testDate}
+
+h2. Test Case Spreadsheet:
+${vals.spreadsheet}
+Guide: Check [Report] MP Regression QA group for Test case
+
+h2. Label Bug:
+{{${labelBug}}}
+
+h2. Jira Tickets:
+* Seller App: ${vals.jiraSeller}
+* Buyer App: ${vals.jiraBuyer}
+Guide: SPQAA most recent created - https://jira.shopee.io/issues/?filter=150230
+
+h2. Shopee App:
+* iOS Version: ${vals.shopeeIos}
+* Android Version: ${vals.shopeeAndroid}`;
+
+                if (vals.shopeeRnTime) {
+                    descText += `\n* RN Available Time: ${vals.shopeeRnTime}`;
+                }
+
+                descText += `\n\nh2. Seller App:
+* iOS Version (Internal Build): ${vals.sellerIos}
+* Android Version (Internal Build): ${vals.sellerAndroid}
+* iOS Version (ID Internal Build): ${vals.sellerIdIos}
+* Android Version (ID Internal Build): ${vals.sellerIdAndroid}
+* Seller App RN Version: ${vals.sellerRn}`;
+
+                if (vals.liteVersion || vals.liteRn) {
+                    descText += `\n\nh2. Shopee Lite:`;
+                    if (vals.liteVersion) descText += `\n* App Version: ${vals.liteVersion}`;
+                    if (vals.liteRn) descText += `\n* RN Version: ${vals.liteRn}`;
+                }
+
+                descText += `\n\nh2. Additional Information:
+* Internal Target Time: ${vals.targetTime}`;
+
+                if (vals.outstandingLink) {
+                    descText += `\n* Outstanding Services Link: ${vals.outstandingLink}`;
+                }
+
+                descText += `\n\nh2. Important notes:
+* Please start testing on staging environment`;
+
+                document.getElementById('r-stg-preview-title').textContent = titleText;
+                document.getElementById('r-stg-preview-thread').textContent = descText;
+
+                window.currentGeneration = {
+                    template: template,
+                    titleText: titleText,
+                    descText: descText,
+                    jiraTitle: `[RN] Staging Regression ${vals.version}`,
+                    qaodAssignee: vals.qaodAssignee,
+                    version: vals.version,
+                    deadline: vals.deadline,
+                    spreadsheet: vals.spreadsheet
+                };
+                return;
+            }
+            else if (template === 'rn-live') {
+                const vals = {
+                    version: document.getElementById('r-live-version').value,
+                    date: document.getElementById('r-live-date').value,
+                    deadline: document.getElementById('r-live-deadline').value,
+                    spreadsheet: document.getElementById('r-live-spreadsheet').value,
+                    jiraSeller: document.getElementById('r-live-jira-seller').value,
+                    jiraBuyer: document.getElementById('r-live-jira-buyer').value,
+                    rnVersion: document.getElementById('r-live-rn-version').value,
+                    qaodAssignee: document.getElementById('r-live-qaod-assignee').value,
+                    picTC1: document.getElementById('r-live-pic-tc1').value,
+                    picTC2: document.getElementById('r-live-pic-tc2').value,
+                    picTC3: document.getElementById('r-live-pic-tc3').value,
+                    picTC4: document.getElementById('r-live-pic-tc4').value
+                };
+
+                if (!vals.version || !vals.date || !vals.spreadsheet || 
+                    !vals.jiraSeller || !vals.jiraBuyer || !vals.rnVersion || !vals.qaodAssignee ||
+                    !vals.picTC1 || !vals.picTC2 || !vals.picTC3 || !vals.picTC4) {
+                    alert('⚠️ Please fill all required fields including PIC assignments!'); return;
+                }
+
+                const labelBug = "regression_livebug_<CID>";
+                const testDate = new Date(vals.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                const deadlineFormatted = formatDateTime(vals.deadline);
+
+                const titleText = `[RN] Live Regression ${vals.version}
+Deadline: ${deadlineFormatted}`;
+
+                const descText = `h2. Live Regression - ${vals.version}
+
+h2. Date:
+${testDate}
+
+h2. Test Case Spreadsheet:
+${vals.spreadsheet}
+Guide: can duplicate from here - https://docs.google.com/spreadsheets/d/1xcWWD9HbYodGfdtVeDPNrHd3PePdsleTSF3l4F3i-1U/edit?gid=2068996028#gid=2068996028
+
+h2. Label Bug:
+{{${labelBug}}}
+
+h2. Jira Tickets:
+* Seller App: ${vals.jiraSeller}
+* Buyer App: ${vals.jiraBuyer}
+Guide: Check Recent JIRA Ticket - https://jira.shopee.io/issues/?filter=150230
+
+h2. RN Version:
+{{${vals.rnVersion}}}
+Check version: In MKP group
+
+h2. App Version:
+* iOS: latest from App Store
+* Android: latest from Play Store
+
+h2. QR RN:
+https://app.shopee.io/rn-release/version-selection
+
+h2. Environment:
+Live - ID
+
+h2. Important notes:
+* Please start testing on LIVE environment
+
+h2. PIC Assignment:
+[1] TC1 [Received Order] [~${vals.picTC1}]
+[2] TC2 [RR Approved] [~${vals.picTC2}]
+[3] TC3 [RR Reject] [~${vals.picTC3}]
+[4] TC4 [Cancel Order] [~${vals.picTC4}]`;
+
+                document.getElementById('r-live-preview-title').textContent = titleText;
+                document.getElementById('r-live-preview-thread').textContent = descText;
+
+                // Collect unique PICs from TC assignments
+                const tcPics = [vals.picTC1, vals.picTC2, vals.picTC3, vals.picTC4];
+                const uniqueTcPics = [...new Set(tcPics)];
+
+                window.currentGeneration = {
+                    template: template,
+                    titleText: titleText,
+                    descText: descText,
+                    jiraTitle: `[RN] Live Regression ${vals.version}`,
+                    qaodAssignee: vals.qaodAssignee,
+                    pics: uniqueTcPics,
+                    version: vals.version,
+                    deadline: vals.deadline,
+                    spreadsheet: vals.spreadsheet
+                };
+                return;
+            }
+        }
+
+        async function sendToAPI(template) {
+            if (!window.currentGeneration || window.currentGeneration.template !== template) {
+                alert('⚠️ Please generate preview first by clicking "Generate Preview" button!');
+                return;
+            }
+
+            const data = window.currentGeneration;
+            
+            // Get correct button and response box based on template
+            let apiBtn, responseBox;
+            // Seller templates
+            if (template === 'seller-native-adhoc') {
+                apiBtn = document.getElementById('s-adhoc-api-btn');
+                responseBox = document.getElementById('s-adhoc-api-response');
+            } else if (template === 'seller-rn-staging') {
+                apiBtn = document.getElementById('s-rn-stg-api-btn');
+                responseBox = document.getElementById('s-rn-stg-api-response');
+            } else if (template === 'seller-native-live') {
+                apiBtn = document.getElementById('s-native-live-api-btn');
+                responseBox = document.getElementById('s-native-live-api-response');
+            } else if (template === 'seller-native-hotfix') {
+                apiBtn = document.getElementById('s-native-hotfix-api-btn');
+                responseBox = document.getElementById('s-native-hotfix-api-response');
+            }
+            // QAoD Native App templates
+            else if (template === 'native-prereg') {
+                responseBox = document.getElementById('n-prereg-api-response');
+            } else if (template === 'native-productline') {
+                responseBox = document.getElementById('n-pl-api-response');
+            } else if (template === 'native-live') {
+                responseBox = document.getElementById('n-live-api-response');
+            } else if (template === 'native-adhoc') {
+                responseBox = document.getElementById('n-adhoc-api-response');
+            } else if (template === 'native-thirdparty') {
+                responseBox = document.getElementById('n-3rd-api-response');
+            }
+            // RN Regression Helper templates
+            else if (template === 'rn-deployment') {
+                responseBox = document.getElementById('r-dep-api-response');
+            } else if (template === 'rn-staging') {
+                responseBox = document.getElementById('r-stg-api-response');
+            } else if (template === 'rn-live') {
+                responseBox = document.getElementById('r-live-api-response');
+            }
+
+            // Disable button (apiBtn might be null for new templates without dedicated button)
+            if (apiBtn) {
+                apiBtn.disabled = true;
+                apiBtn.innerHTML = '⏳ Sending to API...';
+            }
+            responseBox.className = 'api-response-box loading';
+            responseBox.textContent = '⏳ Sending request to workflow API...\n\nPlease wait...';
+
+            // Prepare pic array: QAoD assignee must be first (index 0 = main ticket assignee)
+            const picArray = data.qaodAssignee ? [data.qaodAssignee, ...(data.pics || [])] : (data.pics || []);
+
+            // Build taskData (matches working HTML format)
+            const metadata = TASK_METADATA[template] || { title: template, scopes: '-' };
+            const taskData = {
+                title: metadata.title || '-',
+                scopes: metadata.scopes || '-',
+                task: `${metadata.title} ${data.version || ''}`.trim() || '-',
+                startDate: getCurrentTaskDataDate(),
+                target: data.deadline ? formatTaskDataDate(data.deadline) : '-',
+                testCase: data.testCase || data.spreadsheet || '-'
+            };
+
+            const requestBody = {
+                endpoint_deployment_hash_id: API_CONFIG.endpoint_deployment_hash_id,
+                endpoint_deployment_key: API_CONFIG.endpoint_deployment_key,
+                start_user_variables: {
+                    InputTitle: data.titleText,
+                    jiraTitle: data.jiraTitle,
+                    InputDescription: data.descText,
+                    pic: picArray,
+                    taskData: taskData
+                }
+            };
+
+            try {
+                let response;
+                
+                // Use local proxy if running in Electron/localhost
+                if (isLocalServer()) {
+                    console.log('🖥️ Using local proxy (Electron mode)');
+                    response = await fetch(API_CONFIG.localProxyUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            targetUrl: API_CONFIG.targetUrl,
+                            body: requestBody
+                        })
+                    });
+                } else {
+                    console.log('🌐 Using CORS proxy (Browser mode)');
+                    const proxyUrl = API_CONFIG.corsProxyUrl + encodeURIComponent(API_CONFIG.targetUrl);
+                    response = await fetch(proxyUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+                }
+
+                let responseData;
+                const responseText = await response.text();
+
+                try {
+                    responseData = JSON.parse(responseText);
+                } catch {
+                    responseData = { raw_response: responseText };
+                }
+
+                if (response.ok) {
+                    responseBox.className = 'api-response-box';
+                    responseBox.textContent = `✅ SUCCESS! Workflow triggered successfully!
+
+Status Code: ${response.status}
+
+Response Details:
+${JSON.stringify(responseData, null, 2)}
+
+🎉 The workflow will:
+✓ Create SeaTalk message with title
+✓ Create thread with description
+✓ Create Jira ticket(s)
+✓ Assign to selected PICs
+
+Please check SeaTalk and Jira in a few moments!`;
+                } else {
+                    responseBox.className = 'api-response-box error';
+                    responseBox.textContent = `⚠️ API Response (Status: ${response.status})
+
+Response Body:
+${JSON.stringify(responseData, null, 2)}
+
+If you see CORS error, try:
+1. Check API credentials
+2. Verify endpoint URL
+3. Contact system admin`;
+                }
+            } catch (error) {
+                console.error('API Error:', error);
+                responseBox.className = 'api-response-box error';
+                responseBox.textContent = `❌ Request Failed!
+
+Error: ${error.message}
+
+Troubleshooting:
+• Check your internet connection
+• The API server might be down
+• CORS proxy might be unavailable
+• Verify API endpoint configuration
+
+Technical Details:
+${error.stack || 'No stack trace available'}`;
+            } finally {
+                // Re-enable button
+                if (apiBtn) {
+                    apiBtn.disabled = false;
+                    apiBtn.innerHTML = '🚀 Send to API & Create Jira';
+                }
+            }
+        }
+
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            if (text.includes('will appear here') || text.includes('coming soon')) {
+                alert('⚠️ Please generate content first!');
+                return;
+            }
+            navigator.clipboard.writeText(text).then(function() {
+                const msg = document.getElementById('successMsg');
+                msg.classList.add('show');
+                setTimeout(function() { msg.classList.remove('show'); }, 2000);
+            }).catch(function(err) {
+                alert('❌ Failed to copy: ' + err);
+            });
+        }
+    </script>
+</body>
+</html>
