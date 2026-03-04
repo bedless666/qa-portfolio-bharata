@@ -12,6 +12,15 @@ A foundational API automation framework demonstrating core API testing concepts 
 
 ---
 
+## 🎓 Project Context
+
+> **Learning Project Notice**  
+> This project was developed as part of a professional QA bootcamp training program to establish foundational API testing skills. While it demonstrates understanding of core concepts and proper project setup, it represents early-stage educational work rather than production implementation from professional employment.
+> 
+> **Value Proposition**: Showcases ability to learn API testing fundamentals, configure build tools (Gradle), integrate testing frameworks (TestNG), and establish proper project structure in a structured learning environment. This foundation enabled development of more advanced frameworks shown in other portfolio projects.
+
+---
+
 ## 🎯 Key Features
 
 - ✅ TestNG framework integration
