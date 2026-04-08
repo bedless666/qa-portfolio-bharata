@@ -1,16 +1,18 @@
 # Next Steps - QA Portfolio Action Plan
 
-> **Last Updated:** February 18, 2026  
-> **Status:** 📋 Ready for Execution  
-> **Priority:** Notion Portfolio Creation
+> **Last Updated:** April 8, 2026  
+> **Status:** 🔄 Notion portfolio **in progress** (following this guide)  
+> **Priority:** Finish Notion MVP → publish link → LinkedIn / resume
 
 ---
 
 ## 🎯 Quick Overview
 
-**Current State:** ✅ Portfolio documentation complete, all code committed & pushed  
-**Goal:** Create visual portfolio and prepare for job search  
-**Timeline:** 1-2 weeks to full job-ready status
+**Current State:** ✅ Repo documentation complete; **Notion build actively in progress**  
+**Goal:** Publish shareable Notion page, then align LinkedIn & resume  
+**Timeline:** 1-2 weeks to full job-ready status  
+
+**See also:** `.docs/CURRENT-PROGRESS.md` — snapshot to resume anytime.
 
 ---
 
