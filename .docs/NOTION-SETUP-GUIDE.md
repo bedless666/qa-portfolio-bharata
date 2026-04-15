@@ -152,6 +152,9 @@ Designed reusable test templates for e-commerce promotion features
 #### Create Project Database
 
 **Option A: Simple Cards (Recommended for Start)**
+
+> **Verified against:** `qa-portfolio-bharata/02-regression-automation/README.md`, `03-jira-optimization/README.md`, `04-documentation-samples/README.md` (portfolio describes anonymized e-commerce work). Adjust dates or company wording in Notion if your public story differs.
+
 ```
 ## 💼 Featured Projects
 
@@ -161,11 +164,39 @@ Designed reusable test templates for e-commerce promotion features
 │ 📊 Regression       │  │ 🔧 JIRA            │  │ 📚 Documentation   │
 │    Automation       │  │    Optimization     │  │    Samples          │
 │                     │  │                     │  │                     │
-│ [Brief description] │  │ [Brief description] │  │ [Brief description] │
+│ See blurbs below    │  │ See blurbs below    │  │ See blurbs below    │
 │                     │  │                     │  │                     │
 │ 🔗 View Details     │  │ 🔗 View Details     │  │ 🔗 View Details     │
 └─────────────────────┘  └─────────────────────┘  └─────────────────────┘
 ```
+
+**Copy-paste blurbs for each card (English — trim if too long):**
+
+**1) Regression Automation**
+
+Automated regression monitoring for multi-release QA: a **Regression Notifier** pulls status from dashboards and posts structured summaries to team chat via webhooks, plus a **PIC Reminder** system that nudges owners on overdue bugs and escalates when SLAs slip. Built on **Google Apps Script**, **Google Sheets**, and scheduled triggers—aiming for faster visibility and fewer missed regressions than manual tracking.
+
+*One-liner (ID):* Mengotomasi monitoring regresi dan reminder PIC bug lewat Apps Script + Sheets + webhook chat.
+
+**2) JIRA Optimization**
+
+A **Google Apps Script** tool with a small **HTML/CSS/JS** UI that talks to the **JIRA REST API** to cut repetitive board work: bulk updates, workload views, simple automation rules (assign, label, transition), and quality checks for missing fields or stale tickets. Improves transparency of QA workload and keeps boards consistent without endless manual cleanup.
+
+*One-liner (ID):* Tool Apps Script + JIRA API untuk bulk update, analitik board, dan quality check tiket.
+
+**3) Documentation Samples**
+
+A set of **technical docs** (how-to, reference, process) covering system account handling, testing and regression procedures, and internal tool usage—written for faster onboarding and fewer repeated questions. Uses **Markdown**, team wiki patterns, and diagrams where helpful; demonstrates clear structure for engineers and non-engineers alike.
+
+*One-liner (ID):* Kumpulan dokumentasi teknis (akun sistem, proses testing, panduan tool) untuk onboarding dan standar tim.
+
+**Suggested links for “View Details” in Notion (optional):**
+
+| Project | Portfolio folder on GitHub |
+|---------|----------------------------|
+| Regression Automation | `./02-regression-automation/` |
+| JIRA Optimization | `./03-jira-optimization/` |
+| Documentation Samples | `./04-documentation-samples/` |
 
 **Notion blocks:**
 - Heading 2
@@ -616,5 +647,5 @@ GitHub: [GitHub link]
 
 ---
 
-**Last Updated:** February 18, 2026  
-**Version:** 1.0
+**Last Updated:** April 8, 2026  
+**Version:** 1.1 — Featured Projects blurbs (Regression / JIRA / Documentation) aligned with portfolio READMEs
