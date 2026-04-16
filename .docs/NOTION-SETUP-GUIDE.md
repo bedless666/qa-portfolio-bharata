@@ -198,6 +198,29 @@ A set of **technical docs** (how-to, reference, process) covering system account
 | JIRA Optimization | `./03-jira-optimization/` |
 | Documentation Samples | `./04-documentation-samples/` |
 
+---
+
+**4) Tools & Contributions (umbrella project — 7 sub-tools)**
+
+> **Verified against:** [`11-tools-and-contributions/README.md`](https://github.com/bedless666/qa-portfolio-bharata/tree/main/11-tools-and-contributions) in the repo. Sub-tool details also live in each numbered folder (`01-` … `07-`).
+
+**Public GitHub folder:**  
+https://github.com/bedless666/qa-portfolio-bharata/tree/main/11-tools-and-contributions
+
+A **collection of internal QA automation and process work** built with **Python**, **Node.js**, **Cursor AI**, and integrations (**JIRA**, **SeaTalk**, **Google Sheets**, **Shark API**, plus an **Electron**-based RN/Native regression helper). Together they cut a large share of manual coordination (portfolio README cites **~60–70%** reduction in manual QA tasks; see per-tool metrics in the repo).
+
+*One-liner (ID):* Kumpulan tool otomasi QA (bug, JIRA summary, migrasi TC, jadwal regresi, aktivasi shop, RN QAoD, Kanban) + AI-assisted development.
+
+**Notion layout tip:** Either add a **fourth column** (if it fits), or use a **full-width callout** under the three columns titled **“Tools & Contributions”** with the blurb + button link to the GitHub folder above.
+
+**Before you publish — please confirm:**
+
+| Topic | Why it matters |
+|--------|----------------|
+| **Employer naming** | Repo `11-tools-and-contributions/README.md` names **Shopee Indonesia**. For a **public** Notion page, many people prefer **“E-commerce marketplace (anonymized)”** or similar—match whatever you use elsewhere in the portfolio. |
+| **Confidentiality** | Tools were built in a work context; the repo is **portfolio documentation** with sanitized configs. Do **not** paste tokens, webhooks, or internal URLs into Notion. |
+| **RN QAoD tool** | Main umbrella README still lists tool 6 briefly; the **detailed** story (Electron, SMART API, templates) is in `06-rn-regression-qaod/README.md`—use that for depth on Notion if you add a sub-page. |
+
 **Notion blocks:**
 - Heading 2
 - 3 columns
@@ -217,7 +240,7 @@ A set of **technical docs** (how-to, reference, process) covering system account
 
 ### Phase 4: Individual Project Pages (30 min each)
 
-> **Content source:** Filled from `qa-portfolio-bharata` project READMEs (same three as Phase 3). Create **one Notion sub-page per project** under your portfolio home, or paste each block into its own page. Replace `[YOUR_GITHUB_REPO_URL]` with your public repo base (e.g. `https://github.com/bedless666/qa-portfolio-bharata`).
+> **Content source:** Filled from `qa-portfolio-bharata` project READMEs (Phase 3 items **plus** `11-tools-and-contributions/`). Create **one Notion sub-page per project** under your portfolio home, or paste each block into its own page. Replace `[YOUR_GITHUB_REPO_URL]` with your public repo base (e.g. `https://github.com/bedless666/qa-portfolio-bharata`).
 
 #### Page 1 — Regression Automation System
 
@@ -474,7 +497,112 @@ Not a runtime system — **information architecture**: single structure per guid
 
 ---
 
-#### Generic template (optional — for a 4th project later)
+#### Page 4 — Tools & Contributions (collection)
+
+> **Umbrella page:** Summarizes **seven** sub-projects. For deep dives, add **child pages** and link each to `01-` … `07-` folders on GitHub. RN/Native QAoD detail is strongest in `06-rn-regression-qaod/README.md` (Electron + SMART workflow).
+
+```
+# 🛠️ Tools & Contributions
+
+[Cover: optional collage or icon row — Python / Node / JIRA / chat]
+
+## 📋 Overview
+• Period: 2022 – Present  
+• Role: QA Engineer — marketplace / regression team  
+• Context: **Portfolio documentation** of automation built at work (configs sanitized in repo)
+
+---
+
+## 🎯 Problem Statement
+High manual load on bug reporting, weekly reporting, test-case maintenance, regression scheduling, shop setup, RN/Native coordination, and day-to-day task visibility—leading to slow feedback and inconsistent formats across teams.
+
+---
+
+## 💡 Solution (7 tracks — see repo for full README each)
+
+1. **Bug creation / analysis** — Cursor AI + templates; faster, standardized JIRA/chat-style outputs.  
+2. **JIRA weekly summary** — Python + JIRA API + SeaTalk webhook; scheduled team summaries.  
+3. **Test case migration** — Documented methodology (legacy → standardized CSV/format).  
+4. **Monthly regression schedule** — Node.js + Google Sheets + SeaTalk; cron-friendly.  
+5. **Shop activation** — Python + Shark API + JIRA + SeaTalk; batch/CSV flows.  
+6. **RN & Native regression QAoD** — Electron app + HTML workflow, SMART-style orchestration, SeaTalk + JIRA (see `06-rn-regression-qaod/README.md`).  
+7. **JIRA Kanban daily task** — Process + board discipline for daily QA work.
+
+---
+
+## 🏗️ Architecture (conceptual)
+
+No single runtime—**several small automations** sharing patterns: **API/webhook integrations**, **cron or triggers**, **YAML/CSV/config**, **logging**, and **AI-assisted** authoring where it sped delivery.
+
+---
+
+## 🛠️ Tech Stack (high level)
+▸ **Languages:** Python, JavaScript/Node.js, shell (cron)  
+▸ **AI:** Cursor AI, ChatGPT (prototyping & docs)  
+▸ **Integrations:** JIRA REST API, SeaTalk webhooks, Google Sheets API, Shark API (internal), SMART workflow (where applicable)  
+▸ **Desktop (tool 6):** Electron, local HTTP proxy for API use  
+
+---
+
+## 📊 Impact & Results (from portfolio README — round numbers)
+
+### Time / efficiency (examples)
+• Bug report flow: **~15–20 min → ~2–3 min** (large reduction)  
+• Weekly JIRA summary: **~2–3 h → automated** (cron)  
+• Shop activation: portfolio cites **~80%** time reduction vs manual path  
+• Monthly regression schedule: **manual monthly effort → automated** notification path  
+
+### Quality / team
+• More consistent reports and schedules  
+• Fewer missed cycles (reminders / automation)  
+• Better coordination via chat + JIRA  
+
+---
+
+## 📸 Screenshots / Demo
+[Optional: sanitized SeaTalk message screenshot, JIRA summary snippet, or Electron app UI — **no secrets**]
+
+---
+
+## 🔗 Links
+
+• **Collection root:** `[YOUR_GITHUB_REPO_URL]/tree/main/11-tools-and-contributions`  
+• Direct public link (same): https://github.com/bedless666/qa-portfolio-bharata/tree/main/11-tools-and-contributions  
+
+**Per-tool folders (for child pages or inline links):**
+
+| # | Folder | Topics |
+|---|--------|--------|
+| 1 | `/11-tools-and-contributions/01-bug-creation-tool` | AI-assisted bug analysis & reporting |
+| 2 | `/11-tools-and-contributions/02-jira-weekly-summary` | Weekly JIRA → SeaTalk |
+| 3 | `/11-tools-and-contributions/03-test-case-migration` | Migration guide & samples |
+| 4 | `/11-tools-and-contributions/04-monthly-regression-schedule` | Monthly schedule automation |
+| 5 | `/11-tools-and-contributions/05-shop-activation-automation` | Shark API batch activation |
+| 6 | `/11-tools-and-contributions/06-rn-regression-qaod` | Electron + RN/Native QAoD |
+| 7 | `/11-tools-and-contributions/07-jira-kanban-daily-task` | Kanban process |
+
+---
+
+## 📚 Lessons Learned
+• Small, focused scripts beat one giant “do everything” tool.  
+• Webhooks + cron are a reliable backbone for team notifications.  
+• Sanitized configs and `.gitignore` are mandatory before any public portfolio.  
+• AI accelerates scaffolding; you still own review, security, and maintenance.  
+
+---
+
+## 🎓 Skills Demonstrated
+✓ API integration · ✓ ChatOps / notifications · ✓ Scheduling · ✓ AI-assisted development · ✓ Technical writing · ✓ Internal tooling & adoption  
+
+---
+
+## ⚠️ Public portfolio note (optional callout in Notion)
+Tools were developed in an employment context; this page describes **approach and impact**, not proprietary internals. Source in repo is **documentation-oriented** with secrets removed.
+```
+
+---
+
+#### Generic template (optional — for another project later)
 
 If you add another project to Notion, you can still use this skeleton:
 
@@ -848,4 +976,4 @@ GitHub: [GitHub link]
 ---
 
 **Last Updated:** April 8, 2026  
-**Version:** 1.2 — Phase 4 filled with three Notion-ready project pages (aligned with Phase 3 + portfolio READMEs)
+**Version:** 1.3 — Phase 3–4: add Tools & Contributions (`11-tools-and-contributions`) + confirmation notes & Page 4 block
