@@ -217,84 +217,284 @@ A set of **technical docs** (how-to, reference, process) covering system account
 
 ### Phase 4: Individual Project Pages (30 min each)
 
-#### Template untuk Setiap Project:
+> **Content source:** Filled from `qa-portfolio-bharata` project READMEs (same three as Phase 3). Create **one Notion sub-page per project** under your portfolio home, or paste each block into its own page. Replace `[YOUR_GITHUB_REPO_URL]` with your public repo base (e.g. `https://github.com/bedless666/qa-portfolio-bharata`).
+
+#### Page 1 — Regression Automation System
 
 ```
-# [Icon] Project Name
+# 📊 Regression Automation System
 
-[Cover image atau screenshot]
+[Cover: optional screenshot of dashboard or Apps Script overview]
 
 ## 📋 Overview
-• Duration: [timeframe]
-• Role: QA Engineer
-• Company: [E-commerce Marketplace / Digital Payment Platform]
+• Duration: June 2024 – Present  
+• Role: QA Engineer  
+• Company: E-commerce marketplace (anonymized in portfolio)
 
 ---
 
 ## 🎯 Problem Statement
-[Describe the problem - 2-3 sentences]
+Manual regression tracking across releases was time-consuming, error-prone (missed regressions, delayed notifications), lacked visibility for stakeholders, and repeated the same follow-ups every release.
 
 ---
 
 ## 💡 Solution
-[Describe your solution - bullet points]
+Automated regression monitoring with two pillars:
+
+• **Regression Notifier** — Monitors regression results from the dashboard; sends structured notifications to team chat via webhooks (summary, severity, action items); schedule or manual trigger.  
+• **PIC Reminder System** — Tracks bug ownership (Person In Charge); reminders for overdue/pending bugs; escalation when SLA is breached; daily/weekly summaries.
 
 ---
 
-## 🏗️ Architecture
-[Diagram atau flowchart - use Mermaid, Excalidraw, atau image]
+## 🏗️ Architecture (high level)
+
+```
+Google Calendar → Apps Script → Google Sheets → Webhook → Team Chat
+   (version)      (processing)    (data)        (API)    (notifications)
+```
+
+• **Data:** Calendar (version) + Sheets (test results)  
+• **Engine:** Google Apps Script (JavaScript)  
+• **Channels:** Team chat webhooks, email  
+• **Scheduling:** Time-based triggers (daily / weekly)
+
+Portfolio repo also includes `architecture-diagram.md` for deeper diagrams.
 
 ---
 
 ## 🛠️ Tech Stack
-[Toggle list dengan details untuk setiap tech]
-
-▸ Google Apps Script
-  → JavaScript-based automation
-  → Google Sheets API integration
-  
-▸ Webhook Integration
-  → Real-time notifications
-  → Team chat integration
+▸ **Google Apps Script** — Automation, triggers, integration logic  
+▸ **Google Sheets API** — Test/regression data source  
+▸ **Webhook integration** — Team chat notifications  
+▸ **Apps Script triggers** — Scheduled runs  
 
 ---
 
 ## 📊 Impact & Results
 
 ### Quantitative
-• 30% reduction in regression cycle time
-• 50% fewer missed bugs
-• 80% faster notifications
+• ~**30%** reduction in regression cycle time  
+• ~**50%** fewer missed regression-related bugs  
+• ~**80%** faster stakeholder notification  
 
 ### Qualitative
-✓ Improved team visibility
-✓ Reduced manual effort
-✓ Faster bug resolution
+✓ Better cross-team visibility  
+✓ Less manual follow-up  
+✓ Clearer ownership and faster resolution  
+✓ Stronger confidence before release  
 
 ---
 
 ## 📸 Screenshots / Demo
-[Add screenshots, GIFs, or video embeds]
+[Optional: webhook message sample, Sheets layout (sanitized), or trigger settings]
 
 ---
 
 ## 🔗 Links
-• GitHub Repository: [link]
-• Live Demo: [link if applicable]
-• Documentation: [link]
+• Portfolio folder: `[YOUR_GITHUB_REPO_URL]/tree/main/02-regression-automation`  
+• Detailed diagrams: `architecture-diagram.md` in that folder  
 
 ---
 
 ## 📚 Lessons Learned
-[Bullet points - 3-5 key learnings]
+• Webhooks are effective for timely, structured alerts.  
+• Apps Script execution limits (~6 min) shape how you batch work.  
+• Production-grade error handling matters for scheduled jobs.  
+• Clear formatting improves stakeholder understanding.  
 
 ---
 
 ## 🎓 Skills Demonstrated
-✓ Test Automation
-✓ API Integration
-✓ Process Optimization
-✓ Technical Documentation
+✓ Process automation · ✓ Integration (Sheets, Calendar, webhooks) · ✓ Stakeholder communication · ✓ Release-quality focus
+```
+
+---
+
+#### Page 2 — JIRA Workflow Optimization Tool
+
+```
+# 🔧 JIRA Workflow Optimization Tool
+
+[Cover: optional screenshot of the Apps Script web UI]
+
+## 📋 Overview
+• Duration: 2024 – Present  
+• Role: QA Engineer  
+• Company: E-commerce marketplace (anonymized in portfolio)
+
+---
+
+## 🎯 Problem Statement
+Repetitive JIRA maintenance (bulk status/field updates), poor visibility of QA workload across sprints, time lost to manual board cleanup, and inconsistent ticket data (missing fields, wrong priorities).
+
+---
+
+## 💡 Solution
+Custom **JIRA optimization tool** built with **Google Apps Script** and a **HTML/CSS/JS** web UI:
+
+• **Bulk operations** — Multi-ticket updates, batch transitions, mass field updates (priority, assignee, labels).  
+• **Board analytics** — QA workload distribution, sprint progress, bug aging.  
+• **Automation rules** — Auto-assign by component, auto-label by keywords, auto-transition when conditions match.  
+• **Quality checks** — Flag missing required fields, stale tickets, weak test-case links.
+
+---
+
+## 🏗️ Architecture (high level)
+
+```
+Web UI (HTML/CSS/JS) → Google Apps Script (backend) → JIRA REST API → Boards
+```
+
+• **Auth:** API tokens (sanitized in portfolio)  
+• **Deployment:** Apps Script Web App  
+
+---
+
+## 🛠️ Tech Stack
+▸ **Google Apps Script** — Backend, JIRA calls, business logic  
+▸ **HTML / CSS / JavaScript** — Embedded UI  
+▸ **JIRA REST API** (v2/v3) — Issues, transitions, fields  
+
+---
+
+## 📊 Impact & Results
+
+### Quantitative
+• ~**70%** less time spent on routine board management  
+• ~**40%** fewer tickets with missing fields  
+• ~**2 hours/week saved** per QA engineer (as documented in portfolio)  
+
+### Qualitative
+✓ Cleaner JIRA data · ✓ Better sprint visibility · ✓ Fewer manual mistakes · ✓ Faster triage  
+
+---
+
+## 📸 Screenshots / Demo
+[Optional: bulk update flow, workload view — use sanitized or mock data only]
+
+---
+
+## 🔗 Links
+• Portfolio folder: `[YOUR_GITHUB_REPO_URL]/tree/main/03-jira-optimization`  
+
+---
+
+## 📚 Lessons Learned
+• JIRA APIs are powerful; plan for **rate limits** (batching, delays, pagination).  
+• Simple UI drives adoption.  
+• Retries and clear errors matter for production tools.  
+• Good docs keep the tool maintainable.  
+
+---
+
+## 🎓 Skills Demonstrated
+✓ REST API integration · ✓ Full-stack scripting (Apps Script + web UI) · ✓ QA process design · ✓ UX for internal tools
+```
+
+---
+
+#### Page 3 — Technical Documentation Samples
+
+```
+# 📚 Technical Documentation Samples
+
+[Cover: optional Confluence/Markdown hero or doc outline graphic]
+
+## 📋 Overview
+• Duration: 2024 – Present  
+• Role: QA Engineer  
+• Company: E-commerce marketplace (anonymized in portfolio)
+
+---
+
+## 🎯 Problem Statement
+Knowledge was scattered, onboarding was slow, the same questions repeated in chat, and docs drifted without clear ownership.
+
+---
+
+## 💡 Solution
+Structured **technical documentation** in several areas:
+
+• **System account management** — Purpose, setup, security, troubleshooting, rotation.  
+• **Testing process** — Test design, bug standards, regression procedures, release checklists.  
+• **Tool usage** — Internal tools, Postman/API testing, dashboards, automation usage.
+
+Document types: how-to, reference, conceptual, tutorials — using **Markdown**, **Confluence**, **GitHub**, **Mermaid** where useful.
+
+---
+
+## 🏗️ “Architecture” of the docs
+Not a runtime system — **information architecture**: single structure per guide (intro → steps → verification → troubleshooting), cross-links, versioned updates, discoverable titles/keywords.
+
+---
+
+## 🛠️ Tech Stack (writing & delivery)
+▸ **Markdown** — Primary authoring  
+▸ **Confluence** — Team wiki  
+▸ **GitHub** — Version control for doc sources  
+▸ **Mermaid** — Diagrams  
+
+---
+
+## 📊 Impact & Results
+
+### Quantitative (from portfolio README)
+• **400+ lines** of documentation in scope of this sample  
+• ~**50%** reduction in onboarding time  
+• ~**60%** fewer repeated questions in team chat  
+• **Weekly** update cadence where applicable  
+
+### Qualitative
+✓ Better knowledge sharing · ✓ Faster issue resolution · ✓ Less dependency on seniors for the same answers  
+
+---
+
+## 📸 Screenshots / Demo
+[Optional: excerpt from `system-account-guide-sample.md` or Confluence page (sanitized)]
+
+---
+
+## 🔗 Links
+• Portfolio folder: `[YOUR_GITHUB_REPO_URL]/tree/main/04-documentation-samples`  
+• Sample file (in repo): `system-account-guide-sample.md`  
+
+---
+
+## 📚 Lessons Learned
+• Visuals and **real examples** beat abstract text.  
+• **Consistent headings** make long docs scannable.  
+• Regular reviews keep content trustworthy.  
+• Feedback from readers closes documentation gaps.  
+
+---
+
+## 🎓 Skills Demonstrated
+✓ Technical writing · ✓ Information architecture · ✓ Process documentation · ✓ Markdown & diagrams · ✓ Knowledge management
+```
+
+---
+
+#### Generic template (optional — for a 4th project later)
+
+If you add another project to Notion, you can still use this skeleton:
+
+```
+# [Icon] Project Name
+[Cover image]
+## 📋 Overview
+• Duration: … • Role: … • Company/context: …
+## 🎯 Problem Statement
+…
+## 💡 Solution
+…
+## 🏗️ Architecture
+…
+## 🛠️ Tech Stack
+…
+## 📊 Impact & Results
+…
+## 🔗 Links
+…
 ```
 
 **Notion blocks:**
@@ -648,4 +848,4 @@ GitHub: [GitHub link]
 ---
 
 **Last Updated:** April 8, 2026  
-**Version:** 1.1 — Featured Projects blurbs (Regression / JIRA / Documentation) aligned with portfolio READMEs
+**Version:** 1.2 — Phase 4 filled with three Notion-ready project pages (aligned with Phase 3 + portfolio READMEs)
