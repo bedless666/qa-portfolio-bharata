@@ -68,7 +68,7 @@ All notable changes to QAoD Regression Chat Generator will be documented in this
 ### Added
 - **All 12 Templates**: Complete support for Seller App, Native App, and RN templates
 - **Jira Integration**: Auto-create Jira tickets via SMART API
-- **SeaTalk Integration**: Auto-post messages with thread and mentions
+- **Team Chat Integration**: Auto-post messages with thread and mentions
 
 ### Fixed
 - Mention rendering for RN templates (removed bullets before mentions)
@@ -85,5 +85,5 @@ All notable changes to QAoD Regression Chat Generator will be documented in this
 
 ---
 
-**Maintained by**: Shopee QAoD Team  
-**Contact**: bharata.aryaseta@shopee.com
+**Maintained by**: Marketplace QAoD Team  
+**Contact**: qa.engineer@company.example

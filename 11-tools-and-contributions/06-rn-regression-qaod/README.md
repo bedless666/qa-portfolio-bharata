@@ -2,7 +2,7 @@
 
 > **Automated regression testing task generator for Seller App (React Native & Native platforms)**
 
-An Electron-based desktop application that automates the creation of regression testing tasks, including SeaTalk notifications and JIRA ticket generation, for the Shopee Seller App QAoD team.
+An Electron-based desktop application that automates the creation of regression testing tasks, including Team Chat notifications and JIRA ticket generation, for the Marketplace Seller App QAoD team.
 
 ---
 
@@ -11,7 +11,7 @@ An Electron-based desktop application that automates the creation of regression 
 **Purpose**: Streamline the regression testing workflow by automating repetitive tasks like message formatting, PIC assignment, and ticket creation.
 
 **Key Capabilities**:
-- ✅ Generate formatted SeaTalk messages with automatic PIC mentions
+- ✅ Generate formatted Team Chat messages with automatic PIC mentions
 - ✅ Create JIRA tickets with standardized templates
 - ✅ Support 12+ regression templates (RN Staging, Native Adhoc, Native Live, Native Hotfix)
 - ✅ Automatic task logging to Google Sheets
@@ -24,7 +24,7 @@ An Electron-based desktop application that automates the creation of regression 
 This tool uses **Electron** to create a desktop application instead of a simple web page. Here's why:
 
 ### 1. **CORS Bypass** 🔓
-- **Problem**: Web browsers block cross-origin requests to Shopee's internal APIs (SMART Workflow API)
+- **Problem**: Web browsers block cross-origin requests to Marketplace's internal APIs (SMART Workflow API)
 - **Solution**: Electron's main process runs a local HTTP proxy server that forwards requests without CORS restrictions
 - **Benefit**: Direct API integration without backend deployment
 
@@ -51,7 +51,7 @@ This tool uses **Electron** to create a desktop application instead of a simple 
                                                               ↓
                                                     [SMART Workflow API]
                                                               ↓
-                                            [SeaTalk + JIRA Integration]
+                                            [Team Chat + JIRA Integration]
 ```
 
 ---
@@ -79,7 +79,7 @@ This tool uses **Electron** to create a desktop application instead of a simple 
 ### Prerequisites
 - Node.js (v14+)
 - npm or yarn
-- Access to Shopee internal network
+- Access to Marketplace internal network
 
 ### Installation & Run
 
@@ -119,11 +119,11 @@ The app will:
    - Additional notes
 
 3. **Generate**: Click "Generate" button
-   - SeaTalk message posted automatically
+   - Team Chat message posted automatically
    - JIRA ticket created with proper format
    - Task logged to Google Sheets
 
-4. **Copy & Share**: Use generated content in SeaTalk/JIRA
+4. **Copy & Share**: Use generated content in Team Chat/JIRA
 
 ---
 
@@ -131,21 +131,21 @@ The app will:
 
 ### 1. **Smart PIC Assignment**
 - Automatically assigns region-specific PICs based on template
-- Mentions PICs in SeaTalk messages
+- Mentions PICs in Team Chat messages
 - Includes PIC emails in JIRA ticket
 
 ### 2. **Template Standardization**
 - 12 pre-configured templates ensure consistency
-- Automatic formatting (Jira Wiki Markup → SeaTalk Markdown)
+- Automatic formatting (Jira Wiki Markup → Team Chat Markdown)
 - Version-specific content generation
 
 ### 3. **Multi-Platform Integration**
-- **SeaTalk**: Post messages with threads and mentions
+- **Team Chat**: Post messages with threads and mentions
 - **JIRA**: Create tickets with custom fields
 - **Google Sheets**: Log tasks for tracking
 
 ### 4. **Smart Workflow Orchestration**
-- LLM-powered text conversion (Jira markup → SeaTalk markdown)
+- LLM-powered text conversion (Jira markup → Team Chat markdown)
 - Automated URL replacement
 - Error detection & validation
 
@@ -165,7 +165,7 @@ For detailed information, see:
 
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
 - **Backend**: Electron (Node.js)
-- **APIs**: SMART Workflow API, SeaTalk Webhook, JIRA API
+- **APIs**: SMART Workflow API, Team Chat Webhook, JIRA API
 - **Build**: electron-builder (cross-platform packaging)
 
 ---
@@ -180,8 +180,8 @@ For detailed information, see:
 
 ## 👥 Team
 
-**Maintained by**: Shopee QAoD Team  
-**Developer**: Bharata Aryaseta (bharata.aryaseta@shopee.com)  
+**Maintained by**: Marketplace QAoD Team  
+**Developer**: Bharata Aryaseta (qa.engineer@company.example)  
 **Version**: v4.1 (Production)
 
 ---
@@ -189,7 +189,7 @@ For detailed information, see:
 ## 📝 Notes
 
 - **Environment**: Currently configured for Production deployment
-- **Access**: Requires Shopee internal network access
+- **Access**: Requires Marketplace internal network access
 - **Support**: See TROUBLESHOOTING.md for common issues
 
 ---

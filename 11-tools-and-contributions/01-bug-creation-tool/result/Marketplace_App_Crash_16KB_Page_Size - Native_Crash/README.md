@@ -1,8 +1,8 @@
-# Bug Report: Shopee App Crash on 16KB Page Size
+# Bug Report: Marketplace App Crash on 16KB Page Size
 
 ## Quick Summary
 
-**Issue:** Shopee Android app crashes immediately on startup when running on devices with 16KB page size  
+**Issue:** Marketplace Android app crashes immediately on startup when running on devices with 16KB page size  
 **Severity:** P0 - Critical  
 **Status:** Reported to Native Team  
 **Date:** 2025-12-03  
@@ -35,7 +35,7 @@
 
 | Item | Value |
 |------|-------|
-| **App Version** | Shopee 3.64.03@regression |
+| **App Version** | Marketplace 3.64.03@regression |
 | **Android Version** | API 35 (Android 15) |
 | **Page Size** | 16384 bytes (16KB) |
 | **Error Type** | SIGSEGV - Segmentation violation |
@@ -46,7 +46,7 @@
 
 ## What Happened
 
-1. Launched Shopee app on Android 15 emulator with 16KB page size
+1. Launched Marketplace app on Android 15 emulator with 16KB page size
 2. App showed splash screen briefly
 3. App crashed with native SIGSEGV error
 4. Crash occurred in `libshadowhook.so` and `libglog_v2.so`
@@ -83,13 +83,13 @@ The APK's native libraries are compiled/packaged for 4KB page alignment, but And
 adb install app-fixed.apk
 
 # 2. Launch app
-adb shell monkey -p com.shopee.id.int -c android.intent.category.LAUNCHER 1
+adb shell monkey -p com.marketplace.id.int -c android.intent.category.LAUNCHER 1
 
 # 3. Check if running (should not crash)
-adb shell ps | grep shopee
+adb shell ps | grep marketplace
 
 # 4. Verify no crashes in logs
-adb logcat -d | grep -i "sigsegv\|crash" | grep shopee
+adb logcat -d | grep -i "sigsegv\|crash" | grep marketplace
 ```
 
 ---

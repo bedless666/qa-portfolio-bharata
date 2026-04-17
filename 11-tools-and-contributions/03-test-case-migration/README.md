@@ -39,7 +39,7 @@ This is a **methodology and reference guide** (not an automated script) that hel
 03-test-case-migration/
 ├── MIGRATION_GUIDE.txt          # Step-by-step migration instructions
 ├── Old test case/               # Legacy test case CSV files
-│   └── ID Team Regression Case[P0] - Shopee(English).csv
+│   └── ID Team Regression Case[P0] - Marketplace(English).csv
 ├── New Test Case/               # Migrated test cases in new format
 │   └── MP Regression Cases New Format - Buyer Flow 3 (TC 14).csv
 └── Sample test case and docs/   # Reference samples and PIC mapping
@@ -66,7 +66,7 @@ The guide contains:
 ### 2. Review Sample Files
 
 **Old Format Reference**:
-- `Old test case/ID Team Regression Case[P0] - Shopee(English).csv`
+- `Old test case/ID Team Regression Case[P0] - Marketplace(English).csv`
 
 **New Format Reference**:
 - `Sample test case and docs/MP Regression Cases New Format - Buyer Flow.csv`

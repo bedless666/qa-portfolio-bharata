@@ -1,4 +1,4 @@
-h1. [SPAPP-53682] Shopee App Crash on 16KB Page Size Devices - Resolution Summary
+h1. [MOBILE-53682] Marketplace App Crash on 16KB Page Size Devices - Resolution Summary
 
 *Issue Type:* Bug - Native Crash
 *Priority:* {color:red}P0 - Critical{color}
@@ -11,7 +11,7 @@ h1. [SPAPP-53682] Shopee App Crash on 16KB Page Size Devices - Resolution Summar
 
 h2. Executive Summary
 
-The Shopee application experienced critical native crashes on Android 15 devices with 16KB page size configuration, specifically affecting Pixel 8 Pro and similar devices. The issue was caused by native library alignment incompatibility with the 16KB system page size. The Native Team successfully developed and deployed a fix, which has been verified and confirmed working by QA team.
+The Marketplace application experienced critical native crashes on Android 15 devices with 16KB page size configuration, specifically affecting Pixel 8 Pro and similar devices. The issue was caused by native library alignment incompatibility with the 16KB system page size. The Native Team successfully developed and deployed a fix, which has been verified and confirmed working by QA team.
 
 {panel:title=Impact Assessment|bgColor=#FFEBE6}
 *Severity:* Critical - App completely unusable on affected devices
@@ -26,7 +26,7 @@ h2. Problem Statement
 
 h3. Issue Description
 
-The Shopee app crashes immediately upon launch on devices configured with 16KB page size. The crash occurs during native library loading, specifically affecting:
+The Marketplace app crashes immediately upon launch on devices configured with 16KB page size. The crash occurs during native library loading, specifically affecting:
 
 * {{libglog_v2.so}}
 * {{libjsi.so}}
@@ -98,7 +98,7 @@ h3. Phase 4: Verification and Resolution
 | 2025-12-04 | Build {{fix-16kb-1204}} tested on 16KB emulator | {color:green}PASS{color} |
 | 2025-12-04 | Crash no longer occurs - app launches successfully | {color:green}VERIFIED{color} |
 | 2025-12-04 | [~ren.jiaxin] provided app.sea access and screenshots | Documentation complete |
-| 2025-12-04 | Sign-off requested for JIRA ticket SPAPP-53682 | Pending [~aryo] |
+| 2025-12-04 | Sign-off requested for JIRA ticket MOBILE-53682 | Pending [~aryo] |
 
 ----
 
@@ -251,7 +251,7 @@ h3. Pending Actions
 {warning}
 *Critical Action Required:*
 || Action || Owner || Due Date || Priority ||
-| Sign off JIRA ticket SPAPP-53682 | [~aryo] | 2025-12-04 | {color:red}HIGH{color} |
+| Sign off JIRA ticket MOBILE-53682 | [~aryo] | 2025-12-04 | {color:red}HIGH{color} |
 | Merge fix code to main branch | [~ren.jiaxin] | After sign-off | {color:red}HIGH{color} |
 | Deploy to UAT environment | Build Team | After merge | MEDIUM |
 | Deploy to production | Release Team | TBD | MEDIUM |
@@ -351,7 +351,7 @@ h2. Related Documentation
 
 h3. JIRA Tickets
 
-* *Primary:* [SPAPP-53682] - Shopee App Crash on 16KB Page Size
+* *Primary:* [MOBILE-53682] - Marketplace App Crash on 16KB Page Size
 * *Related:* [Link to related tickets if any]
 
 h3. Technical Documents
@@ -375,7 +375,7 @@ h3. Error Log Sample (Before Fix)
 
 {code}
 Fatal Exception: java.lang.UnsatisfiedLinkError: dlopen failed: 
-"/data/app/~~abc123==/com.shopee.id.int-xyz789==/lib/arm64/libglog_v2.so": 
+"/data/app/~~abc123==/com.marketplace.id.int-xyz789==/lib/arm64/libglog_v2.so": 
 program alignment (4096) smaller than system page size (16384)
 
 at java.lang.Runtime.loadLibrary0(Runtime.java:1077)
@@ -415,7 +415,7 @@ adb shell getprop ro.product.cpu.pagesize.max
 adb install fix-16kb-1204.apk
 
 # Launch app
-adb shell monkey -p com.shopee.id.int -c android.intent.category.LAUNCHER 1
+adb shell monkey -p com.marketplace.id.int -c android.intent.category.LAUNCHER 1
 
 # Monitor for crashes
 adb logcat | grep -i "sigsegv\|crash\|fatal"
@@ -429,7 +429,7 @@ h2. Sign-Off Section
 {panel:title=Approval Required|bgColor=#FFF0B3}
 *QA Sign-Off:* [~aryo] - MP Regression QA
 * Status: {color:yellow}PENDING{color}
-* Action: Sign off JIRA ticket SPAPP-53682
+* Action: Sign off JIRA ticket MOBILE-53682
 * Required for: Code merge and deployment to UAT/Production
 
 *Next Step After Sign-Off:*

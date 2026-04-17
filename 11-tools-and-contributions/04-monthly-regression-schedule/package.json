@@ -1,14 +1,14 @@
 {
   "name": "monthly-regression-schedule",
   "version": "1.0.0",
-  "description": "Automated monthly RN Live Regression schedule sender to Seatalk",
+  "description": "Automated monthly RN Live Regression schedule sender to Team Chat",
   "main": "scheduler.js",
   "scripts": {
     "start": "node scheduler.js",
     "test": "node scheduler.js"
   },
   "keywords": [
-    "seatalk",
+    "team-chat",
     "regression",
     "automation",
     "scheduler"

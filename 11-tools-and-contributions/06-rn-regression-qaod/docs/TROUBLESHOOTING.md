@@ -9,7 +9,7 @@ Common issues and solutions for QAoD Regression Chat Generator.
 ### Issue #1: Generic Template Message in Production Thread
 
 **Symptom:**
-When using production deployment, the SeaTalk thread message shows generic template content instead of the expected staging regression format:
+When using production deployment, the Team Chat thread message shows generic template content instead of the expected staging regression format:
 
 ```
 ❌ Wrong Output:
@@ -84,7 +84,7 @@ ERROR:network_service_instance_impl.cc(601)] Network service crashed, restarting
 **Solution:**
 - Usually transient error
 - Simply restart the Electron app: `npm start`
-- If persists, check Shopee WiFi connection
+- If persists, check Marketplace WiFi connection
 
 ---
 
@@ -116,10 +116,10 @@ npm start
 - Network errors in console
 
 **Solution:**
-1. **Check WiFi**: Must be connected to Shopee WiFi network
+1. **Check WiFi**: Must be connected to Marketplace WiFi network
 2. **Check VPN**: Disconnect personal VPN if connected
-3. **Verify URL**: Ensure `smart.shopee.io` is accessible
-4. **Test in Browser**: Open https://smart.shopee.io in browser to verify access
+3. **Verify URL**: Ensure `smart.company.example` is accessible
+4. **Test in Browser**: Open https://smart.company.example in browser to verify access
 
 ---
 
@@ -171,7 +171,7 @@ console.log('📤 Sending to API:', requestBody);
 ### Test Workflow in SMART Platform
 
 **Direct Testing:**
-1. Go to https://smart.shopee.io
+1. Go to https://smart.company.example
 2. Find your workflow deployment (use hash ID to search)
 3. Click "Test Run" with sample inputs
 4. Verify output matches expectations
@@ -191,7 +191,7 @@ After making changes or switching environments:
 - [ ] Restarted Electron app (`npm start`)
 - [ ] Confirmed app launches successfully (see `✅ Server running` and `🎉 Window ready!`)
 - [ ] Tested workflow trigger with sample data
-- [ ] Verified SeaTalk message format is correct
+- [ ] Verified Team Chat message format is correct
 - [ ] Verified Jira ticket is created with proper content
 - [ ] Checked thread message shows expected format (not generic template)
 
@@ -202,16 +202,16 @@ After making changes or switching environments:
 If issues persist after following this guide:
 
 **Client-Side Issues (Form, UI, Payload):**
-- Contact: bharata.aryaseta@shopee.com
+- Contact: qa.engineer@company.example
 
 **Workflow/API Issues (SMART Platform, Node Logic):**
-- Contact: ivan.jond@shopee.com
-- Platform: https://smart.shopee.io
+- Contact: platform.owner@company.example
+- Platform: https://smart.company.example
 
 **Network/Infrastructure Issues:**
-- Contact: Shopee IT Support
+- Contact: Marketplace IT Support
 
 ---
 
 **Last Updated:** February 24, 2026  
-**Maintained by:** Shopee QAoD Team
+**Maintained by:** Marketplace QAoD Team

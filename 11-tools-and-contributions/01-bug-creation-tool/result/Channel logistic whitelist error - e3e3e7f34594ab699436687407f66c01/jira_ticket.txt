@@ -9,7 +9,7 @@ SIP Product Sync Failed - Primary Shop Not Whitelisted for Logistics Channel in 
 - toggles: none
 
 *Impact*
-- user impact summary: Cross-border sellers cannot sync products from Primary Shop to Affiliated Shops in LA region. Product creation/sync fails completely, blocking SIP (Shopee International Platform) operations for LA market.
+- user impact summary: Cross-border sellers cannot sync products from Primary Shop to Affiliated Shops in LA region. Product creation/sync fails completely, blocking SIP (Marketplace International Platform) operations for LA market.
 - test impact summary: QA team blocked from testing SIP product sync functionality in LA region. Cannot verify cross-upload features for LA market expansion.
 - any workaround: Contact backend team to add shop 1013355633 to logistics channel whitelist for LA region
 
@@ -66,5 +66,5 @@ Backend team needs to add Primary Shop ID 1013355633 to the logistics channel wh
 [] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
 [x] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
 [] If applicable, you have provided the detailed information about your toggle setting.
-[x] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+[x] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://api-internal.company.example/create-user]){color}
 

@@ -18,7 +18,7 @@ chmod +x activate_shops.py run_test.sh run_production.sh
 ./run_test.sh
 ```
 
-✅ Done! Check TEST SeaTalk group for notification.
+✅ Done! Check TEST Team Chat group for notification.
 
 ---
 
@@ -46,7 +46,7 @@ crontab -e
 ### **Add This Line**
 ```bash
 # Every Friday at 11 AM
-0 11 * * 5 /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
+0 11 * * 5 /path/to/your/workspace/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
 ```
 
 ### **Verify Cronjob**
@@ -67,13 +67,13 @@ tail -f ~/Documents/Docs/log/shop_activation_python.log
 tail -f ~/Documents/Docs/log/shop_activation_cron.log
 ```
 
-### **Check SeaTalk**
-- Test mode → TEST SeaTalk group
-- Production mode → PRODUCTION SeaTalk group
+### **Check Team Chat**
+- Test mode → TEST Team Chat group
+- Production mode → PRODUCTION Team Chat group
 
 ### **Check JIRA**
 - Ticket created automatically
-- Link in SeaTalk notification
+- Link in Team Chat notification
 
 ---
 

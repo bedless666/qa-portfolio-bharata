@@ -3,8 +3,8 @@
  */
 
 const CONFIG = {
-  // Seatalk Webhook URL
-  WEBHOOK_URL: 'https://openapi.seatalk.io/webhook/group/7BTJoSlqSnKFhaYOAnD1Aw',
+  // Team Chat Webhook URL
+  WEBHOOK_URL: 'https://webhooks.company.example/webhook/group/YOUR_WEBHOOK_GROUP_ID',
   
   // Google Sheets Settings
   SPREADSHEET_ID: '19nAfyhqtf-Evdl78peuoDOvs6SIoo9j0bpgvf1lIYAM',
@@ -14,7 +14,7 @@ const CONFIG = {
   MAX_DESCRIPTION_LENGTH: 900,
   
   // Button Link
-  BUTTON_LINK: 'https://docs.google.com/spreadsheets/d/19nAfyhqtf-Evdl78peuoDOvs6SIoo9j0bpgvf1lIYAM/edit?gid=398695652#gid=398695652&range=A24',
+  BUTTON_LINK: 'https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit?gid=398695652#gid=398695652&range=A24',
   
   // Trigger Schedule
   TRIGGER_DAY: 1,  // Day of month

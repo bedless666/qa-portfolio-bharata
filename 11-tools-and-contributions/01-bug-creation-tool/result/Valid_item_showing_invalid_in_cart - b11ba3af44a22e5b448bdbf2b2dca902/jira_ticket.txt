@@ -84,6 +84,6 @@ Teams to Contact:
 [] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
 [] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
 [] If applicable, you have provided the detailed information about your toggle setting.
-[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://api-internal.company.example/create-user]){color}
 
 

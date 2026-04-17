@@ -4,7 +4,7 @@
 **Issue:** Merchant Shop page cannot find merchants despite successful creation  
 **Environment:** Staging  
 **TraceID:** e3e3e7f34404bffde5ca1289acb1da01  
-**URL:** https://subaccount.staging.shopee.com/merchant-shop  
+**URL:** https://subaccount.staging.company.example/merchant-shop  
 **Severity:** High  
 **Status:** Analysis Complete - Awaiting Team Investigation
 

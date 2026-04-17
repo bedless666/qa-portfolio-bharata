@@ -9,7 +9,7 @@ Step-by-step cara install Monthly Regression Schedule di Google Apps Script.
 Yang kamu butuhkan:
 - ✅ Google Account
 - ✅ Google Sheet dengan data Regression PIC
-- ✅ Seatalk Group Chat dengan webhook URL
+- ✅ Team Chat Group Chat dengan webhook URL
 - ✅ Google Apps Script Editor (built-in di Google Sheets)
 
 ---
@@ -69,8 +69,8 @@ Sekarang kita buat 3 files baru:
  */
 
 const CONFIG = {
-  // Seatalk Webhook URL
-  WEBHOOK_URL: 'https://openapi.seatalk.io/webhook/group/7BTJoSlqSnKFhaYOAnD1Aw',
+  // Team Chat Webhook URL
+  WEBHOOK_URL: 'https://webhooks.company.example/webhook/group/YOUR_WEBHOOK_GROUP_ID',
   
   // Google Sheets Settings
   SPREADSHEET_ID: '19nAfyhqtf-Evdl78peuoDOvs6SIoo9j0bpgvf1lIYAM',
@@ -80,7 +80,7 @@ const CONFIG = {
   MAX_DESCRIPTION_LENGTH: 900,
   
   // Button Link
-  BUTTON_LINK: 'https://docs.google.com/spreadsheets/d/19nAfyhqtf-Evdl78peuoDOvs6SIoo9j0bpgvf1lIYAM/edit?gid=398695652#gid=398695652&range=A24',
+  BUTTON_LINK: 'https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit?gid=398695652#gid=398695652&range=A24',
   
   // Trigger Schedule
   TRIGGER_DAY: 1,  // Day of month
@@ -96,7 +96,7 @@ const CONFIG = {
 
 💡 **Cara dapetin Spreadsheet ID:**
 ```
-https://docs.google.com/spreadsheets/d/19nAfyhqtf-Evdl78peuoDOvs6SIoo9j0bpgvf1lIYAM/edit
+https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit
                                       ↑ INI SPREADSHEET ID ↑
 ```
 
@@ -206,7 +206,7 @@ Valid schedule items: 6
 === EXECUTION COMPLETE ===
 ```
 
-7. **Check Seatalk group chat** → Message harus sudah terkirim! 🎉
+7. **Check Team Chat group chat** → Message harus sudah terkirim! 🎉
 
 ---
 
@@ -251,7 +251,7 @@ Lalu run `deleteTriggers()` → `createTriggers()` lagi.
 
 Edit di **Config.gs**:
 ```javascript
-WEBHOOK_URL: 'https://openapi.seatalk.io/webhook/group/YOUR_NEW_WEBHOOK'
+WEBHOOK_URL: 'https://webhooks.company.example/webhook/group/YOUR_WEBHOOK_GROUP_ID'
 ```
 
 ### Ubah Sheet Name
@@ -319,9 +319,9 @@ Sheet kamu harus punya struktur seperti ini:
 ```
 | Week | Month    | Version | Subteam | Assigned QA           | Status         |
 |------|----------|---------|---------|----------------------|----------------|
-| 1    | November | 12.v1   | QAOD    | bharata@shopee.com   | 🔄 Pending     |
-| 2    | November | 12.v1   | QAOD    | ovi@shopee.com       | ❌ Not Started |
-| 3    | November | 12.v2   | QAOD    | anisa@shopee.com     | ✅ Complete    |
+| 1    | November | 12.v1   | QAOD    | bharata@company.example   | 🔄 Pending     |
+| 2    | November | 12.v1   | QAOD    | ovi@company.example       | ❌ Not Started |
+| 3    | November | 12.v2   | QAOD    | anisa@company.example     | ✅ Complete    |
 ```
 
 **Required columns:**
@@ -382,7 +382,7 @@ Kalau ada masalah:
 - [x] 3 files created (Config, Main, Triggers)
 - [x] Config updated with your webhook & sheet ID
 - [x] Manual test successful (`testSendSchedule()`)
-- [x] Message received in Seatalk ✅
+- [x] Message received in Team Chat ✅
 - [x] Trigger created (`createTriggers()`)
 - [x] Trigger visible in Triggers sidebar ✅
 

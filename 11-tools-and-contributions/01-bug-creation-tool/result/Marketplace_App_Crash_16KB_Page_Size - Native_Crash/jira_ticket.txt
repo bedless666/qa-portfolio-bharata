@@ -1,8 +1,8 @@
 *Summary*:
-Shopee App crashes immediately on startup in Android 15 Emulator with 16KB page size - Native SIGSEGV error
+Marketplace App crashes immediately on startup in Android 15 Emulator with 16KB page size - Native SIGSEGV error
 
 *Configuration*:
-- app / os version: Shopee 3.64.03@regression / Android 15 (API 35)
+- app / os version: Marketplace 3.64.03@regression / Android 15 (API 35)
 - env (test, staging, live) and country info: Test environment, ID region
 - pfb build: n/a (using regression build)
 - account (user / id): n/a (crash occurs before login)
@@ -17,14 +17,14 @@ Shopee App crashes immediately on startup in Android 15 Emulator with 16KB page 
 *Reproducible Steps*
 1. Launch Android Emulator with 16KB page size (Pixel_8_Pro_API_35_16KB AVD)
 2. Verify page size: `adb shell getprop ro.product.cpu.pagesize.max` returns 16384
-3. Install Shopee APK (com.shopee.id.int version 3.64.03@regression)
-4. Launch app via launcher or `adb shell monkey -p com.shopee.id.int -c android.intent.category.LAUNCHER 1`
+3. Install Marketplace APK (com.marketplace.id.int version 3.64.03@regression)
+4. Launch app via launcher or `adb shell monkey -p com.marketplace.id.int -c android.intent.category.LAUNCHER 1`
 5. Observe app shows splash screen briefly then crashes
 
 *Comparison Test - Non-16KB Device (Verification)*
 1. Launch Android Emulator with 4KB page size (Pixel_8_API_34 or similar)
 2. Verify page size: `adb shell getprop ro.product.cpu.pagesize.max` returns 4096
-3. Install same Shopee APK (com.shopee.id.int version 3.64.03@regression)
+3. Install same Marketplace APK (com.marketplace.id.int version 3.64.03@regression)
 4. Launch app via launcher
 5. ✅ App launches successfully without crash - confirms issue is specific to 16KB page size
 

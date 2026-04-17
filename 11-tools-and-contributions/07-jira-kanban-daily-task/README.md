@@ -9,7 +9,7 @@
 
 ## 📋 Overview
 
-This tool represents the **daily task management system** used by the Regression QA Team at Shopee. It's built on JIRA Kanban methodology to track, prioritize, and manage daily testing activities, bug verification, and regression cycles.
+This tool represents the **daily task management system** used by the Regression QA Team at Marketplace. It's built on JIRA Kanban methodology to track, prioritize, and manage daily testing activities, bug verification, and regression cycles.
 
 Unlike the other tools in this collection (which are automated scripts), this is a **process and methodology** implemented through JIRA's Kanban board system.
 
@@ -181,7 +181,7 @@ This Kanban system integrates with other tools in this collection:
 ## 📚 Related Documentation
 
 - [JIRA Kanban Guide](https://www.atlassian.com/agile/kanban)
-- [Shopee QA Process Documentation](https://confluence.shopee.io/qa)
+- [Marketplace QA Process Documentation](https://wiki.company.example/qa)
 - [Regression Testing Strategy](../02-regression-automation/)
 
 ---
@@ -208,4 +208,4 @@ This Kanban system integrates with other tools in this collection:
 
 **Created by:** Bharata Aryaseta  
 **Team:** Regression QA - Marketplace Platform  
-**Company:** Shopee Indonesia
+**Company:** Marketplace Indonesia

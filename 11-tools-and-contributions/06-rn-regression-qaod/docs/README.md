@@ -56,7 +56,7 @@ Choose the appropriate regression type:
 1. Click **"Generate"** button
 2. Review generated content in preview area
 3. Tool automatically:
-   - Posts to SeaTalk (with thread & mentions)
+   - Posts to Team Chat (with thread & mentions)
    - Creates JIRA ticket
    - Logs to Google Sheets
 
@@ -83,12 +83,12 @@ Choose the appropriate regression type:
 - Use browser DevTools to inspect stored data
 
 ### 2. **Verify Before Submit**
-- Always review generated SeaTalk message
+- Always review generated Team Chat message
 - Check PIC mentions are correct
 - Confirm JIRA ticket fields
 
 ### 3. **Network Requirements**
-- Must be on Shopee WiFi
+- Must be on Marketplace WiFi
 - VPN may interfere with API calls
 - Check console for connection errors
 
@@ -106,7 +106,7 @@ npm start
 ```
 
 ### API Errors
-1. Check WiFi connection (must be Shopee network)
+1. Check WiFi connection (must be Marketplace network)
 2. Verify deployment credentials in `Index-with-api.html`
 3. Check console logs (Cmd+Option+I)
 
@@ -127,9 +127,9 @@ npm start
 
 ## 🆘 Support
 
-**Issues?** Contact bharata.aryaseta@shopee.com
+**Issues?** Contact qa.engineer@company.example
 
-**Platform Issues?** Contact ivan.jond@shopee.com (SMART Workflow)
+**Platform Issues?** Contact platform.owner@company.example (SMART Workflow)
 
 ---
 

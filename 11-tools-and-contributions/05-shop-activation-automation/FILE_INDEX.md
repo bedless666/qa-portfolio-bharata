@@ -136,7 +136,7 @@ crontab -e
 ### **For New Users:**
 1. ✅ `QUICK_START.md` (5 min)
 2. ✅ Run `./run_test.sh`
-3. ✅ Check SeaTalk notification
+3. ✅ Check Team Chat notification
 4. ✅ Read `README.md` for details
 
 ### **For Setup:**

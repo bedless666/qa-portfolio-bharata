@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 JIRA Weekly Summary Automation
-Fetches JIRA issues and sends formatted summary to SeaTalk webhook
+Fetches JIRA issues and sends formatted summary to Team Chat webhook
 """
 
 import json
@@ -99,7 +99,7 @@ class JiraWeeklySummary:
     def _build_member_task_block(self, email: str, tasks: List[dict]) -> str:
         """Build task block for a single member"""
         if not tasks:
-            return f"**<mention-tag target=\"seatalk://user?email={email}\"/>:**\n```\nNo tasks this week\n```\n\n"
+            return f"**<mention-tag target=\"team-chat://user?email={email}\"/>:**\n```\nNo tasks this week\n```\n\n"
         
         task_lines = []
         for i, task in enumerate(tasks[:3], 1):
@@ -117,7 +117,7 @@ class JiraWeeklySummary:
             task_lines = task_lines[:-1]
         
         tasks_text = "\n".join(task_lines)
-        return f"**<mention-tag target=\"seatalk://user?email={email}\"/>:**\n```\n{tasks_text}\n```\n\n"
+        return f"**<mention-tag target=\"team-chat://user?email={email}\"/>:**\n```\n{tasks_text}\n```\n\n"
     
     def _split_into_chunks(self, text: str, max_length: int = 900) -> List[str]:
         """Split text into chunks under max_length"""
@@ -266,7 +266,7 @@ class JiraWeeklySummary:
 
 **📋 To-do:** Please write down any task (if any)
 
-<mention-tag target="seatalk://user?id=0"/>"""
+<mention-tag target="team-chat://user?id=0"/>"""
         
         # Build Message 1: Buyer + Seller-Fulfillment
         msg1_config = self.config['teams']['all_teams']['message1']
@@ -323,7 +323,7 @@ class JiraWeeklySummary:
         return message1, message2
     
     def _build_message_structure(self, chunks: List[str], date_start: str, date_end: str, filter_id: str) -> dict:
-        """Build SeaTalk message structure"""
+        """Build Team Chat message structure"""
         elements = [
             {
                 "element_type": "title",
@@ -350,12 +350,12 @@ class JiraWeeklySummary:
                 "text": "View Details",
                 "mobile_link": {
                     "type": "web",
-                    "path": f"https://jira.shopee.io/issues/?filter={filter_id}",
+                    "path": f"https://jira.company.example/issues/?filter={filter_id}",
                     "params": {}
                 },
                 "desktop_link": {
                     "type": "web",
-                    "path": f"https://jira.shopee.io/issues/?filter={filter_id}"
+                    "path": f"https://jira.company.example/issues/?filter={filter_id}"
                 }
             }
         })
@@ -368,8 +368,8 @@ class JiraWeeklySummary:
         }
     
     def send_to_webhook(self, message: dict, webhook_id: str, message_num: int = 1) -> bool:
-        """Send message to SeaTalk webhook"""
-        url = f"https://openapi.seatalk.io/webhook/group/{webhook_id}"
+        """Send message to Team Chat webhook"""
+        url = f"https://webhooks.company.example/webhook/group/{webhook_id}"
         
         try:
             logger.info(f"Sending message {message_num} to webhook...")

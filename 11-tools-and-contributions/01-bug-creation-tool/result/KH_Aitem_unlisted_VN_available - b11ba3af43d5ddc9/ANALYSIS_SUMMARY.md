@@ -123,7 +123,7 @@ Spex error code 10019: viewercontext contains mismatched cid flag: CID from flag
 ### Short-term Actions
 1. **Verify Hardy routing** for all KH database queries
 2. **Review service deployment** - ensure correct region assignment
-3. **Fix DNS configuration** for fss-searchapi.ssc.test.shopee.kh.com
+3. **Fix DNS configuration** for fss-searchapi.ssc.test.marketplace.kh.com
 4. **Audit cross-region consistency** - ensure items have same availability
 
 ### Long-term Actions
@@ -161,7 +161,7 @@ Spex error code 10019: viewercontext contains mismatched cid flag: CID from flag
    - Verify no CID mismatch warnings in logs
 
 3. **@Platform-Infrastructure - DNS Configuration**:
-   - Fix DNS entry for fss-searchapi.ssc.test.shopee.kh.com
+   - Fix DNS entry for fss-searchapi.ssc.test.marketplace.kh.com
    - Verify all KH test environment DNS entries
    - Test DNS resolution from KH services
 

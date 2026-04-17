@@ -8,7 +8,7 @@ Modular version of the Monthly Regression Schedule script for Google Apps Script
 Config.gs           → Configuration & settings
 DataProcessor.gs    → Data fetching & validation
 MessageBuilder.gs   → Message formatting
-WebhookService.gs   → Seatalk webhook communication
+WebhookService.gs   → Team Chat webhook communication
 Main.gs             → Main execution logic
 Triggers.gs         → Trigger management
 ```
@@ -78,7 +78,7 @@ const CONFIG = {
 - Adds QA mentions at the end
 
 ### WebhookService.gs
-- `sendToWebhook()` - Send to Seatalk
+- `sendToWebhook()` - Send to Team Chat
 - Builds interactive message payload
 - Handles webhook response logging
 
@@ -145,7 +145,7 @@ Data must meet these criteria to be sent:
 ## 🔗 Links
 
 - [Google Apps Script Docs](https://developers.google.com/apps-script)
-- [Seatalk Webhook API](https://open.seatalk.io/)
+- [Team Chat Webhook API](https://docs.internal-chat.example/)
 
 ---
 

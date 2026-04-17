@@ -152,7 +152,7 @@ function buildMessages(validSchedule, allQAEmails) {
   });
   
   // Build mention section (mention all)
-  const mentionSection = '\n\n<mention-tag target="seatalk://user?id=0"/>';
+  const mentionSection = '\n\n<mention-tag target="team-chat://user?id=0"/>';
   
   // Split into chunks
   const messageChunks = [];

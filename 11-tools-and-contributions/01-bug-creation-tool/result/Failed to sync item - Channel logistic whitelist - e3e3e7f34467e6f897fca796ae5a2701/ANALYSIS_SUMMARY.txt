@@ -60,7 +60,7 @@ System Impact:
 - Other PShops and regions not affected (isolated to this configuration)
 
 TEAMS TO CONTACT
-Primary: @SIP-Team (Shopee Integrated Platform Team)
+Primary: @SIP-Team (Marketplace Integrated Platform Team)
 Reason: Owns the logistics channel whitelist configuration and SIP shop onboarding process. Responsible for adding PShops to regional logistics whitelists.
 
 Secondary: @Cross-Border-Item-Team

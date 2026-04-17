@@ -73,7 +73,7 @@
 **Key Features:**
 - Google Apps Script automation
 - Real-time dashboard integration
-- Webhook notifications to Slack/Seatalk
+- Webhook notifications to Slack/Team Chat
 - Postman API testing integration
 
 **Metrics:**

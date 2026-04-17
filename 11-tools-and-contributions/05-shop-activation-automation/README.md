@@ -8,7 +8,7 @@ Script ini melakukan:
 1. ✅ Parse CSV file (test atau production)
 2. ✅ Activate semua shops via Shark API
 3. ✅ Create JIRA ticket dengan hasil aktivasi
-4. ✅ Send SeaTalk notification (test atau production group)
+4. ✅ Send Team Chat notification (test atau production group)
 5. ✅ Logging lengkap ke file
 
 ---
@@ -86,10 +86,10 @@ JIRA['TOKEN'] = 'your-jira-token'
 ### **Webhook Configuration**
 ```python
 # Test webhook
-SEATALK['TEST_WEBHOOK'] = 'btrSgMvuRNK72NjNwIl-Vg'
+TEAM_CHAT['TEST_WEBHOOK'] = 'YOUR_TEST_WEBHOOK_TOKEN'
 
 # Production webhook
-SEATALK['PRODUCTION_WEBHOOK'] = '7BTJoSlqSnKFhaYOAnD1Aw'
+TEAM_CHAT['PRODUCTION_WEBHOOK'] = 'YOUR_PRODUCTION_WEBHOOK_TOKEN'
 ```
 
 ### **File Paths**
@@ -111,10 +111,10 @@ PRODUCTION_CSV = '../shop-activation-no-script/active_shop.csv'
 crontab -e
 
 # Add this line for weekly production run (every Friday at 11 AM)
-0 11 * * 5 /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
+0 11 * * 5 /path/to/your/workspace/01-Work-Projects/shop-activation-python/run_production.sh >> ~/logs/shop_activation_cron.log 2>&1
 
 # Or for testing (every Monday at 10 AM)
-0 10 * * 1 /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/shop-activation-python/run_test.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
+0 10 * * 1 /path/to/your/workspace/01-Work-Projects/shop-activation-python/run_test.sh >> ~/logs/shop_activation_cron.log 2>&1
 ```
 
 ### **Cronjob Schedule Examples**
@@ -140,8 +140,8 @@ crontab -e
 crontab -l
 
 # Check logs
-tail -f ~/Documents/Docs/log/shop_activation_cron.log
-tail -f ~/Documents/Docs/log/shop_activation_python.log
+tail -f ~/logs/shop_activation_cron.log
+tail -f ~/logs/shop_activation_python.log
 ```
 
 ---
@@ -195,12 +195,12 @@ Activation completed:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Creating JIRA ticket with activation results...
-✓ JIRA ticket created successfully: SPMR-12345
-  URL: https://jira.shopee.io/browse/SPMR-12345
+✓ JIRA ticket created successfully: PROJ-12345
+  URL: https://jira.company.example/browse/PROJ-12345
 
 Sending notifications to TEST webhook...
-🚀 TEST MODE: Using test webhook (btrSgMvuRNK72NjNwIl-Vg)
-✅ Notification sent successfully to TEST SeaTalk group
+🚀 TEST MODE: Using test webhook (YOUR_TEST_WEBHOOK_TOKEN)
+✅ Notification sent successfully to TEST Team Chat group
 
 ╔════════════════════════════════════════════════════════════════╗
 ║  ✅ TEST ACTIVATION COMPLETE!                                  ║
@@ -216,20 +216,20 @@ Sending notifications to TEST webhook...
 
 📝 JIRA Ticket:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  • Ticket: SPMR-12345
-  • URL: https://jira.shopee.io/browse/SPMR-12345
+  • Ticket: PROJ-12345
+  • URL: https://jira.company.example/browse/PROJ-12345
 
 📱 Notification:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  • Sent to TEST SeaTalk group
-  • Webhook: btrSgMvuRNK72NjNwIl-Vg
+  • Sent to TEST Team Chat group
+  • Webhook: YOUR_TEST_WEBHOOK_TOKEN
 
 🎉 All shops activated successfully! No manual intervention needed.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Next Steps:
-1. ✅ Check TEST SeaTalk group for notification
+1. ✅ Check TEST Team Chat group for notification
 2. ✅ Review JIRA ticket for complete details
 3. ✅ Verify shops are activated in Shark platform
 5. ✅ Update tracking spreadsheet if needed
@@ -258,23 +258,23 @@ python3 activate_shops.py production --skip-confirmation
 
 ### **Log Files**
 
-- **Main log**: `~/Documents/Docs/log/shop_activation_python.log`
-- **Cronjob log**: `~/Documents/Docs/log/shop_activation_cron.log`
+- **Main log**: `~/logs/shop_activation_python.log`
+- **Cronjob log**: `~/logs/shop_activation_cron.log`
 
 ### **View Logs**
 
 ```bash
 # View main log
-tail -f ~/Documents/Docs/log/shop_activation_python.log
+tail -f ~/logs/shop_activation_python.log
 
 # View cronjob log
-tail -f ~/Documents/Docs/log/shop_activation_cron.log
+tail -f ~/logs/shop_activation_cron.log
 
 # View last 50 lines
-tail -n 50 ~/Documents/Docs/log/shop_activation_python.log
+tail -n 50 ~/logs/shop_activation_python.log
 
 # Search for errors
-grep "ERROR" ~/Documents/Docs/log/shop_activation_python.log
+grep "ERROR" ~/logs/shop_activation_python.log
 ```
 
 ---
@@ -314,7 +314,7 @@ ls -la ../shop-activation-no-script/*.csv
 ```bash
 # Edit config.py and update SHARK_API['COOKIE']
 # Get new cookie from browser:
-# 1. Open https://shark.test.shopee.io
+# 1. Open https://api-internal.company.example
 # 2. Open DevTools (F12)
 # 3. Network tab > find any request
 # 4. Copy cookie value
@@ -330,11 +330,11 @@ ls -la ../shop-activation-no-script/*.csv
 # Script will continue and send notification even if JIRA fails
 ```
 
-### **Problem: SeaTalk notification failed**
+### **Problem: Team Chat notification failed**
 
 ```bash
 # Check webhook ID is correct
-# Verify you have access to the SeaTalk group
+# Verify you have access to the Team Chat group
 # Check network connectivity
 ```
 
@@ -362,7 +362,7 @@ ls -la ../shop-activation-no-script/*.csv
 # Always test before production
 ./run_test.sh
 
-# Verify in TEST SeaTalk group
+# Verify in TEST Team Chat group
 # Check JIRA ticket
 # Verify shop activation
 ```
@@ -370,7 +370,7 @@ ls -la ../shop-activation-no-script/*.csv
 ### **2. Check Logs Regularly**
 ```bash
 # Monitor logs after cronjob runs
-tail -f ~/Documents/Docs/log/shop_activation_python.log
+tail -f ~/logs/shop_activation_python.log
 ```
 
 ### **3. Update Cookie Periodically**
@@ -389,7 +389,7 @@ tail -f ~/Documents/Docs/log/shop_activation_python.log
 
 ### **5. Monitor Notifications**
 ```bash
-# Check SeaTalk after each run
+# Check Team Chat after each run
 # Verify JIRA tickets created
 # Review failed shops if any
 ```
@@ -404,7 +404,7 @@ tail -f ~/Documents/Docs/log/shop_activation_python.log
 crontab -l
 
 # Check logs
-tail -f ~/Documents/Docs/log/shop_activation_python.log
+tail -f ~/logs/shop_activation_python.log
 
 # Test manually
 ./run_test.sh
@@ -424,7 +424,7 @@ tail -f ~/Documents/Docs/log/shop_activation_python.log
   - Full automation with cronjob support
   - Test and production modes
   - JIRA ticket creation
-  - SeaTalk notifications
+  - Team Chat notifications
   - Comprehensive logging
   - Error handling
 

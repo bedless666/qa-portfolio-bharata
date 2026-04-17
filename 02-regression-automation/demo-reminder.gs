@@ -49,7 +49,7 @@ function sendMonthlyPICReminderV2() {
   
   // Add specific mentions instead of @all
   CONFIG.MENTION_EMAILS.forEach(email => {
-    message += `<mention-tag target="seatalk://user?email=${email}"/>`;
+    message += `<mention-tag target="team-chat://user?email=${email}"/>`;
   });
   
   const elements = [
@@ -202,7 +202,7 @@ function testPICReminderV2() {
   
   // Add specific mentions instead of @all
   CONFIG.MENTION_EMAILS.forEach(email => {
-    message += `<mention-tag target="seatalk://user?email=${email}"/>`;
+    message += `<mention-tag target="team-chat://user?email=${email}"/>`;
   });
   
   const elements = [

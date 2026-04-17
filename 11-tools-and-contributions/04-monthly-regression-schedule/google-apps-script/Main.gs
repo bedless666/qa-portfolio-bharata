@@ -1,7 +1,7 @@
 /**
  * Main execution file for Monthly Regression Schedule
  * 
- * This script sends a monthly RN Live Regression schedule to Seatalk.
+ * This script sends a monthly RN Live Regression schedule to Team Chat.
  * All configuration is in Config.gs
  */
 

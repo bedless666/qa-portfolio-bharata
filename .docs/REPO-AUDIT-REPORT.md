@@ -165,7 +165,7 @@
 
 **Summary**:
 - ✅ No API keys or secrets found
-- ✅ No company-specific URLs (Shopee, GoPay, etc.)
+- ✅ No employer-specific internal URLs in public-facing samples (use `company.example` style hosts).
 - ✅ No business logic or proprietary code
 - ✅ No internal tools or systems exposed
 - ⚠️ Minor: Personal paths in build artifacts (will be deleted)

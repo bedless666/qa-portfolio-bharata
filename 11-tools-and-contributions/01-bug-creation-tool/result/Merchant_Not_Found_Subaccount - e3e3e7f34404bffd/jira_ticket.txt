@@ -15,7 +15,7 @@ Merchant Shop Page Cannot Find Merchants Despite Successful Creation in Staging
 
 *Reproducible Steps*
 1. Create a merchant account in staging environment (or verify existing merchants exist in database)
-2. Navigate to https://subaccount.staging.shopee.com/merchant-shop
+2. Navigate to https://subaccount.staging.company.example/merchant-shop
 3. Log in with appropriate user account
 4. Observe the merchant listing page
 
@@ -71,7 +71,7 @@ Based on the symptoms, this appears to be a backend issue related to one or more
 **Priority:** P1 - Should be investigated and fixed urgently to unblock testing and development
 
 **Additional Context:**
-- URL: https://subaccount.staging.shopee.com/merchant-shop
+- URL: https://subaccount.staging.company.example/merchant-shop
 - TraceID: e3e3e7f34404bffde5ca1289acb1da01 (logs not found in log platform - may be expired or from different time period)
 - Service: subaccount (marketplace subaccount system)
 - Component: merchant-shop page/API

@@ -20,7 +20,7 @@ This issue affects campaign management operations in the KH test environment, pr
 - **API Endpoint:** POST `/api/gateway/v1/cmt/commonscene/pending_auto_review_count`
 - **Timestamp:** 2025-11-20 10:36:44 UTC
 - **Session ID:** 170000000005035
-- **User:** bharata.aryaseta@shopee.com
+- **User:** qa.engineer@company.example
 
 ## Root Cause Analysis
 
@@ -40,7 +40,7 @@ Based on the available logs and API structure:
 
 1. **User Action** → CMT Admin Web Portal
    - User navigates to Flash Sale review page
-   - URL: `https://cmt-admin.test.shopeekh.com/campaignScene/flashSale/subCampaign/session/review?sessionId=170000000005035`
+   - URL: `https://cmt-admin.test.marketplacekh.com/campaignScene/flashSale/subCampaign/session/review?sessionId=170000000005035`
    
 2. **Frontend** → API Gateway
    - POST request to `/api/gateway/v1/cmt/commonscene/pending_auto_review_count`
@@ -51,7 +51,7 @@ Based on the available logs and API structure:
    - Service: `campaignscene.commonsceneadmin.kh.test`
    - Processes the pending auto review count request
    
-4. **Permission Check** → SOUP (Shopee Unified Permission) ✓
+4. **Permission Check** → SOUP (Marketplace Unified Permission) ✓
    - TraceID: 86e88e0843fe67ebf43e35dde4fdb100 (related trace)
    - Service: `promotion.cmt.planning.general_service_core`
    - Validates user permissions:
@@ -251,7 +251,7 @@ After the fix is deployed:
    - Confirm pending count is returned correctly
 
 3. **Test Review Page**:
-   - Navigate to: `https://cmt-admin.test.shopeekh.com/campaignScene/flashSale/subCampaign/session/review?sessionId=170000000005035`
+   - Navigate to: `https://cmt-admin.test.marketplacekh.com/campaignScene/flashSale/subCampaign/session/review?sessionId=170000000005035`
    - Verify page loads without errors
    - Confirm session details are displayed
    - Validate pending auto review count shows correct value

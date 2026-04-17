@@ -40,7 +40,7 @@ https://docs.google.com/.../d/19nAfyhqtf-Evdl78peuoDOvs6SIoo9j0bpgvf1lIYAM/edit
 
 ```
 Main.gs → Select: testSendSchedule → Run ▶️
-→ Grant permissions → Check Seatalk ✅
+→ Grant permissions → Check Team Chat ✅
 ```
 
 ### 5️⃣ Setup Trigger (30 sec)
@@ -58,11 +58,11 @@ Triggers.gs → Select: createTriggers → Run ▶️
 
 ```javascript
 const CONFIG = {
-  WEBHOOK_URL: 'https://openapi.seatalk.io/webhook/group/YOUR_WEBHOOK_ID',
+  WEBHOOK_URL: 'https://webhooks.company.example/webhook/group/YOUR_WEBHOOK_GROUP_ID',
   SPREADSHEET_ID: 'YOUR_SHEET_ID_HERE',
   SHEET_NAME: 'Regression PIC',
   MAX_DESCRIPTION_LENGTH: 900,
-  BUTTON_LINK: 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID_HERE/edit',
+  BUTTON_LINK: 'https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit',
   TRIGGER_DAY: 1,
   TRIGGER_HOUR: 9
 };
@@ -111,7 +111,7 @@ Get from: `monthly-regression-schedule/google-apps-script-simple/Main.gs`
 [ ] 3 files created
 [ ] Config updated with webhook & sheet ID
 [ ] Test run successful
-[ ] Message received in Seatalk
+[ ] Message received in Team Chat
 [ ] Trigger created
 ```
 

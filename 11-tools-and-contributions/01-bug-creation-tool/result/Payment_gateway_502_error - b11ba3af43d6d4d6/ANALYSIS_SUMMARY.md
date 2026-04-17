@@ -8,14 +8,14 @@
 **Date:** 18 November 2025, 12:23:54 ID time
 
 ## Problem Statement
-Users in ID Staging environment cannot place orders using any non-COD payment methods (Credit Card, Debit Card, ShopeePay, E-wallets, etc.). The checkout process fails with a generic error message "Some product information in your order has been updated, please go back and try again." Only Cash on Delivery (COD) payment method works.
+Users in ID Staging environment cannot place orders using any non-COD payment methods (Credit Card, Debit Card, MarketplacePay, E-wallets, etc.). The checkout process fails with a generic error message "Some product information in your order has been updated, please go back and try again." Only Cash on Delivery (COD) payment method works.
 
 ## Error Details
 - **Error Code:** 19300999 (ERROR_UNKNOWN), 35400002 (error_other_service), 502 (Bad Gateway)
 - **Error Message:** "Connect Upstream Failed", "error_other_service"
 - **Service:** mpp-bridgeapi-staging-id, mppayments-channel-staging-id
-- **Component:** Payment Channel Verification, ShopeePay Gateway Integration
-- **API Endpoint:** `https://gw0.pps.i.staging.shopeepay.co.id/api/get_payment_channel/`
+- **Component:** Payment Channel Verification, MarketplacePay Gateway Integration
+- **API Endpoint:** `https://gw0.pps.i.staging.marketplacepay.co.id/api/get_payment_channel/`
 - **Timestamp:** 2025-11-18 12:23:54.444215
 
 ## Root Cause Analysis
@@ -29,7 +29,7 @@ The `pps-payment` service containers were not running in staging environments (I
 This is a **Deployment System Failure** - not a configuration or networking issue, but a failure in the deployment pipeline that left the pps-payment service with zero running containers.
 
 **Initial Analysis (Before Dev Confirmation):**
-The ShopeePay Gateway (SPM) service appeared unreachable. When users attempted to place orders with non-COD payment methods, the payment verification service (mpp-bridgeapi) called the SPM API to verify the chosen payment channel, but received HTTP 502 Bad Gateway error with "Connect Upstream Failed".
+The MarketplacePay Gateway (SPM) service appeared unreachable. When users attempted to place orders with non-COD payment methods, the payment verification service (mpp-bridgeapi) called the SPM API to verify the chosen payment channel, but received HTTP 502 Bad Gateway error with "Connect Upstream Failed".
 
 **Why This Happened:**
 - Deployment system (gas) had issues that prevented new pps-payment containers from starting
@@ -43,14 +43,14 @@ The error occurs in this service call chain:
 1. **User Action** → Place Order with Payment Channel 80030 (Credit Card)
 2. **mpcheckout-core-staging-id** → Calls `marketplace.checkout.core.place_order_v4`
 3. **mpcheckout-core-staging-id** → Calls `payment.mpp.bridge_api.verify_chosen_payment_channel_v2`
-4. **mpp-bridgeapi-staging-id** → Calls SPM API: `POST https://gw0.pps.i.staging.shopeepay.co.id/api/get_payment_channel/`
-5. **ShopeePay Gateway (SPM)** → **❌ Returns 502 Bad Gateway** (upstream service unreachable)
+4. **mpp-bridgeapi-staging-id** → Calls SPM API: `POST https://gw0.pps.i.staging.marketplacepay.co.id/api/get_payment_channel/`
+5. **MarketplacePay Gateway (SPM)** → **❌ Returns 502 Bad Gateway** (upstream service unreachable)
 6. **mpp-bridgeapi-staging-id** → Returns error code `19300999` (ERROR_UNKNOWN)
 7. **mpcheckout-core-staging-id** → Aborts checkout with error `35400002` (error_other_service)
 8. **User** → Sees error message: "Some product information in your order has been updated, please go back and try again."
 
 ### Deployment Issues (Actual Root Cause)
-- **Service:** `pps-payment` (ShopeePay Payment Service)
+- **Service:** `pps-payment` (MarketplacePay Payment Service)
 - **Deployment System:** gas (deployment pipeline)
 - **Problem:** Deployment pipeline failure causing zero running containers
   - ✅ Old containers were killed during deployment
@@ -105,13 +105,13 @@ The request payload is valid, but the server cannot process it due to upstream u
 
 ## Action Items
 ### Immediate Actions
-1. **Check ShopeePay Gateway service status** in ID Staging environment
+1. **Check MarketplacePay Gateway service status** in ID Staging environment
 2. **Verify nginx configuration** for upstream routing to SPM service
 3. **Check network connectivity** between mpp-bridgeapi and SPM gateway
 4. **Review recent deployments** that might have affected SPM service
 
 ### Short-term Actions
-1. **Restart ShopeePay Gateway service** if it's down
+1. **Restart MarketplacePay Gateway service** if it's down
 2. **Fix nginx upstream configuration** if misconfigured
 3. **Verify the fix** by placing test order with Credit Card payment
 4. **Monitor error rates** for payment verification endpoints
@@ -145,8 +145,8 @@ The request payload is valid, but the server cannot process it due to upstream u
 ## Teams to Contact
 
 ### Initial Contact (Based on Symptoms):
-**Primary:** @ShopeePay-Gateway-Team  
-**Reason:** The ShopeePay Gateway (SPM) service at `gw0.pps.i.staging.shopeepay.co.id` is returning 502 Bad Gateway. This team owns the SPM service and needs to investigate why the upstream service is unreachable.
+**Primary:** @MarketplacePay-Gateway-Team  
+**Reason:** The MarketplacePay Gateway (SPM) service at `gw0.pps.i.staging.marketplacepay.co.id` is returning 502 Bad Gateway. This team owns the SPM service and needs to investigate why the upstream service is unreachable.
 
 **Secondary:** @Payment-Platform-Team  
 **Reason:** The mpp-bridgeapi service is the caller experiencing the failure. This team should verify their nginx configuration and network connectivity to SPM gateway.
@@ -155,7 +155,7 @@ The request payload is valid, but the server cannot process it due to upstream u
 **Primary:** @Backend-Core-Team (Zibin Pan)  
 **Reason:** Fixed the deployment pipeline (gas system) that was preventing new containers from starting.
 
-**Secondary:** @ShopeePay-Backend-Team  
+**Secondary:** @MarketplacePay-Backend-Team  
 **Reason:** Redeployed the pps-payment service after deployment pipeline was fixed.
 
 **Tertiary:** @SPM-Checkout-Team  
@@ -169,7 +169,7 @@ The request payload is valid, but the server cannot process it due to upstream u
    - ✅ Resolved container startup failures
    - ✅ Enabled successful redeployment of pps-payment service
 
-2. **@ShopeePay-Backend-Team**: 
+2. **@MarketplacePay-Backend-Team**: 
    - ✅ Redeployed pps-payment service across all affected staging regions (ID, TW, PH)
    - ✅ Verified new containers started successfully
    - ✅ Confirmed service health and availability
@@ -181,7 +181,7 @@ The request payload is valid, but the server cannot process it due to upstream u
 
 ### Resolution Timeline:
 1. **Detection:** QA reported 404/502 errors in payment APIs
-2. **Escalation:** SPM Checkout and ShopeePay backend teams notified
+2. **Escalation:** SPM Checkout and MarketplacePay backend teams notified
 3. **Investigation:** Identified deployment pipeline failure (gas system)
 4. **Fix:** Backend core team fixed gas deployment system
 5. **Redeploy:** Successfully redeployed pps-payment service
@@ -190,7 +190,7 @@ The request payload is valid, but the server cannot process it due to upstream u
 ## Verification Steps
 After the fix is deployed:
 1. **Test basic checkout flow:**
-   - Login to staging.shopee.co.id
+   - Login to staging.marketplace.co.id
    - Add items to cart
    - Select Credit Card payment (channel_id: 80030)
    - Place order
@@ -204,7 +204,7 @@ After the fix is deployed:
 3. **Test multiple payment methods:**
    - Credit Card (80030)
    - Debit Card (80032)
-   - ShopeePay (80009)
+   - MarketplacePay (80009)
    - Other e-wallets
    - Verify all return valid responses
 
@@ -216,7 +216,7 @@ After the fix is deployed:
 ## Related Information
 - **Similar Issues:** Payment gateway outages typically affect all non-COD payment methods
 - **Documentation:** 
-  - ShopeePay Gateway API docs
+  - MarketplacePay Gateway API docs
   - mpp-bridgeapi service documentation
   - Payment verification flow diagram
 - **Monitoring:** 
@@ -229,7 +229,7 @@ After the fix is deployed:
 ### Error from mpp-bridgeapi-staging-id:
 ```
 2025-11-18 12:23:54.444215|DEBUG|b11ba3af43d6d4d6bc772eb6442d1e00
-url: https://gw0.pps.i.staging.shopeepay.co.id/api/get_payment_channel/
+url: https://gw0.pps.i.staging.marketplacepay.co.id/api/get_payment_channel/
 method: POST
 elapsed_millis: 19
 status_code: 502
@@ -248,7 +248,7 @@ ErrSPEXCall{"cmd":"payment.mpp.bridge_api.verify_chosen_payment_channel_v2","cod
 ### Error from mppayments-channel-staging-id:
 ```
 2025-11-18 12:23:54.009016|ERROR|b11ba3af43d6d4d6bc772eb6442d1e00
-url: https://spm.i.staging.shopee.co.id/api/batch_get_payment_options/
+url: https://spm.i.staging.marketplace.co.id/api/batch_get_payment_options/
 status_code: 502
 invalid character '<' looking for beginning of value
 ```
@@ -266,7 +266,7 @@ invalid character '<' looking for beginning of value
 - **Always check container status** when investigating 502 errors
 - **Deployment failures can masquerade as service outages**
 - **Cross-region impact suggests infrastructure/deployment issue** rather than service-specific bug
-- **Collaboration between teams is crucial** - Required Backend Core, ShopeePay Backend, and SPM Checkout teams
+- **Collaboration between teams is crucial** - Required Backend Core, MarketplacePay Backend, and SPM Checkout teams
 
 ### Lessons for Future Debugging:
 1. When seeing 502 "Connect Upstream Failed", check if containers are running
@@ -278,7 +278,7 @@ invalid character '<' looking for beginning of value
 1. ✅ Create JIRA ticket (use `jira_ticket.txt`)
 2. ✅ Notify dev teams (use `chat_message.txt`)
 3. ✅ Backend Core team fixed deployment pipeline (gas system)
-4. ✅ ShopeePay Backend team redeployed pps-payment service
+4. ✅ MarketplacePay Backend team redeployed pps-payment service
 5. ✅ QA verified fix - payment APIs working normally
 6. ✅ Order placement confirmed working in all staging regions
 7. ⏳ Implement preventive measures (monitoring, alerts, runbook)

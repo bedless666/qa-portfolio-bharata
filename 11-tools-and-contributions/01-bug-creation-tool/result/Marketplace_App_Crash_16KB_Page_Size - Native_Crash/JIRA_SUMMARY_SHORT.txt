@@ -1,4 +1,4 @@
-h1. [SPAPP-53682] 16KB Page Size Crash - Quick Summary
+h1. [MOBILE-53682] 16KB Page Size Crash - Quick Summary
 
 *Status:* {color:green}RESOLVED{color} | *Priority:* {color:red}P0{color} | *Fixed Build:* {{fix-16kb-1204}}
 
@@ -6,7 +6,7 @@ h1. [SPAPP-53682] 16KB Page Size Crash - Quick Summary
 
 h2. Problem
 
-Shopee app crashes on Android 15 devices with 16KB page size (Pixel 8 Pro, etc.)
+Marketplace app crashes on Android 15 devices with 16KB page size (Pixel 8 Pro, etc.)
 
 *Error:* {{Program alignment (4096) smaller than system page size (16384)}}
 
@@ -54,7 +54,7 @@ h2. Verification
 h2. Action Required
 
 {warning}
-*[~aryo]* needs to sign off JIRA ticket SPAPP-53682
+*[~aryo]* needs to sign off JIRA ticket MOBILE-53682
 *[~ren.jiaxin]* will merge code after sign-off
 {warning}
 

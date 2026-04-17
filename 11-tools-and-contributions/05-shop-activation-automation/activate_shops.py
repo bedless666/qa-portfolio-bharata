@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Shop Activation Script - Main Module
-Automates bulk shop activation with JIRA ticket creation and SeaTalk notifications
+Automates bulk shop activation with JIRA ticket creation and Team Chat notifications
 """
 
 import csv
@@ -345,7 +345,7 @@ def create_jira_ticket(results: Dict, shops: List[Dict], mode: str) -> Dict:
         if response.status_code in [200, 201]:
             result = response.json()
             ticket_key = result.get('key')
-            ticket_url = f"https://jira.shopee.io/browse/{ticket_key}"
+            ticket_url = f"https://jira.company.example/browse/{ticket_key}"
             
             print(f"✓ JIRA ticket created successfully: {ticket_key}")
             print(f"  URL: {ticket_url}\n")
@@ -361,11 +361,11 @@ def create_jira_ticket(results: Dict, shops: List[Dict], mode: str) -> Dict:
 
 
 # ============================================================================
-# SEATALK NOTIFICATION
+# TEAM CHAT NOTIFICATION
 # ============================================================================
 
-def send_seatalk_notification(results: Dict, shops: List[Dict], jira_ticket: Dict, mode: str):
-    """Send SeaTalk notification"""
+def send_team-chat_notification(results: Dict, shops: List[Dict], jira_ticket: Dict, mode: str):
+    """Send Team Chat notification"""
     print(f"Sending notifications to {mode.upper()} webhook...")
     
     try:
@@ -392,7 +392,7 @@ def send_seatalk_notification(results: Dict, shops: List[Dict], jira_ticket: Dic
                 failed_section += f"• Shop ID: {shop['shop_id']} (Region: {shop['region'].upper()})\n"
             failed_section += '```'
         
-        # Build SeaTalk payload
+        # Build Team Chat payload
         mode_prefix = "🧪 [TEST] " if mode == 'test' else "🏪 "
         elements = [
             {
@@ -404,7 +404,7 @@ def send_seatalk_notification(results: Dict, shops: List[Dict], jira_ticket: Dic
             {
                 "element_type": "description",
                 "description": {
-                    "text": 'Hi team <mention-tag target="seatalk://user?id=0"/>,\n\nHere\'s the shop activation summary:'
+                    "text": 'Hi team <mention-tag target="team-chat://user?id=0"/>,\n\nHere\'s the shop activation summary:'
                 }
             },
             {
@@ -473,7 +473,7 @@ def send_seatalk_notification(results: Dict, shops: List[Dict], jira_ticket: Dic
         
         # Get webhook URL
         webhook_id = config.MODE_CONFIG[mode]['webhook']
-        webhook_url = f"{config.SEATALK['BASE_URL']}{webhook_id}"
+        webhook_url = f"{config.TEAM_CHAT['BASE_URL']}{webhook_id}"
         
         print(f"🚀 {mode.upper()} MODE: Using {mode} webhook ({webhook_id})")
         
@@ -488,14 +488,14 @@ def send_seatalk_notification(results: Dict, shops: List[Dict], jira_ticket: Dic
         if response.status_code == 200:
             result = response.json()
             if result.get('code') == 0:
-                print(f"✅ Notification sent successfully to {mode.upper()} SeaTalk group\n")
+                print(f"✅ Notification sent successfully to {mode.upper()} Team Chat group\n")
             else:
-                print(f"⚠️  SeaTalk notification may have failed: {result}\n")
+                print(f"⚠️  Team Chat notification may have failed: {result}\n")
         else:
-            print(f"⚠️  Failed to send SeaTalk notification: {response.text[:200]}\n")
+            print(f"⚠️  Failed to send Team Chat notification: {response.text[:200]}\n")
             
     except Exception as e:
-        print(f"⚠️  Error sending SeaTalk notification: {e}\n")
+        print(f"⚠️  Error sending Team Chat notification: {e}\n")
 
 
 # ============================================================================
@@ -549,7 +549,7 @@ def display_final_summary(results: Dict, jira_ticket: Dict, mode: str):
     
     print("\n📱 Notification:")
     print("━"*70)
-    print(f"  • Sent to {mode.upper()} SeaTalk group")
+    print(f"  • Sent to {mode.upper()} Team Chat group")
     print(f"  • Webhook: {config.MODE_CONFIG[mode]['webhook']}")
     
     if results['failed']:
@@ -565,7 +565,7 @@ def display_final_summary(results: Dict, jira_ticket: Dict, mode: str):
     
     print("━"*70)
     print("\nNext Steps:")
-    print(f"1. ✅ Check {mode.upper()} SeaTalk group for notification")
+    print(f"1. ✅ Check {mode.upper()} Team Chat group for notification")
     print("2. ✅ Review JIRA ticket for complete details")
     print("3. ✅ Verify shops are activated in Shark platform")
     if results['failed']:
@@ -629,8 +629,8 @@ def main():
     # Create JIRA ticket
     jira_ticket = create_jira_ticket(results, shops, mode)
     
-    # Send SeaTalk notification
-    send_seatalk_notification(results, shops, jira_ticket, mode)
+    # Send Team Chat notification
+    send_team-chat_notification(results, shops, jira_ticket, mode)
     
     # Display final summary
     display_final_summary(results, jira_ticket, mode)

@@ -53,7 +53,7 @@ Service: cartservice-core-test-kh
 Component: Item status validation in add-to-cart flow
 API Endpoint: /api/v4/cart/add_to_cart
 
-WHY: The SIP (Shopee Integrated Platform) synchronization mechanism failed to 
+WHY: The SIP (Marketplace Integrated Platform) synchronization mechanism failed to 
 update the A-item (Affiliated item) status when the P-item (Primary item) was 
 listed. This creates a data inconsistency where:
 - P-item status: Listed and available ✅
@@ -202,7 +202,7 @@ Root Cause Category:
 ================================================================================
 SIP ARCHITECTURE CONTEXT
 ================================================================================
-SIP (Shopee Integrated Platform) enables cross-border selling:
+SIP (Marketplace Integrated Platform) enables cross-border selling:
 
 P-shop (Primary Shop):
 - Source market where seller creates original items
@@ -273,7 +273,7 @@ ADDITIONAL INVESTIGATION NEEDED
 ================================================================================
 OUTPUT LOCATION
 ================================================================================
-Folder: /Users/bharata.aryaseta/Documents/Docs/Bharata Repository/data-prep/bug_creation/result/Aitem_Unlisted_But_Pitem_Available - b11ba3af44678700e2947cc5c2f43002/
+Folder: /path/to/your/workspace/data-prep/bug_creation/result/Aitem_Unlisted_But_Pitem_Available - b11ba3af44678700e2947cc5c2f43002/
 
 Files Created:
 - jira_ticket.txt (8.5 KB)

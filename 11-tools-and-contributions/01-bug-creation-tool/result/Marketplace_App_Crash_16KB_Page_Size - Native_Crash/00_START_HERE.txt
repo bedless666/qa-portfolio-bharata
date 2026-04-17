@@ -1,6 +1,6 @@
 ╔════════════════════════════════════════════════════════════════════════════╗
 ║                                                                            ║
-║   BUG REPORT: Shopee App Crash on 16KB Page Size                         ║
+║   BUG REPORT: Marketplace App Crash on 16KB Page Size                         ║
 ║   Priority: P0 - Critical                                                 ║
 ║   Date: 2025-12-03                                                        ║
 ║                                                                            ║
@@ -55,7 +55,7 @@ Step 4: Share Technical Details
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Problem:
-   Shopee app crashes immediately on startup when running on Android 15
+   Marketplace app crashes immediately on startup when running on Android 15
    devices with 16KB page size configuration.
 
 Root Cause:
@@ -85,7 +85,7 @@ Teams Involved:
 Error Type:        SIGSEGV (Segmentation violation)
 Crashed Thread:    JSBinder (React Native bridge)
 Crashed Libraries: libshadowhook.so, libglog_v2.so, libnative-crash.so
-App Version:       Shopee 3.64.03@regression
+App Version:       Marketplace 3.64.03@regression
 Android Version:   API 35 (Android 15)
 Page Size:         16384 bytes (16KB) ← Problem!
 Expected:          Libraries aligned to 16KB boundaries

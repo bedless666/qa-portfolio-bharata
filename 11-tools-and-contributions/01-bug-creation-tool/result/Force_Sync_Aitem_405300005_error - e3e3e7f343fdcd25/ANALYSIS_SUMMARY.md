@@ -79,7 +79,7 @@ The item attribute service doesn't have proper unit localization settings for KH
 
 #### 3. Missing Database Table
 ```
-ERROR: Table 'shopee_mpl_shop_kh_db.component_shop_blacklist_tab' doesn't exist
+ERROR: Table 'marketplace_mpl_shop_kh_db.component_shop_blacklist_tab' doesn't exist
 ```
 The KH region database is missing the `component_shop_blacklist_tab` table, which is used by the shop channels service to check channel blacklists.
 

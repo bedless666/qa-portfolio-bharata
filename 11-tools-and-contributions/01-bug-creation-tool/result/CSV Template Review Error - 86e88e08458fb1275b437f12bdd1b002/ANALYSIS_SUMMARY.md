@@ -53,7 +53,7 @@ The service likely has a whitelist or enum of allowed operation types (e.g., "cr
 
 ## DATA ISSUES
 - **Session ID:** 170000000005052 (valid session, not a data issue)
-- **User:** bharata.aryaseta@shopee.com (valid user)
+- **User:** qa.engineer@company.example (valid user)
 - **IDC:** sg90 (correct IDC for KH region)
 
 No data-related problems detected. The issue is purely configuration/implementation-based.
@@ -117,7 +117,7 @@ File: csv_template_handler.go:39
 Function: handler.(*CommonSceneAdminServiceImpl).GetCsvTemplate
 Message: GetCsvTemplate fail
 Error: unknown operation review
-Details: idc=sg90,request=bff_meta:<soup_email:"bharata.aryaseta@shopee.com"> operation:"review" session_id:"170000000005052"
+Details: idc=sg90,request=bff_meta:<soup_email:"qa.engineer@company.example"> operation:"review" session_id:"170000000005052"
 ```
 
 ## NEXT STEPS

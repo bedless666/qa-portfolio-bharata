@@ -2,7 +2,7 @@
 Can't add address in AR shop (from CNSC) - Hardy routing error: AR region not configured in database sharding
 
 *Configuration*:
-- app / os version: CNSC (China Seller Center) - seller.staging.shopee.cn
+- app / os version: CNSC (China Seller Center) - seller.staging.marketplace.cn
 - env (test, staging, live) and country info: Staging, AR (Argentina)
 - pfb build: n/a
 - account (user / id): user_id=8093951849, shop_id=305929322, merchant_id=1000001745, sub_account_id=65020
@@ -14,7 +14,7 @@ Can't add address in AR shop (from CNSC) - Hardy routing error: AR region not co
 - any workaround: None - requires database routing configuration update
 
 *Reproducible Steps*
-1. Login to CNSC (China Seller Center) staging: seller.staging.shopee.cn
+1. Login to CNSC (China Seller Center) staging: seller.staging.marketplace.cn
 2. Navigate to Settings > Shipping > Address Management
 3. Select AR (Argentina) as target region (shop_id: 305929322)
 4. Fill in address details:
@@ -51,11 +51,11 @@ Can't add address in AR shop (from CNSC) - Hardy routing error: AR region not co
 *Initial Judgment / Root Cause Analysis:* Backend issue
 
 **Root Cause:**
-Hardy database routing configuration for `shopee_account_address_db` cluster does not include AR (Argentina) region in the supported regions list. The sharding expression only includes: [br, cl, co, id, mx, my, ph, sg, th, tw, vn], but AR is missing.
+Hardy database routing configuration for `marketplace_account_address_db` cluster does not include AR (Argentina) region in the supported regions list. The sharding expression only includes: [br, cl, co, id, mx, my, ph, sg, th, tw, vn], but AR is missing.
 
 **Technical Details:**
 - Service: `location-userlocation-staging-ar`
-- Database Cluster: `shopee_account_address_db`
+- Database Cluster: `marketplace_account_address_db`
 - Table: `buyer_address_tab`
 - Hardy Version: v0.11.0
 - CRDS ID: sddl_10007290
@@ -79,7 +79,7 @@ Hardy database routing configuration for `shopee_account_address_db` cluster doe
 hardy (3027): eval sharding expression failed when use region: ar to format region expression
 central region: <nil>
 regions: [br cl co id mx my ph sg th tw vn]
-cluster: shopee_account_address_db
+cluster: marketplace_account_address_db
 sharding_hint: region:ar
 query: SELECT ... FROM buyer_address_tab WHERE userid = ? AND status > ?
 ```
@@ -92,7 +92,7 @@ Response: {"code":120030000,"message":"unknown system error"}
 ```
 
 **Why AR is Missing:**
-The Hardy routing configuration (CRDS ID: sddl_10007290) for the `shopee_account_address_db` cluster was created before AR region was added to the platform, or AR was intentionally excluded. The configuration needs to be updated to include AR in the regions list.
+The Hardy routing configuration (CRDS ID: sddl_10007290) for the `marketplace_account_address_db` cluster was created before AR region was added to the platform, or AR was intentionally excluded. The configuration needs to be updated to include AR in the regions list.
 
 **Affected Operations:**
 - Create address (internal_create_private_address_without_pii)
@@ -113,4 +113,4 @@ This suggests CNSC routing might have configuration issues when accessing AR reg
 [] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
 [x] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
 [x] If applicable, you have provided the detailed information about your toggle setting.
-[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://api-internal.company.example/create-user]){color}

@@ -91,7 +91,7 @@ SOLUTION STEPS
 VERIFICATION STEPS
 ================================================================================
 After fix is deployed:
-1. Login to seller.staging.shopee.co.id with ID seller account
+1. Login to seller.staging.marketplace.co.id with ID seller account
 2. Navigate to "My Sales" > "To Ship"
 3. Click "Ship" button and enter tracking number
 4. Verify order status changes to "Shipped"
@@ -114,7 +114,7 @@ CID from flag=id but CID from env=sg
 
 API Response Details:
 - Request: POST /api/v3/shipment/init_order
-- Headers: Region-Id=ID, Shopee-Baggage=CID=id
+- Headers: Region-Id=ID, Marketplace-Baggage=CID=id
 - User ID: 102549904
 - Shop ID: 300563615
 - Error: CID routing mismatch at gateway authentication layer
@@ -150,7 +150,7 @@ NEXT ACTIONS
 ================================================================================
 OUTPUT LOCATION
 ================================================================================
-Folder: /Users/bharata.aryaseta/Documents/Docs/Bharata Repository/data-prep/bug_creation/result/Ship_Status_Not_Change_After_Ship_Init - e3e3e7f34452b3118b39817e2148f101/
+Folder: /path/to/your/workspace/data-prep/bug_creation/result/Ship_Status_Not_Change_After_Ship_Init - e3e3e7f34452b3118b39817e2148f101/
 
 Files Created:
 - jira_ticket.txt

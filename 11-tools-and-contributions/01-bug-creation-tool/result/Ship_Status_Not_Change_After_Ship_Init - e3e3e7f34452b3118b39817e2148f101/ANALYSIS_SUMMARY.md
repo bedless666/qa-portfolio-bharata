@@ -24,7 +24,7 @@ Seller cannot ship orders in Seller Center staging environment for ID region. Af
 The issue is caused by **incorrect CID routing configuration** in the gateway service. When an ID seller makes a request to ship an order, the request is routed through the global gateway (`mall-sellergatewayunification-staging-global`) which should route ID-specific requests to ID environment backend services. However, the `seller_cid_routing` plugin is misconfigured and routes the request to the Singapore (SG) environment backend service instead.
 
 **Why This Happens:**
-1. Frontend sends request with `Region-Id: ID` header and `Shopee-Baggage: CID=id` header
+1. Frontend sends request with `Region-Id: ID` header and `Marketplace-Baggage: CID=id` header
 2. Global gateway receives the request and processes it through the `seller_cid_routing-100` plugin
 3. The routing plugin incorrectly determines the target service as `sellerplatform-gatewayacl-staging-sg` (Singapore)
 4. The SG environment service receives the request but detects a CID mismatch:
@@ -35,9 +35,9 @@ The issue is caused by **incorrect CID routing configuration** in the gateway se
 
 ### Service Chain
 ```
-1. Frontend (seller.staging.shopee.co.id)
+1. Frontend (seller.staging.marketplace.co.id)
    ↓ POST /api/v3/shipment/init_order
-   ↓ Headers: Region-Id=ID, Shopee-Baggage=CID=id
+   ↓ Headers: Region-Id=ID, Marketplace-Baggage=CID=id
 
 2. mall-sellergatewayunification-staging-global
    ↓ Processes through plugins:
@@ -51,7 +51,7 @@ The issue is caused by **incorrect CID routing configuration** in the gateway se
    ↓ ❌ CID MISMATCH DETECTED
    ↓ Spex Error 10019 triggered
 
-4. seller-fulfilment.order.i.staging.shopee.co.id
+4. seller-fulfilment.order.i.staging.marketplace.co.id
    ✗ Never reached due to authentication failure
 ```
 
@@ -61,7 +61,7 @@ mall-sellergatewayunification-staging-global
    ↓
 sellerplatform-gatewayacl-staging-id (CORRECT ENVIRONMENT)
    ↓
-seller-fulfilment.order.i.staging.shopee.co.id
+seller-fulfilment.order.i.staging.marketplace.co.id
 ```
 
 ### Configuration Issues
@@ -185,7 +185,7 @@ seller-fulfilment.order.i.staging.shopee.co.id
 After the fix is deployed:
 
 1. **Login to Seller Center:**
-   - Go to seller.staging.shopee.co.id
+   - Go to seller.staging.marketplace.co.id
    - Login with ID seller account (moqa_id_seller_official / User ID: 102549904)
 
 2. **Navigate to Orders:**
@@ -247,6 +247,6 @@ After the fix is deployed:
 **Analyzer Version:** Bug Analyzer v2.0 (TXT-based)  
 **Analyzed By:** Cursor AI  
 **Analysis Duration:** ~5 minutes  
-**Log Sources:** QAFoundBugs MCP Tool (Shopee Internal Log Platform)
+**Log Sources:** QAFoundBugs MCP Tool (Marketplace Internal Log Platform)
 
 

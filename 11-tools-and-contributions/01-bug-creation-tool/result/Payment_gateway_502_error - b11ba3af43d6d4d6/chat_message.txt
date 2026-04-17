@@ -1,4 +1,4 @@
-Hi @ShopeePay-Gateway-Team @Payment-Platform-Team
+Hi @MarketplacePay-Gateway-Team @Payment-Platform-Team
 
 Found critical issue in AR Staging environment.
 
@@ -6,9 +6,9 @@ Issue: Cannot place orders using non-COD payment methods - Payment gateway retur
 
 TraceID: b11ba3af43d6d4d6bc772eb6442d1e00
 Error Code: 19300999 (ERROR_UNKNOWN), 502 Bad Gateway
-Error: Connect Upstream Failed - ShopeePay Gateway unreachable
+Error: Connect Upstream Failed - MarketplacePay Gateway unreachable
 
-Root Cause: Payment Gateway Connection Error - ShopeePay Gateway (SPM) service at gw0.pps.i.staging.shopeepay.co.id is down or unreachable
+Root Cause: Payment Gateway Connection Error - MarketplacePay Gateway (SPM) service at gw0.pps.i.staging.marketplacepay.co.id is down or unreachable
 
 Created ticket with full analysis: [JIRA_TICKET_URL]
 

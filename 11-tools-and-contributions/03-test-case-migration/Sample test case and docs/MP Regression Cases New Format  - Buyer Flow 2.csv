@@ -1,5 +1,5 @@
 Case name,Components Involved ,Pre-condition,Platform,Steps,Expected Result
-[21][ID/VN]Test ros(return on the spot) in PDP,PDP,"1. Shopee Buyer's app region=ID/VN
+[21][ID/VN]Test ros(return on the spot) in PDP,PDP,"1. Marketplace Buyer's app region=ID/VN
 2. Seller status: active
 3. Payment method: 
 [ID]COD - Cek Dulu
@@ -7,7 +7,7 @@ Case name,Components Involved ,Pre-condition,Platform,Steps,Expected Result
 4.Order is eligible for co-Check",IOS/ANDROID/PC,Enter PDP Page,success
 ,,,,Click Add to Cart,Successfully add to cart
 ,,,,Click Icon at the top right of the PDP Page,Enter cart Page
-[21][ID/VN]Test ros(return on the spot) in cart,Cart,"1. Shopee Buyer's app region=ID/VN
+[21][ID/VN]Test ros(return on the spot) in cart,Cart,"1. Marketplace Buyer's app region=ID/VN
 2. Payment method: 
 [ID]COD - Cek Dulu
 [VN]Cash on Delivery
@@ -16,7 +16,7 @@ Case name,Components Involved ,Pre-condition,Platform,Steps,Expected Result
 ,,,,Click Check Out,page load successfully 
 [21][ID/VN]Test ros(return on the spot) in checkout include vouher and coin 'till place order success,"Checkout
 Voucher
-Discount & Coins","1. Shopee Buyer's app region=ID/VN
+Discount & Coins","1. Marketplace Buyer's app region=ID/VN
 2. Payment method: 
 [ID]COD - Cek Dulu
 [VN]Cash on Delivery
@@ -36,7 +36,7 @@ Discount & Coins","1. Shopee Buyer's app region=ID/VN
 3.Down stream marketplace.logistics.channel_fee_shippability.process_fee_shippability  →  Return to ros_eligible is True"
 ,,,,Click My Purchases button,"1.Redirect to My Purchases Page
 2.Redirect to To Ship tab"
-[21][ID/VN]Test ros(return on the spot) check in order detail,Order Payment,"1. Shopee Buyer's app region=ID/VN
+[21][ID/VN]Test ros(return on the spot) check in order detail,Order Payment,"1. Marketplace Buyer's app region=ID/VN
 2. Payment method: 
 [ID]COD - Cek Dulu
 [VN]Cash on Delivery
@@ -64,7 +64,7 @@ Discount & Coins","1. Shopee Buyer's app region=ID/VN
 ,,,,Click Place Order,Success
 ,,,,,
 "[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time",,,,,
-"[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in PDP",PDP,"1. Shopee Buyer's app region=BR
+"[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in PDP",PDP,"1. Marketplace Buyer's app region=BR
 2. Seller: CB seller
 3. new user
 4. Support installment cc&spl
@@ -79,13 +79,13 @@ Discount & Coins","1. Shopee Buyer's app region=ID/VN
 3.Return to PDP Page"
 ,,,,Click Add to Cart,Successfully add to cart
 ,,,,Click Icon at the top right of the PDP Page,Enter cart Page
-"[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in cart",Cart,"1. Shopee Buyer's app region=BR
+"[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in cart",Cart,"1. Marketplace Buyer's app region=BR
 2. Add item to cart is success",IOS/ANDROID/PC,tick to select item,success
 ,,,,Check price amount ,Information in Discount Detail Page displayed correctly
 ,,,,Click Check Out,success
 "[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in checkout using voucher and coins","Checkout
 Voucher
-Discount & Coins","1. Shopee Buyer's app region=BR
+Discount & Coins","1. Marketplace Buyer's app region=BR
 2. Tick item is success",IOS/ANDROID/PC,Click Shipping option,success
 ,,,,"1.Click Select payment method
 2.select payment method with configured discount and Click CONFIRM","1.Redirect to Payment Method Page
@@ -109,28 +109,28 @@ Discount & Coins","1. Shopee Buyer's app region=BR
 2.Payment status is paid"
 ,,,,Click My Purchases button,"1.Redirect to My Purchases Page
 2.Redirect to To Ship tab"
-"[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in order detail",Order Payment,"1. Shopee Buyer's app region=BR
+"[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in order detail",Order Payment,"1. Marketplace Buyer's app region=BR
 2. Place order is success",IOS/ANDROID/PC,Click the order,Redirect to Order Details Page
-"[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in order admin",Order Data & Ops,"1.Shopee Buyer's app region=BR 
+"[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in order admin",Order Data & Ops,"1.Marketplace Buyer's app region=BR 
 2. Enter Order admin → Orders → Orders",PC,"After Entering Order ID or other information, Click Search",Search successfully
 ,,,,Click Order ID,Redirect to Order Details Page
 ,,,,Click Coding Monkey,success
 ,,,,"Query tax, fee related information ",information Correct 
 "[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in PDP, cart","PDP
 Cart
-","1. Shopee Buyer's app region=BR
+","1. Marketplace Buyer's app region=BR
 2. Add item to cart is success",IOS/ANDROID/PC,Add this product to cart and Enter OPC Page again,success
-"[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in checkout",Checkout,"1. Shopee Buyer's app region=BR
+"[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in checkout",Checkout,"1. Marketplace Buyer's app region=BR
 2. Tick item is success",IOS/ANDROID/PC,Click Place Order,"1. success
 2. No need to fill in CPF information "
 "[23][BR]Test triggering calculate_tax_with_exemption, Buyer Transaction Fee, Buyer Service Fee and Payment Channel Promo at same time in order admin",Order Data & Ops,"1. Enter Order admin → Orders → Orders
-2. Seller have Default Issuer set as Shopee in Seller Center → Shop Information → Invoice Setting
+2. Seller have Default Issuer set as Marketplace in Seller Center → Shop Information → Invoice Setting
 3. Invoice is Issued (Order Paid  →  OFG Ready  →  Seller Click Issue Invoice on seller center)",IOS/ANDROID/PC,"Enter Order admin → Orders → Orders
 Check Order Information- Reciept info",Should show order receipt info and link
 ,,,,Click Receipt link ,Should redirect to Receipt Operation page
 ,,,,,
 "[24][CO]Test when seller txn fee and buyer txn fee equals 0, trigger item tax and Payment Channel Promo",,,,,
-"[24][CO]Test when seller txn fee and buyer txn fee equals 0, trigger item tax and Payment Channel Promo in PDP",PDP,"1. Shopee Buyer's app region=CO
+"[24][CO]Test when seller txn fee and buyer txn fee equals 0, trigger item tax and Payment Channel Promo in PDP",PDP,"1. Marketplace Buyer's app region=CO
 2. Seller: CB seller
 3. Selected payment method trigger Payment Channel Promo
 4. Seller Transaction Fee == 0
@@ -140,13 +140,13 @@ Check Order Information- Reciept info",Should show order receipt info and link
 8. Prescription item",IOS/ANDROID/PC,Enter PDP Page,success
 ,,,,Click Add to Cart,Add to cart success
 ,,,,Click Icon at the top right of the PDP Page,Enter cart Page
-"[24][CO]Test when seller txn fee and buyer txn fee equals 0, trigger item tax and Payment Channel Promo in cart",Cart,"1. Shopee Buyer's app region=CO
+"[24][CO]Test when seller txn fee and buyer txn fee equals 0, trigger item tax and Payment Channel Promo in cart",Cart,"1. Marketplace Buyer's app region=CO
 2. Add item to cart is success ",IOS/ANDROID/PC,tick to select item,success
 ,,,,Check price amount ,Discount Detail Page/Section information display correctly
 ,,,,Click Check Out,success
 "[24][CO]Test when seller txn fee and buyer txn fee equals 0, trigger item tax and Payment Channel Promo in checkout using voucher and coins","Checkout
 Voucher
-Discount & Coins","1. Shopee Buyer's app region=CO
+Discount & Coins","1. Marketplace Buyer's app region=CO
 2. Tick item is success",IOS/ANDROID/PC,Click Upload prescription,upload prescription successfully
 ,,,,"1.Click Select payment method
 2.select payment method with configured discount and Click CONFIRM","1.Redirect to Payment Method Page
@@ -170,18 +170,18 @@ Discount & Coins","1. Shopee Buyer's app region=CO
 ,,,,Check tax information , information Correct 
 ,,,,,
 [25][ID/CO/MX/CL]Test item tax,,,,,
-[25][ID/CO/MX/CL]Test item tax in PDP,PDP,"1. Shopee Buyer's app region= ID/CO/MX/CL
+[25][ID/CO/MX/CL]Test item tax in PDP,PDP,"1. Marketplace Buyer's app region= ID/CO/MX/CL
 2. Will trigger item tax",IOS/ANDROID/PC,Enter PDP Page,success
 ,,,,Click Add to Cart,Add to cart success
 ,,,,Click Icon at the top right of the PDP Page,Enter cart Page
-[25][ID/CO/MX/CL]Test item tax in cart,Cart,"1. Shopee Buyer's app region= ID/CO/MX/CL
+[25][ID/CO/MX/CL]Test item tax in cart,Cart,"1. Marketplace Buyer's app region= ID/CO/MX/CL
 2. Add item to cart is success ",IOS/ANDROID/PC,tick to select item,success
 ,,,,Check price amount ,Discount Detail Page/Section information display correctly
 ,,,,Click Check Out,"1.success
 2.show ""Please input your taxpayer ID"" by default"
 "[25][ID/CO/MX/CL]Test item tax in checkout using voucher, discount & coins","Checkout
 Voucher
-Discount & Coins","1. Shopee Buyer's app region=ID/CO/MX/CL
+Discount & Coins","1. Marketplace Buyer's app region=ID/CO/MX/CL
 2. Tick item is success",IOS/ANDROID/PC,Click shipping option,success
 ,,,,"1.Click Select payment method
 2.select payment method，Click CONFIRM","1.Redirect to Payment Method Page
@@ -204,18 +204,18 @@ Discount & Coins","1. Shopee Buyer's app region=ID/CO/MX/CL
 ,,,,Check tax information , information Correct 
 ,,,,,
 [26][MY]Test SST(Sales and Service Tax),,,,,
-[26][MY]Test SST(Sales and Service Tax) in PDP,PDP,"1. Shopee Buyer's app region=MY
+[26][MY]Test SST(Sales and Service Tax) in PDP,PDP,"1. Marketplace Buyer's app region=MY
 2. Will trigger SST(Sales and Service Tax)",IOS/ANDROID/PC,Enter PDP Page,success
 ,,,,Click Add to Cart,Add to cart success
 ,,,,Click Icon at the top right of the PDP Page,Enter cart Page
-[26][MY]Test SST(Sales and Service Tax) in cart,Cart,"1. Shopee Buyer's app region=MY
+[26][MY]Test SST(Sales and Service Tax) in cart,Cart,"1. Marketplace Buyer's app region=MY
 2. Add item to cart is success ",IOS/ANDROID/PC,tick to select item,success
 ,,,,Check price amount ,"1.Discount Detail Page/Section information display correctly 
 2.Contains Shipping Fee SST"
 ,,,,Click Check Out,success
 [26][MY]Test SST(Sales and Service Tax) in checkout using voucher and coins,"Checkout
 Voucher
-Discount & Coins","1. Shopee Buyer's app region=MY
+Discount & Coins","1. Marketplace Buyer's app region=MY
 2. Tick item is success",IOS/ANDROID/PC,Click shipping option,success
 ,,,,"1.Click Select payment method
 2.select payment method，Click CONFIRM","1.Redirect to Payment Method Page
@@ -238,16 +238,16 @@ Discount & Coins","1. Shopee Buyer's app region=MY
 ,,,,Check tax information , information Correct 
 ,,,,,
 "[27][BR/TW]Test during refund process, seller arrange shipment",,,,,
-"[27][BR/TW]Test during refund process, seller arrange shipment in PDP",PDP,1. Shopee Buyer's app region=BR/TW,IOS/ANDROID/PC,Enter PDP Page,success
+"[27][BR/TW]Test during refund process, seller arrange shipment in PDP",PDP,1. Marketplace Buyer's app region=BR/TW,IOS/ANDROID/PC,Enter PDP Page,success
 ,,,,Click Add to Cart,add to cart success
 ,,,,Click Icon at the top right of the PDP Page,Enter cart Page
-"[27][BR/TW]Test during refund process, seller arrange shipment in cart",Cart,"1. Shopee Buyer's app region=BR/TW
+"[27][BR/TW]Test during refund process, seller arrange shipment in cart",Cart,"1. Marketplace Buyer's app region=BR/TW
 2. Add item to cart is success",IOS/ANDROID/PC,tick to select item,success
 ,,,,Check price amount ,Discount Detail Page/section information is Correct 
 ,,,,Click Check Out,success
 "[27][BR/TW]Test during refund process, seller arrange shipment in checkout using voucher and coins","Checkout
 Voucher
-Discount & Coins","1. Shopee Buyer's app region=BR/TW
+Discount & Coins","1. Marketplace Buyer's app region=BR/TW
 2. Tick item is success",IOS/ANDROID/PC,Click shipping option,success
 ,,,,"1.Click Select payment method
 2.select ""payment method"", Click CONFIRM","1.Redirect to Payment Method Page
@@ -262,9 +262,9 @@ Discount & Coins","1. Shopee Buyer's app region=BR/TW
 2.Payment in ""Paid"" status"
 ,,,,"Click ""My Purchases"" button","1.Redirect to My Purchases Page
 2.Redirect to To Ship tab"
-"[27][BR/TW]Test during refund process, seller arrange shipment in shark",Order Payment,"1. Shopee Buyer's app region=BR/TW
+"[27][BR/TW]Test during refund process, seller arrange shipment in shark",Order Payment,"1. Marketplace Buyer's app region=BR/TW
 2. Access shark to complete order",PC,Enter Region and Order ID information ，Click execute,Execute success with no error
-"[27][BR/TW]Test during refund process, seller arrange shipment in return & refund",Return & Refund,"1. Shopee Buyer's app region=BR/TW
+"[27][BR/TW]Test during refund process, seller arrange shipment in return & refund",Return & Refund,"1. Marketplace Buyer's app region=BR/TW
 2. Order is completed",IOS/ANDROID/PC,Click Me page  →  Completed,"1.Enter My Purchases Page
 2.stop at Completed Page
 3.Display order that has just been paid"
@@ -284,24 +284,24 @@ Discount & Coins","1. Shopee Buyer's app region=BR/TW
 ,,,,Click Submit,"1.Enter Return/Refund Details Page
 2.Display Case under review
 3.Under the Case under review section, Display relavant infomation regarding due date "
-"[27][BR/TW]Test during refund process, seller arrange shipment in return seller",Return Seller,"1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+"[27][BR/TW]Test during refund process, seller arrange shipment in return seller",Return Seller,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 3. Success log in Seller Center → Return/Refund
 4. Return & Refund is success",IOS/ANDROID/PC,"After Entering Return Request ID (aka Return SN), Click Apply","1. load order list page successfully
 2. display order card components successfully including buyer info, item info, total price, order status,return reason, action buttons, order ID successfully"
 ,,,,Check action buttons,Return Refund Details
 ,,,,Click order ,"1.Enter Return/Refund Details Page, Page information display correctly and Status as ""Case Under Review"""
-"[27][BR/TW]Test during refund process, seller arrange shipment in return & refund",Return & Refund,"1. Shopee Buyer's app region=BR/TW
+"[27][BR/TW]Test during refund process, seller arrange shipment in return & refund",Return & Refund,"1. Marketplace Buyer's app region=BR/TW
 2. Return & Refund is success",IOS/ANDROID/PC,Me  →  Return/Refund,"1.Enter My Purchase Page
 2.stop at Return Refund tab"
-,,,,Check order Status of order just now,"1.Status set as ""Shopee Reviewing""
+,,,,Check order Status of order just now,"1.Status set as ""Marketplace Reviewing""
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Return Refund Details button "
 "[27][BR/TW]Test during refund process, seller arrange shipment in order data & ops , return & refund","Order Data & Ops
 Return & Refund",1. Enter Order admin → Return → Return & Refund Requests → Search Return SN → Open Return & Refund detail,PC,order admin-Return & Refund Details set as Return Status: PROCESSING,success
-"[27][BR/TW]Test during refund process, seller arrange shipment in return seller",Return Seller,"1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+"[27][BR/TW]Test during refund process, seller arrange shipment in return seller",Return Seller,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 4. Success log in Seller Center → Return/Refund
 3. Return status : Processing",IOS/ANDROID/PC,"After Entering Return Request ID (aka Return SN), Click Apply","1. load order list page successfully
@@ -314,7 +314,7 @@ Return & Refund",1. Enter Order admin → Return → Return & Refund Requests �
 Wait for Return
 Offer Partial Refund
 Full Refund"
-"[27][BR/TW]Test during refund process, seller arrange shipment in return & refund",Return & Refund,1. Shopee Buyer's app region=BR/TW,IOS/ANDROID/PC,Me  →  Return/Refund,"1.Enter My Purchase Page
+"[27][BR/TW]Test during refund process, seller arrange shipment in return & refund",Return & Refund,1. Marketplace Buyer's app region=BR/TW,IOS/ANDROID/PC,Me  →  Return/Refund,"1.Enter My Purchase Page
 2.stop at Return Refund tab"
 ,,,,Check order Status of order just now,"1.Status set as ""Return Pending""
 2.Qty, Amount and Order Total etc. information are correct
@@ -325,8 +325,8 @@ Full Refund"
 3.1 Prompt shows “(Important) How do I return item”
 3.2 Display relavant info regarding due date below correctly
 3.3 Display relavant info regarding Seller Arrange correctly"
-"[27][BR/TW]Test during refund process, seller arrange shipment in return seller",Return Seller,"1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+"[27][BR/TW]Test during refund process, seller arrange shipment in return seller",Return Seller,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 2. Success log in Seller Center → Return/Refund
 3. Order is completed",IOS/ANDROID/PC,"After Entering Return Request ID (aka Return SN), Click Apply","1. load order list page successfully
@@ -348,11 +348,11 @@ Refund"
 "[27][BR/TW]Test during refund process, seller arrange shipment in order data & ops , return & refund","Order Data & Ops
 Return & Refund",1. Enter Order admin → Return → Return & Refund Requests → Search Return SN → Open Return & Refund detail,PC,Check OA Reverse Logistics Status,Reverse Logistics Status is PICKUP_DONE
 ,,,,Change logistic status to Delivery Done,Success change logistics status to DELIVERY_DONE
-"[27][BR/TW]Test during refund process, seller arrange shipment in return & refund",Return & Refund,1. Shopee Buyer's app region=BR/TW,IOS/ANDROID/PC,Me  →  Return/Refund  →  Check order Status in order just now,"1.Status: Validation In Progress
+"[27][BR/TW]Test during refund process, seller arrange shipment in return & refund",Return & Refund,1. Marketplace Buyer's app region=BR/TW,IOS/ANDROID/PC,Me  →  Return/Refund  →  Check order Status in order just now,"1.Status: Validation In Progress
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Return Refund Details button "
-"[27][BR/TW]Test during refund process, seller arrange shipment in return seller",Return Seller,"1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+"[27][BR/TW]Test during refund process, seller arrange shipment in return seller",Return Seller,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 2. Success log in Seller Center → Return/Refund",IOS/ANDROID/PC,"After Entering Return Request ID (aka Return SN), Click Apply","1. load order list page successfully
 2. display order card components successfully including buyer info, item info, total price, order status,return reason, action buttons, order ID successfully"
@@ -360,26 +360,26 @@ Return & Refund",1. Enter Order admin → Return → Return & Refund Requests �
 2.Refund"
 ,,,,Click Refund,Popup displayAccept Refund (Full)
 ,,,,Click Accept,"Success, prompt states ""Refund in Progress"""
-"[27][BR/TW]Test during refund process, seller arrange shipment in return & refund",Return & Refund,1. Shopee Buyer's app region=BR/TW,IOS/ANDROID/PC,"In client side, Click order, Enter Return/Refund Details Page",Refund approved
+"[27][BR/TW]Test during refund process, seller arrange shipment in return & refund",Return & Refund,1. Marketplace Buyer's app region=BR/TW,IOS/ANDROID/PC,"In client side, Click order, Enter Return/Refund Details Page",Refund approved
 "[27][BR/TW]Test during refund process, seller arrange shipment in order data & ops , return & refund
 ","Order Data & Ops
 Return & Refund",1. Enter Order admin → Return → Return & Refund Requests → Search Return SN → Open Return & Refund detail → Refund Information - Refund ID,PC,"Set Refund Status: 
 REFUND_CREATED  →  REFUND_VERIFIED  →  REFUND_PAYOUT  →  REFUND_PAID",
 "[27][BR/TW]Test during refund process, seller arrange shipment in return & refund, voucher , discount & coins","Return & Refund
 Voucher
-Discount & Coins",1. Shopee Buyer's app region=BR/TW,IOS/ANDROID/PC,"In client side, Click order, Enter Return/Refund Details Page",Display Refund Completed
+Discount & Coins",1. Marketplace Buyer's app region=BR/TW,IOS/ANDROID/PC,"In client side, Click order, Enter Return/Refund Details Page",Display Refund Completed
 ,,,,Check status of refund for voucher、coin and amount.,All refunds processed correctly
 "[27][BR/TW]Test during refund process, seller arrange shipment in return seller","Return Seller
-","1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+","1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 2. Success log in Seller Center → Return/Refund",IOS/ANDROID/PC,Check order Status,Refund Completed
 ,,,,Click Return Refund Details,"1.Enter Return/Refund Details Page, Page information Correct 
 2.Status > Refund Completed"
 ,,,,,
 [28]seller withdraw,,,,,
-[28]seller withdraw - test add bank account,Settlement,"1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+[28]seller withdraw - test add bank account,Settlement,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 2.User has activated shop
 3.already create a Local Seller Wallet
@@ -394,15 +394,15 @@ Discount & Coins",1. Shopee Buyer's app region=BR/TW,IOS/ANDROID/PC,"In client s
 ,,,,"Enter Bank Name and Account Number, 
 and Click ""Check Bank Account""",Redirect to Confirm Bank Infomation Page
 ,,,,Click Done，Complete card bounding to account,success
-[28]seller withdraw - test balance = 0,Settlement,"1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+[28]seller withdraw - test balance = 0,Settlement,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 2.User has activated shop
 3.already create a Local Seller Wallet
 4.seller wallet linked with bank account
 5.balance = 0",IOS/ANDROID/PC,Click WITHDRAWAL,Popup display “You have no balance to withdraw.”
-[28]seller withdraw - test withdraw to bank account auto payout,Settlement,"1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+[28]seller withdraw - test withdraw to bank account auto payout,Settlement,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 2.User has activated shop
 3.already create a Local Seller Wallet
@@ -422,8 +422,8 @@ and Click Next",Redirect to Withdraw details page
 ,,,PC,Check the withdrawal status on wallet admin,will be move to payout
 ,,,,Check for notification in here,notification of withdrawal is received by seller
 ,,,,Check for notification in email inbox,notification of withdrawal is received by seller
-[28]seller withdraw - test withdraw to bank account not auto payout,Settlement,"1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+[28]seller withdraw - test withdraw to bank account not auto payout,Settlement,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 2.User has activated shop
 3.already create a Local Seller Wallet
@@ -440,19 +440,19 @@ and Click Next",Redirect to Withdraw details page
 2.Check Balance reduced correctly"
 ,,,PC,Check the withdrawal status on wallet admin,will be move to verified
 ,,,,Check for notification in here,notification of withdrawal is received by seller
-[28]seller withdraw - test withdraw to shopeepay[ID],Settlement,"1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+[28]seller withdraw - test withdraw to marketplacepay[ID],Settlement,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 2.User has activated shop
 3.already create a Local Seller Wallet
-4.balance > 0",IOS/ANDROID/PC,My Finance Page > Click WITHDRAWAL,Shopeepay will be the default selection
+4.balance > 0",IOS/ANDROID/PC,My Finance Page > Click WITHDRAWAL,Marketplacepay will be the default selection
 ,,,,"Enter Withdrawal Amount where 
 (Lower limit < Withdrawal Amount > Balance)
 and Click Next to withdraw","1.can successfully withdrawl the Money 
 2.the Amount in My Balance will be Reduced accordingly"
 ,,,PC,Check for notification in here,notification of withdrawal is received by seller
-[28]seller withdraw - test cancel withdraw,Settlement,"1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+[28]seller withdraw - test cancel withdraw,Settlement,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 2.User has activated shop
 3.already create a Local Seller Wallet
@@ -472,8 +472,8 @@ and Click Next to withdraw","1.can successfully withdrawl the Money
 ,,,,Enter Wrong Password，Click Verify,Popup display “Password invalid. Please re-Enter.”
 ,,,,Enter Correct Password，Click Verify,"1.success
 2.Correct page loaded"
-[28]seller withdraw - test change wallet PIN,Settlement,"1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+[28]seller withdraw - test change wallet PIN,Settlement,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 2.already logged in to Seller Center
 3.local seller
@@ -502,8 +502,8 @@ and Click Next to withdraw","1.can successfully withdrawl the Money
 ,,,,Click payment settings,Show payment setting page
 ,,,,Click Auto Withdrawal ,Success go to auto withdrawal
 ,,,,Update toggle OFF,Auto withdrawal is toggled off
-[28]seller withdraw - test auto withdrawal settings,Settlement,"1. Shopee Seller's app
-[Shopee App > SC]: ID & TW
+[28]seller withdraw - test auto withdrawal settings,Settlement,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 2.already logged in to Seller Center
 3.local seller
@@ -543,16 +543,16 @@ Search withdrawals by Withdrawal Status",1.Show only withdrawals with queried st
 Search withdrawals by Bank Account Number",1.Show only withdrawals with queried bank acc number
 ,,,,,
 [29]Seller Order list[RN],,,,,
-[29]Seller Order list[RN] - test entrance,Order Payment,"1. Shopee Seller's app
-[Shopee App > SC]: ID & BR
+[29]Seller Order list[RN] - test entrance,Order Payment,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries",IOS/ANDROID,Go to My Shop,Success go to Completed tab
 ,,,,Click View Sales History,"1. display ""completed"" tab as default tab
 2. display """"My Sales""""
 3. display """"back"""" button
 4. display """"search"""" button
 5. display """"chat"""" button at top right corner"""
-[29]Seller Order list[RN] - test in My Sales Page tab,Order Payment,"1. Shopee Seller's app
-[Shopee App > SC]: ID & BR
+[29]Seller Order list[RN] - test in My Sales Page tab,Order Payment,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries",IOS/ANDROID,Check tab,"1. Unpaid
 2. To Ship
 3. Shipping
@@ -560,14 +560,14 @@ Search withdrawals by Bank Account Number",1.Show only withdrawals with queried 
 5. Cancellation
 6. Return/Refund
 7. Failed Delivery"
-[29]Seller Order list[RN] - test in Unpaid tab,Order Payment,"1. Shopee Seller's app
-[Shopee App > SC]: ID & BR
+[29]Seller Order list[RN] - test in Unpaid tab,Order Payment,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries",IOS/ANDROID,Check filter using any tab that have orders,"1. channel filter (in dropdown - if any)
 2. order fulfillment filter (in dropdown - if any)"
 ,,,,Check order detail,show data with order card accordingly
 ,,,,Check in any tab that doesn't have order,"show ""no data found"""
-[29]Seller Order list[RN] - test in To Ship tab,Order Payment,"1. Shopee Seller's app
-[Shopee App > SC]: ID & BR
+[29]Seller Order list[RN] - test in To Ship tab,Order Payment,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries",IOS/ANDROID,Check display sub tab,"1. All
 2. To process
 3. Processed"
@@ -576,20 +576,20 @@ Search withdrawals by Bank Account Number",1.Show only withdrawals with queried 
 2. order fulfillment filter (in dropdown - if any)"
 ,,,,Check order detail,show data with order card accordingly
 ,,,,Check in any tab that doesn't have order,"show ""no data found"""
-[29]Seller Order list[RN] - test in Shipping Tab,Order Payment,"1. Shopee Seller's app
-[Shopee App > SC]: ID & BR
+[29]Seller Order list[RN] - test in Shipping Tab,Order Payment,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries",IOS/ANDROID,Check filter using any tab that have orders,"1. channel filter (in dropdown - if any)
 2. order fulfillment filter (in dropdown - if any)"
 ,,,,Check order detail,show data with order card accordingly
 ,,,,Check in any tab that doesn't have order,"show ""no data found"""
-[29]Seller Order list[RN] - test in Completed Tab,Order Payment,"1. Shopee Seller's app
-[Shopee App > SC]: ID & BR
+[29]Seller Order list[RN] - test in Completed Tab,Order Payment,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries",IOS/ANDROID,Check filter using any tab that have orders,"1. channel filter (in dropdown - if any)
 2. order fulfillment filter (in dropdown - if any)"
 ,,,,Check order detail,show data with order card accordingly
 ,,,,Check in any tab that doesn't have order,"show ""no data found"""
-[29]Seller Order list[RN] - test in Cancelled Tab,Order Payment,"1. Shopee Seller's app
-[Shopee App > SC]: ID & BR
+[29]Seller Order list[RN] - test in Cancelled Tab,Order Payment,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries",IOS/ANDROID,Check display sub tab,"1. All
 2. To Respond
 3. Cancelled"
@@ -597,8 +597,8 @@ Search withdrawals by Bank Account Number",1.Show only withdrawals with queried 
 2. order fulfillment filter (in dropdown - if any)"
 ,,,,Check order detail,show data with order card accordingly
 ,,,,Check in any tab that doesn't have order,"show ""no data found"""
-[29]Seller Order list[RN] - test in Return/Refund Tab,Order Payment,"1. Shopee Seller's app
-[Shopee App > SC]: ID & BR
+[29]Seller Order list[RN] - test in Return/Refund Tab,Order Payment,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries",IOS/ANDROID,Check display sub tab,"1. All
 2. New Request
 3. To Respond
@@ -606,8 +606,8 @@ Search withdrawals by Bank Account Number",1.Show only withdrawals with queried 
 5. Completed"
 ,,,,Check order detail,show data with order card accordingly
 ,,,,Check in any tab that doesn't have order,"show ""no data found"""
-[29]Seller Order list[RN] - test in Failed Delivery Tab,Order Payment,"1. Shopee Seller's app
-[Shopee App > SC]: ID & BR
+[29]Seller Order list[RN] - test in Failed Delivery Tab,Order Payment,"1. Marketplace Seller's app
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries",IOS/ANDROID,Check display sub tab,"1. All
 2. Shipping to Seller
 3. Delivered to Seller
@@ -619,11 +619,11 @@ Search withdrawals by Bank Account Number",1.Show only withdrawals with queried 
 ,,,,Check in any tab that doesn't have order,"show ""no data found"""
 ,,,,,
 [30]PC mini cart,,,,,
-[30]PC mini cart for cart icon,Cart,1. Shopee Web region = ID / TW,PC,Check icon in UI,show cart icon at top right of homepage
+[30]PC mini cart for cart icon,Cart,1. Marketplace Web region = ID / TW,PC,Check icon in UI,show cart icon at top right of homepage
 ,,,,Check number in UI,show total number of unique item at cart icon
-[30]PC mini cart for item status,Cart,1. Shopee Web region = ID / TW,PC,Check when item status is deleted in UI,do not display deleted item
+[30]PC mini cart for item status,Cart,1. Marketplace Web region = ID / TW,PC,Check when item status is deleted in UI,do not display deleted item
 ,,,,Check when item status is censored in UI,do not display censored item
-[30]PC mini cart for item list(number of valid item in cart < 5),Cart,1. Shopee Web region = ID / TW,PC,Check when item with valid status in UI,"1. display all valid items
+[30]PC mini cart for item list(number of valid item in cart < 5),Cart,1. Marketplace Web region = ID / TW,PC,Check when item with valid status in UI,"1. display all valid items
 2. sort as cart item update time  
 3. display item's name
 4. item original price""
@@ -631,33 +631,33 @@ Search withdrawals by Bank Account Number",1.Show only withdrawals with queried 
 ,,,,Check for action required item in UI,do not show action required item at mini cart
 ,,,,Check when has seller on vacation item in UI,do not show seller on vacation item at mini cart
 ,,,,Check when has invalid item in UI,do not show invalid item at mini cart
-[30]PC mini cart for item list(number of valid item > 5),Cart,1. Shopee Web region = ID / TW,PC,Check when item with valid status in UI,"1.Show the first 5 valid unique items with the same sorting rules as PC cart
+[30]PC mini cart for item list(number of valid item > 5),Cart,1. Marketplace Web region = ID / TW,PC,Check when item with valid status in UI,"1.Show the first 5 valid unique items with the same sorting rules as PC cart
 2.Show the ""xx More Products in Cart"""
 ,,,,Check for action required item in UI,do not show action required item at mini cart
 ,,,,Check when has seller on vacation item in UI,do not show seller on vacation item at mini cart
 ,,,,Check when has invalid item in UI,do not show invalid item at mini cart
-[30]PC mini cart for item label,Cart,1. Shopee Web region = ID / TW,PC,Check when cart has add-on deals items in UI,1. display add on incon 
+[30]PC mini cart for item label,Cart,1. Marketplace Web region = ID / TW,PC,Check when cart has add-on deals items in UI,1. display add on incon 
 ,,,,Check when cart has Bundle deal items in UI,"1. bundle item's price is item's original price
 2. display bundle inco"
-[30]PC mini cart for item recently added,Cart,1. Shopee Web region = ID / TW,PC,Check for item recently added in UI,"show ""Recently Added Products"" text at top left of mini cart"
-[30]PC mini cart function,Cart,1. Shopee Web region = ID / TW,PC,Place the mouse on the icon,able to open mini cart
+[30]PC mini cart for item recently added,Cart,1. Marketplace Web region = ID / TW,PC,Check for item recently added in UI,"show ""Recently Added Products"" text at top left of mini cart"
+[30]PC mini cart function,Cart,1. Marketplace Web region = ID / TW,PC,Place the mouse on the icon,able to open mini cart
 ,,,,Click on the icon,able to open cart page
-[30]PC click item in mini cart,Cart,1. Shopee Web region = ID / TW,PC,Click on the item in the minicart,able to go to this item's PDP
-[30]PC mini cart function for update item,Cart,1. Shopee Web region = ID / TW,PC,Change item sorting at cart page,mini cart list will update according to cart list
-[30]PC mini cart function for view my shopping cart,Cart,1. Shopee Web region = ID / TW,PC,Click on the View My Shopping Cart,Enter Cart
+[30]PC click item in mini cart,Cart,1. Marketplace Web region = ID / TW,PC,Click on the item in the minicart,able to go to this item's PDP
+[30]PC mini cart function for update item,Cart,1. Marketplace Web region = ID / TW,PC,Change item sorting at cart page,mini cart list will update according to cart list
+[30]PC mini cart function for view my shopping cart,Cart,1. Marketplace Web region = ID / TW,PC,Click on the View My Shopping Cart,Enter Cart
 ,,,,,
 [31]test virtual goods,,,,,
-[31]test virtual goods in PDP,PDP,"1. Shopee Buyer's app region=ID/TW
+[31]test virtual goods in PDP,PDP,"1. Marketplace Buyer's app region=ID/TW
 ",IOS/ANDROID/PC,Enter PDP Page,success
 ,,,,Click Add to Cart,Add to cart success
 ,,,,Click Icon at the top right of the PDP Page,Enter cart Page
-[31]test virtual goods in cart,Cart,1. Shopee Buyer's app region=ID/TW,IOS/ANDROID/PC,tick to select item,success
+[31]test virtual goods in cart,Cart,1. Marketplace Buyer's app region=ID/TW,IOS/ANDROID/PC,tick to select item,success
 ,,,,Check price amount ,Discount Detail Page/Section information display correctly 
 ,,,,"Select virtual goods和non virtual goods, then click Checkout","At the bottom of the virtual goods prompt: Sorry, you have products need to be checked out separately."
 ,,,,"Only select virtual goods, then click Checkout",success
 [31]test virtual goods in cart in checkout include vouher and coin 'till place order success,"Checkout
 Voucher
-Discount & Coins",1. Shopee Buyer's app region=ID/TW,IOS/ANDROID/PC,Click shipping option,success
+Discount & Coins",1. Marketplace Buyer's app region=ID/TW,IOS/ANDROID/PC,Click shipping option,success
 ,,,,"1.Click Select payment method
 2.select payment method，Click CONFIRM","1.Redirect to Payment Method Page
 2.Return to OPC Page"
@@ -673,63 +673,63 @@ Discount & Coins",1. Shopee Buyer's app region=ID/TW,IOS/ANDROID/PC,Click shippi
 2.Redirect to Completed tab"
 ,,,,,
 [32]test voucher,,,,,
-[32]test voucher in My Vouchers in general,Voucher,1. Shopee Buyer's app region=ID/BR,IOS/ANDROID/PC,Click Me,Enter VOUCHER_WALLET_HOME_PAGE
+[32]test voucher in My Vouchers in general,Voucher,1. Marketplace Buyer's app region=ID/BR,IOS/ANDROID/PC,Click Me,Enter VOUCHER_WALLET_HOME_PAGE
 ,,,,Click My Vouchers,The page loads normally
 ,,,,"Click ""Inpurt promo code""",Prompt Input voucher code
 ,,,,"After entering the voucher code, click Apply",Apply successfully
 ,,,,Check that the number of each tab matches the actual number displayed,success
-[32]test voucher in My Vouchers when voucher is not used,Voucher,"1. Shopee Buyer's app region=ID/BR
+[32]test voucher in My Vouchers when voucher is not used,Voucher,"1. Marketplace Buyer's app region=ID/BR
 2. Voucher A is not used",IOS/ANDROID/PC,Click Me,success
 ,,,,Click My Vouchers,success
 ,,,,Check if voucher A is available ,Voucher A is available
-[32]test voucher in My Vouchers when voucher is used,Voucher,"1. Shopee Buyer's app region=ID/BR
+[32]test voucher in My Vouchers when voucher is used,Voucher,"1. Marketplace Buyer's app region=ID/BR
 2. Voucher A is used",IOS/ANDROID/PC,Click History,Jump to the History interface
 ,,,,Click Invalid,The interface displays Expired and Invalid vouchers
 ,,,,Click Used,"The interface displays Used’s vouchers, including voucher A"
-[32]test voucher in My Vouchers for T&C,Voucher,1. Shopee Buyer's app region=ID/BR,IOS/ANDROID/PC,Click Me,Enter VOUCHER_WALLET_HOME_PAGE
+[32]test voucher in My Vouchers for T&C,Voucher,1. Marketplace Buyer's app region=ID/BR,IOS/ANDROID/PC,Click Me,Enter VOUCHER_WALLET_HOME_PAGE
 ,,,,Click My Vouchers,The page loads normally
 ,,,,Click Use of shop voucher,Jump to VOUCHER_WALLET_LANDING_PAGE
 ,,,,Click T&C,Return to VOUCHER_WALLET_LANDING_PAGE
 ,,,,Click the return button in the upper left corner,Return to VOUCHER_WALLET_LANDING_PAGE
-[32]test voucher in My Vouchers when does not meets min_spend,Voucher,"1. Shopee Buyer's app region=ID/BR
+[32]test voucher in My Vouchers when does not meets min_spend,Voucher,"1. Marketplace Buyer's app region=ID/BR
 2. The total price of the items added to the shop in the shopping cart does not meet the voucher's min_spend",IOS/ANDROID/PC,Check the copy of the progress bar on the page,"Display ""<amount> more to use voucher"""
-[32]test voucher in My Vouchers when does meets min_spend,Voucher,"1. Shopee Buyer's app region=ID/BR
+[32]test voucher in My Vouchers when does meets min_spend,Voucher,"1. Marketplace Buyer's app region=ID/BR
 2. The total price of the items added to the shop in the shopping cart meets the min_spend of the voucher",IOS/ANDROID/PC,Check the copy of the progress bar on the page,"Display ""Min spend reached to use this voucher!"""
-[32]test voucher in My Vouchers for Platform Voucher,Voucher,1. Shopee Buyer's app region=ID/BR,IOS/ANDROID/PC,Click Me,Enter VOUCHER_WALLET_HOME_PAGE
+[32]test voucher in My Vouchers for Platform Voucher,Voucher,1. Marketplace Buyer's app region=ID/BR,IOS/ANDROID/PC,Click Me,Enter VOUCHER_WALLET_HOME_PAGE
 ,,,,Click My Vouchers,The page loads normally
 ,,,,Click Use of platform voucher,Jump to VOUCHER_WALLET_LANDING_PAGE
-[32]test voucher in My Vouchers for Platform Voucher does not meets min spend,Voucher,"1. Shopee Buyer's app region=ID/BR
+[32]test voucher in My Vouchers for Platform Voucher does not meets min spend,Voucher,"1. Marketplace Buyer's app region=ID/BR
 2. The total price of the additional items in the shopping cart does not meet the voucher's min_spend",IOS/ANDROID/PC,Check the copy of the progress bar on the page,"Display ""<amount> more to use voucher"""
-[32]test voucher in My Vouchers for Platform Voucher meets min spend,Voucher,"1. Shopee Buyer's app region=ID/BR
+[32]test voucher in My Vouchers for Platform Voucher meets min spend,Voucher,"1. Marketplace Buyer's app region=ID/BR
 2. The total price of the additional items purchased in the shopping cart meets the min_spend of the voucher",IOS/ANDROID/PC,Check the copy of the progress bar on the page,"Display ""Min spend reached to use this voucher!"""
-[32]test voucher in My Vouchers for FSV Voucher,Voucher,1. Shopee Buyer's app region=ID/BR,IOS/ANDROID/PC,Click Me,Enter VOUCHER_WALLET_HOME_PAGE
+[32]test voucher in My Vouchers for FSV Voucher,Voucher,1. Marketplace Buyer's app region=ID/BR,IOS/ANDROID/PC,Click Me,Enter VOUCHER_WALLET_HOME_PAGE
 ,,,,Click My Vouchers,The page loads normally
 ,,,,Click Use of platform voucher,"1. Jump to VOUCHER_WALLET_LANDING_PAGE
 2. The page loads successfully"
-[32] Test cancel order with voucher in cart,Cart,"1. Shopee Buyer's app region=ID/BR
+[32] Test cancel order with voucher in cart,Cart,"1. Marketplace Buyer's app region=ID/BR
 2. Have shop voucher not claimed
 3. Have platform voucher
 4. Have fsv",IOS/ANDROID/PC,Enter the cart interface,success
-[32] Test shop voucher in cart,Voucher,"1. Shopee Buyer's app region=ID/BR
+[32] Test shop voucher in cart,Voucher,"1. Marketplace Buyer's app region=ID/BR
 2. Have shop voucher not claimed
 3. Have platform voucher
 4. Have fsv",IOS/ANDROID/PC,Check shop voucher entrance,show voucher info
 ,,,,Click on shop voucher entrance,"1. Open the voucher drawer
 2. The first voucher displayed is the voucher displayed at the shop voucher entrance."
-[32] Test voucher in cart,Cart,"1. Shopee Buyer's app region=ID/BR
+[32] Test voucher in cart,Cart,"1. Marketplace Buyer's app region=ID/BR
 2. Have shop voucher not claimed
 3. Have platform voucher
 4. Have fsv",IOS/ANDROID/PC,Select product on cart interface,success
-[32] Test FSV and non-FSV voucher in cart,Voucher,"1. Shopee Buyer's app region=ID/BR
+[32] Test FSV and non-FSV voucher in cart,Voucher,"1. Marketplace Buyer's app region=ID/BR
 2. Have shop voucher not claimed
 3. Have platform voucher
 4. Have fsv",IOS/ANDROID/PC,Check platform voucher entrance,Show fsv and non-fsv
 ,,,,Click platform voucher entrance,The corresponding fsv and non-fsv are both checked.
-[32] Test voucher in cart,Cart,"1. Shopee Buyer's app region=ID/BR
+[32] Test voucher in cart,Cart,"1. Marketplace Buyer's app region=ID/BR
 2. Have shop voucher not claimed
 3. Have platform voucher
 4. Have fsv",IOS/ANDROID/PC,Click checkout,Enter the OPC interface
-[32] Test shop voucher in checkout,Voucher,"1. Shopee Buyer's app region=ID/BR
+[32] Test shop voucher in checkout,Voucher,"1. Marketplace Buyer's app region=ID/BR
 2. Have shop voucher not claimed
 3. Have platform voucher
 4. Have fsv",IOS/ANDROID/PC,Click shop voucher entrance,Show voucher drawer
@@ -737,7 +737,7 @@ Discount & Coins",1. Shopee Buyer's app region=ID/TW,IOS/ANDROID/PC,Click shippi
 ,,,,"Enter shop voucher code, click Apply",Apply voucher successfully
 ,,,,Manually check the voucher,success
 ,,,,Click OK,Return to the Checkout interface and successfully apply the shop voucher
-[32] Test platform voucher in checkout,Voucher,"1. Shopee Buyer's app region=ID/BR
+[32] Test platform voucher in checkout,Voucher,"1. Marketplace Buyer's app region=ID/BR
 2. Have shop voucher not claimed
 3. Have platform voucher
 4. Have fsv",IOS/ANDROID/PC,Click platform voucher entrance,Show voucher drawer
@@ -745,17 +745,17 @@ Discount & Coins",1. Shopee Buyer's app region=ID/TW,IOS/ANDROID/PC,Click shippi
 ,,,,Manually check the voucher,success
 ,,,,Click OK,Return to the Checkout interface and successfully apply the platform voucher
 [32] Test checkout with shop and platform vouchers,"Checkout
-Vouchers","1. Shopee Buyer's app region=ID/BR
+Vouchers","1. Marketplace Buyer's app region=ID/BR
 2. Have shop voucher not claimed
 3. Have platform voucher
 4. Have fsv",IOS/ANDROID/PC,place order with vouchers,success
-[32] Test cancel order,Order Payment,"1. Shopee Buyer's app region=ID/BR
+[32] Test cancel order,Order Payment,"1. Marketplace Buyer's app region=ID/BR
 2. Place order is success",IOS/ANDROID/PC,cancel order,success
-[32] Test voucher return back,Voucher,"1. Shopee Buyer's app region=ID/BR
+[32] Test voucher return back,Voucher,"1. Marketplace Buyer's app region=ID/BR
 2. Cancel order is success",IOS/ANDROID/PC,Check the rollback status of the voucher,Vouchers are returned to users
 ,,,,,
 [33]test cs download function,,,,,
-,Download NEW income report (.xlsx) from seller center ,local seller,PC,Config feature toggle: sz_income_report_with_item = ON in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys,"Toogle ON: new report with item-level info 
+,Download NEW income report (.xlsx) from seller center ,local seller,PC,Config feature toggle: sz_income_report_with_item = ON in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys,"Toogle ON: new report with item-level info 
 Toggle OFF: old report 
 able to download
 

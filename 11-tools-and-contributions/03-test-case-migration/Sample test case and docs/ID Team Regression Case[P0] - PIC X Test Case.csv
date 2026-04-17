@@ -1,4 +1,4 @@
-Shopee(English),,,,Effort Per Country Per Test Cases,,,,,,,,,,,,,,,
+Marketplace(English),,,,Effort Per Country Per Test Cases,,,,,,,,,,,,,,,
 No.,Test Case,Rows,TCs Line,[ID],[BR],[TW],[CO],[TH],[MY],[PH],[VN],[CL],[MX],[SG],[AR],[BN],[KH],[LA],[MM]
 1,"[1]Test buyer place order success, local seller arrange shipment and buyer complete order(receive parcel)",2,84,Bharata Aryaseta,Trisha Theophania,Mirza Pradana,,,,,,,,,,,,,
 2,"[2](ID N/A)Test buyer place order success, CB seller arrange shipment, buyer complete order (received parcel)",86,74,,Adelina Nataye,Adelina Nataye,,,,,,,,,,,,,
@@ -51,7 +51,7 @@ No.,Test Case,Rows,TCs Line,[ID],[BR],[TW],[CO],[TH],[MY],[PH],[VN],[CL],[MX],[S
 3,Last Row,39,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,
-Shopee ID Lite(Android)[EN],,,,Effort Per Country Per Test Cases,,,,,,,,,,,,,,,
+Marketplace ID Lite(Android)[EN],,,,Effort Per Country Per Test Cases,,,,,,,,,,,,,,,
 No.,Test Case,Rows,TCs Line,[ID],[BR],[TW],[CO],[TH],[MY],[PH],[VN],[CL],[MX],[SG],[AR],[KH],[MM],[BN],[LA]
 1,"[1]The test buyer successfully placed an order, the local seller shipped the goods, and the buyer received the goods.",2,39,Trisha Theophania,,,,,,,,,,,,,,,
 2,[2]The test buyer successfully placed the order and canceled the order during the to ship stage.,41,40,Trisha Theophania,,,,,,,,,,,,,,,

@@ -2,19 +2,19 @@
 
 ## 📋 Overview
 
-Automated weekly JIRA summary yang mengirim report untuk semua 4 teams sekaligus ke webhook SeaTalk.
+Automated weekly JIRA summary yang mengirim report untuk semua 4 teams sekaligus ke webhook Team Chat.
 
 ## 🎯 Current Setup
 
 ### Cronjob Schedule
 - **Waktu**: Setiap Kamis jam 14:00
 - **Teams**: Buyer, Seller-Fulfillment, Promotion, Order Ops
-- **Webhook**: `7BTJoSlqSnKFhaYOAnD1Aw`
+- **Webhook**: `YOUR_PRODUCTION_WEBHOOK_TOKEN`
 - **Execution**: Semua teams dikirim berurutan (dengan delay 2 detik antar team)
 
 ### Crontab Entry
 ```bash
-0 14 * * 4 /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/jira-weekly-python/run_all_teams.sh 7BTJoSlqSnKFhaYOAnD1Aw production >> /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/jira-weekly-python/logs/cronjob_all_teams.log 2>&1
+0 14 * * 4 /path/to/your/workspace/01-Work-Projects/jira-weekly-python/run_all_teams.sh YOUR_PRODUCTION_WEBHOOK_TOKEN production >> /path/to/your/workspace/01-Work-Projects/jira-weekly-python/logs/cronjob_all_teams.log 2>&1
 ```
 
 ## 📊 Execution Flow
@@ -33,13 +33,13 @@ Automated weekly JIRA summary yang mengirim report untuk semua 4 teams sekaligus
 
 ### Production Mode (Real Webhook)
 ```bash
-cd /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/jira-weekly-python
-./run_all_teams.sh 7BTJoSlqSnKFhaYOAnD1Aw production
+cd /path/to/your/workspace/01-Work-Projects/jira-weekly-python
+./run_all_teams.sh YOUR_PRODUCTION_WEBHOOK_TOKEN production
 ```
 
 ### Test Mode (Test Webhook)
 ```bash
-./run_all_teams.sh btrSgMvuRNK72NjNwIl-Vg test
+./run_all_teams.sh YOUR_TEST_WEBHOOK_TOKEN test
 ```
 
 ### Custom Webhook
@@ -51,12 +51,12 @@ cd /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/j
 
 ### Cronjob Log (All Teams Combined)
 ```bash
-tail -f ~/Documents/Docs/Bharata\ Repository/01-Work-Projects/jira-weekly-python/logs/cronjob_all_teams.log
+tail -f /path/to/your/jira-weekly-project/logs/cronjob_all_teams.log
 ```
 
 ### Individual Execution Logs
 ```bash
-ls -lt ~/Documents/Docs/Bharata\ Repository/01-Work-Projects/jira-weekly-python/logs/jira_weekly_*.log | head -5
+ls -lt /path/to/your/jira-weekly-project/logs/jira_weekly_*.log | head -5
 ```
 
 ## ✅ Feedback dari Webhook
@@ -79,11 +79,11 @@ crontab -l | grep jira-weekly
 
 ### Check recent execution
 ```bash
-tail -50 /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/jira-weekly-python/logs/cronjob_all_teams.log
+tail -50 /path/to/your/workspace/01-Work-Projects/jira-weekly-python/logs/cronjob_all_teams.log
 ```
 
-### Check SeaTalk webhook
-Messages akan muncul di SeaTalk channel yang terhubung dengan webhook `7BTJoSlqSnKFhaYOAnD1Aw`
+### Check Team Chat webhook
+Messages akan muncul di Team Chat channel yang terhubung dengan webhook `YOUR_PRODUCTION_WEBHOOK_TOKEN`
 
 ## 🛠️ Troubleshooting
 
@@ -143,7 +143,7 @@ Contoh format cron:
 
 - ✅ Cronjob aktif dan berjalan setiap Kamis jam 14:00
 - ✅ Semua 4 teams (Buyer, Seller, Promotion, Order Ops) dikirim sekaligus
-- ✅ Webhook: `7BTJoSlqSnKFhaYOAnD1Aw`
+- ✅ Webhook: `YOUR_PRODUCTION_WEBHOOK_TOKEN`
 - ✅ Log file tersedia untuk monitoring
 - ✅ Dependencies (PyYAML, requests) sudah terinstall
 

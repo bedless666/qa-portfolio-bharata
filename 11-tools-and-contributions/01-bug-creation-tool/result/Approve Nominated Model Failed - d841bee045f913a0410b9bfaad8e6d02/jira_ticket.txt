@@ -5,7 +5,7 @@ Cannot approve nominated model - cache closed error (error code 264000014)
 - app / os version: Admin Portal / Chrome on macOS
 - env (test, staging, live) and country info: Staging - ID (Indonesia)
 - pfb build: n/a
-- account (user / id): bharata.aryaseta@shopee.com
+- account (user / id): qa.engineer@company.example
 - toggles: none
 
 *Impact*
@@ -15,7 +15,7 @@ Cannot approve nominated model - cache closed error (error code 264000014)
 
 
 *Reproducible Steps*
-1. Login to Admin Portal as reviewer (bharata.aryaseta@shopee.com)
+1. Login to Admin Portal as reviewer (qa.engineer@company.example)
 2. Navigate to recruitment campaign nomination review page
 3. Select a nominated model (nomination_id: 2300000000000025503, item_id: 901290082)
 4. Click "Approve" button with adjust_promo_stock=true
@@ -76,5 +76,5 @@ The cache service needs to be restarted or the connection needs to be re-establi
 [] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
 [x] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
 [x] If applicable, you have provided the detailed information about your toggle setting.
-[x] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+[x] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://api-internal.company.example/create-user]){color}
 

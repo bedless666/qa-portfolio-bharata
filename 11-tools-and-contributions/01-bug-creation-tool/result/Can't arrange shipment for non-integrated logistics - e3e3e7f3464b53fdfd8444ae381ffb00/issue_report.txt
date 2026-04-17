@@ -5,7 +5,7 @@ Seller unable to arrange shipment for order with non-integrated logistics - API 
 
 REPRODUCE STEP
 ==============
-1. Login to Seller Center staging (staging.shopee.co.id) with Shop ID 300563615, User ID 102549904
+1. Login to Seller Center staging (staging.marketplace.co.id) with Shop ID 300563615, User ID 102549904
 2. Navigate to "My Orders" page
 3. Find order ID: 219837985207773 (Order SN: 251219RCDVY1EW)
 4. Click on the order to view details
@@ -37,7 +37,7 @@ ACTUAL RESULT
 Technical Details:
 - TraceID: e3e3e7f3464b53fdfd8444ae381ffb00
 - Timestamp: 2025-12-19 18:13:25 - 18:13:36 (10+ seconds)
-- Failed API: https://oms.staging.shopee.co.id/api/forder/init
+- Failed API: https://oms.staging.marketplace.co.id/api/forder/init
 - Root cause: OMS service performance issue/timeout
 
 
@@ -45,7 +45,7 @@ LOGIN INFO
 ==========
 Environment: staging
 Region: ID (Indonesia)
-URL: https://seller.staging.shopee.co.id/
+URL: https://seller.staging.marketplace.co.id/
 
 Seller Account:
 - Shop ID: 300563615

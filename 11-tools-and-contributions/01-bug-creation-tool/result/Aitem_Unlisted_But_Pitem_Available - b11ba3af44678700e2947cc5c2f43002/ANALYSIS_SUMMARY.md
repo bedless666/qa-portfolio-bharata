@@ -8,7 +8,7 @@
 **Date:** 2025-11-25 17:01:37 UTC
 
 ## Problem Statement
-A SIP (Shopee Integrated Platform) A-item (Affiliated item) is marked as "unlisted" in the KH test environment, preventing buyers from adding it to cart. However, the corresponding P-item (Primary item) is available and properly configured with logistics. This indicates a failure in the SIP item status synchronization mechanism between P-shop and A-shop.
+A SIP (Marketplace Integrated Platform) A-item (Affiliated item) is marked as "unlisted" in the KH test environment, preventing buyers from adding it to cart. However, the corresponding P-item (Primary item) is available and properly configured with logistics. This indicates a failure in the SIP item status synchronization mechanism between P-shop and A-shop.
 
 ## Error Details
 - **Error Code (User-facing):** 15020015 - "Sorry, the item is currently unlisted."
@@ -46,7 +46,7 @@ The synchronization mechanism should ensure that when a P-item is listed/unliste
 ### Service Chain
 
 ```
-1. Frontend (Shopee KH Test - Buyer)
+1. Frontend (Marketplace KH Test - Buyer)
    ↓ User clicks "Add to Cart"
    ↓ POST /api/v4/cart/add_to_cart
    ↓ Payload: {
@@ -313,7 +313,7 @@ WHERE item_id = [P_ITEM_ID] AND shop_id = [P_SHOP_ID];
 
 ### 2. Functional Testing
 1. **Add to Cart Test:**
-   - Login to Shopee KH test as buyer
+   - Login to Marketplace KH test as buyer
    - Search for item 2303838543
    - Click "Add to Cart"
    - Expected: Success, no error
@@ -373,7 +373,7 @@ Search for new TraceID in log platform:
 - **Key Log Entry:** `item_unlisted` error in cartservice-core-test-kh
 
 ### SIP Architecture Context
-**SIP (Shopee Integrated Platform)** enables cross-border selling:
+**SIP (Marketplace Integrated Platform)** enables cross-border selling:
 - **P-shop (Primary Shop)**: Source market where seller creates original items
 - **A-shop (Affiliated Shop)**: Target market where items are automatically synchronized
 - **P-item**: Original item in P-shop
@@ -415,6 +415,6 @@ Search for new TraceID in log platform:
 **Analyzer Version:** Bug Analyzer v2.0 (TXT-based)  
 **Analyzed By:** Cursor AI  
 **Analysis Duration:** ~3 minutes  
-**Log Sources:** QAFoundBugs MCP Tool (Shopee Internal Log Platform)  
+**Log Sources:** QAFoundBugs MCP Tool (Marketplace Internal Log Platform)  
 **Confidence Level:** High (root cause identified from logs and error codes)
 

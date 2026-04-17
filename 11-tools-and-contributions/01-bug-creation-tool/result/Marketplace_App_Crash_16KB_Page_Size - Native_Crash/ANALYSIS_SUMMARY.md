@@ -1,5 +1,5 @@
 # BUG ANALYSIS SUMMARY
-## Shopee App Native Crash on 16KB Page Size Devices
+## Marketplace App Native Crash on 16KB Page Size Devices
 
 ---
 
@@ -10,7 +10,7 @@
 **Region:** ID  
 **Severity:** Critical (P0)  
 **Date:** 2025-12-03  
-**App Version:** Shopee 3.64.03@regression  
+**App Version:** Marketplace 3.64.03@regression  
 **Android Version:** API 35 (Android 15)  
 **Device:** Pixel 8 Pro Emulator with 16KB page size  
 **Page Size:** 16384 bytes (16KB)  
@@ -19,7 +19,7 @@
 
 ## PROBLEM
 
-Shopee Android app crashes immediately on startup when running on Android 15 emulators/devices configured with 16KB page size. The app shows splash screen briefly, then crashes with a native SIGSEGV (Segmentation violation) error before reaching the main activity. This makes the app completely unusable on 16KB page size devices.
+Marketplace Android app crashes immediately on startup when running on Android 15 emulators/devices configured with 16KB page size. The app shows splash screen briefly, then crashes with a native SIGSEGV (Segmentation violation) error before reaching the main activity. This makes the app completely unusable on 16KB page size devices.
 
 **Why This Matters:**
 - Android 15 introduces 16KB page size support
@@ -34,7 +34,7 @@ Shopee Android app crashes immediately on startup when running on Android 15 emu
 **Signal:** SIGSEGV (Signal 11)  
 **Error Type:** Segmentation violation (invalid memory reference)  
 **Thread:** JSBinder (React Native JavaScript bridge thread)  
-**Process:** com.shopee.id.int (PID varies: 10535, 10742)  
+**Process:** com.marketplace.id.int (PID varies: 10535, 10742)  
 **Timestamp:** 2025-12-03 17:03:17 and 17:03:37 (multiple occurrences)  
 
 **Crashed Native Libraries:**
@@ -52,7 +52,7 @@ Shopee Android app crashes immediately on startup when running on Android 15 emu
    - Offset: pc 000000000001591c
 
 **Component:** Native Layer / React Native Bridge  
-**Service:** Shopee Android App Initialization  
+**Service:** Marketplace Android App Initialization  
 
 ---
 
@@ -72,7 +72,7 @@ To confirm this is a 16KB-specific issue and not a general app bug, we performed
 | **Test 2** | Pixel 8 API 34 (4KB) | 4096 bytes | ✅ **SUCCESS** | App launches normally |
 | **Test 3** | Pixel 8 API 35 (16KB) | 16384 bytes | ❌ **CRASH** | Consistent crash |
 
-**Conclusion:** Same APK (com.shopee.id.int v3.64.03@regression) works perfectly on 4KB devices but crashes immediately on 16KB devices. This definitively proves the issue is 16KB page size incompatibility, not a general application bug.
+**Conclusion:** Same APK (com.marketplace.id.int v3.64.03@regression) works perfectly on 4KB devices but crashes immediately on 16KB devices. This definitively proves the issue is 16KB page size incompatibility, not a general application bug.
 
 **What Failed:**
 - Native libraries (.so files) failed to load properly
@@ -103,9 +103,9 @@ This indicates the dynamic linker couldn't find/load the library at the expected
 ## SERVICE CHAIN
 
 ```
-1. User Action: Launch Shopee App
+1. User Action: Launch Marketplace App
    ↓
-2. Android System: Start com.shopee.id.int process
+2. Android System: Start com.marketplace.id.int process
    ↓
 3. App Initialization: Load Application class
    ↓
@@ -301,7 +301,7 @@ avdmanager create avd -n Test_4KB -k "system-images;android-34;google_apis_plays
 
 # Install and test
 adb install app-fixed.apk
-adb shell monkey -p com.shopee.id.int -c android.intent.category.LAUNCHER 1
+adb shell monkey -p com.marketplace.id.int -c android.intent.category.LAUNCHER 1
 
 # Verify page size
 adb shell getprop ro.product.cpu.pagesize.max
@@ -317,7 +317,7 @@ avdmanager create avd -n Test_16KB -k "system-images;android-35;google_apis_play
 
 # Install and test
 adb install app-fixed.apk
-adb shell monkey -p com.shopee.id.int -c android.intent.category.LAUNCHER 1
+adb shell monkey -p com.marketplace.id.int -c android.intent.category.LAUNCHER 1
 
 # Verify page size
 adb shell getprop ro.product.cpu.pagesize.max
@@ -359,23 +359,23 @@ done
 adb -s emulator-5554 install app-release.apk
 
 # Verify installation success
-adb shell pm list packages | grep shopee
+adb shell pm list packages | grep marketplace
 ```
 
 ### 3. Launch Test
 ```bash
 # Launch app
-adb shell monkey -p com.shopee.id.int -c android.intent.category.LAUNCHER 1
+adb shell monkey -p com.marketplace.id.int -c android.intent.category.LAUNCHER 1
 
 # Wait 10 seconds
 sleep 10
 
 # Check if app is running (not crashed)
-adb shell ps | grep shopee
+adb shell ps | grep marketplace
 # Should show running process
 
 # Check for crashes
-adb logcat -d | grep -i "sigsegv\|fatal\|crash" | grep shopee
+adb logcat -d | grep -i "sigsegv\|fatal\|crash" | grep marketplace
 # Should return empty
 ```
 
@@ -391,13 +391,13 @@ adb logcat -d | grep -i "sigsegv\|fatal\|crash" | grep shopee
 ### 5. Performance Monitoring
 ```bash
 # Monitor memory usage
-adb shell dumpsys meminfo com.shopee.id.int
+adb shell dumpsys meminfo com.marketplace.id.int
 
 # Check for memory leaks
 # Compare with 4KB device baseline
 
 # Monitor CPU usage
-adb shell top | grep shopee
+adb shell top | grep marketplace
 ```
 
 ---
@@ -421,7 +421,7 @@ adb shell top | grep shopee
   crashThreadName->JSBinder 
   errClass->SIGSEGV 
   sigMsg->Segmentation violation (invalid memory reference)
-  nativeLogPath->/storage/emulated/0/Android/data/com.shopee.id.int/files/
+  nativeLogPath->/storage/emulated/0/Android/data/com.marketplace.id.int/files/
                 native_crash_native_temp/2025-12-03_17-03-17-10535_10633_native_log.log
 ```
 
@@ -440,7 +440,7 @@ Linux localhost 6.6.30-android15-8-gdd9c02ccfe27-ab11987101
 
 ### Package Info
 ```
-Package: com.shopee.id.int
+Package: com.marketplace.id.int
 Version: 3.64.03@regression
 extractNativeLibs: true  ← PROBLEM
 usesNonSdkApi: false

@@ -8,7 +8,7 @@
 **Date:** 2025-11-20
 
 ## Problem Statement
-The Subaccount Merchant Shop page (https://subaccount.staging.shopee.com/merchant-shop) is unable to find/display merchants even though the merchants have already been created in the system. This issue prevents users from viewing, searching, or managing merchant accounts through the subaccount interface.
+The Subaccount Merchant Shop page (https://subaccount.staging.company.example/merchant-shop) is unable to find/display merchants even though the merchants have already been created in the system. This issue prevents users from viewing, searching, or managing merchant accounts through the subaccount interface.
 
 This is a critical issue as it blocks:
 - Merchant account management
@@ -21,7 +21,7 @@ This is a critical issue as it blocks:
 - **Error Message:** "Can't find any merchant"
 - **Service:** subaccount (marketplace subaccount system)
 - **Component:** merchant-shop page/API
-- **URL:** https://subaccount.staging.shopee.com/merchant-shop
+- **URL:** https://subaccount.staging.company.example/merchant-shop
 - **API Endpoint:** Likely `/api/v1/merchant/list` or `/api/v1/merchant/search`
 - **Timestamp:** 2025-11-20 (exact time not provided)
 
@@ -88,7 +88,7 @@ The merchant listing API might have default filters that exclude the newly creat
 The typical flow for merchant listing:
 
 1. **User Action** → Browser loads merchant-shop page
-   - URL: https://subaccount.staging.shopee.com/merchant-shop
+   - URL: https://subaccount.staging.company.example/merchant-shop
    
 2. **Frontend** → Subaccount BFF/API
    - Request: GET /api/v1/merchant/list or /api/v1/merchant/search
@@ -289,7 +289,7 @@ After the fix is deployed:
    - Confirm merchant-user associations exist
 
 2. **Test Merchant Listing**:
-   - Navigate to https://subaccount.staging.shopee.com/merchant-shop
+   - Navigate to https://subaccount.staging.company.example/merchant-shop
    - Verify merchants are displayed in the list
    - Confirm merchant count matches database count
    - Check pagination works if many merchants exist

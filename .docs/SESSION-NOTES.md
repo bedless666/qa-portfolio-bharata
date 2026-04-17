@@ -43,7 +43,7 @@
   - Uses sanitized CONFIG
   - Added portfolio disclaimer
   
-- **SeaTalk Guide** → `system-account-guide-sample.md` (415 lines)
+- **Team chat system account guide** → `system-account-guide-sample.md` (415 lines)
   - Added portfolio note
   - Sanitized examples
 
@@ -177,7 +177,7 @@ Calendar → Apps Script → Google Sheets → Webhook → Team Chat
 - `01-Work-Projects/RN Live Regression/Config.gs`
 - `01-Work-Projects/RN Live Regression/RNRegressionNotifierV2.gs`
 - `01-Work-Projects/RN Live Regression/RNRegressionPICReminderV2.gs`
-- `05-Documentation/System Account Docs/SeaTalk_System_Account_Guide.md`
+- `05-Documentation/System Account Docs/Team_Chat_System_Account_Guide.md`
 
 **Sanitized (Portfolio):**
 - `qa-portfolio-bharata/01-regression-automation/demo-config.gs`
@@ -269,7 +269,7 @@ Pick from HIGH priority tasks or ask:
 
 **Portfolio Location:**
 ```
-/Users/bharata.aryaseta/Documents/Docs/Bharata Repository/qa-portfolio-bharata/
+/path/to/your/local/qa-portfolio-bharata/
 ```
 
 **GitHub (Future):**

@@ -60,7 +60,7 @@ Multiple infrastructure issues in KH test environment causing item to appear unl
    - Service in PH environment incorrectly handling KH requests
 
 4. **DNS Error**
-   - Error: `lookup fss-searchapi.ssc.test.shopee.kh.com: no such host`
+   - Error: `lookup fss-searchapi.ssc.test.marketplace.kh.com: no such host`
    - Impact: FSS service unreachable
 
 **Error Chain:**
@@ -81,5 +81,5 @@ Multiple infrastructure issues in KH test environment causing item to appear unl
 [] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
 [] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
 [] If applicable, you have provided the detailed information about your toggle setting.
-[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://api-internal.company.example/create-user]){color}
 

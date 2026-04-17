@@ -8,7 +8,7 @@
 **Date:** 2025-11-25 17:28:27 UTC
 
 ## Problem Statement
-Sellers cannot sync SIP (Shopee Integrated Platform) items from P-shop (Primary shop) to A-shop (Affiliated shop) in KH region. The sync operation fails during logistics channel whitelist validation, completely blocking the SIP cross-border item listing workflow for the KH market.
+Sellers cannot sync SIP (Marketplace Integrated Platform) items from P-shop (Primary shop) to A-shop (Affiliated shop) in KH region. The sync operation fails during logistics channel whitelist validation, completely blocking the SIP cross-border item listing workflow for the KH market.
 
 ## Error Details
 - **Error Code:** 405300005 (ERROR_EXTERNAL)
@@ -23,7 +23,7 @@ Sellers cannot sync SIP (Shopee Integrated Platform) items from P-shop (Primary 
 The issue occurs during the SIP item synchronization process when the system validates logistics channel compatibility between P-shop and A-shop regions.
 
 **Validation Flow:**
-1. Admin initiates sync from Seller Operation Platform (seller.test.shopee.cn)
+1. Admin initiates sync from Seller Operation Platform (seller.test.marketplace.cn)
 2. Request sent to `crossuploadbff-admin` service
 3. BFF forwards to `crossupload.api` service with action_type="create_asku"
 4. crossupload.api performs **logistics channel whitelist validation**:
@@ -47,14 +47,14 @@ The issue occurs during the SIP item synchronization process when the system val
 - **A-shop ID:** 1013210527 (KH region)
 - **Logistics Channel:** 50039 (configured on P-item)
 - **Logistics Info:** `{"50039":{"enabled":true,"wms_location_list":null,"seller_location_list":null,"cover_shipping_fee":false,"size":0}}`
-- **Admin User:** bharata.aryaseta@shopee.com (User ID: 39671)
+- **Admin User:** qa.engineer@company.example (User ID: 39671)
 
 ### Log Evidence
 
 **Error Response (from gateway):**
 ```
 2025-11-25 17:28:27.854897|DATA|e3e3e7f34467e6f897fca796ae5a2701
-destination_url: http://c-api-sellersip.test.shopeemobile.com/crossuploadbff/admin/sync_related_aitem
+destination_url: http://c-api-sellersip.test.marketplacemobile.com/crossuploadbff/admin/sync_related_aitem
 command: mkt_http.crossuploadbff.admin.put_crossuploadbff_admin_sync05frelated05faitem
 error_code: 0
 request: {"mst_itemid":3044833293,"action_type":"create_asku"}
@@ -169,7 +169,7 @@ Decoded: {"50039":{"enabled":true,"wms_location_list":null,"seller_location_list
 
 ### Request Flow
 ```
-Seller Operation Platform (seller.test.shopee.cn)
+Seller Operation Platform (seller.test.marketplace.cn)
   ↓ PUT /admin/api/sip/mskus/pitem
 mall-sellergatewayunification-test-global
   ↓ PUT /crossuploadbff/admin/sync_related_aitem

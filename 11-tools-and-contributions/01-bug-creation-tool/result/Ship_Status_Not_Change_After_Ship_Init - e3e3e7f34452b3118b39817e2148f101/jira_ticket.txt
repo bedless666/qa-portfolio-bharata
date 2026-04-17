@@ -14,7 +14,7 @@ Ship status not change after click ship and enter tracking number in seller cent
 - any workaround: None available. The issue is caused by infrastructure-level CID routing misconfiguration.
 
 *Reproducible Steps*
-1. Login to Seller Center staging (seller.staging.shopee.co.id) with ID seller account
+1. Login to Seller Center staging (seller.staging.marketplace.co.id) with ID seller account
 2. Navigate to "My Sales" > "To Ship" orders
 3. Select an order that is ready to ship
 4. Click "Ship" button and enter tracking number
@@ -56,7 +56,7 @@ The issue occurs in the `sellerplatform-gatewayacl-staging-sg` service during th
 **Service Chain:**
 - mall-sellergatewayunification-staging-global (Entry point)
   → sellerplatform-gatewayacl-staging-sg (Authentication - **ERROR HERE**)
-  → seller-fulfilment.order.i.staging.shopee.co.id (Target service)
+  → seller-fulfilment.order.i.staging.marketplace.co.id (Target service)
 
 **Configuration Issue:**
 The `seller_cid_routing` plugin in the gateway is not correctly routing ID region requests to the ID-specific backend services. Instead, requests are being sent to the SG environment services, causing the CID validation to fail.

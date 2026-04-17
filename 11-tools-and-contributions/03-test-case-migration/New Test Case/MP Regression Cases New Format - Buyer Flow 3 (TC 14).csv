@@ -1,12 +1,12 @@
 Case name,Components Involved,Pre-condition,Platform,Steps,Expected Result
-[14]Test Buyer successfully place order for product with seller streaming price in Homepage,Homepage,"Shopee app
+[14]Test Buyer successfully place order for product with seller streaming price in Homepage,Homepage,"Marketplace app
 region=ID/BR
 1. seller: currently doing live streaming, and set streaming price
 2. item1 and item2 both in live stream and set with live stream price
 3. have coin
 4. payment method: Bank Transfer",IOS/ANDROID/PC,Enter live streaming page,success
 ,,,,IOS/ANDROID/PC,Click cart Icon on the right of enjoy streaming price item1,Successfully add to cart
-[14]Test Buyer successfully place order for product with seller streaming price in PDP,PDP,"Shopee app
+[14]Test Buyer successfully place order for product with seller streaming price in PDP,PDP,"Marketplace app
 region=ID/BR
 1. seller: currently doing live streaming, and set streaming price
 2. item1 and item2 both in live stream and set with live stream price
@@ -28,7 +28,7 @@ Successfully entered live streaming page and added item1 to cart",IOS/ANDROID/PC
 4. click ""buy in live"" in banner, redirect to live streaming"
 ,,,,IOS/ANDROID/PC,Click Add to Cart,Successfully add to cart
 ,,,,IOS/ANDROID/PC,Click top right cart icon in PDP page,Enter cart Page
-[14]Test Buyer successfully place order for product with seller streaming price in cart,Cart,"Shopee app
+[14]Test Buyer successfully place order for product with seller streaming price in cart,Cart,"Marketplace app
 region=ID/BR
 1. seller: currently doing live streaming, and set streaming price
 2. item1 and item2 both in live stream and set with live stream price
@@ -51,7 +51,7 @@ Successfully added item1 and item2 to cart from PDP",IOS/ANDROID/PC,Check item1 
 ,,,,IOS/ANDROID/PC,Click box at left of shop icon,Successfully unCheck item
 ,,item1 and item2 selected,IOS/ANDROID/PC,Check price amount,Information in Discount Detail Page displayed correctly
 ,,item1 and item2 selected,IOS/ANDROID/PC,Click Check Out,page load successfully
-[14]Test Buyer successfully place order for product with seller streaming price in checkout,"Checkout, Voucher, Discount & Coins","Shopee app
+[14]Test Buyer successfully place order for product with seller streaming price in checkout,"Checkout, Voucher, Discount & Coins","Marketplace app
 region=ID/BR
 1. seller: currently doing live streaming, and set streaming price
 2. item1 and item2 both in live stream and set with live stream price
@@ -70,7 +70,7 @@ Successfully selected items in cart and clicked checkout",IOS/ANDROID/PC,"Click 
 ,,,,IOS/ANDROID/PC,Check OPC Page for Payment Details information,information Correct
 ,,,,IOS/ANDROID/PC,Click Place Order,"1. redirect to OSP
 2. Payment in pending status"
-[14]Test Buyer successfully place order for product with seller streaming price in order payment,Order Payment,"Shopee app
+[14]Test Buyer successfully place order for product with seller streaming price in order payment,Order Payment,"Marketplace app
 region=ID/BR
 1. seller: currently doing live streaming, and set streaming price
 2. item1 and item2 both in live stream and set with live stream price
@@ -90,7 +90,7 @@ Successfully placed order",IOS/ANDROID/PC,Click My Purchases button,"1. Redirect
 ,,,,IOS/ANDROID/PC,Click Order Detail,Enter Order Details Page
 ,,,,IOS/ANDROID/PC,Click Cancel Details,"1. Redirect to Cancellation Details Page
 2. page Display Cancellation Completed"
-[14]Test Buyer successfully place order for product with seller streaming price in order admin,Order Data & Ops,"Shopee app
+[14]Test Buyer successfully place order for product with seller streaming price in order admin,Order Data & Ops,"Marketplace app
 region=ID/BR
 Order has been created
 Login to Order admin → Orders → Orders",PC,Enter Order ID or other information then Click Search,Search successfully

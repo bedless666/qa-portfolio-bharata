@@ -378,4 +378,4 @@ Jika ada pertanyaan atau issue, silakan buat JIRA ticket atau hubungi tim QA.
 
 ## 📄 License
 
-Internal use only - Shopee QA Team
+Internal use only - Marketplace QA Team

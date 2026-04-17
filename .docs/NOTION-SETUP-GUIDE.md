@@ -147,460 +147,461 @@ Designed reusable test templates for e-commerce promotion features
 
 ---
 
-### Phase 3: Featured Projects Section (60 min)
+  ### Phase 3: Featured Projects Section (60 min)
 
-#### Create Project Database
+  #### Create Project Database
 
-**Option A: Simple Cards (Recommended for Start)**
+  **Option A: Simple Cards (Recommended for Start)**
 
-> **Verified against:** `qa-portfolio-bharata/02-regression-automation/README.md`, `03-jira-optimization/README.md`, `04-documentation-samples/README.md` (portfolio describes anonymized e-commerce work). Adjust dates or company wording in Notion if your public story differs.
+  > **Verified against:** `qa-portfolio-bharata/02-regression-automation/README.md`, `03-jira-optimization/README.md`, `04-documentation-samples/README.md` (portfolio describes anonymized e-commerce work). Adjust dates or company wording in Notion if your public story differs.
 
-```
-## 💼 Featured Projects
+  ```
+  ## 💼 Featured Projects
 
-[3-column layout]
+  [3-column layout]
 
-┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────┐
-│ 📊 Regression       │  │ 🔧 JIRA            │  │ 📚 Documentation   │
-│    Automation       │  │    Optimization     │  │    Samples          │
-│                     │  │                     │  │                     │
-│ See blurbs below    │  │ See blurbs below    │  │ See blurbs below    │
-│                     │  │                     │  │                     │
-│ 🔗 View Details     │  │ 🔗 View Details     │  │ 🔗 View Details     │
-└─────────────────────┘  └─────────────────────┘  └─────────────────────┘
-```
+  ┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────┐
+  │ 📊 Regression       │  │ 🔧 JIRA            │  │ 📚 Documentation   │
+  │    Automation       │  │    Optimization     │  │    Samples          │
+  │                     │  │                     │  │                     │
+  │ See blurbs below    │  │ See blurbs below    │  │ See blurbs below    │
+  │                     │  │                     │  │                     │
+  │ 🔗 View Details     │  │ 🔗 View Details     │  │ 🔗 View Details     │
+  └─────────────────────┘  └─────────────────────┘  └─────────────────────┘
+  ```
 
-**Copy-paste blurbs for each card (English — trim if too long):**
+  **Copy-paste blurbs for each card (English — trim if too long):**
 
-**1) Regression Automation**
+  **1) Regression Automation**
 
-Automated regression monitoring for multi-release QA: a **Regression Notifier** pulls status from dashboards and posts structured summaries to team chat via webhooks, plus a **PIC Reminder** system that nudges owners on overdue bugs and escalates when SLAs slip. Built on **Google Apps Script**, **Google Sheets**, and scheduled triggers—aiming for faster visibility and fewer missed regressions than manual tracking.
+  Automated regression monitoring for multi-release QA: a **Regression Notifier** pulls status from dashboards and posts structured summaries to team chat via webhooks, plus a **PIC Reminder** system that nudges owners on overdue bugs and escalates when SLAs slip. Built on **Google Apps Script**, **Google Sheets**, and scheduled triggers—aiming for faster visibility and fewer missed regressions than manual tracking.
 
-*One-liner (ID):* Mengotomasi monitoring regresi dan reminder PIC bug lewat Apps Script + Sheets + webhook chat.
+  *One-liner (ID):* Mengotomasi monitoring regresi dan reminder PIC bug lewat Apps Script + Sheets + webhook chat.
 
-**2) JIRA Optimization**
+  **2) JIRA Optimization**
 
-A **Google Apps Script** tool with a small **HTML/CSS/JS** UI that talks to the **JIRA REST API** to cut repetitive board work: bulk updates, workload views, simple automation rules (assign, label, transition), and quality checks for missing fields or stale tickets. Improves transparency of QA workload and keeps boards consistent without endless manual cleanup.
+  A **Google Apps Script** tool with a small **HTML/CSS/JS** UI that talks to the **JIRA REST API** to cut repetitive board work: bulk updates, workload views, simple automation rules (assign, label, transition), and quality checks for missing fields or stale tickets. Improves transparency of QA workload and keeps boards consistent without endless manual cleanup.
 
-*One-liner (ID):* Tool Apps Script + JIRA API untuk bulk update, analitik board, dan quality check tiket.
+  *One-liner (ID):* Tool Apps Script + JIRA API untuk bulk update, analitik board, dan quality check tiket.
 
-**3) Documentation Samples**
+  **3) Documentation Samples**
 
-A set of **technical docs** (how-to, reference, process) covering system account handling, testing and regression procedures, and internal tool usage—written for faster onboarding and fewer repeated questions. Uses **Markdown**, team wiki patterns, and diagrams where helpful; demonstrates clear structure for engineers and non-engineers alike.
+  A set of **technical docs** (how-to, reference, process) covering system account handling, testing and regression procedures, and internal tool usage—written for faster onboarding and fewer repeated questions. Uses **Markdown**, team wiki patterns, and diagrams where helpful; demonstrates clear structure for engineers and non-engineers alike.
 
-*One-liner (ID):* Kumpulan dokumentasi teknis (akun sistem, proses testing, panduan tool) untuk onboarding dan standar tim.
+  *One-liner (ID):* Kumpulan dokumentasi teknis (akun sistem, proses testing, panduan tool) untuk onboarding dan standar tim.
 
-**Suggested links for “View Details” in Notion (optional):**
+  **Suggested links for “View Details” in Notion (optional):**
 
-| Project | Portfolio folder on GitHub |
-|---------|----------------------------|
-| Regression Automation | `./02-regression-automation/` |
-| JIRA Optimization | `./03-jira-optimization/` |
-| Documentation Samples | `./04-documentation-samples/` |
+  | Project | Portfolio folder on GitHub |
+  |---------|----------------------------|
+  | Regression Automation | `./02-regression-automation/` |
+  | JIRA Optimization | `./03-jira-optimization/` |
+  | Documentation Samples | `./04-documentation-samples/` |
 
----
+  ---
 
-**4) Tools & Contributions (umbrella project — 7 sub-tools)**
 
-> **Verified against:** [`11-tools-and-contributions/README.md`](https://github.com/bedless666/qa-portfolio-bharata/tree/main/11-tools-and-contributions) in the repo. Sub-tool details also live in each numbered folder (`01-` … `07-`).
+  **4) Tools & Contributions (umbrella project — 7 sub-tools)**
 
-**Public GitHub folder:**  
-https://github.com/bedless666/qa-portfolio-bharata/tree/main/11-tools-and-contributions
+  > **Verified against:** [`11-tools-and-contributions/README.md`](https://github.com/bedless666/qa-portfolio-bharata/tree/main/11-tools-and-contributions) in the repo. Sub-tool details also live in each numbered folder (`01-` … `07-`).
 
-A **collection of internal QA automation and process work** built with **Python**, **Node.js**, **Cursor AI**, and integrations (**JIRA**, **SeaTalk**, **Google Sheets**, **Shark API**, plus an **Electron**-based RN/Native regression helper). Together they cut a large share of manual coordination (portfolio README cites **~60–70%** reduction in manual QA tasks; see per-tool metrics in the repo).
+  **Public GitHub folder:**  
+  https://github.com/bedless666/qa-portfolio-bharata/tree/main/11-tools-and-contributions
 
-*One-liner (ID):* Kumpulan tool otomasi QA (bug, JIRA summary, migrasi TC, jadwal regresi, aktivasi shop, RN QAoD, Kanban) + AI-assisted development.
+  A **collection of internal QA automation and process work** built with **Python**, **Node.js**, **Cursor AI**, and integrations (**JIRA**, **Team Chat**, **Google Sheets**, **internal admin API**, plus an **Electron**-based RN/Native regression helper). Together they cut a large share of manual coordination (portfolio README cites **~60–70%** reduction in manual QA tasks; see per-tool metrics in the repo).
 
-**Notion layout tip:** Either add a **fourth column** (if it fits), or use a **full-width callout** under the three columns titled **“Tools & Contributions”** with the blurb + button link to the GitHub folder above.
+  *One-liner (ID):* Kumpulan tool otomasi QA (bug, JIRA summary, migrasi TC, jadwal regresi, aktivasi shop, RN QAoD, Kanban) + AI-assisted development.
 
-**Before you publish — please confirm:**
+  **Notion layout tip:** Either add a **fourth column** (if it fits), or use a **full-width callout** under the three columns titled **“Tools & Contributions”** with the blurb + button link to the GitHub folder above.
 
-| Topic | Why it matters |
-|--------|----------------|
-| **Employer naming** | Repo `11-tools-and-contributions/README.md` names **Shopee Indonesia**. For a **public** Notion page, many people prefer **“E-commerce marketplace (anonymized)”** or similar—match whatever you use elsewhere in the portfolio. |
-| **Confidentiality** | Tools were built in a work context; the repo is **portfolio documentation** with sanitized configs. Do **not** paste tokens, webhooks, or internal URLs into Notion. |
-| **RN QAoD tool** | Main umbrella README still lists tool 6 briefly; the **detailed** story (Electron, SMART API, templates) is in `06-rn-regression-qaod/README.md`—use that for depth on Notion if you add a sub-page. |
+  **Before you publish — please confirm:**
 
-**Notion blocks:**
-- Heading 2
-- 3 columns
-- Each column: Callout block atau Page block
+  | Topic | Why it matters |
+  |--------|----------------|
+  | **Employer naming** | Repo `11-tools-and-contributions/README.md` names **E-commerce employer (anonymized)**. For a **public** Notion page, many people prefer **“E-commerce marketplace (anonymized)”** or similar—match whatever you use elsewhere in the portfolio. |
+  | **Confidentiality** | Tools were built in a work context; the repo is **portfolio documentation** with sanitized configs. Do **not** paste tokens, webhooks, or internal URLs into Notion. |
+  | **RN QAoD tool** | Main umbrella README still lists tool 6 briefly; the **detailed** story (Electron, SMART API, templates) is in `06-rn-regression-qaod/README.md`—use that for depth on Notion if you add a sub-page. |
 
-**Option B: Database View (Advanced)**
-1. Create database: `/database` → Gallery view
-2. Properties:
-   - Name (title)
-   - Status (select: In Progress, Complete)
-   - Tech Stack (multi-select)
-   - Impact (text)
-   - Link (URL)
-3. Add cards untuk setiap project
+  **Notion blocks:**
+  - Heading 2
+  - 3 columns
+  - Each column: Callout block atau Page block
 
----
+  **Option B: Database View (Advanced)**
+  1. Create database: `/database` → Gallery view
+  2. Properties:
+    - Name (title)
+    - Status (select: In Progress, Complete)
+    - Tech Stack (multi-select)
+    - Impact (text)
+    - Link (URL)
+  3. Add cards untuk setiap project
 
-### Phase 4: Individual Project Pages (30 min each)
+  ---
 
-> **Content source:** Filled from `qa-portfolio-bharata` project READMEs (Phase 3 items **plus** `11-tools-and-contributions/`). Create **one Notion sub-page per project** under your portfolio home, or paste each block into its own page. Replace `[YOUR_GITHUB_REPO_URL]` with your public repo base (e.g. `https://github.com/bedless666/qa-portfolio-bharata`).
+  ### Phase 4: Individual Project Pages (30 min each)
 
-#### Page 1 — Regression Automation System
+  > **Content source:** Filled from `qa-portfolio-bharata` project READMEs (Phase 3 items **plus** `11-tools-and-contributions/`). Create **one Notion sub-page per project** under your portfolio home, or paste each block into its own page. Replace `[YOUR_GITHUB_REPO_URL]` with your public repo base (e.g. `https://github.com/bedless666/qa-portfolio-bharata`).
 
-```
-# 📊 Regression Automation System
+  #### Page 1 — Regression Automation System
 
-[Cover: optional screenshot of dashboard or Apps Script overview]
+  ```
+  # 📊 Regression Automation System
 
-## 📋 Overview
-• Duration: June 2024 – Present  
-• Role: QA Engineer  
-• Company: E-commerce marketplace (anonymized in portfolio)
+  [Cover: optional screenshot of dashboard or Apps Script overview]
 
----
+  ## 📋 Overview
+  • Duration: June 2024 – Present  
+  • Role: QA Engineer  
+  • Company: E-commerce marketplace (anonymized in portfolio)
 
-## 🎯 Problem Statement
-Manual regression tracking across releases was time-consuming, error-prone (missed regressions, delayed notifications), lacked visibility for stakeholders, and repeated the same follow-ups every release.
+  ---
 
----
+  ## 🎯 Problem Statement
+  Manual regression tracking across releases was time-consuming, error-prone (missed regressions, delayed notifications), lacked visibility for stakeholders, and repeated the same follow-ups every release.
 
-## 💡 Solution
-Automated regression monitoring with two pillars:
+  ---
 
-• **Regression Notifier** — Monitors regression results from the dashboard; sends structured notifications to team chat via webhooks (summary, severity, action items); schedule or manual trigger.  
-• **PIC Reminder System** — Tracks bug ownership (Person In Charge); reminders for overdue/pending bugs; escalation when SLA is breached; daily/weekly summaries.
+  ## 💡 Solution
+  Automated regression monitoring with two pillars:
 
----
+  • **Regression Notifier** — Monitors regression results from the dashboard; sends structured notifications to team chat via webhooks (summary, severity, action items); schedule or manual trigger.  
+  • **PIC Reminder System** — Tracks bug ownership (Person In Charge); reminders for overdue/pending bugs; escalation when SLA is breached; daily/weekly summaries.
 
-## 🏗️ Architecture (high level)
+  ---
 
-```
-Google Calendar → Apps Script → Google Sheets → Webhook → Team Chat
-   (version)      (processing)    (data)        (API)    (notifications)
-```
+  ## 🏗️ Architecture (high level)
 
-• **Data:** Calendar (version) + Sheets (test results)  
-• **Engine:** Google Apps Script (JavaScript)  
-• **Channels:** Team chat webhooks, email  
-• **Scheduling:** Time-based triggers (daily / weekly)
+  ```
+  Google Calendar → Apps Script → Google Sheets → Webhook → Team Chat
+    (version)      (processing)    (data)        (API)    (notifications)
+  ```
 
-Portfolio repo also includes `architecture-diagram.md` for deeper diagrams.
+  • **Data:** Calendar (version) + Sheets (test results)  
+  • **Engine:** Google Apps Script (JavaScript)  
+  • **Channels:** Team chat webhooks, email  
+  • **Scheduling:** Time-based triggers (daily / weekly)
 
----
+  Portfolio repo also includes `architecture-diagram.md` for deeper diagrams.
 
-## 🛠️ Tech Stack
-▸ **Google Apps Script** — Automation, triggers, integration logic  
-▸ **Google Sheets API** — Test/regression data source  
-▸ **Webhook integration** — Team chat notifications  
-▸ **Apps Script triggers** — Scheduled runs  
+  ---
 
----
+  ## 🛠️ Tech Stack
+  ▸ **Google Apps Script** — Automation, triggers, integration logic  
+  ▸ **Google Sheets API** — Test/regression data source  
+  ▸ **Webhook integration** — Team chat notifications  
+  ▸ **Apps Script triggers** — Scheduled runs  
 
-## 📊 Impact & Results
+  ---
 
-### Quantitative
-• ~**30%** reduction in regression cycle time  
-• ~**50%** fewer missed regression-related bugs  
-• ~**80%** faster stakeholder notification  
+  ## 📊 Impact & Results
 
-### Qualitative
-✓ Better cross-team visibility  
-✓ Less manual follow-up  
-✓ Clearer ownership and faster resolution  
-✓ Stronger confidence before release  
+  ### Quantitative
+  • ~**30%** reduction in regression cycle time  
+  • ~**50%** fewer missed regression-related bugs  
+  • ~**80%** faster stakeholder notification  
 
----
+  ### Qualitative
+  ✓ Better cross-team visibility  
+  ✓ Less manual follow-up  
+  ✓ Clearer ownership and faster resolution  
+  ✓ Stronger confidence before release  
 
-## 📸 Screenshots / Demo
-[Optional: webhook message sample, Sheets layout (sanitized), or trigger settings]
+  ---
 
----
+  ## 📸 Screenshots / Demo
+  [Optional: webhook message sample, Sheets layout (sanitized), or trigger settings]
 
-## 🔗 Links
-• Portfolio folder: `[YOUR_GITHUB_REPO_URL]/tree/main/02-regression-automation`  
-• Detailed diagrams: `architecture-diagram.md` in that folder  
+  ---
 
----
+  ## 🔗 Links
+  • Portfolio folder: `[YOUR_GITHUB_REPO_URL]/tree/main/02-regression-automation`  
+  • Detailed diagrams: `architecture-diagram.md` in that folder  
 
-## 📚 Lessons Learned
-• Webhooks are effective for timely, structured alerts.  
-• Apps Script execution limits (~6 min) shape how you batch work.  
-• Production-grade error handling matters for scheduled jobs.  
-• Clear formatting improves stakeholder understanding.  
+  ---
 
----
+  ## 📚 Lessons Learned
+  • Webhooks are effective for timely, structured alerts.  
+  • Apps Script execution limits (~6 min) shape how you batch work.  
+  • Production-grade error handling matters for scheduled jobs.  
+  • Clear formatting improves stakeholder understanding.  
 
-## 🎓 Skills Demonstrated
-✓ Process automation · ✓ Integration (Sheets, Calendar, webhooks) · ✓ Stakeholder communication · ✓ Release-quality focus
-```
+  ---
 
----
+  ## 🎓 Skills Demonstrated
+  ✓ Process automation · ✓ Integration (Sheets, Calendar, webhooks) · ✓ Stakeholder communication · ✓ Release-quality focus
+  ```
 
-#### Page 2 — JIRA Workflow Optimization Tool
+  ---
 
-```
-# 🔧 JIRA Workflow Optimization Tool
+  #### Page 2 — JIRA Workflow Optimization Tool
 
-[Cover: optional screenshot of the Apps Script web UI]
+  ```
+  # 🔧 JIRA Workflow Optimization Tool
 
-## 📋 Overview
-• Duration: 2024 – Present  
-• Role: QA Engineer  
-• Company: E-commerce marketplace (anonymized in portfolio)
+  [Cover: optional screenshot of the Apps Script web UI]
 
----
+  ## 📋 Overview
+  • Duration: 2024 – Present  
+  • Role: QA Engineer  
+  • Company: E-commerce marketplace (anonymized in portfolio)
 
-## 🎯 Problem Statement
-Repetitive JIRA maintenance (bulk status/field updates), poor visibility of QA workload across sprints, time lost to manual board cleanup, and inconsistent ticket data (missing fields, wrong priorities).
+  ---
 
----
+  ## 🎯 Problem Statement
+  Repetitive JIRA maintenance (bulk status/field updates), poor visibility of QA workload across sprints, time lost to manual board cleanup, and inconsistent ticket data (missing fields, wrong priorities).
 
-## 💡 Solution
-Custom **JIRA optimization tool** built with **Google Apps Script** and a **HTML/CSS/JS** web UI:
+  ---
 
-• **Bulk operations** — Multi-ticket updates, batch transitions, mass field updates (priority, assignee, labels).  
-• **Board analytics** — QA workload distribution, sprint progress, bug aging.  
-• **Automation rules** — Auto-assign by component, auto-label by keywords, auto-transition when conditions match.  
-• **Quality checks** — Flag missing required fields, stale tickets, weak test-case links.
+  ## 💡 Solution
+  Custom **JIRA optimization tool** built with **Google Apps Script** and a **HTML/CSS/JS** web UI:
 
----
+  • **Bulk operations** — Multi-ticket updates, batch transitions, mass field updates (priority, assignee, labels).  
+  • **Board analytics** — QA workload distribution, sprint progress, bug aging.  
+  • **Automation rules** — Auto-assign by component, auto-label by keywords, auto-transition when conditions match.  
+  • **Quality checks** — Flag missing required fields, stale tickets, weak test-case links.
 
-## 🏗️ Architecture (high level)
+  ---
 
-```
-Web UI (HTML/CSS/JS) → Google Apps Script (backend) → JIRA REST API → Boards
-```
+  ## 🏗️ Architecture (high level)
 
-• **Auth:** API tokens (sanitized in portfolio)  
-• **Deployment:** Apps Script Web App  
+  ```
+  Web UI (HTML/CSS/JS) → Google Apps Script (backend) → JIRA REST API → Boards
+  ```
 
----
+  • **Auth:** API tokens (sanitized in portfolio)  
+  • **Deployment:** Apps Script Web App  
 
-## 🛠️ Tech Stack
-▸ **Google Apps Script** — Backend, JIRA calls, business logic  
-▸ **HTML / CSS / JavaScript** — Embedded UI  
-▸ **JIRA REST API** (v2/v3) — Issues, transitions, fields  
+  ---
 
----
+  ## 🛠️ Tech Stack
+  ▸ **Google Apps Script** — Backend, JIRA calls, business logic  
+  ▸ **HTML / CSS / JavaScript** — Embedded UI  
+  ▸ **JIRA REST API** (v2/v3) — Issues, transitions, fields  
 
-## 📊 Impact & Results
+  ---
 
-### Quantitative
-• ~**70%** less time spent on routine board management  
-• ~**40%** fewer tickets with missing fields  
-• ~**2 hours/week saved** per QA engineer (as documented in portfolio)  
+  ## 📊 Impact & Results
 
-### Qualitative
-✓ Cleaner JIRA data · ✓ Better sprint visibility · ✓ Fewer manual mistakes · ✓ Faster triage  
+  ### Quantitative
+  • ~**70%** less time spent on routine board management  
+  • ~**40%** fewer tickets with missing fields  
+  • ~**2 hours/week saved** per QA engineer (as documented in portfolio)  
 
----
+  ### Qualitative
+  ✓ Cleaner JIRA data · ✓ Better sprint visibility · ✓ Fewer manual mistakes · ✓ Faster triage  
 
-## 📸 Screenshots / Demo
-[Optional: bulk update flow, workload view — use sanitized or mock data only]
+  ---
 
----
+  ## 📸 Screenshots / Demo
+  [Optional: bulk update flow, workload view — use sanitized or mock data only]
 
-## 🔗 Links
-• Portfolio folder: `[YOUR_GITHUB_REPO_URL]/tree/main/03-jira-optimization`  
+  ---
 
----
+  ## 🔗 Links
+  • Portfolio folder: `[YOUR_GITHUB_REPO_URL]/tree/main/03-jira-optimization`  
 
-## 📚 Lessons Learned
-• JIRA APIs are powerful; plan for **rate limits** (batching, delays, pagination).  
-• Simple UI drives adoption.  
-• Retries and clear errors matter for production tools.  
-• Good docs keep the tool maintainable.  
+  ---
 
----
+  ## 📚 Lessons Learned
+  • JIRA APIs are powerful; plan for **rate limits** (batching, delays, pagination).  
+  • Simple UI drives adoption.  
+  • Retries and clear errors matter for production tools.  
+  • Good docs keep the tool maintainable.  
 
-## 🎓 Skills Demonstrated
-✓ REST API integration · ✓ Full-stack scripting (Apps Script + web UI) · ✓ QA process design · ✓ UX for internal tools
-```
+  ---
 
----
+  ## 🎓 Skills Demonstrated
+  ✓ REST API integration · ✓ Full-stack scripting (Apps Script + web UI) · ✓ QA process design · ✓ UX for internal tools
+  ```
 
-#### Page 3 — Technical Documentation Samples
+  ---
 
-```
-# 📚 Technical Documentation Samples
+  #### Page 3 — Technical Documentation Samples
 
-[Cover: optional Confluence/Markdown hero or doc outline graphic]
+  ```
+  # 📚 Technical Documentation Samples
 
-## 📋 Overview
-• Duration: 2024 – Present  
-• Role: QA Engineer  
-• Company: E-commerce marketplace (anonymized in portfolio)
+  [Cover: optional Confluence/Markdown hero or doc outline graphic]
 
----
+  ## 📋 Overview
+  • Duration: 2024 – Present  
+  • Role: QA Engineer  
+  • Company: E-commerce marketplace (anonymized in portfolio)
 
-## 🎯 Problem Statement
-Knowledge was scattered, onboarding was slow, the same questions repeated in chat, and docs drifted without clear ownership.
+  ---
 
----
+  ## 🎯 Problem Statement
+  Knowledge was scattered, onboarding was slow, the same questions repeated in chat, and docs drifted without clear ownership.
 
-## 💡 Solution
-Structured **technical documentation** in several areas:
+  ---
 
-• **System account management** — Purpose, setup, security, troubleshooting, rotation.  
-• **Testing process** — Test design, bug standards, regression procedures, release checklists.  
-• **Tool usage** — Internal tools, Postman/API testing, dashboards, automation usage.
+  ## 💡 Solution
+  Structured **technical documentation** in several areas:
 
-Document types: how-to, reference, conceptual, tutorials — using **Markdown**, **Confluence**, **GitHub**, **Mermaid** where useful.
+  • **System account management** — Purpose, setup, security, troubleshooting, rotation.  
+  • **Testing process** — Test design, bug standards, regression procedures, release checklists.  
+  • **Tool usage** — Internal tools, Postman/API testing, dashboards, automation usage.
 
----
+  Document types: how-to, reference, conceptual, tutorials — using **Markdown**, **Confluence**, **GitHub**, **Mermaid** where useful.
 
-## 🏗️ “Architecture” of the docs
-Not a runtime system — **information architecture**: single structure per guide (intro → steps → verification → troubleshooting), cross-links, versioned updates, discoverable titles/keywords.
+  ---
 
----
+  ## 🏗️ “Architecture” of the docs
+  Not a runtime system — **information architecture**: single structure per guide (intro → steps → verification → troubleshooting), cross-links, versioned updates, discoverable titles/keywords.
 
-## 🛠️ Tech Stack (writing & delivery)
-▸ **Markdown** — Primary authoring  
-▸ **Confluence** — Team wiki  
-▸ **GitHub** — Version control for doc sources  
-▸ **Mermaid** — Diagrams  
+  ---
 
----
+  ## 🛠️ Tech Stack (writing & delivery)
+  ▸ **Markdown** — Primary authoring  
+  ▸ **Confluence** — Team wiki  
+  ▸ **GitHub** — Version control for doc sources  
+  ▸ **Mermaid** — Diagrams  
 
-## 📊 Impact & Results
+  ---
 
-### Quantitative (from portfolio README)
-• **400+ lines** of documentation in scope of this sample  
-• ~**50%** reduction in onboarding time  
-• ~**60%** fewer repeated questions in team chat  
-• **Weekly** update cadence where applicable  
+  ## 📊 Impact & Results
 
-### Qualitative
-✓ Better knowledge sharing · ✓ Faster issue resolution · ✓ Less dependency on seniors for the same answers  
+  ### Quantitative (from portfolio README)
+  • **400+ lines** of documentation in scope of this sample  
+  • ~**50%** reduction in onboarding time  
+  • ~**60%** fewer repeated questions in team chat  
+  • **Weekly** update cadence where applicable  
 
----
+  ### Qualitative
+  ✓ Better knowledge sharing · ✓ Faster issue resolution · ✓ Less dependency on seniors for the same answers  
 
-## 📸 Screenshots / Demo
-[Optional: excerpt from `system-account-guide-sample.md` or Confluence page (sanitized)]
+  ---
 
----
+  ## 📸 Screenshots / Demo
+  [Optional: excerpt from `system-account-guide-sample.md` or Confluence page (sanitized)]
 
-## 🔗 Links
-• Portfolio folder: `[YOUR_GITHUB_REPO_URL]/tree/main/04-documentation-samples`  
-• Sample file (in repo): `system-account-guide-sample.md`  
+  ---
 
----
+  ## 🔗 Links
+  • Portfolio folder: `[YOUR_GITHUB_REPO_URL]/tree/main/04-documentation-samples`  
+  • Sample file (in repo): `system-account-guide-sample.md`  
 
-## 📚 Lessons Learned
-• Visuals and **real examples** beat abstract text.  
-• **Consistent headings** make long docs scannable.  
-• Regular reviews keep content trustworthy.  
-• Feedback from readers closes documentation gaps.  
+  ---
 
----
+  ## 📚 Lessons Learned
+  • Visuals and **real examples** beat abstract text.  
+  • **Consistent headings** make long docs scannable.  
+  • Regular reviews keep content trustworthy.  
+  • Feedback from readers closes documentation gaps.  
 
-## 🎓 Skills Demonstrated
-✓ Technical writing · ✓ Information architecture · ✓ Process documentation · ✓ Markdown & diagrams · ✓ Knowledge management
-```
+  ---
 
----
+  ## 🎓 Skills Demonstrated
+  ✓ Technical writing · ✓ Information architecture · ✓ Process documentation · ✓ Markdown & diagrams · ✓ Knowledge management
+  ```
 
-#### Page 4 — Tools & Contributions (collection)
+  ---
 
-> **Umbrella page:** Summarizes **seven** sub-projects. For deep dives, add **child pages** and link each to `01-` … `07-` folders on GitHub. RN/Native QAoD detail is strongest in `06-rn-regression-qaod/README.md` (Electron + SMART workflow).
+  #### Page 4 — Tools & Contributions (collection)
 
-```
-# 🛠️ Tools & Contributions
+  > **Umbrella page:** Summarizes **seven** sub-projects. For deep dives, add **child pages** and link each to `01-` … `07-` folders on GitHub. RN/Native QAoD detail is strongest in `06-rn-regression-qaod/README.md` (Electron + SMART workflow).
 
-[Cover: optional collage or icon row — Python / Node / JIRA / chat]
+  ```
+  # 🛠️ Tools & Contributions
 
-## 📋 Overview
-• Period: 2022 – Present  
-• Role: QA Engineer — marketplace / regression team  
-• Context: **Portfolio documentation** of automation built at work (configs sanitized in repo)
+  [Cover: optional collage or icon row — Python / Node / JIRA / chat]
 
----
+  ## 📋 Overview
+  • Period: 2022 – Present  
+  • Role: QA Engineer — marketplace / regression team  
+  • Context: **Portfolio documentation** of automation built at work (configs sanitized in repo)
 
-## 🎯 Problem Statement
-High manual load on bug reporting, weekly reporting, test-case maintenance, regression scheduling, shop setup, RN/Native coordination, and day-to-day task visibility—leading to slow feedback and inconsistent formats across teams.
+  ---
 
----
+  ## 🎯 Problem Statement
+  High manual load on bug reporting, weekly reporting, test-case maintenance, regression scheduling, shop setup, RN/Native coordination, and day-to-day task visibility—leading to slow feedback and inconsistent formats across teams.
 
-## 💡 Solution (7 tracks — see repo for full README each)
+  ---
 
-1. **Bug creation / analysis** — Cursor AI + templates; faster, standardized JIRA/chat-style outputs.  
-2. **JIRA weekly summary** — Python + JIRA API + SeaTalk webhook; scheduled team summaries.  
-3. **Test case migration** — Documented methodology (legacy → standardized CSV/format).  
-4. **Monthly regression schedule** — Node.js + Google Sheets + SeaTalk; cron-friendly.  
-5. **Shop activation** — Python + Shark API + JIRA + SeaTalk; batch/CSV flows.  
-6. **RN & Native regression QAoD** — Electron app + HTML workflow, SMART-style orchestration, SeaTalk + JIRA (see `06-rn-regression-qaod/README.md`).  
-7. **JIRA Kanban daily task** — Process + board discipline for daily QA work.
+  ## 💡 Solution (7 tracks — see repo for full README each)
 
----
+  1. **Bug creation / analysis** — Cursor AI + templates; faster, standardized JIRA/chat-style outputs.  
+  2. **JIRA weekly summary** — Python + JIRA API + Team Chat webhook; scheduled team summaries.  
+  3. **Test case migration** — Documented methodology (legacy → standardized CSV/format).  
+  4. **Monthly regression schedule** — Node.js + Google Sheets + Team Chat; cron-friendly.  
+  5. **Shop activation** — Python + internal admin API + JIRA + Team Chat; batch/CSV flows.  
+  6. **RN & Native regression QAoD** — Electron app + HTML workflow, SMART-style orchestration, Team Chat + JIRA (see `06-rn-regression-qaod/README.md`).  
+  7. **JIRA Kanban daily task** — Process + board discipline for daily QA work.
 
-## 🏗️ Architecture (conceptual)
+  ---
 
-No single runtime—**several small automations** sharing patterns: **API/webhook integrations**, **cron or triggers**, **YAML/CSV/config**, **logging**, and **AI-assisted** authoring where it sped delivery.
+  ## 🏗️ Architecture (conceptual)
 
----
+  No single runtime—**several small automations** sharing patterns: **API/webhook integrations**, **cron or triggers**, **YAML/CSV/config**, **logging**, and **AI-assisted** authoring where it sped delivery.
 
-## 🛠️ Tech Stack (high level)
-▸ **Languages:** Python, JavaScript/Node.js, shell (cron)  
-▸ **AI:** Cursor AI, ChatGPT (prototyping & docs)  
-▸ **Integrations:** JIRA REST API, SeaTalk webhooks, Google Sheets API, Shark API (internal), SMART workflow (where applicable)  
-▸ **Desktop (tool 6):** Electron, local HTTP proxy for API use  
+  ---
 
----
+  ## 🛠️ Tech Stack (high level)
+  ▸ **Languages:** Python, JavaScript/Node.js, shell (cron)  
+  ▸ **AI:** Cursor AI, ChatGPT (prototyping & docs)  
+  ▸ **Integrations:** JIRA REST API, Team Chat webhooks, Google Sheets API, internal admin API (internal), SMART workflow (where applicable)  
+  ▸ **Desktop (tool 6):** Electron, local HTTP proxy for API use  
 
-## 📊 Impact & Results (from portfolio README — round numbers)
+  ---
 
-### Time / efficiency (examples)
-• Bug report flow: **~15–20 min → ~2–3 min** (large reduction)  
-• Weekly JIRA summary: **~2–3 h → automated** (cron)  
-• Shop activation: portfolio cites **~80%** time reduction vs manual path  
-• Monthly regression schedule: **manual monthly effort → automated** notification path  
+  ## 📊 Impact & Results (from portfolio README — round numbers)
 
-### Quality / team
-• More consistent reports and schedules  
-• Fewer missed cycles (reminders / automation)  
-• Better coordination via chat + JIRA  
+  ### Time / efficiency (examples)
+  • Bug report flow: **~15–20 min → ~2–3 min** (large reduction)  
+  • Weekly JIRA summary: **~2–3 h → automated** (cron)  
+  • Shop activation: portfolio cites **~80%** time reduction vs manual path  
+  • Monthly regression schedule: **manual monthly effort → automated** notification path  
 
----
+  ### Quality / team
+  • More consistent reports and schedules  
+  • Fewer missed cycles (reminders / automation)  
+  • Better coordination via chat + JIRA  
 
-## 📸 Screenshots / Demo
-[Optional: sanitized SeaTalk message screenshot, JIRA summary snippet, or Electron app UI — **no secrets**]
+  ---
 
----
+  ## 📸 Screenshots / Demo
+  [Optional: sanitized Team Chat message screenshot, JIRA summary snippet, or Electron app UI — **no secrets**]
 
-## 🔗 Links
+  ---
 
-• **Collection root:** `[YOUR_GITHUB_REPO_URL]/tree/main/11-tools-and-contributions`  
-• Direct public link (same): https://github.com/bedless666/qa-portfolio-bharata/tree/main/11-tools-and-contributions  
+  ## 🔗 Links
 
-**Per-tool folders (for child pages or inline links):**
+  • **Collection root:** `[YOUR_GITHUB_REPO_URL]/tree/main/11-tools-and-contributions`  
+  • Direct public link (same): https://github.com/bedless666/qa-portfolio-bharata/tree/main/11-tools-and-contributions  
 
-| # | Folder | Topics |
-|---|--------|--------|
-| 1 | `/11-tools-and-contributions/01-bug-creation-tool` | AI-assisted bug analysis & reporting |
-| 2 | `/11-tools-and-contributions/02-jira-weekly-summary` | Weekly JIRA → SeaTalk |
-| 3 | `/11-tools-and-contributions/03-test-case-migration` | Migration guide & samples |
-| 4 | `/11-tools-and-contributions/04-monthly-regression-schedule` | Monthly schedule automation |
-| 5 | `/11-tools-and-contributions/05-shop-activation-automation` | Shark API batch activation |
-| 6 | `/11-tools-and-contributions/06-rn-regression-qaod` | Electron + RN/Native QAoD |
-| 7 | `/11-tools-and-contributions/07-jira-kanban-daily-task` | Kanban process |
+  **Per-tool folders (for child pages or inline links):**
 
----
+  | # | Folder | Topics |
+  |---|--------|--------|
+  | 1 | `/11-tools-and-contributions/01-bug-creation-tool` | AI-assisted bug analysis & reporting |
+  | 2 | `/11-tools-and-contributions/02-jira-weekly-summary` | Weekly JIRA → Team Chat |
+  | 3 | `/11-tools-and-contributions/03-test-case-migration` | Migration guide & samples |
+  | 4 | `/11-tools-and-contributions/04-monthly-regression-schedule` | Monthly schedule automation |
+  | 5 | `/11-tools-and-contributions/05-shop-activation-automation` | internal admin API batch activation |
+  | 6 | `/11-tools-and-contributions/06-rn-regression-qaod` | Electron + RN/Native QAoD |
+  | 7 | `/11-tools-and-contributions/07-jira-kanban-daily-task` | Kanban process |
 
-## 📚 Lessons Learned
-• Small, focused scripts beat one giant “do everything” tool.  
-• Webhooks + cron are a reliable backbone for team notifications.  
-• Sanitized configs and `.gitignore` are mandatory before any public portfolio.  
-• AI accelerates scaffolding; you still own review, security, and maintenance.  
+  ---
 
----
+  ## 📚 Lessons Learned
+  • Small, focused scripts beat one giant “do everything” tool.  
+  • Webhooks + cron are a reliable backbone for team notifications.  
+  • Sanitized configs and `.gitignore` are mandatory before any public portfolio.  
+  • AI accelerates scaffolding; you still own review, security, and maintenance.  
 
-## 🎓 Skills Demonstrated
-✓ API integration · ✓ ChatOps / notifications · ✓ Scheduling · ✓ AI-assisted development · ✓ Technical writing · ✓ Internal tooling & adoption  
+  ---
 
----
+  ## 🎓 Skills Demonstrated
+  ✓ API integration · ✓ ChatOps / notifications · ✓ Scheduling · ✓ AI-assisted development · ✓ Technical writing · ✓ Internal tooling & adoption  
 
-## ⚠️ Public portfolio note (optional callout in Notion)
-Tools were developed in an employment context; this page describes **approach and impact**, not proprietary internals. Source in repo is **documentation-oriented** with secrets removed.
-```
+  ---
 
----
+  ## ⚠️ Public portfolio note (optional callout in Notion)
+  Tools were developed in an employment context; this page describes **approach and impact**, not proprietary internals. Source in repo is **documentation-oriented** with secrets removed.
+  ```
+
+  ---
 
 #### Generic template (optional — for another project later)
 

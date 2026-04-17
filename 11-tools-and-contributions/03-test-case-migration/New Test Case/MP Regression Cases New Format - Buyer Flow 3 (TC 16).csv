@@ -1,12 +1,12 @@
 Case name,Components Involved,Pre-condition,Platform,Steps,Expected Result
-[16]Test product of multiple sellers in same warehouse consolidate as one package and ship in cart,Cart,"Shopee app
+[16]Test product of multiple sellers in same warehouse consolidate as one package and ship in cart,Cart,"Marketplace app
 region=ID/BR/TW
 1. In cart, already added products from multiple sellers
 2. and these products are in the same warehouse",IOS/ANDROID/PC,Enter cart Page,Successfully load
 ,,,,IOS/ANDROID/PC,tick to select item,success
 ,,,,IOS/ANDROID/PC,Check price amount,Information in Discount Detail Page displayed correctly
 ,,,,IOS/ANDROID/PC,Click Check Out,page load successfully
-[16]Test product of multiple sellers in same warehouse consolidate as one package and ship in checkout,"Checkout, Voucher, Discount & Coins","Shopee app
+[16]Test product of multiple sellers in same warehouse consolidate as one package and ship in checkout,"Checkout, Voucher, Discount & Coins","Marketplace app
 region=ID/BR/TW
 1. In cart, already added products from multiple sellers
 2. and these products are in the same warehouse
@@ -22,17 +22,17 @@ Successfully selected items in cart and clicked checkout",IOS/ANDROID/PC,"Click 
 ,,,,IOS/ANDROID/PC,Check OPC Page for Payment Details information,information Correct
 ,,,,IOS/ANDROID/PC,Click Place Order,"1. redirect to OSP
 2. Payment status is paid"
-[16]Test product of multiple sellers in same warehouse consolidate as one package and ship in order payment,Order Payment,"Shopee app
+[16]Test product of multiple sellers in same warehouse consolidate as one package and ship in order payment,Order Payment,"Marketplace app
 region=ID/BR/TW
 1. In cart, already added products from multiple sellers
 2. and these products are in the same warehouse
 Successfully placed order",IOS/ANDROID/PC,Click My Purchases button,"1. Redirect to My Purchases Page
 2. Redirect to To Ship tab"
 ,,,,IOS/ANDROID/PC,Click the order,Redirect to Order Details Page
-[16]Test product of multiple sellers in same warehouse consolidate as one package and ship in seller fulfilment,Seller fulfilment,"Shopee app
+[16]Test product of multiple sellers in same warehouse consolidate as one package and ship in seller fulfilment,Seller fulfilment,"Marketplace app
 region=ID/BR/TW
 Order has been created
-[Shopee App > SC]: BR & TW
+[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully"

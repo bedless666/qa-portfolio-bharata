@@ -107,7 +107,7 @@ This session focused on **synchronizing external documentation** with the compre
 ### Skills Coverage
 - **Programming Languages:** 5 (Python, JavaScript, Java, Bash, Google Apps Script)
 - **Test Frameworks:** 6 (Selenium, Cucumber, Rest Assured, TestNG, Appium, Postman)
-- **APIs Integrated:** 5 (JIRA, SeaTalk, Google Sheets, Shark, Smart Workflow)
+- **APIs Integrated:** 5 (JIRA, team chat webhooks, Google Sheets, internal admin API, Smart Workflow)
 - **AI Tools:** 2 (Cursor AI, ChatGPT)
 - **Documentation Formats:** 3 (Markdown, Notion, GitHub)
 

@@ -6,7 +6,7 @@ ONLY FILL IN THE SECTIONS THAT ARE EXPLICITLY DEFINED
 [Brief one-line description of the issue]
 
 *Configuration*:
-- app / os version: [e.g., "Shopee 3.48.2 / Android 14" or "Chrome 124 on macOS 12.7"]
+- app / os version: [e.g., "Marketplace 3.48.2 / Android 14" or "Chrome 124 on macOS 12.7"]
 - env (test, staging, live) and country info: [environment and region]
 - pfb build: [build tag or "n/a" if you are not using pfb]
 - account (user / id): [test user or ID; omit password if it is sensitive]
@@ -44,6 +44,6 @@ ONLY FILL IN THE SECTIONS THAT ARE EXPLICITLY DEFINED
 [] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
 [] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
 [] If applicable, you have provided the detailed information about your toggle setting.
-[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://api-internal.company.example/create-user]){color}
 
 ⚠️ END OF TEMPLATE - DO NOT ADD ANYTHING BEYOND THIS POINT ⚠️

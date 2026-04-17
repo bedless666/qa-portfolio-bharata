@@ -1,6 +1,6 @@
 # Monthly Regression Schedule Automation
 
-Automated script untuk mengirim jadwal RN Live Regression bulanan ke Seatalk.
+Automated script untuk mengirim jadwal RN Live Regression bulanan ke Team Chat.
 
 ## 🚀 Quick Start
 
@@ -64,7 +64,7 @@ Edit `config.js`:
 
 ```javascript
 module.exports = {
-  WEBHOOK_URL: 'your-seatalk-webhook-url',
+  WEBHOOK_URL: 'your-team-chat-webhook-url',
   SPREADSHEET_ID: 'your-spreadsheet-id',
   SHEET_NAME: 'Regression PIC',
   MAX_DESCRIPTION_LENGTH: 900,
@@ -94,7 +94,7 @@ node_modules/
 4. **Build message** dengan format clean
 5. **Split** jadi multiple descriptions (max 900 chars each)
 6. **Collect** semua QA emails untuk mention di bawah
-7. **Send** ke Seatalk webhook
+7. **Send** ke Team Chat webhook
 
 ## 🗓️ Schedule
 
@@ -172,7 +172,7 @@ Assigned QA:
 ## 🔗 Related
 
 - Google Apps Script version: Available in Google Sheets Extensions
-- Seatalk API Docs: [System Account Documentation](../System%20Account%20Docs/)
+- Team Chat API Docs: [System Account Documentation](../System%20Account%20Docs/)
 
 ---
 

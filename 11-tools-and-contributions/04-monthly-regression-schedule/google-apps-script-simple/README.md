@@ -81,7 +81,7 @@ Edit **Config.gs**:
 ```javascript
 const CONFIG = {
   // Required
-  WEBHOOK_URL: 'https://...',          // Seatalk webhook
+  WEBHOOK_URL: 'https://...',          // Team Chat webhook
   SPREADSHEET_ID: '19nAfy...',         // Your sheet ID
   
   // Optional (defaults work fine)
@@ -106,7 +106,7 @@ const CONFIG = {
 5. **Formats message** with code blocks
 6. **Splits into chunks** (900 chars each)
 7. **Adds QA mentions** at the bottom
-8. **Sends to Seatalk** via webhook
+8. **Sends to Team Chat** via webhook
 
 ## 🔍 Validation Rules
 

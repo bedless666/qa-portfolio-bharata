@@ -46,7 +46,7 @@ The `/api/forder/init` endpoint in OMS service (order-fulfilment) is taking more
 
 **Service Call Chain:**
 1. Seller Center UI → POST /api/fulfillment/shipment/v2/init (sellerfulfillment-shipment service)
-2. sellerfulfillment-shipment → POST https://oms.staging.shopee.co.id/api/forder/init (OMS service)
+2. sellerfulfillment-shipment → POST https://oms.staging.marketplace.co.id/api/forder/init (OMS service)
 3. OMS service times out after 10 seconds without responding (status_code=-1)
 4. Error propagates back to user
 
@@ -54,7 +54,7 @@ The `/api/forder/init` endpoint in OMS service (order-fulfilment) is taking more
 ```
 2025-12-19 18:13:36.282397|ERROR|e3e3e7f3464b53fdfd8444ae381ffb00
 uhttp_client_request_error - context deadline exceeded
-url=https://oms.staging.shopee.co.id/api/forder/init
+url=https://oms.staging.marketplace.co.id/api/forder/init
 method=POST
 elapsed_millis=10000
 status_code=-1

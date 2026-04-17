@@ -6,7 +6,7 @@ ONLY FILL IN THE SECTIONS THAT ARE EXPLICITLY DEFINED
 Cannot change language in TW region Seller Center (3.61.41)
 
 *Configuration*:
-- app / os version: [e.g., "Shopee Seller Center 3.61.41 / Android [version]" or "Shopee Seller Center 3.61.41 / iOS [version]"]
+- app / os version: [e.g., "Marketplace Seller Center 3.61.41 / Android [version]" or "Marketplace Seller Center 3.61.41 / iOS [version]"]
 - env (test, staging, live) and country info: [environment - test/staging/live] TW
 - pfb build: [build tag or "n/a" if you are not using pfb]
 - account (user / id): [test user or ID for TW region]
@@ -45,7 +45,7 @@ Cannot change language in TW region Seller Center (3.61.41)
 [] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
 [] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
 [] If applicable, you have provided the detailed information about your toggle setting.
-[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+[] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://api-internal.company.example/create-user]){color}
 
 ⚠️ END OF TEMPLATE - DO NOT ADD ANYTHING BEYOND THIS POINT ⚠️
 

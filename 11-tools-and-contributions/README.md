@@ -3,13 +3,13 @@
 > **Author:** Bharata Aryaseta  
 > **Role:** QA Engineer - Marketplace Platform (Regression Team)  
 > **Period:** 2022 - Present  
-> **Company:** Shopee Indonesia
+> **Company:** Marketplace Indonesia
 
 ---
 
 ## 📋 Overview
 
-This project showcases a collection of **automation tools and processes** I created during my tenure at Shopee to improve QA efficiency, reduce manual work, and enhance team collaboration. All tools were developed using a combination of **AI assistance (Cursor AI, ChatGPT)** and **traditional scripting** (Python, JavaScript, Node.js, Google Apps Script).
+This project showcases a collection of **automation tools and processes** I created during my tenure at Marketplace to improve QA efficiency, reduce manual work, and enhance team collaboration. All tools were developed using a combination of **AI assistance (Cursor AI, ChatGPT)** and **traditional scripting** (Python, JavaScript, Node.js, Google Apps Script).
 
 **Key Achievement:** Reduced manual QA tasks by approximately **60-70%** through strategic automation and process optimization.
 
@@ -34,15 +34,15 @@ This project showcases a collection of **automation tools and processes** I crea
 ---
 
 ### 2. [JIRA Weekly Summary](./02-jira-weekly-summary/)
-**Automated Weekly Team Report to SeaTalk**
+**Automated Weekly Team Report to Team Chat**
 
-- **Technology:** Python + JIRA API + SeaTalk Webhook
+- **Technology:** Python + JIRA API + Team Chat Webhook
 - **Purpose:** Automatically generate and send weekly team progress reports
 - **Impact:** Saved 2-3 hours per week of manual report compilation
 - **Key Features:**
   - Multi-team support (All Teams or Single Team mode)
   - Automated JIRA data extraction
-  - Formatted SeaTalk messages
+  - Formatted Team Chat messages
   - Cronjob scheduling
 
 [📖 View Documentation](./02-jira-weekly-summary/README.md)
@@ -68,12 +68,12 @@ This project showcases a collection of **automation tools and processes** I crea
 ### 4. [Monthly Regression Schedule](./04-monthly-regression-schedule/)
 **Automated Monthly Regression Notifications**
 
-- **Technology:** Node.js + Google Sheets API + SeaTalk Webhook
+- **Technology:** Node.js + Google Sheets API + Team Chat Webhook
 - **Purpose:** Automatically notify team of monthly regression schedules
 - **Impact:** Eliminated missed regression cycles and improved planning
 - **Key Features:**
   - Google Sheets integration for schedule management
-  - Automated SeaTalk notifications
+  - Automated Team Chat notifications
   - Cronjob scheduling
   - Configurable notification timing
 
@@ -84,13 +84,13 @@ This project showcases a collection of **automation tools and processes** I crea
 ### 5. [Shop Activation Automation](./05-shop-activation-automation/)
 **Automated Shop Activation via Shark API**
 
-- **Technology:** Python + Shark API + JIRA API + SeaTalk Webhook
+- **Technology:** Python + Shark API + JIRA API + Team Chat Webhook
 - **Purpose:** Automate shop activation process and JIRA ticket creation
 - **Impact:** Reduced manual shop activation time by 80%
 - **Key Features:**
   - CSV-based batch processing
   - Automatic JIRA ticket creation
-  - SeaTalk notifications for status updates
+  - Team Chat notifications for status updates
   - Error handling and retry logic
   - Cronjob scheduling
 
@@ -168,9 +168,9 @@ This project showcases a collection of **automation tools and processes** I crea
 
 ### API Integration
 - JIRA REST API
-- SeaTalk Webhook API
+- Team Chat Webhook API
 - Google Sheets API
-- Shark API (internal Shopee tool)
+- Shark API (internal Marketplace tool)
 
 ### DevOps & Automation
 - Cronjob scheduling and management
@@ -258,9 +258,9 @@ All tools were developed using a **hybrid approach**:
 
 **Setup Required:**
 - JIRA API tokens
-- SeaTalk webhook URLs
+- Team Chat webhook URLs
 - Google Sheets API credentials
-- Shark API access (internal Shopee tool)
+- Shark API access (internal Marketplace tool)
 
 ---
 
@@ -283,7 +283,7 @@ All tools were developed using a **hybrid approach**:
 ## 🌟 Recognition
 
 These tools have been:
-- Adopted by multiple QA teams at Shopee
+- Adopted by multiple QA teams at Marketplace
 - Shared across regional teams (SG, VN, TH, MY)
 - Featured in internal QA knowledge sharing sessions
 - Contributed to team efficiency KPIs
@@ -303,7 +303,7 @@ For questions about these tools or collaboration opportunities:
 
 ## 📄 License
 
-These tools were created during employment at Shopee and are documented here for **portfolio purposes only**. Source code is not publicly available due to proprietary nature.
+These tools were created during employment at Marketplace and are documented here for **portfolio purposes only**. Source code is not publicly available due to proprietary nature.
 
 ---
 

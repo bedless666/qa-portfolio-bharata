@@ -16,36 +16,36 @@
 # ============================================================================
 # RECOMMENDED: Production Mode - Every Friday at 11:00 AM
 # ============================================================================
-0 11 * * 5 /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
+0 11 * * 5 /path/to/your/workspace/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
 
 # ============================================================================
 # TEST MODE EXAMPLES
 # ============================================================================
 
 # Every Monday at 10:00 AM (for testing)
-# 0 10 * * 1 /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/shop-activation-python/run_test.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
+# 0 10 * * 1 /path/to/your/workspace/01-Work-Projects/shop-activation-python/run_test.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
 
 # ============================================================================
 # PRODUCTION MODE - OTHER SCHEDULES
 # ============================================================================
 
 # Every day at 9:00 AM
-# 0 9 * * * /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
+# 0 9 * * * /path/to/your/workspace/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
 
 # Every Monday and Friday at 11:00 AM
-# 0 11 * * 1,5 /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
+# 0 11 * * 1,5 /path/to/your/workspace/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
 
 # Every 1st day of month at 8:00 AM
-# 0 8 1 * * /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
+# 0 8 1 * * /path/to/your/workspace/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
 
 # Every 1st and 15th of month at 10:00 AM
-# 0 10 1,15 * * /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
+# 0 10 1,15 * * /path/to/your/workspace/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
 
 # Every weekday (Mon-Fri) at 9:00 AM
-# 0 9 * * 1-5 /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
+# 0 9 * * 1-5 /path/to/your/workspace/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
 
 # Every 6 hours
-# 0 */6 * * * /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
+# 0 */6 * * * /path/to/your/workspace/01-Work-Projects/shop-activation-python/run_production.sh >> ~/Documents/Docs/log/shop_activation_cron.log 2>&1
 
 # ============================================================================
 # CRON SYNTAX REFERENCE
@@ -82,7 +82,7 @@
 #   tail -f ~/Documents/Docs/log/shop_activation_python.log
 #
 # Test manually:
-#   /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/shop-activation-python/run_production.sh
+#   /path/to/your/workspace/01-Work-Projects/shop-activation-python/run_production.sh
 #
 # ============================================================================
 

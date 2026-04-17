@@ -9,13 +9,13 @@ PDP shows item as "sold_out" despite item status being NORMAL in admin and bassi
 - toggles: none
 
 *Impact*
-- user impact summary: Buyers cannot purchase the item because PDP incorrectly displays it as "sold_out". Item pitem 2303859249 shows abnormal_status: "sold_out" on frontend despite being NORMAL status in Seller Center admin (https://seller.test.shopee.cn/admin/sip/mskus/detail/pitem/2303859249) and bassiteminfo also returning normal status.
+- user impact summary: Buyers cannot purchase the item because PDP incorrectly displays it as "sold_out". Item pitem 2303859249 shows abnormal_status: "sold_out" on frontend despite being NORMAL status in Seller Center admin (https://seller.test.marketplace.cn/admin/sip/mskus/detail/pitem/2303859249) and bassiteminfo also returning normal status.
 - test impact summary: Blocking testing of SIP items in LA region. Cannot verify item purchase flow for cross-border items.
 - any workaround: None available. Item cannot be purchased from buyer side.
 
 
 *Reproducible Steps*
-1. Open Seller Center admin: https://seller.test.shopee.cn/admin/sip/mskus/detail/pitem/2303859249
+1. Open Seller Center admin: https://seller.test.marketplace.cn/admin/sip/mskus/detail/pitem/2303859249
 2. Verify item status shows as NORMAL
 3. Check bassiteminfo API response - confirms item status is normal
 4. Open PDP on buyer side for the same item (shop_id: 1013355932, item_id: 2303859249)
@@ -84,5 +84,5 @@ PDP team should review the logic that sets "abnormal_status" and ensure logistic
 [x] If your bug is UI related, and you have captured the traffic packets (PC, RW, RN, Lite, Android + iOS), and provided the information in the ticket.
 [x] If applicable, you know how to configure "_show_debug_info=2" and provide the trace link in the ticket for troubleshooting.
 [x] If applicable, you have provided the detailed information about your toggle setting.
-[x] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://shark.test.shopee.io/create-user]){color}
+[x] You know how to use Shark's data creation tool for testing (for example, for creating a user, [https://api-internal.company.example/create-user]){color}
 

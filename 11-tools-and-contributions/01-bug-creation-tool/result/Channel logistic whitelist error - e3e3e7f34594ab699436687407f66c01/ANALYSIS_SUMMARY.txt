@@ -9,7 +9,7 @@ Severity: High - Blocks SIP product sync operations
 Date: 2025-12-10 16:18:13 UTC
 
 PROBLEM
-SIP (Shopee International Platform) product sync from Primary Shop to Affiliated Shop in LA region is completely blocked. When attempting to sync item 2303859249 from Primary Shop 1013355633 to Affiliated Shop 1013355932, the system rejects the operation because the primary shop is not whitelisted for logistics channel operations in LA region.
+SIP (Marketplace International Platform) product sync from Primary Shop to Affiliated Shop in LA region is completely blocked. When attempting to sync item 2303859249 from Primary Shop 1013355633 to Affiliated Shop 1013355932, the system rejects the operation because the primary shop is not whitelisted for logistics channel operations in LA region.
 
 ERROR DETAILS
 Code: 370200006 (internal error code), 405300005 (external API error code)
@@ -32,7 +32,7 @@ In this case:
 This is a configuration/permission issue, not a code bug. The shop simply hasn't been granted access to LA region logistics channels yet.
 
 SERVICE CHAIN
-1. User Action → Seller Center Admin (seller.test.shopee.cn)
+1. User Action → Seller Center Admin (seller.test.marketplace.cn)
    - User clicks "Sync Related A-Item" button
    - Request: PUT /crossuploadbff/admin/sync_related_aitem
 

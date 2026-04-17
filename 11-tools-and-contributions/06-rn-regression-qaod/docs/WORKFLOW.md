@@ -39,7 +39,7 @@ Detailed technical architecture and workflow for the RN & Native Regression QAoD
                          ▼
 ┌──────────────────────────────────────────────────────────────────────┐
 │                    SMART WORKFLOW API                                 │
-│                  (smart.shopee.io)                                    │
+│                  (smart.company.example)                                    │
 │  - Workflow Orchestration Engine                                     │
 │  - Multi-node execution pipeline                                     │
 └────────────────────────┬─────────────────────────────────────────────┘
@@ -47,7 +47,7 @@ Detailed technical architecture and workflow for the RN & Native Regression QAoD
          ┌───────────────┼───────────────┐
          ▼               ▼               ▼
     ┌────────┐     ┌─────────┐    ┌──────────┐
-    │  LLM   │     │  JIRA   │    │ SeaTalk  │
+    │  LLM   │     │  JIRA   │    │ Team Chat  │
     │  Node  │     │  Node   │    │   Node   │
     │ (25242)│     │ (25243) │    │ (25244)  │
     └────────┘     └─────────┘    └──────────┘
@@ -83,7 +83,7 @@ Detailed technical architecture and workflow for the RN & Native Regression QAoD
 
 ```javascript
 const requestBody = {
-    // Main title for SeaTalk message
+    // Main title for Team Chat message
     InputTitle: `RN Staging Regression - ${version}`,
     
     // Detailed description in Jira Wiki Markup
@@ -94,8 +94,8 @@ const requestBody = {
     
     // PIC email array
     pic: [
-        "user.id@shopee.com",
-        "user.vn@shopee.com",
+        "user.id@company.example",
+        "user.vn@company.example",
         // ... other PICs
     ],
     
@@ -126,7 +126,7 @@ if (isElectron) {
     apiUrl = 'http://127.0.0.1:3847/api/proxy';
 } else {
     // Direct API call (will fail due to CORS in browser)
-    apiUrl = 'https://smart.shopee.io/api/v1/...';
+    apiUrl = 'https://smart.company.example/api/v1/...';
 }
 ```
 
@@ -137,7 +137,7 @@ fetch('http://127.0.0.1:3847/api/proxy', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
-        'X-Target-URL': 'https://smart.shopee.io/api/v1/workflow/...'
+        'X-Target-URL': 'https://smart.company.example/api/v1/workflow/...'
     },
     body: JSON.stringify(requestBody)
 })
@@ -186,8 +186,8 @@ function handleApiProxy(req, res) {
 1. **LLM Node (25242)** - Text Conversion
    ```python
    # Input: InputDescription (Jira Wiki Markup)
-   # Process: Convert to SeaTalk Markdown
-   # Output: Formatted text for SeaTalk
+   # Process: Convert to Team Chat Markdown
+   # Output: Formatted text for Team Chat
    
    # Example conversions:
    # {color:red}text{color} → **text** (bold)
@@ -198,7 +198,7 @@ function handleApiProxy(req, res) {
 2. **JIRA Node (25243)** - Ticket Creation
    ```python
    # Input: jiraTitle, InputDescription, pic array
-   # Process: Create SPMR ticket via JIRA API
+   # Process: Create PROJ ticket via JIRA API
    # Output: ticket_id, ticket_url
    
    # Custom fields:
@@ -207,7 +207,7 @@ function handleApiProxy(req, res) {
    # - PICs: From pic array
    ```
 
-3. **SeaTalk Node (25244)** - Notification
+3. **Team Chat Node (25244)** - Notification
    ```python
    # Input: InputTitle, converted description, pic array
    # Process: Post message + create thread + mention PICs
@@ -232,9 +232,9 @@ Each template contains:
     name: "RN Staging - TC1",
     type: "RN_STAGING",
     defaultPICs: {
-        ID: "user.id@shopee.com",
-        VN: "user.vn@shopee.com",
-        TH: "user.th@shopee.com",
+        ID: "user.id@company.example",
+        VN: "user.vn@company.example",
+        TH: "user.th@company.example",
         // ... other regions
     },
     messageFormat: {
@@ -275,7 +275,7 @@ Each template contains:
 
 **Endpoint**:
 ```
-POST https://smart.shopee.io/api/v1/workflow/trigger/deployment/{hash_id}
+POST https://smart.company.example/api/v1/workflow/trigger/deployment/{hash_id}
 ```
 
 **Authentication**:
@@ -295,9 +295,9 @@ X-Deployment-Key: wxqjm1ghy5rynyb86ka51zre
     "status": "success",
     "execution_id": "...",
     "results": {
-        "jira_ticket_id": "SPMR-12345",
-        "seatalk_message_id": "...",
-        "seatalk_thread_id": "..."
+        "jira_ticket_id": "PROJ-12345",
+        "team-chat_message_id": "...",
+        "team-chat_thread_id": "..."
     }
 }
 ```
@@ -318,7 +318,7 @@ X-Deployment-Key: wxqjm1ghy5rynyb86ka51zre
         "build": "electron-builder"
     },
     "build": {
-        "appId": "com.shopee.qaod.regression",
+        "appId": "com.marketplace.qaod.regression",
         "productName": "QAoD Regression Tool",
         "mac": {
             "target": ["dmg", "zip"],
@@ -381,7 +381,7 @@ lsof -i :3847
 # Test proxy endpoint
 curl -X POST http://127.0.0.1:3847/api/proxy \
   -H "Content-Type: application/json" \
-  -H "X-Target-URL: https://smart.shopee.io/api/v1/workflow/..." \
+  -H "X-Target-URL: https://smart.company.example/api/v1/workflow/..." \
   -d '{"InputTitle":"Test"}'
 ```
 
@@ -417,13 +417,13 @@ curl -X POST http://127.0.0.1:3847/api/proxy \
 
 ## 🔗 External Dependencies
 
-- **SMART Workflow Platform**: https://smart.shopee.io
-- **JIRA API**: Shopee internal JIRA instance
-- **SeaTalk Webhook**: Shopee internal messaging
+- **SMART Workflow Platform**: https://smart.company.example
+- **JIRA API**: Marketplace internal JIRA instance
+- **Team Chat Webhook**: Marketplace internal messaging
 - **Google Sheets API**: For task logging (via SMART workflow)
 
 ---
 
-**Maintained by**: Shopee QAoD Team  
-**Technical Contact**: bharata.aryaseta@shopee.com  
+**Maintained by**: Marketplace QAoD Team  
+**Technical Contact**: qa.engineer@company.example  
 **Last Updated**: February 2026

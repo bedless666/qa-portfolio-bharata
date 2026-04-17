@@ -5,7 +5,7 @@ get_csv_template returns error 10000 causing review page to show blank page in K
 - app / os version: Common Scene Admin Service / Browser-based
 - env (test, staging, production) and region info: Test environment, KH (Cambodia) region
 - build tag: n/a
-- account (user / id): bharata.aryaseta@shopee.com
+- account (user / id): qa.engineer@company.example
 - feature flags: none
 
 *Impact*

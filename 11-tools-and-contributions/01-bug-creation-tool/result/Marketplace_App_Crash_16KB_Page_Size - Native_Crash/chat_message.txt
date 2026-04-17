@@ -1,12 +1,12 @@
 Hi @Native-Team @Build-Team
 
-Found critical issue in Test environment - Shopee app crashes on Android 15 emulators with 16KB page size.
+Found critical issue in Test environment - Marketplace app crashes on Android 15 emulators with 16KB page size.
 
 Issue: App crashes immediately on startup with native SIGSEGV error on 16KB page size devices
 
 Environment: Test / ID
 Device: Android Emulator API 35 (Android 15) with 16KB page size
-App Version: Shopee 3.64.03@regression
+App Version: Marketplace 3.64.03@regression
 Page Size: 16384 bytes (verified via getprop ro.product.cpu.pagesize.max)
 
 Error: SIGSEGV - Segmentation violation (invalid memory reference)

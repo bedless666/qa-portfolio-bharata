@@ -12,7 +12,7 @@
     "build:linux": "electron-builder --linux"
   },
   "build": {
-    "appId": "com.shopee.qaod.chatgenerator",
+    "appId": "com.marketplace.qaod.chatgenerator",
     "productName": "Regression Task Generator",
     "directories": {
       "output": "dist"
@@ -66,11 +66,11 @@
     "regression",
     "qa",
     "testing",
-    "shopee",
+    "marketplace",
     "qaod",
     "automation"
   ],
-  "author": "Shopee QA Team",
+  "author": "Marketplace QA Team",
   "license": "MIT",
   "devDependencies": {
     "electron": "^28.0.0",

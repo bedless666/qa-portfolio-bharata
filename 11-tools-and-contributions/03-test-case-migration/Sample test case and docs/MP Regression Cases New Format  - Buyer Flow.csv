@@ -1,11 +1,11 @@
 Case name,Components Involved ,Pre-condition,Platform,Steps,Expected Result,,,,
-[1]Test buyer check pdp without login,PDP,"Shopee app
+[1]Test buyer check pdp without login,PDP,"Marketplace app
 region=ID/BR/TW
 User still not login ",IOS/ANDROID/PC,Go to PDP ,"1.Successfully load PDP page
 2.Video auto plays under wifi",,,,
 ,,,,Click add to cart,"Non-guest cart whitelist user: Redirect to login page
 guest cart whitelist user: able to successfully add to cart",,,,
-[1]Test buyer check pdp with login,PDP,"Shopee app
+[1]Test buyer check pdp with login,PDP,"Marketplace app
 region=ID/BR/TW
 User is already login",IOS/ANDROID/PC,Complete login,"[Non-guest cart whitelist user]
 1.Login successfully
@@ -28,7 +28,7 @@ User is already login",IOS/ANDROID/PC,Complete login,"[Non-guest cart whitelist 
 - modal with cart icon and button Buy Now
 - shop icon
 - share button",,,,2.Enter correct data to search order (Order SN)
-"[1]Test buyer pdp image, shop, voucher, shipping fee, rating, buyer gallery","PDP, rating, voucher","Shopee app
+"[1]Test buyer pdp image, shop, voucher, shipping fee, rating, buyer gallery","PDP, rating, voucher","Marketplace app
 region=ID/BR/TW",IOS/ANDROID/PC,Swipe item image,can swipe to view all images,,,,3.Click Order Received
 ,,,,Check shop voucher section,"[PC]dispaly first 5 vouchers
 [RN]display first 2 vouchers",,,,"4.Click CONFIR""1.Click search icon at the top right"
@@ -51,7 +51,7 @@ Return to PDP page",,,,2.Able to search successfully
 ,,,,Click the picture or video under Buyer Gallery,Correctly zoom in to the picture or play the video,,,,
 ,,,,"Click ""Return to"" at the top left","Return to Buyer Gallery Page，and display Chat Now，Add to Cart，Buy Now, etc. buttons",,,,
 ,,,,"Click ""Return to"" at the top left",Return to PDP Page,,,,
-"[1]Test buyer pdp add on deal, add to cart",PDP,"Shopee app
+"[1]Test buyer pdp add on deal, add to cart",PDP,"Marketplace app
 region=ID/BR/TW",IOS/ANDROID/PC,Click View More under Add-on Deals,"1. Redirect to the Add-on Deals Landing Page
 2. Correct Display for main item and sub item(item name, variations,item image,item price and item quantity)
 3. The selector box of main item is grey out and the main item has been selected",,,,
@@ -78,7 +78,7 @@ region=ID/BR/TW",IOS/ANDROID/PC,Click View More under Add-on Deals,"1. Redirect 
 ,,,,"Click Add-on Deals ""Add to Cart"" button at the bottom right",Successfully add to cart,,,,
 ,,,,Click shopping cart icon at the top right of the PDP Page,"login user: Enter main cart Page
 non-login user: Enter guest cart page",,,,
-[1]Test buyer check cart page for AOD banner,Cart,"Shopee app
+[1]Test buyer check cart page for AOD banner,Cart,"Marketplace app
 region=ID/BR/TW",IOS/ANDROID/PC,"Click ""-"" AOD sub item quantity",Pop up display “Do you want to remove this product”,,,,
 ,,,,Click Yes,Successfully deleted AOD sub item，AOD main item still in shopping cart,,,,
 ,,,,Check add on deal banner,"1.Icon: new icon (attached image)
@@ -100,7 +100,7 @@ region=ID/BR/TW",IOS/ANDROID/PC,"Click ""-"" AOD sub item quantity",Pop up displ
 ,,,,Click aod sub item variation,Display cart panel Page,,,,
 ,,,,Select another variation,Sucessfully Check the box of the new variation,,,,
 ,,,,Click CONFIRM,Return to cart Page，successfully hange variaton，display new variation,,,,
-[1]Test buyer change AOD main and sub item ,"Cart, Voucher","Shopee app
+[1]Test buyer change AOD main and sub item ,"Cart, Voucher","Marketplace app
 region=ID/BR/TW",IOS/ANDROID/PC,Change aod main item quantity less than purchase limit,success,,,,
 ,,,,Change aod main item quantity larger than purchase limit,"Popup display ""Sorry, you have crossed the purchase limit to enjoy the add on discount/ free gift.""",,,,
 ,,,,Click OK,Return to cart Page,,,,
@@ -118,7 +118,7 @@ region=ID/BR/TW",IOS/ANDROID/PC,Change aod main item quantity less than purchase
 ,,,,"[aod main/sub item qty less than Purchase Limit]
 Click Check Out","Popup display ""You don't have delivery address yet, please create a new one.""",,,,
 [1]Test buyer place order success,"Checkout, Prefulfilment","Success checkout
-Shopee app
+Marketplace app
 region=ID/BR/TW",IOS/ANDROID/PC,Click OK,Redirect to New Address page,,,,
 ,,,,"After filling in the following content : 
 1.Full Name: Fill in any
@@ -144,9 +144,9 @@ the click submit","1.add address successfully
 2.Payment is in pending status",,,,
 ,,,,Click My Purchases button,"1.Redirect to My Purchases Page
 2.Stop at To Ship tab",,,,
-"[1]Test buyer place order success, local seller arrange shipment using shopee app",Seller fulfilment,"Success Checkout 
+"[1]Test buyer place order success, local seller arrange shipment using marketplace app",Seller fulfilment,"Success Checkout 
 region=ID/BR/TW
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → To Ship → To Process",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
@@ -158,7 +158,7 @@ Login seller Center → My Orders → To Ship → To Process",IOS/ANDROID/PC,Cli
 2.After a while, tracking number is displayed",,,,
 ,,,,Click Print Waybill,Successfully Redirect to the next Page,,,,
 "[1]Test buyer place order success, local seller arrange shipment using sellep app ",Seller fulfilment,"Region=ID/BR/TW
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login [Seller App] → My Orders → To Ship → Processed",IOS/ANDROID/PC,Click Processed,Successfully change tab,,,,
@@ -177,14 +177,14 @@ Enter Order admin → Orders → Orders
 ,,,,"Check Order Detail , Click Operator Action Tab ",Should show Download Invoice,,,,
 ,,,,Click Download Invoice Button,Should download invoice successfully,,,,
 [1]Test local seller check detail order,Seller fulfilment,"Region=ID/BR/TW
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login [Seller App] → My Orders → Shipping",IOS/ANDROID/PC,Click Shipping,"1. load order list page successfully
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
 ,,,,In search box，search Order ID(Actually is the Order SN),Able to search successfully,,,,
 [1]Test buyer complete order(receive parcel),Rating,"Success updated fullfillment Order 
-Shopee App
+Marketplace App
 Region=ID/BR/TW
 ",IOS/ANDROID/PC,"Return to client side
 Click ""Check Details""","1.Enter Order Details Page
@@ -211,13 +211,13 @@ Click ""Check Details""","1.Enter Order Details Page
 ,,,,Click Buy Again,"1.success 
 2.Redirect to cart Page
 3.The same item is pre-selected in the cart page ",,,,
-[1]Test local seller check detail order after buyer completed order,Seller Order,"[Shopee App > SC]: ID & TW
+[1]Test local seller check detail order after buyer completed order,Seller Order,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Completed",IOS/ANDROID/PC,In search box，search Order ID(Actually is the Order SN),Able to search successfully,,,,
 ,,,,Click Check Details,"1.Enter Order Details Page
 2. Page data is displayed correctly",,,,
-[2](ID N/A)Test buyer check voucher and PDP item PWG,"Voucher, PDP","Shopee app
+[2](ID N/A)Test buyer check voucher and PDP item PWG,"Voucher, PDP","Marketplace app
 region=BR/TW
 
 1.seller: CB
@@ -253,7 +253,7 @@ Original Price
 Platform Voucher Discount
 Shop Voucher Discount
 Estimated Price
-2.Platform Voucher Discount is from applicable best global shopee discount voucher
+2.Platform Voucher Discount is from applicable best global marketplace discount voucher
 3.Shop Voucher Discount is from applicable best discount shop voucher",,,,
 ,,,,Click View More under PWG,"1.Redirect to PWG landing page
 2.The main items and free gifts can be displayed correctly
@@ -278,7 +278,7 @@ Click View Gifts",Popup the gift selector window,,,,
 Click Done","1. Display ""The item has been added to your cart""
 2. Display ""You have selected X gift"" at the bottom left
 ",,,,
-[2](ID N/A)Test buyer check PDP item PWG and add to cart,"PDP, Cart","Shopee app
+[2](ID N/A)Test buyer check PDP item PWG and add to cart,"PDP, Cart","Marketplace app
 region=BR/TW
 ",IOS/ANDROID/PC,Click Go to Cart,Redirect to the Cart page,,,,
 ,,,,Click image of main item,Redirect to the PDP,,,,
@@ -323,7 +323,7 @@ Return to cart Page，PWG main item preslected，PWG sub item displayd correctly
 ,,,,"Click """"Return to"""" button on top left of Get Free Gift(s) with min. spend Page",Return to cart Page，PWG main item preslected，PWG sub item displayd correctly,,,,
 ,,,,"refresh cart page
 ",display changed PWG sub item ,,,,
-[2](ID N/A)Test buyer change PWG quantity and check  voucher,"Cart, Voucher","Shopee app
+[2](ID N/A)Test buyer change PWG quantity and check  voucher,"Cart, Voucher","Marketplace app
 region=BR/TW
 ",IOS/ANDROID/PC,Change PWG main item quantity less than Purchase Limit,success,,,,
 ,,,,Change PWG main item quantity more than Purchase Limit,"Popup display""Sorry, you have crossed the purchase limit to enjoy the add on discount/ free gift.""",,,,
@@ -337,18 +337,18 @@ Return to cart Page",,,,
 ,,,,Click OK,Back to cart page，applly discount voucher successfully,,,,
 ,,,,Click platform voucher entrance,Display voucher drawer,,,,
 ,,,,"enter platform voucher code, click Apply",Apply voucher successfully,,,,
-,,,,manually select fsv,Success [TH/MY can just apply one of fsv and shopee voucher],,,,
+,,,,manually select fsv,Success [TH/MY can just apply one of fsv and marketplace voucher],,,,
 ,,,,manually select discount voucher,"
-Success [TH/MY can just apply one of fsv and shopee voucher]",,,,
+Success [TH/MY can just apply one of fsv and marketplace voucher]",,,,
 ,,,,Click OK,Back to cart page，applly discount voucher and fsv successfully,,,,
 ,,,,redeem coin,success,,,,
-,,,,Check Textfield in coin component,Redeem m Shopee Coins,,,,
+,,,,Check Textfield in coin component,Redeem m Marketplace Coins,,,,
 ,,,,"Click ""?"" in coin component ",Popup display”This is the maximum amount of Coins you can redeem for the current product selection.“,,,,
 ,,,,Click Read More in popup,Redirect to coin details page,,,,
 ,,,,"Click ""Return to"" button at the top left of coin details page",Return to cart Page,,,,
 ,,,,Check amount in price component ,Discount Detail Page information correctly displayed ,,,,
 ,,,,Click Check Out,Redirect to OPC Page,,,,
-[2](ID N/A)Test buyer place order item PWG use bank transfer as payment method,"Checkout, Voucher, Discount & Coins","Shopee app
+[2](ID N/A)Test buyer place order item PWG use bank transfer as payment method,"Checkout, Voucher, Discount & Coins","Marketplace app
 region=BR/TW
 
 ",IOS/ANDROID/PC,Click Select payment method,Redirect to Payment Method Page,,,,
@@ -369,22 +369,22 @@ region=BR/TW
 2.Payment in pending status",,,,
 ,,,,"Click ""Return to"" button at the top left","1.Redirect to My Purchases Page
 2.Redirect to To Pay tab",,,,
-[2](ID N/A)Test seller CB check the unpaid order,Order Payment,"Shopee app
+[2](ID N/A)Test seller CB check the unpaid order,Order Payment,"Marketplace app
 region=BR/TW
 Login seller Center → My Orders → Unpaid",IOS/ANDROID/PC,"
 Click Unpaid","1. Display Unpaid Orders
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
 ,,,,Click Check Details,"1.Enter Order Details Page
 2. Page information Display Correct ",,,,
-[2](ID N/A)Test buyer paid order PWG,Order Payment,https://shark.test.shopee.io/create-order?type=Tool&subType=41,PC,"
+[2](ID N/A)Test buyer paid order PWG,Order Payment,https://api-internal.company.example/create-order?type=Tool&subType=41,PC,"
 Enter Region and Order ID information ，Click submit",Submit success,,,,
-[2](ID N/A)Test buyer check order success payment,Order Payment,"Shopee app
+[2](ID N/A)Test buyer check order success payment,Order Payment,"Marketplace app
 region=BR/TW",IOS/ANDROID/PC,"
 Click Me page → To Ship","1.Enter My Purchases Page
 2.Stop at To Ship Page
 3.Display Paid orders",,,,
 [2](ID N/A)Test seller CB for shipping arrangement ,Seller fulfilment,"region=BR/TW
-[Shopee App > SC]: BR & TW
+[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 Login seller Center → My Orders → To Ship → To Process]",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
@@ -407,14 +407,14 @@ Enter Order admin → Orders → Orders",PC,Enter Order ID or other information 
 ,,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,,,,
 ,,,,Click Update Fulfilment Status，Change Status to Successful,,,,,
 [2](ID N/A)Test Seller CB check the order detail ,Seller fulfilment,"region=BR/TW
-[Shopee App > SC]: BR & TW
+[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 Login Seller Center → My Orders → Shipping",IOS/ANDROID/PC,Click Shipping,"1. load order list page successfully
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
 ,,,,Search Buyer name in search bar,Search successfully,,,,
 ,,,,Click Check Details,"1.Enter Order Details Page
 2. Page information Display Correct ",,,,
-[2](ID N/A)Test buyer completed order (receive parcel),Order Data & Ops,"Shopee app
+[2](ID N/A)Test buyer completed order (receive parcel),Order Data & Ops,"Marketplace app
 region=BR/TW
 [Buyer]Return to client side",IOS/ANDROID/PC,"
 Click Me page → To Receive","1.Enter My Purchases Page
@@ -441,7 +441,7 @@ Click ""Return to"" button","
 ,,,,Check  order  information ,"1.Status：Rated
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Buy Again button ",,,,
-[3] test buyer check banner flash sales item,"PDP,Cart","Shopee app
+[3] test buyer check banner flash sales item,"PDP,Cart","Marketplace app
 region=ID/TW
 
 1.shop type: mall
@@ -457,7 +457,7 @@ region=ID/TW
 8.coin earn
 
 9.shipping option: non-Integrated
-10.payment method: ShopeePay",IOS/ANDROID/PC,Click product card in shop page,Successfully load PDP Page,,,,
+10.payment method: MarketplacePay",IOS/ANDROID/PC,Click product card in shop page,Successfully load PDP Page,,,,
 ,,,,Check flash sale banner,"1. display upcoming flash sale banner 
 2. display original price ",,,,
 ,,,,Click flash sale banner,Redirect to FLASH_SALE_PAGE,,,,
@@ -493,7 +493,7 @@ Click ""Select Add-ons""","1. Popup the sub item selector window
 ,,,,Click cart carousel,success,,,,
 ,,,,Click Add to Cart,"1.Display cart panel Page
 2. and preselect variation",,,,
-[3] test buyer check cart for banner PWP,"Cart,Voucher","Shopee app
+[3] test buyer check cart for banner PWP,"Cart,Voucher","Marketplace app
 region=ID/TW",IOS/ANDROID/PC,Click cart panel Page > Add to Cart,Successfully add to cart,,,,
 ,,,,Click Icon at the top right of the PDP Page,Enter cart Page,,,,
 ,,,,Check the banner of PWP,"1.Icon : new icon (attached image)
@@ -526,16 +526,16 @@ region=ID/TW",IOS/ANDROID/PC,Click cart panel Page > Add to Cart,Successfully ad
 ,,,,ChangePWP sub item quantity more than Purchase Limit and Click OK,"1.Popup display""You can only buy max {max_qty} of this add on item""
 2.Return to cart Page，pwp sub item qty equal to max_qty",,,,
 ,,,,redeem coin,success,,,,
-,,,,Check textfield under coin component,Redeem m Shopee Coins,,,,
+,,,,Check textfield under coin component,Redeem m Marketplace Coins,,,,
 ,,,,"Click ""?"" under coin component ",Popup display”This is the amount of coins available for redemption.“,,,,
 ,,,,Click OK in Pop-up,Return to cart Page,,,,
 ,,,,Check voucher,already auto apply shop voucher,,,,
 ,,,,Check anount in price component,Discount Detail Page information is Correct ,,,,
 ,,,,Click Check Out,Redirect to OPC Page,,,,
-[3] test buyer select non-integrated shipping option,"Checkout, Prefulfilment","Shopee app
+[3] test buyer select non-integrated shipping option,"Checkout, Prefulfilment","Marketplace app
 region=ID/TW",IOS/ANDROID/PC,Click Shipping option，select Non-Integrated Logistics,success,,,,
 ,,,,Click Select payment method,Redirect to Payment Method Page,,,,
-,,,,select ShopeePay，Click CONFIRM,Return to OPC Page,,,,
+,,,,select MarketplacePay，Click CONFIRM,Return to OPC Page,,,,
 ,,,,"Check OPC Page for 
 1. shop,
 2. item,
@@ -545,7 +545,7 @@ region=ID/TW",IOS/ANDROID/PC,Click Shipping option，select Non-Integrated Logis
 ,,,,Click Place Order,redirect to OSP,,,,
 ,,,,"Click ""Return to"" button at the top left","1.Redirect to My Purchases Page
 2.Redirect to To Ship tab",,,,
-[3] test seller use ship method to send goods,Seller fulfilment,"[Shopee App > SC]: ID & BR
+[3] test seller use ship method to send goods,Seller fulfilment,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 Login seller Center → My Orders → To Ship → To Process",IOS/ANDROID/PC,"
 Click To Ship","1. load order list page successfully
@@ -557,7 +557,7 @@ Click To Ship","1. load order list page successfully
 2.Cam Click Print the Document",,,,
 ,,,,Click Ship,Popup display“Ship # Order ID”,,,,
 ,,,,Enter any Tracking Number，Click Ship,success,,,,
-[3] test seller check shipping detail item,Seller fulfilment,"[Shopee App > SC]: ID & BR
+[3] test seller check shipping detail item,Seller fulfilment,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 [Login seller Center → My Orders → Shipping",IOS/ANDROID/PC,"
 Click Shipping","1. load order list page successfully
@@ -565,7 +565,7 @@ Click Shipping","1. load order list page successfully
 ,,,,In the search bar ，search Product,Search successfully,,,,
 ,,,,Click Check Details,"1.Enter Order Details Page
 2. Page information Display Correct ",,,,
-[3] test buyer completed order ,Rating,"Shopee app
+[3] test buyer completed order ,Rating,"Marketplace app
 region=ID/TW",IOS/ANDROID/PC,"[[Buyer] Return to client side]
 Click Me page → To Receive","1.Enter My Purchases Page
 2.stop at To Receive Page",,,,
@@ -586,7 +586,7 @@ Click Me page → To Receive","1.Enter My Purchases Page
 ,,,,Check order information ,"1.Status：Rated
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Buy Again button ",,,,
-[4]test buyer select item variantion with flash sale,"PDP,Cart,Voucher,Checkout,Prefulfilment,Seller fulfilment, Order Data & Ops, Discount & Coins","Shopee app
+[4]test buyer select item variantion with flash sale,"PDP,Cart,Voucher,Checkout,Prefulfilment,Seller fulfilment, Order Data & Ops, Discount & Coins","Marketplace app
 region=ID/TW
 
 1.promotion: ongoing flash sale
@@ -616,7 +616,7 @@ Click ""Buy now"" in cart panel",Redirect to OPC Page,,,,
 ,,,,"Click ""Add to cart"" in cart panel","
 Add to cart success",,,,
 ,,,,Click Icon at the top right of the PDP Page,Enter cart Page,,,,
-[4]test buyer check item and variantion flash sale in cart ,Cart,"Shopee app
+[4]test buyer check item and variantion flash sale in cart ,Cart,"Marketplace app
 region=ID/TW
 Cart page",IOS/ANDROID/PC,Check item,"1.Correct Display variation
 2.Display price with slash
@@ -635,7 +635,7 @@ Click ""Edit"" on the right of shop",Display Similar and Delete,,,,
 ,,,,"
 Click Return to button",Return to cart Page,,,,
 ,,,,Click Delete,Successfully deleted item,,,,
-"[4]test buyer edit item, redeem coin, check voucher in cart ","Cart,Voucher","Shopee app
+"[4]test buyer edit item, redeem coin, check voucher in cart ","Cart,Voucher","Marketplace app
 region=ID/TW
 Cart page",IOS/ANDROID/PC,"Click ""Edit"" at top right of cart Page",Display Move to My Likes and Delete,,,,
 ,,,,Click Move to My Likes,"1.success
@@ -648,18 +648,18 @@ Check item",Contains item that has just been added to Move to My Likes,,,,
 ,,,,"Click ""Add to cart"" under cart panel",Added successfully,,,,
 ,,,,Click shopping cart icon at the top right of My Likes Page,Enter cart Page,,,,
 ,,,,redeem coin,success,,,,
-,,,,Check textfield in coin component,Redeem m Shopee Coins,,,,
+,,,,Check textfield in coin component,Redeem m Marketplace Coins,,,,
 ,,,,"Click ""?"" in coin component ",Popup display”This is the maximum amount of Coins you can redeem today.“,,,,
 ,,,,"Click ""OK"" in Pop-up ",Return to cart Page,,,,
 ,,,,Check voucher,already auto apply shop voucher and fsv,,,,
 ,,,,Check amount in price amount,Discount Detail Page information Correct ,,,,
 ,,,,Click Check Out,"1.Page load normally
 2.voucher preselected",,,,
-[4]test buyer select integrated shipping option,"Checkout, Prefulfilment","Shopee app
+[4]test buyer select integrated shipping option,"Checkout, Prefulfilment","Marketplace app
 region=ID/TW",IOS/ANDROID/PC,Check voucher,OPC Page already auto apply shop voucher and fsv,,,,
 ,,,,Click Shop Vouchers,Enter voucher Page,,,,
 ,,,,Manually select another shop voucher，Click OK,success,,,,
-,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,,,,
 ,,,,Manually select another fsv and non-fsv，Click OK,success,,,,
 ,,,,Click shipping option，select Integrated Logistics,success,,,,
 ,,,,Click Select payment method,Redirect to Payment Method Page,,,,
@@ -677,7 +677,7 @@ select SpayLater，Click CONFIRM",Return to OPC Page,,,,
 2.Redirect to To Ship tab",,,,
 "[4]test buyer select integrated shipping option, seller use only supported (pick up) method to arrange shipment.","Seller fulfilment
 ","region=ID/TW
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 Login seller Center → My Orders → To Ship → To Process",IOS/ANDROID/PC,"
 Click To Ship","1. load order list page successfully
@@ -701,14 +701,14 @@ After Entering Order ID or other information, Click Search",Search successfully,
 ,,,,Click Update Fulfilment Status，Change Status to Successful,,,,,
 "[4]test buyer select integrated shipping option, seller use only supported (pick up) method to arrange shipment.","Seller fulfilment
 ","region=ID/TW
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 Login seller Center → My Orders → Shipping",IOS/ANDROID/PC,"
 Click Shipping","1. load order list page successfully
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
 ,,,,Find the order ，Click Check Details,"1.Enter Order Details Page
 2. Page information Display Correct ",,,,
-[4]test buyer completed order and give rating,Rating,"Shopee app
+[4]test buyer completed order and give rating,Rating,"Marketplace app
 region=ID/TW
 [Buyer] Return to client side",IOS/ANDROID/PC,"
 Click Me page → To Receive","1.Enter My Purchases Page
@@ -732,7 +732,7 @@ Click Me page → To Receive","1.Enter My Purchases Page
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Buy Again button ",,,,
 ,,,,Click order ,Enter Order Details Page,,,,
-"[4]After buyer receive parcel, buyer request return and refund",Return Refund,"Shopee app
+"[4]After buyer receive parcel, buyer request return and refund",Return Refund,"Marketplace app
 region=ID/TW",IOS/ANDROID/PC,Click Return/Refund,Enter Item Selection section,,,,
 ,,,,Check Item Selection section,"1. Bundle Item card display ""Bundle Buy X get Y free"" on the buttom
 2. Top banner is ""If you have multiple products to refund, please submit all products in a single request.""
@@ -764,9 +764,9 @@ region=ID/TW",IOS/ANDROID/PC,Click Return/Refund,Enter Item Selection section,,,
 ,,,,Check  order  information ,"1.Status：Rated
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Buy Again button ",,,,
-[5](ID N/A)Test buyer check PDP for item bundle deal ,"PDP,Cart","Shopee app
+[5](ID N/A)Test buyer check PDP for item bundle deal ,"PDP,Cart","Marketplace app
 region=BR/TW
-[Shopee App > SC]: BR & TW
+[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 1.seller: local
@@ -797,7 +797,7 @@ Click Return to  button in OPC page",Return to PDP Page,,,,
 ,,,,Click Select Variation,Display cart panel Page,,,,
 ,,,,Select variation in cart panel Page,success,,,,
 ,,,,Click Add to Cart,Successfully added to cart,,,,
-[5](ID N/A)Test buyer check cart for item bundle ,Cart,"Shopee app
+[5](ID N/A)Test buyer check cart for item bundle ,Cart,"Marketplace app
 region=BR/TW
 User in PDP page",IOS/ANDROID/PC,Click Icon at the top right of the PDP Page,Enter cart Page,,,,
 ,,,,Check Bundle Deal banner,"1.Icon : new icon (attached image)
@@ -826,19 +826,19 @@ No more tier bundle deal","1.success
 ,,,,Cancel selection of item,success,,,,
 ,,,,"[item is in selected (ticked) Status]
 Check voucher","already auto apply shop voucher, platform voucher and fsv
-[TH/MY can just apply one of fsv and shopee voucher]",,,,
+[TH/MY can just apply one of fsv and marketplace voucher]",,,,
 ,,,,Click Shop Vouchers,Enter voucher Page,,,,
 ,,,,Manually select another shop discount voucher，Click OK,success,,,,
-,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,,,,
 ,,,,Manually select another fsv and coin cashback voucher，Click OK,success,,,,
 ,,,,redeem coin,success,,,,
 ,,,,Check amount in price component,Information in Discount Detail Page is Correct ,,,,
 ,,,,Click Check Out,Page load as expeced,,,,
-[5](ID N/A)Test buyer place order success,"Checkout, Prefulfilment","Shopee app
+[5](ID N/A)Test buyer place order success,"Checkout, Prefulfilment","Marketplace app
 Region=BR/TW",IOS/ANDROID/PC,Check voucher,Same with the voucher selected at cart page,,,,
 ,,,,Click Shop Vouchers,Enter voucher Page,,,,
 ,,,,Manually select another shop discount voucher，Click OK,success,,,,
-,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,,,,
 ,,,,Manually select another fsv and coin cashback voucher，Click OK,success,,,,
 ,,,,Click Shipping option，select Non-Integrated Logistics,success,,,,
 ,,,,Click Select payment method,Redirect to Payment Method Page,,,,
@@ -855,7 +855,7 @@ Region=BR/TW",IOS/ANDROID/PC,Check voucher,Same with the voucher selected at car
 ,,,,Click Me page → To Ship,"1.Enter My Purchases Page
 2.stop at To Receive Page",,,,
 "[5](ID N/A)Test buyer place order success, local seller arrange shipment.",Seller Fullfillment,"region=BR/TW
-[Shopee App > SC]: BR & TW
+[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,"Click To Ship
 ","load order list page successfully
@@ -891,14 +891,14 @@ After Entering Order ID or other information, Click Search",Search successfully,
 ,,,,Click Update Fulfilment Status，Change Status to Outbound Successful,success,,,,
 ,,,,Click Update Fulfilment Status，Change Status to Successful,success,,,,
 [5](ID N/A)Test local seller arrange shipment,Seller Fullfillment,"region=BR/TW
-[Shopee App > SC]: BR & TW
+[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 Login seller Center → My Orders → Shipping",IOS/ANDROID/PC,"
 Click Shipping","1. load order list page successfully
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
 ,,,,Find the order ，Click Check Details,"1.Enter Order Details Page
 2. Page information Display Correct ",,,,
-[5](ID N/A)Test buyer completed order,Order Data & Ops,"Shopee app
+[5](ID N/A)Test buyer completed order,Order Data & Ops,"Marketplace app
 Region=BR/TW 
 Order is already in tab To Receive
 ",IOS/ANDROID/PC,"[[Buyer] Return to client side]
@@ -906,7 +906,7 @@ Click Me page → To Receive","1.Enter My Purchases Page
 2.stop at To Receive Page",,,,
 ,,,,Click the order ,"1.Enter Order Details Page
 2.Display Your order is on the way / Your order has been delivered",,,,
-[5](ID N/A)Test buyer request return/refund before receiving parcel,Return Refund,"Shopee app
+[5](ID N/A)Test buyer request return/refund before receiving parcel,Return Refund,"Marketplace app
 Region=BR/TW 
 [FE
 1.Refund stage: To-Receive
@@ -936,13 +936,13 @@ To Receive PageClick Return/Refund",Enter How can we help Page，Guide to refund
 ,,,,Return to Me Page,success,,,,
 ,,,,Me → Return/Refund,"1.Enter My Purchase Page
 2.stop at Return Refund tab",,,,
-,,,,Check order Status,"1.Status：Shopee Reviewing
+,,,,Check order Status,"1.Status：Marketplace Reviewing
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Return Refund Details button ",,,,
 [5](ID N/A)Test Order Admin check Return Status,"Return Refund, Order Data & Ops","Order Admin
 Region=BR/TW 
 order admin-Return & Refund Details-Refund",PC,order admin-Return & Refund Details set Return Status: PROCESSING,success,,,,
-[5](ID N/A)Test buyer self arrange shipping,Return Refund,"Shopee app
+[5](ID N/A)Test buyer self arrange shipping,Return Refund,"Marketplace app
 Region=BR/TW ",IOS/ANDROID/PC,Me → Return/Refund → Check order Status,"1.Status：Return Pending
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Return Refund Details button ",,,,
@@ -975,7 +975,7 @@ Full Refund",,,,
 ,,,,Click Wait for Return,"1.success
 2. order Status is Return Pending
 3. button display Refund",,,,
-[5](ID N/A)Test buyer arrange shipment for order return,Return Refund,"Shopee app
+[5](ID N/A)Test buyer arrange shipment for order return,Return Refund,"Marketplace app
 Region=BR/TW 
 [Buyer] order admin-Return & Refund Details设置Logistics Status: DELIVERY_DONE",IOS/ANDROID/PC,"
 Me → Return/Refund → Check order Status","1.Status：Validation In Progress
@@ -986,7 +986,7 @@ Me → Return/Refund → Check order Status","1.Status：Validation In Progress
 ,,,,Click View on the right of Return Shipping Details,Enter Return Shipping Details Page，Display Self Arrange text and Return Address,,,,
 ,,,,"Click ""Return to"" button at the top left",Return to Return/Refund Details Page,,,,
 [5](ID N/A)Test seller Return Refund,Return Seller,"region=BR/TW
-[Shopee App > SC]: BR & TW
+[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,"
 Enter Return Request ID (also Return SN) then Click Apply","1. load order list page successfully
@@ -996,25 +996,25 @@ Enter Return Request ID (also Return SN) then Click Apply","1. load order list p
 3.Return Refund Details",,,,
 ,,,,Click order ，Enter Return/Refund Details Page,Display Deliver Address(TW don't display) and Pick Up Address,,,,
 [5](ID N/A)Test seller accept refund,Return Refund,"region=BR/TW
-[Shopee App > SC]: BR & TW
+[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 Login seller Center → My Orders → Return/Refund configure Refund",IOS/ANDROID/PC,Click Refund,Popup displayAccept Refund(Full),,,,
 ,,,,Click Accept,success，prompt Refund in Progress,,,,
-[5](ID N/A)Test buyer for refund approved,Return Refund,"Shopee app
+[5](ID N/A)Test buyer for refund approved,Return Refund,"Marketplace app
 Region=BR/TW ",IOS/ANDROID/PC,"
 Client side Click order ，Enter Return/Refund Details Page",Refund approved,,,,
 [5](ID N/A)Test order admin for refund completed,,,,Client side Click order ，Enter Return/Refund Details Page,Display Refund Completed,,,,
-[5](ID N/A)Test buyer for voucher and coin returned,"Voucher,Discount & Coins","Shopee app
+[5](ID N/A)Test buyer for voucher and coin returned,"Voucher,Discount & Coins","Marketplace app
 Region=BR/TW ",IOS/ANDROID/PC,"
 Check voucher、coin and  amount etc, field returned",All field returned,,,,
 [5](ID N/A)Test seller for checking refund completed,Return Refund,"region=BR/TW
-[Shopee App > SC]: BR & TW
+[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,"
 Check  order Status",Refund Completed,,,,
 ,,,,Click Return Refund Details,"1.Enter Return/Refund Details Page， Page information Correct 
 2.Status is Refund Completed",,,,
-[6]Test buyer check PDP for bundle deal item ,"PDP,Cart","Shopee app
+[6]Test buyer check PDP for bundle deal item ,"PDP,Cart","Marketplace app
 Region=BR/TW ",IOS/ANDROID/PC,Enter PDP Page,Successfully load PDP Page,,,,
 ,,,,Click Add to Cart,Successfully added variation A,,,,
 ,,,,Click cart icon at the top right of Me Page,Enter cart Page,,,,
@@ -1049,19 +1049,19 @@ No more tier bundle deal","1.success
 ,,,,Unselect item,success,,,,
 ,,,,"[item is in selected (ticked) Status]
 Check voucher","already auto apply shop voucher, platform voucher and fsv
-[TH/MY can just apply one of fsv and shopee voucher]",,,,
+[TH/MY can just apply one of fsv and marketplace voucher]",,,,
 ,,,,Click Shop Vouchers,Enter voucher Page,,,,
 ,,,,Unselect shop voucher，Click OK,success,,,,
-,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,,,,
 ,,,,Unselect platform voucher and fsv,success,,,,
 ,,,,redeem coin,cannot redeem,,,,
 ,,,,Check price component  amount ,Discount Detail Page information are correct ,,,,
 ,,,,Click Check Out,Page load successfully,,,,
-[6]Test buyer place order success,"Voucher, Checkout, Prefulfilment","Shopee app
+[6]Test buyer place order success,"Voucher, Checkout, Prefulfilment","Marketplace app
 Region=BR/TW ",IOS/ANDROID/PC,Check voucher,voucher component is empty,,,,
 ,,,,Click Shop Vouchers,Enter voucher Page,,,,
 ,,,,Manually select shop voucher，Click OK,success,,,,
-,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,,,,
 ,,,,Manually select fsv and platform voucher，Click OK,success,,,,
 ,,,,Click Shipping option，select Integrated Logistics,success,,,,
 ,,,,Check Payment Option,pre select Cash On Delivery,,,,
@@ -1086,7 +1086,7 @@ Region=BR/TW ",IOS/ANDROID/PC,Check voucher,voucher component is empty,,,,
 ,,,,Click Product,Enter product_snapshot_page,,,,
 ,,,,"Click ""COPY"" on the right of Order ID",Prompt Copied successfully,,,,
 ,,,,Click Contact Seller,Enter chat Page,,,,
-[6]Test seller CB seller arrange shipment,Seller fulfilment,"[Shopee App > SC]: ID & BR
+[6]Test seller CB seller arrange shipment,Seller fulfilment,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
@@ -1110,7 +1110,7 @@ Region=BR/TW
 Enter Order admin → Orders → Orders",PC,Click Update Fulfilment Status，Change Status to Successful,success,,,,
 [6]Test CB seller arrange shipment,Seller fulfilment,"Order Admin
 Region=BR/TW 
-[Shopee App > SC]: ID & BR
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → Shipping",IOS/ANDROID/PC,Click Shipping,"1. load order list page successfully
@@ -1130,7 +1130,7 @@ BE
 3.""flow_type"": 2
 4.""integration_type"": 1 (integrated)
 
-DMS portal: https://dms.cs.test.shopee.com.br/portal/info/search",PC,Click Return/Refund on order details pages under Info Search in DMS portal,success,,,,
+DMS portal: https://dms.cs.test.marketplace.com.br/portal/info/search",PC,Click Return/Refund on order details pages under Info Search in DMS portal,success,,,,
 ,,,,Click Select Reason,Popup displaySelect Reason,,,,
 ,,,,select reason as NOT Counterfeit， and Click Confirm,"1.Return to Request Return/Refund Page
 2.Correct Display  selected Reason",,,,
@@ -1152,7 +1152,7 @@ Enter Order admin → Orders → Return Refund
 
 ",PC,Check Order Admin Return status and Reverse Logistics status,"1. Return Status is Processing
 2. Reverse Logistics Status is Pending Arrange",,,,
-"[6]Test buyer place order success, CB seller arrange shipment, request return/refund after receive parcel",Return & Refund,"Shopee app
+"[6]Test buyer place order success, CB seller arrange shipment, request return/refund after receive parcel",Return & Refund,"Marketplace app
 Region=BR/TW ",IOS/ANDROID/PC,Me → Return/Refund → Check order Status,"1.Status：Return Pending
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Return Refund Details button ",,,,
@@ -1171,7 +1171,7 @@ Enter Order admin → Orders → Return Refund
 
 ",PC,Check Order Admin Negotiation status and Reverse Logistics status,"1. Reverse Logistics Status is Ready
 2. Negotiation Status is Pending",,,,
-[6]Test buyer offer partial refund ,Return Seller,"[Shopee App > SC]: ID & BR
+[6]Test buyer offer partial refund ,Return Seller,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Return/Refund",IOS/ANDROID/PC,Enter Return Request ID (also known as Return SN) then click apply,"1. load order list page successfully
@@ -1200,7 +1200,7 @@ Enter Order admin → Orders → Return Refund
 
 
 ",PC,Check Order Admin Negotiation status,1. Negotiation Status is Ongoing,,,,
-[6]Test seller counter refund,Return & Refund,"Shopee app
+[6]Test seller counter refund,Return & Refund,"Marketplace app
 Region=BR/TW 
 [Buyer]",IOS/ANDROID/PC,Me → Return/Refund → Check order Status,"1.Status：Pending Your Review
 2.Qty, Amount and Order Total etc. information are correct
@@ -1218,7 +1218,7 @@ Region=BR/TW
 ,,,,Click confirm,Prompt ounter success,,,,
 "[6]Test buyer to respond 
 
-",Return Seller,"[Shopee App > SC]: ID & BR
+",Return Seller,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Return/Refund",IOS/ANDROID/PC,Enter Return Request ID (Return SN)ClickApply,"1. load order list page successfully
@@ -1233,7 +1233,7 @@ Counter",,,,
 
 
 
-",Return & Refund,"Shopee app
+",Return & Refund,"Marketplace app
 Region=BR/TW 
 [Buyer]",IOS/ANDROID/PC,Me → Return/Refund → Check order Status,"1.Status：Pending Seller's Response
 2.Qty, Amount and Order Total etc. information are correct
@@ -1246,7 +1246,7 @@ Region=BR/TW
 
 
 
-",Return Seller,"[Shopee App > SC]: ID & BR
+",Return Seller,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Return/Refund",IOS/ANDROID/PC,Enter Return Request ID (Return SN) then click apply,"1. load order list page successfully
@@ -1259,7 +1259,7 @@ Refund",,,,
 
 
 
-",Return & Refund,"Shopee app
+",Return & Refund,"Marketplace app
 Region=BR/TW 
 [Buyer]",IOS/ANDROID/PC,"Click Select Shipping option
 ","Redirect to Shipping Information Page
@@ -1291,7 +1291,7 @@ Order admin-Return & Refund Details set Logistics Status: DELIVERY_DONE",PC,Me �
 
 
 
-",Return Seller,"[Shopee App > SC]: ID & BR
+",Return Seller,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller cEnter → Return/Refund",IOS/ANDROID/PC,Click Refund button in Return List Page,success,,,,
@@ -1306,14 +1306,14 @@ Login Seller cEnter → Return/Refund",IOS/ANDROID/PC,Click Refund button in Ret
 Order admin-Return & Refund Details
 Order admin-Return & Refund Details-Refund Information-Refund ID set Refund Status: REFUND_CREATED → REFUND_VERIFIED → REFUND_PAYOUT → REFUND_PAID",PC,Check Return Status,Return Status is ACCEPTED,,,,
 ,,,,Click order ，Enter Return/Refund Details Page,Display Refund Completed,,,,
-[6]Test buyer check voucher and coin returned,"Voucher, Discount & Coins","Shopee app
+[6]Test buyer check voucher and coin returned,"Voucher, Discount & Coins","Marketplace app
 Region=BR/TW 
 [Buyer]",IOS/ANDROID/PC,Check voucher and coin returned,"1.for coin: return
 2.for platform voucher > yes
 3.for shop voucher > it depends.
 If the shop voucher applies two items, and u only return 1 item, then this voucher will not be returned; if u return two items, then this voucher will be returned. the principle is that we will only return vouchers when all items that apply voucher's discount are refunded",,,,
 [6]Test seller rating order,Return Seller,"Region=BR/TW 
-[Shopee App > SC]: ID & BR
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,Check  order ,Completed refund,,,,
@@ -1322,12 +1322,12 @@ Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,Check  order
 ,,,,Refresh Return Detail page,The submitted rating feedback still be retained,,,,
 "[6]Test buyer rating order
 
-",Rating,"Shopee app
+",Rating,"Marketplace app
 Region=BR/TW 
 [Buyer]",IOS/ANDROID/PC,Click Rating in Return Detail page,"1. Open Rating popup
 2. Submit rating feedback success",,,,
 ,,,,Refresh Return Detail page,The submitted rating feedback still be retained,,,,
-"[7]Test buyer add normal item, AOD , PWP and PWG to cart","PDP, Voucher, Discount & Coins","Shopee app
+"[7]Test buyer add normal item, AOD , PWP and PWG to cart","PDP, Voucher, Discount & Coins","Marketplace app
 Region=ID/BR
 1.shop type: mall
 2.item
@@ -1350,17 +1350,17 @@ Region=ID/BR
 ,,,,Click on Checkbox on shop level,Successfully selected all products under that shop,,,,
 ,,,,Change item quanitity to get the previously set promotions (AOD/PWP/PWG etc),success,,,,
 ,,,,Check voucher,"already auto apply shop voucher, platform voucher and fsv
-[TH/MY can just apply one of fsv and shopee voucher]",,,,
+[TH/MY can just apply one of fsv and marketplace voucher]",,,,
 ,,,,redeem coin,cannot redeem,,,,
 ,,,,Check amount in price component,Information in Discount Detail Page  displayed correctly,,,,
 ,,,,Click Check Out,Redirect to OPC Page,,,,
 ,,,,"Click ""Return to"" button in OPC Page",Return to cart Page,,,,
-[7]Test buyer place order success,"Checkout, Voucher","Shopee app
+[7]Test buyer place order success,"Checkout, Voucher","Marketplace app
 Region=ID/BR
 At OPC Page",IOS/ANDROID/PC,Check voucher,Same voucher auto applied in cart page,,,,
 ,,,,Click Shop Vouchers,Enter voucher Page,,,,
 ,,,,Cancel select shop voucher，Click OK,success,,,,
-,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,,,,
 ,,,,Cancel select fsv and platform voucher，Click OK,success,,,,
 ,,,,Check Payment Option,pre select Bank Transfer,,,,
 ,,,,"Check OPC Page for 
@@ -1372,7 +1372,7 @@ At OPC Page",IOS/ANDROID/PC,Check voucher,Same voucher auto applied in cart page
 ,,,,Click Place Order,"1.redirect to OSP
 2.Payment in pending status",,,,
 ,,,,Click Home button,Return to homepage,,,,
-[7]Test buyer change delivery address,Order Payment,"Shopee app
+[7]Test buyer change delivery address,Order Payment,"Marketplace app
 Region=ID/BR
 Me-To Pay",IOS/ANDROID/PC,Me-To Pay,"1.Redirect to To Pay
 2.Order displayed under To-Pay",,,,
@@ -1387,14 +1387,14 @@ Me-To Pay",IOS/ANDROID/PC,Me-To Pay,"1.Redirect to To Pay
 ,,,,"Click ""COPY"" on the right of Order ID",Prompt Copied successfully,,,,
 ,,,,Click Contact Seller,Enter chat Page,,,,
 ,,,,"Click ""CHANGE"" on the right of Payment Method",Enter Payment Method Page,,,,
-,,,,select new payment method: ShopeePay,select success,,,,
+,,,,select new payment method: MarketplacePay,select success,,,,
 ,,,,Click CONFIRM,"1. Click successfully
 2. Redirect to payment Page",,,,
 ,,,,Complete payment,"
 success",,,,
 [7]Test seller spilt order,Seller fulfilment,"
 Region=ID/BR
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
@@ -1413,14 +1413,14 @@ Enter Order admin → Orders → Orders",PC,Enter Order ID or other  information
 ,,,,Click Update Fulfilment Status，Change Status to Successful,,,,,
 [7]Test seller arrange shipment,Seller fulfilment,"
 Region=ID/BR
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Shipping",IOS/ANDROID/PC,Click Shipping,"1. load order list page successfully
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
 ,,,,Find the order ，Click Check Details,"1.Enter Order Details Page
 2. Page information Display Correct ",,,,
-[7]Test buyer completed order ,Order Data & Ops,"Shopee app
+[7]Test buyer completed order ,Order Data & Ops,"Marketplace app
 Region=ID/BR
 [Buyer] Return to client side",IOS/ANDROID/PC,Click Me page → View Purchases → To Receive,"1.Enter My Purchases Page
 2.stop at To Receive Page",,,,
@@ -1430,7 +1430,7 @@ Region=ID/BR
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Rate button ",,,,
 ,,,,Click order ,Enter Order Details Page,,,,
-[7]Test buyer chatbot raise RR,Return & Refund,"Shopee app
+[7]Test buyer chatbot raise RR,Return & Refund,"Marketplace app
 Region=ID/BR
 FE
 1.Refund stage: To-receive
@@ -1444,7 +1444,7 @@ BE
 "[7]Test buyer place order success, seller arrange shipment, buyer raise return/refund before receive parcel( return refund-full non adjustable-Pickup)",Return & Refund,"Region=ID/BR
 Order admin-Return & Refund Details
 ",PC,Check Order Admin Return Status,Return status is Judging,,,,
-[7]Test buyer discuss with agent ,Return & Refund,"Shopee app
+[7]Test buyer discuss with agent ,Return & Refund,"Marketplace app
 Region=ID/BR",IOS/ANDROID/PC,Check Return Detail Page,"1. Return status is ""Case Under Review""
 2. Hint text is shown
 3. Action Button list {Discuss with Agent, Cancel Request}",,,,
@@ -1453,8 +1453,8 @@ Region=ID/BR",IOS/ANDROID/PC,Check Return Detail Page,"1. Return status is ""Cas
 3. send image message success
 4. send video message success",,,,
 [7]Test buyer check return ,Return & Refund,"Region=ID/BR
-[Shopee App > SC]: ID & TW
-[Standalone Seller App]: Other countries",IOS/ANDROID/PC,Check Return List Page,"1. Return status is ""In Shopee Review""
+[Marketplace App > SC]: ID & TW
+[Standalone Seller App]: Other countries",IOS/ANDROID/PC,Check Return List Page,"1. Return status is ""In Marketplace Review""
 2. Hint text is shown
 3. Action Button list {Refund}",,,,
 ,,,,Check Return Detail Page,"1. Return status is ""Case Under Review""
@@ -1464,10 +1464,10 @@ Region=ID/BR",IOS/ANDROID/PC,Check Return Detail Page,"1. Return status is ""Cas
 Order admin-Return & Refund Details set Logistics Status: DELIVERY_DONE
 ",PC,order admin-Return & Refund Details set Return Status: Processing,success,,,,
 [7]Test seller Offer Partial Refund ,Return Seller,"Region=ID/BR
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries",IOS/ANDROID/PC,Click Offer Partial Refund button in Return List Page,success,,,,
 ,,,,Input Refund Amount <= Max refundable then click Submit button,success,,,,
-[7]Test buyer Reject and Refund ,Return & Refund,"Shopee app
+[7]Test buyer Reject and Refund ,Return & Refund,"Marketplace app
 Region=ID/BR
 [Buyer] Return Detail Page",IOS/ANDROID/PC,Click [Discuss with Seller],"1. navigate to a chat room
 2. send text message success
@@ -1477,7 +1477,7 @@ Region=ID/BR
 [7]Test order admin check negotiation status,Return & Refund,"Region=ID/BR
 Order admin-Return & Refund Details
 ",PC,Check OA negotiation status,OA negotiation status is TERMINATED,,,,
-[7]Test buyer select shipping option for return,Return & Refund,"Shopee app
+[7]Test buyer select shipping option for return,Return & Refund,"Marketplace app
 Region=ID/BR
 Return to buyer app >> order detail",IOS/ANDROID/PC,Click Select Shipping option,Redirect to Shipping Information Page,,,,
 ,,,,Click Select Shipping option,Redirect to Shipping Information Page,,,,
@@ -1493,7 +1493,7 @@ Order admin-Return & Refund Details set Logistics Status: DELIVERY_DONE
 ",PC,Check OA reverse logistics status,return logistics is PCKUP_DONE,,,,
 [7]Test buyer request refund,Return Seller,"
 Region=ID/BR
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Return/Refund","IOS/ANDROID/PC
@@ -1517,7 +1517,7 @@ Order admin-Return & Refund Details set Logistics Status: DELIVERY_DONE
 ,,,,Click order ，Enter Return/Refund Details Page,"1.Display Validation In Progress
 2.Display due date information below",,,,
 [7]Test seller doing dispute,Return Seller,"Region=ID/BR
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Return/Refund",IOS/ANDROID/PC,Enter Return Request ID (Return SN) then click apply,"1. load order list page successfully
@@ -1536,7 +1536,7 @@ Dispute
 ,,,,"
 Upload image and video",success to upload image and video,,,,
 ,,,,Click [Submit] button,success submit dispute,,,,
-[7]Test buyer discuss with agent ,Return & Refund,"Shopee app
+[7]Test buyer discuss with agent ,Return & Refund,"Marketplace app
 Region=ID/BR",IOS/ANDROID/PC,Check Return List Page,"1. Return status is ""In Dispute""
 2. No Hint Text
 3. No Action Button",,,,
@@ -1553,14 +1553,14 @@ Region=ID/BR",IOS/ANDROID/PC,Check Return List Page,"1. Return status is ""In Di
 4. send video message success",,,,
 [7]Test DMS portal ,Return & Refund,"
 Region=ID/BR
-DMS portal: https://dms.cs.test.shopee.com.br/dispute/overview",PC,Open DMS portal and switch to Dispute tab,success to open dispute tab,,,,
+DMS portal: https://dms.cs.test.marketplace.com.br/dispute/overview",PC,Open DMS portal and switch to Dispute tab,success to open dispute tab,,,,
 ,,,,Search by RSN and assign the case to yourself,able to search RSN and show the list,,,,
 ,,,,Click [View] button and nagivate to Dispute Case Detial page,success navigate to dispute case detail,,,,
 ,,,,Click [Judge] and select [Accept Refund Only] ,success to click jugde and accept refund only,,,,
 ,,,,Fill in the form then click [Confirm],success click confirm,,,,
 ,,,,Check OA return status,return status is ACCEPTED,,,,
 [7]Test buyer download invoice,Return & Refund,"Region=ID/BR
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Validate API
@@ -1569,17 +1569,17 @@ Order admin-Return & Refund Details-Refund Information-Refund ID set Refund Stat
 Order admin-order details page",IOS/ANDROID/PC,Click order ，Enter Return/Refund Details Page,Display Refund approved,,,,
 ,,,,Click order ，Enter Return/Refund Details Page,Display Refund Completed,,,,
 ,,,,Click order ,able to download invoice,,,,
-[7]Test buyer check invoice generated ,Order Data & Ops,"Shopee app
-Region=ID/BR",IOS/ANDROID/PC,Check ShopeePay amount,Correcty refunded,,,,
+[7]Test buyer check invoice generated ,Order Data & Ops,"Marketplace app
+Region=ID/BR",IOS/ANDROID/PC,Check MarketplacePay amount,Correcty refunded,,,,
 ,,,,Check order completed list,"1. invoice is generated
 2. Can see the invoice with correct value",,,,
 [7]Test seller completed refund ,Order Data & Ops,"
 Region=ID/BR
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,Check  order ,Completed refund,,,,
-[8]Test buyer PDP and cart,"PDP, Cart, Voucher, Discount & Coins","Shopee app
+[8]Test buyer PDP and cart,"PDP, Cart, Voucher, Discount & Coins","Marketplace app
 Region=ID/TW
 1.shop type: supermarket
 
@@ -1591,9 +1591,9 @@ Region=ID/TW
 
 6.coin: cannot redeem coin
 
-7.used ShopeePay last time
+7.used MarketplacePay last time
 8.balance is sufficient
-9.payment method: pre select ShopeePay",IOS/ANDROID/PC,Enter PDP Page,Successfully load PDP Page,,,,
+9.payment method: pre select MarketplacePay",IOS/ANDROID/PC,Enter PDP Page,Successfully load PDP Page,,,,
 ,,,,Click Buy Now,Successfully redirected to OPC Page,,,,
 ,,,,Click Return to  button in OPC page ,Return to PDP Page,,,,
 ,,,,Click Add to Cart,Successfully add to cart,,,,
@@ -1605,14 +1605,14 @@ Change item quantity more than 1",success,,,,
 ,,,,Check voucher,"1.Have not applied shop voucher
 2.Have not applied platform voucher
 3.auto apply fsv",,,,
-,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+,,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,,,,
 ,,,,Manually Click fsv，Click OK,"1,success
 2.Return to cart Page",,,,
 ,,,,redeem coin,cannot redeem,,,,
 ,,,,Check amount in price component,Information in Discount Detail Page displayed correctly,,,,
 ,,,,Click Check Out,page load successfully ,,,,
 ,,,,Check voucher,voucher information  and cart Page are the same,,,,
-,,,,Check Payment Option,pre select ShopeePay,,,,
+,,,,Check Payment Option,pre select MarketplacePay,,,,
 ,,,,"Check OPC Page for 
 1. shop,
 2. item,
@@ -1624,7 +1624,7 @@ Change item quantity more than 1",success,,,,
 ,,,,Click My Purchases button,"1.Redirect to My Purchases Page
 2.Redirect to To Ship tab",,,,
 ,,,,Click the order ,Redirect to Order Details Page,,,,
-[8]Test seller arrange shipment,Seller fulfilment,"[Shopee App > SC]: BR & TW
+[8]Test seller arrange shipment,Seller fulfilment,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
@@ -1641,14 +1641,14 @@ Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. 
 ,,,,Click Update Fulfilment Status，Change Status To Request Created,success,,,,
 ,,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,,,,
 ,,,,Click Update Fulfilment Status，Change Status to Successful,,,,,
-[8]Test seller check order detail on tab shipping,Seller fulfilment,"[Shopee App > SC]: BR & TW
+[8]Test seller check order detail on tab shipping,Seller fulfilment,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Shipping",IOS/ANDROID/PC,Click Shipping,"1. load order list page successfully
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
 ,,,,Find the order ，Click Check Details,"1.Enter Order Details Page
 2. Page information Display Correct ",,,,
-[8]Test buyer order receive,Return & Refund,"Shopee app
+[8]Test buyer order receive,Return & Refund,"Marketplace app
 Region=ID/TW
 [Buyer] Return to buyer side",IOS/ANDROID/PC,Click Me page → View Purchases → To Receive,"1.Enter My Purchases Page
 2.stop at To Receive Page",,,,
@@ -1663,7 +1663,7 @@ Region=ID/TW
 
 
 
-",Return & Refund,"Shopee app
+",Return & Refund,"Marketplace app
 Region=ID/TW
 FE
 1.Refund stage: Received Package
@@ -1686,21 +1686,21 @@ BE
 ,,,,add video,success,,,,
 ,,,,Click Submit,"1.Enter Return/Refund Details Page
 2.Display Evidence requested",,,,
-,,,,Click Discuss,Enter Discuss With Shopee Page,,,,
+,,,,Click Discuss,Enter Discuss With Marketplace Page,,,,
 ,,,,Click Upload Evidence,Enter Upload Evidence Page,,,,
 ,,,,Upload Photo/Video， and Click Submit,"1.Return to Return/Refund Details Page
 2.Display Evidence submitted",,,,
 "[8]Test buyer refund completed
-",Return & Refund,"Shopee App
+",Return & Refund,"Marketplace App
 Region=ID/TW
-https://cs.test.shopee.co.id/dms/user/manage/account set accept judging
+https://cs.test.marketplace.co.id/dms/user/manage/account set accept judging
 ",IOS/ANDROID/PC,Enter Return/Refund Details Page,Display Refund Completed,,,,
-[8]Test buyer check shopeepay balance and voucher,Voucher,"Shopee app
-Region=ID/TW",IOS/ANDROID/PC,Check ShopeePay balance and voucher,Amount successfully refunded to shopee pay,,,,
+[8]Test buyer check marketplacepay balance and voucher,Voucher,"Marketplace app
+Region=ID/TW",IOS/ANDROID/PC,Check MarketplacePay balance and voucher,Amount successfully refunded to marketplace pay,,,,
 [8]Test check order admin for compensation status,Return & Refund,"Region=ID/TW
 Order admin ",PC,Check OA compensation status,Compensation status is Pending Request,,,,
 [8]Test seller dispute,Return Seller,"Region=ID/TW
-[Shopee App > SC]: BR & TW
+[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,Check  order ,Refund successlly completed,,,,
@@ -1709,7 +1709,7 @@ Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,Check  order
 3. Action Button list {Dispute and Accepted}",,,,
 ,,,,Check Return Detail Page,"1. Return status is ""Pending your Review""
 2. Hint text is shown
-3. Action Button list {Accept, Dispute to Shopee}",,,,
+3. Action Button list {Accept, Dispute to Marketplace}",,,,
 ,,,,Click [Dispute] button in seller RLP,success click dispute button,,,,
 ,,,,"Select dispute reason as ""Buyer has been refunded wrong amount""",success select dispute reason ,,,,
 ,,,,Click [Continue] button,success click continue button,,,,
@@ -1724,7 +1724,7 @@ Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,Check  order
 [8]Test order admin check compensation status,Return & Refund,"Region=ID/TW
 order admin
 [CS] Judge the dispute case
-https://cs.test.shopee.co.id/dms/dispute/overview ",PC,Check OA compensation status,Compensation status is Requested,,,,
+https://cs.test.marketplace.co.id/dms/dispute/overview ",PC,Check OA compensation status,Compensation status is Requested,,,,
 ,,,,search return ID，assign to yourself，Click view,Enter Dispute detail page,,,,
 ,,,,"[ Execution: Reject Compenstaion Request]
 Fill in the form and click comfirn",success,,,,
@@ -1738,7 +1738,7 @@ Fill in the form and click comfirn",success,,,,
 Click [Submit] button",success to submit the dispute,,,,
 ,,,,Check OA grace period dispute status,Grace period dispute status is PENDIND EVIDENCE,,,,
 [8]Test seller check return detail ,Return & Refund,"Region=ID/TW
-[Shopee App > SC]: BR & TW
+[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,Check Return List Page,"1. Return status is ""In Dispute""
@@ -1755,7 +1755,7 @@ Login Seller Center → My Orders → Return/Refund",IOS/ANDROID/PC,Check Return
 ,,,,Check Return Detail Page,,,,,
 "[8]Buyer place order success, seller arrange shipment, buyer request return/refund after recieving product",Return & Refund,"Region=ID/TW
 [CS] Judge the dispute case
-https://cs.test.shopee.co.id/dms/dispute/overview ",PC,Check OA grace period dispute status,Grace period dispute status is REQUESTED,,,,
+https://cs.test.marketplace.co.id/dms/dispute/overview ",PC,Check OA grace period dispute status,Grace period dispute status is REQUESTED,,,,
 ,,,,search return ID，assign to yourself，Click view,Enter Dispute detail page,,,,
 ,,,," [Execution: Approve Compenstaion Request]
 Fill in the form and click comfirn",success,,,,
@@ -1766,7 +1766,7 @@ Fill in the form and click comfirn",success,,,,
 2. Hint text shown
 3. No Action Button",,,,
 ,,,,Check OA grace period dispute status,Grace period dispute status is APPROVED,,,,
-[9]Test Buyer success to add product from the video and check cart page,"PDP, Cart","Shopee app
+[9]Test Buyer success to add product from the video and check cart page,"PDP, Cart","Marketplace app
 Region=ID/BR
 
 1.shop type: normal
@@ -1812,7 +1812,7 @@ Region=ID/BR
 ,,,,Click the order,Redirect to Order Details Page,,,,
 "[9]Test Buyer place order successfully, seller arrange shipment",Seller fulfilment,"
 Region=ID/BR
-[Shopee App > SC]: ID & BR
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
@@ -1833,19 +1833,19 @@ Enter Order admin → Orders → Orders",PC,Enter Order ID or other  information
 ,,,,Click Update Fulfilment Status，Change Status to Successful,,,,,
 [9]Test Seller check order in shipping tab,Order Data & Ops,"
 Region=ID/BR
-[Shopee App > SC]: ID & BR
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Shipping",IOS/ANDROID/PC,Click Shipping,"1. load order list page successfully
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
 ,,,,Find the order ，click Check details,"1.Enter Order Details Page
 2. Page information Display Correct ",,,,
-[9]Test Buyer check order detail in tab to received,Order Data & Ops,"Shopee app
+[9]Test Buyer check order detail in tab to received,Order Data & Ops,"Marketplace app
 Region=ID/BR
 [Buyer] Return to client side",IOS/ANDROID/PC,Click Me page → View Purchases → To Receive,"1.Enter My Purchases Page
 2.stop at To Receive Page",,,,
 ,,,,Click the order,Redirect to Order Details Page,,,,
-[9]Test buyer request return/refund before receving parcel,Return & Refund,"Shopee app
+[9]Test buyer request return/refund before receving parcel,Return & Refund,"Marketplace app
 Region=ID/BR
 FE
 1.item: vsku item
@@ -1870,52 +1870,52 @@ BE
 ,,,,add video,success,,,,
 ,,,,Click Submit,"1.Enter Return/Refund Details Page
 2.Display Case Under Review
-3.TimelineDisplay Shopee Review-Refund(grey)",,,,
+3.TimelineDisplay Marketplace Review-Refund(grey)",,,,
 [9]Test Order admin check the detail return order ,Return & Refund,"
 Region=ID/BR
-Enter Admin: https://order-admin.test.shopee.co.id/returns/return_list",PC,search the return order，Enter return details page,"1.Check return Status: RETURN_REQUESTED
+Enter Admin: https://order-admin.test.marketplace.co.id/returns/return_list",PC,search the return order，Enter return details page,"1.Check return Status: RETURN_REQUESTED
 2.Check Initial Status
 Eligible for Auto Refund: Yes",,,,
-[9]Test Buyer check the detail order return status,Return & Refund,"Shopee app
+[9]Test Buyer check the detail order return status,Return & Refund,"Marketplace app
 Region=ID/BR
 [Buyer]",IOS/ANDROID/PC,Me → Return/Refund → Check order status,"1.Redirect to Return Refund Page
 2. Able to view the return order
 3. Display return status Case Under Review
 4. Display hint text
 5. Display action button [Cancel Request]",,,,
-[9]Test Seller to check order return status,Return Seller,"[Shopee App > SC]: ID & BR
+[9]Test Seller to check order return status,Return Seller,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
-Login Seller Center → My Orders → Return/Refund → search current return SN",IOS/ANDROID/PC,"return list page, Check  order Status","1.Request Status=In Shopee Review
+Login Seller Center → My Orders → Return/Refund → search current return SN",IOS/ANDROID/PC,"return list page, Check  order Status","1.Request Status=In Marketplace Review
 2.Action button list={Refund}",,,,
 [9]test cronjob auto_refund_after_return_requested,Return & Refund,"
 Region=ID/BR
 run cronjob - auto_refund_after_return_requested
-https://space.shopee.io/leap/cronjobs/table/#/shopee/shopee-return/return_request?filterGroupTree=true&current=1&pageSize=10&sortBy=start_time&sortDirection=descend 
-Enter Admin: https://order-admin.test.shopee.co.id/returns/return_list",PC,▶️run cronjob，select corresponding CID to run the cronjob,cronjob run successfully,,,,
+https://portal.company.example/leap/cronjobs/table/#/marketplace/marketplace-return/return_request?filterGroupTree=true&current=1&pageSize=10&sortBy=start_time&sortDirection=descend 
+Enter Admin: https://order-admin.test.marketplace.co.id/returns/return_list",PC,▶️run cronjob，select corresponding CID to run the cronjob,cronjob run successfully,,,,
 ,,,,search the return order，Enter return details page,"1.Check return Status: RETURN_ACCEPT
 2.Check Compensation Status: PENDING_REQUEST",,,,
 ,,,,click Refund information-Refund ID link，push Refund Status to REFUND_PAID （Created-Verified-Verified-Paid）,,,,,
-[9]Test buyer check the RR order status and the refund SpayLater amount and voucher,Return & Refund,"Shopee app
+[9]Test buyer check the RR order status and the refund SpayLater amount and voucher,Return & Refund,"Marketplace app
 Region=ID/BR
 [Buyer]",IOS/ANDROID/PC,Me → Return/Refund → Check order status,"1.Redirect to Return Refund Page
 2. Able to view the return order
 3.Display Refund Completed
-4.TimelineDisplay Shopee Review-Refund(all highlight)",,,,
+4.TimelineDisplay Marketplace Review-Refund(all highlight)",,,,
 ,,,,Check SpayLater amount and voucher,Refund successful,,,,
-[9]Test Seller request dispute to shopee,Return Seller,"
+[9]Test Seller request dispute to marketplace,Return Seller,"
 Region=ID/BR
-[Shopee App > SC]: ID & BR
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund → search current return SN",IOS/ANDROID/PC,return list pageCheck  order Status,"1.Request Status=In Seller Review
 2.Action button list={Dispute, Accept}",,,,
 ,,,,Click Enter return detail page,"1.Header=Pending Your Review
 2.Hint text contain dispute due date dd-mm-yyyy
-3.Action button list={Accept(orange), Dispute to Shopee}",,,,
-,,,,Click Dispute to Shopee,Pop-up Dispute to Shopee appears,,,,
+3.Action button list={Accept(orange), Dispute to Marketplace}",,,,
+,,,,Click Dispute to Marketplace,Pop-up Dispute to Marketplace appears,,,,
 ,,,,select reason - I have shipped the item(s) and have proof of shipment，Click Continue,Pop-up upload evidence appears,,,,
-,,,,"Upload photo & video, and click submit","Pop-up with ""Are you sure you want to raise a dispute to Shopee?"" displayed",,,,
+,,,,"Upload photo & video, and click submit","Pop-up with ""Are you sure you want to raise a dispute to Marketplace?"" displayed",,,,
 ,,,,Click Confirm,Dispute success,,,,
 ,,,,Check return detail pageDisplay ,"header=Case Under Review
 hint text=Case is under review. We aim to provide you with an update in 2 days.
@@ -1923,7 +1923,7 @@ Action button={Evidence/File History, Withdraw Dispute}",,,,
 [9]Test DMS approve the dispute,Return & Refund,"
 Region=ID/BR
 [CS] Judge the dispute case
-https://cs.test.shopee.co.id/dms/dispute/overview ",PC,search return ID，assign to yourself，Click view,Enter Dispute detail page,,,,
+https://cs.test.marketplace.co.id/dms/dispute/overview ",PC,search return ID，assign to yourself，Click view,Enter Dispute detail page,,,,
 ,,,,Click SOP-Judge-Judge Action(ALL)-Judge on the right column,success,,,,
 ,,,,Execution: Approve Compenstaion Request,success,,,,
 ,,,,Judging Reason: select any one,success,,,,
@@ -1931,28 +1931,28 @@ https://cs.test.shopee.co.id/dms/dispute/overview ",PC,search return ID，assign
 ,,,,Click Confirm,Judge Successfully,,,,
 [9]Test Order admin for return order ,"Return & Refund, Order Data & Ops","
 Region=ID/BR
-Enter Admin: https://order-admin.test.shopee.co.id/returns/return_list
+Enter Admin: https://order-admin.test.marketplace.co.id/returns/return_list
 dispute already approve from DMS",PC,search return order，Enter return details page,"1.Check return Status: ACCEPTED
 2.Check Compensation Status: APPROVED
 3.Check Seller Compensation information ，Compensation Amount is equal to the CS portalEnter amount ",,,,
 [9]Test Seller check order return refund detail,Return & Refund,"
 Region=ID/BR
-[Shopee App > SC]: ID & BR
+[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund → search current return SN",IOS/ANDROID/PC,return list pageCheck  order Status,"1.Request Status=Dispute Approve
 2.Action button lis is empty",,,,
 ,,,,Click Enter return detail page,"1.Header=Compensation Approved
-2.Hint text=Shopee has reviewed the case and decided to provide you with a compensation of {compensation amount}. The amount will be credited to your Seller Balance.",,,,
+2.Hint text=Marketplace has reviewed the case and decided to provide you with a compensation of {compensation amount}. The amount will be credited to your Seller Balance.",,,,
 ,,,,Check refunds and voucher returns,All have been successfully returned,,,,
-[10]Test new buyer check the item in PDP and cart,"PDP, Cart","Shopee app
+[10]Test new buyer check the item in PDP and cart,"PDP, Cart","Marketplace app
 Region=ID/BR
 1.user: new user
 
 2.welcome package
 
 3.shop voucher: no voucher
-4.platform voucher: has voucher，but voucher can only be used with ShopeePay
+4.platform voucher: has voucher，but voucher can only be used with MarketplacePay
 5.fsv: have fsv
 
 6.coin: cannot redeem coin
@@ -1960,7 +1960,7 @@ Region=ID/BR
 7.payment method:
 [ID/SG/PH]seabank
 [other country]any payment method
-8.Buyer unable to use Shopeepay due to various reason such as balanace not enough or buyer being blacklisted....
+8.Buyer unable to use Marketplacepay due to various reason such as balanace not enough or buyer being blacklisted....
 
 9.Non-receipt Automation(NRA) logic doc",IOS/ANDROID/PC,Enter PDP Page,Successfully load PDP Page,,,,
 ,,,,Check item banner and price,"1.dispaly welcome package banner
@@ -1979,8 +1979,8 @@ Click ""Return to"" button in OPC Page",Return to PDP Page,,,,
 Check voucher","1.Have not applied shop voucher
 2.auto apply platform voucher
 3.auto apply fsv
-[TH/MY can just apply one of fsv and shopee voucher]",,,,
-,,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,
+[TH/MY can just apply one of fsv and marketplace voucher]",,,,
+,,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,,,,
 ,,,,Manually Click fsv，Click OK,"1,success
 2.Return to cart Page",,,,
 ,,,,redeem coin,cannot redeem,,,,
@@ -1988,7 +1988,7 @@ Check voucher","1.Have not applied shop voucher
 ,,,,Click Check Out,"1.page load successfully 
 2.payment method is not preselect",,,,
 ,,,,"Click""Return to"" button at the top left of OPC Page",Return to cart Page，and item is selected,,,,
-[10]Test buyer successfully place order welcome package[RN],"PDP, Cart, Order Payment","Shopee app
+[10]Test buyer successfully place order welcome package[RN],"PDP, Cart, Order Payment","Marketplace app
 Region=ID/BR
 User in OPC page",IOS/ANDROID/PC,Check voucher,voucher information and cart Page are the same,,,,
 ,,,,"Click Select payment method
@@ -2017,7 +2017,7 @@ User in OPC page",IOS/ANDROID/PC,Check voucher,voucher information and cart Page
 ,,,,Completed payment,"1.Redirect to payment Page
 2.success",,,,
 [10]Test seller sent package,Seller fulfilment,"Region=ID/BR
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship",IOS/ANDROID/PC,Click To Ship,"1. load order list page successfully
@@ -2036,10 +2036,10 @@ Enter Order admin → Orders → Orders",PC,"After Entering Order ID or other in
 ,,,,Click Update Fulfilment Status，Change Status To Request Created,success,,,,
 ,,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,,,,
 ,,,,open coding monkey from OFG page，record rts_status,success,,,,
-,,,,compare with shopee config cEnter → non_receipt_automation_config → region → phase_{x}_config,rts_status_threshold = rts_status,,,,
+,,,,compare with marketplace config cEnter → non_receipt_automation_config → region → phase_{x}_config,rts_status_threshold = rts_status,,,,
 ,,,,Call Api to update order Delivey_time & expected_receive_time < now,call api successfully,,,,
 [10]Test seller check the order detail in shipping tab,Order Data & Ops,"Region=ID/BR
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Shipping","IOS/ANDROID/PC
@@ -2048,14 +2048,14 @@ Login Seller Center → My Orders → Shipping","IOS/ANDROID/PC
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",,,,
 ,,,,"Find the order, Click Check Details","1.Enter Order Details Page
 2. Page information Display Correct",,,,
-[10]Test buyer check the order detail in to receive tab,Order Data & Ops,"Shopee app
+[10]Test buyer check the order detail in to receive tab,Order Data & Ops,"Marketplace app
 Region=ID/BR
 [Buyer] Return to buyer side","IOS/ANDROID/PC
 
 ",Click Me page → View Purchases → To Receive,"1.Enter My Purchases Page
 2.stop at To Receive Page",,,,
 ,,,,Click the order,Redirect to Order Details Page,,,,
-[10]Test buyer refund before receiving package (full refund-full adjustable-Non receipt automation),Order Data & Ops,"Shopee app
+[10]Test buyer refund before receiving package (full refund-full adjustable-Non receipt automation),Order Data & Ops,"Marketplace app
 Region=ID/BR
 FE
 1.Refund stage: After pickup_done
@@ -2065,8 +2065,8 @@ BE
 3.now>expected_delivery_date
 4.order logicstic_status=2(in-transit)
 5.Refund Amount<Item Value Threshold
-6.(After NRA phase 3)Order logistic channel should set as included in admin: https://order-admin.test.shopee.co.id/return/non_receipt_automation/same_day_delivery_3pl_config 
-7.Compare with shopee config cEnter-non_receipt_automation_config: region → phase_{x}_config → rts_status_threshold = rts_status","IOS/ANDROID/PC
+6.(After NRA phase 3)Order logistic channel should set as included in admin: https://order-admin.test.marketplace.co.id/return/non_receipt_automation/same_day_delivery_3pl_config 
+7.Compare with marketplace config cEnter-non_receipt_automation_config: region → phase_{x}_config → rts_status_threshold = rts_status","IOS/ANDROID/PC
 
 ",In order details page under To Receive tab，Click Return/Refund,Enter How can we help Page，guide to refund,,,,
 ,,,,select I didn't receive some/all of my items,Enter Select Products Page,,,,
@@ -2078,11 +2078,11 @@ BE
 ,,,,add photo,success,,,,
 ,,,,Click submit,"1.Enter Return/Refund Details Page
 2.Display Refund approved
-3.TimelineDisplay Request Pending-Shopee Review-Refund(All highlight)",,,,
+3.TimelineDisplay Request Pending-Marketplace Review-Refund(All highlight)",,,,
 [10]Test seller check order deatil after buyer refund,Order Data & Ops,"
 Region=ID/BR
 Buyer success submit refund
-[Shopee App > SC]: ID & TW
+[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund → search current return SN
@@ -2092,8 +2092,8 @@ Login Seller Center → My Orders → Return/Refund → search current return SN
 2.Action button list={Dispute, Accept}",,,,
 ,,,,Click Enter return detail page,"1.Header=Pending Your Review
 2.Hint text contain dispute due date dd-mm-yyyy
-3.Action button list={Accept(orange), Dispute to Shopee}",,,,
-[11]Test buyer successcully place an order for upcoming deep discount item，Seller sent package，buyer refund before receiving good(return refund-full adjustable-accelerate refund),"PDP, Cart","Shopee app
+3.Action button list={Accept(orange), Dispute to Marketplace}",,,,
+[11]Test buyer successcully place an order for upcoming deep discount item，Seller sent package，buyer refund before receiving good(return refund-full adjustable-accelerate refund),"PDP, Cart","Marketplace app
 Region=ID/BR 
 
 1.shop type: preferred+
@@ -2121,7 +2121,7 @@ Region=ID/BR
 Check voucher","1.Have not applied shop voucher
 2.auto apply platform voucher
 3.auto apply fsv
-[TH/MY can just apply one of fsv and shopee voucher]",,,,
+[TH/MY can just apply one of fsv and marketplace voucher]",,,,
 ,,,,redeem coin,cannot redeem,,,,
 ,,,,Check amount in price component,Information in Discount Detail Page displayed correctly,,,,
 ,,,,"Click ""Return to"" at the top left of cart Page",Return to PDP Page,,,,
@@ -2144,7 +2144,7 @@ Check voucher",voucher information  and cart Page are the same,,,,
 ,,,,Click My Purchases button,"1.Redirect to My Purchases Page
 2.Redirect to To Ship tab",,,,
 ,,,,Click the order,Redirect to Order Details Page,,,,
-[11]Test buyer successcully place an order for upcoming deep discount item，Seller sent package，buyer refund before receiving good(return refund-full adjustable-accelerate refund),Seller fulfilment,"""[Shopee App > SC]: BR & TW
+[11]Test buyer successcully place an order for upcoming deep discount item，Seller sent package，buyer refund before receiving good(return refund-full adjustable-accelerate refund),Seller fulfilment,"""[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship""","IOS/ANDROID/PC
@@ -2162,12 +2162,12 @@ Login Seller Center → My Orders → To Ship""","IOS/ANDROID/PC
 ,,,,Click Update Fulfilment Status，Change Status To Request Created,success,,,,
 ,,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,,,,
 ,,,,Click Update Fulfilment Status，Change Status to Successful,,,,,
-[11]Test buyer check order detail page in tab to receive,Order Data & Ops,"Shopee app
+[11]Test buyer check order detail page in tab to receive,Order Data & Ops,"Marketplace app
 Region=ID/BR 
 [Buyer] Return to client side",IOS/ANDROID/PC,Click Me page → View Purchases → To Receive,"1.Enter My Purchases Page
 2.stop at To Receive Page",,,,
 ,,,,Click the order,Redirect to Order Details Page,,,,
-[11]Test buyer request refund before receiving good(return refund-full adjustable-accelerate refund),Return & Refund,"Shopee app
+[11]Test buyer request refund before receiving good(return refund-full adjustable-accelerate refund),Return & Refund,"Marketplace app
 Region=ID/BR 
 FE
 1.Refund stage: pending goods received
@@ -2214,22 +2214,22 @@ BE
 ,,,,search the return order，Enter details page,"1.Check return Status: PROCESSING
 2.Enter coding monkey，Check eligible_for_accelerated_refund_after_return_pickup_done: true
 3.Check eligible_for_accelerated_refund_after_return_pickup_done_due_time configured",,,,
-[11]Test run cron job,Return & Refund,"Shopee app
+[11]Test run cron job,Return & Refund,"Marketplace app
 Region=ID/BR ",PC,▶️run cronjob，select corresponding country(CID),run succeessfully,,,,
 [11]Test Order admin for order detail return refund ,Return & Refund,"Region=ID/BR
-Enter Admin: https://order-admin.test.shopee.co.id/returns/return_list",PC,search return order，Enter details page,"1.Check return Status: RETURN_ACCEPT → REFUND_PAID
+Enter Admin: https://order-admin.test.marketplace.co.id/returns/return_list",PC,search return order，Enter details page,"1.Check return Status: RETURN_ACCEPT → REFUND_PAID
 2.Check Compensation Status: INITIAL_STAGE",,,,
 [11]Test Order admin for return status,Return & Refund,"Region=ID/BR
 success run cron job
 1.now>eligible_for_accelerated_refund_after_return_pickup_done_due_time
-2.Enter https://space.shopee.io/leap/cronjobs/table/#/shopee/shopee-return/return_logistics?filterGroupTree=true&current=1&pageSize=10&sortBy=start_time&sortDirection=descend run cronjob - accelerate_refund_after_pickup_done",PC,click Refund information-Refund ID link，push Refund Status to REFUND_PAID （Created-Verified-Verified-Paid）,Check return Status: REFUND_PAID,,,,
-[11]Test buyer check order detail after refund completed,Return & Refund,"Shopee app
+2.Enter https://portal.company.example/leap/cronjobs/table/#/marketplace/marketplace-return/return_logistics?filterGroupTree=true&current=1&pageSize=10&sortBy=start_time&sortDirection=descend run cronjob - accelerate_refund_after_pickup_done",PC,click Refund information-Refund ID link，push Refund Status to REFUND_PAID （Created-Verified-Verified-Paid）,Check return Status: REFUND_PAID,,,,
+[11]Test buyer check order detail after refund completed,Return & Refund,"Marketplace app
 Region=ID/BR ",IOS/ANDROID/PC,Me → Return/Refund → Check order status,"1.Redirect to Return Refund Page
 2.Able to see order from just now 
 3.Display Refund Completed
 4.TimelineDisplay Return Item-Item Validation-Refund(all highlight)",,,,
 [11]Test seller check order detail after refund completed,Order Data & Ops,"Region=ID/BR 
-[Shopee App > SC]: BR & TW
+[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Return/Refund",IOS/ANDROID/PC,Enter Return Request ID (Return SN) then click apply,"1. load order list page successfully
@@ -2238,7 +2238,7 @@ Login Seller Center → Return/Refund",IOS/ANDROID/PC,Enter Return Request ID (R
 ,,,,Check action buttons,No action button,,,,
 ,,,,Click order ,"Header=Refund Completed
 Hint text=The buyer's request has been approved with refund of Rp200. Any remaining payment will be released to you.",,,,
-[12]Test Buyer check pdp and the item have platform sale,"PDP, Voucher","Shopee app
+[12]Test Buyer check pdp and the item have platform sale,"PDP, Voucher","Marketplace app
 Region=ID/TW
 1.promotion: platform sale
 
@@ -2277,7 +2277,7 @@ Return to PDP Page",,,,
 ,,,,Click Place Order,"1.redirect to OSP
 2.Payment in pending status",,,,
 ,,,,Click Home button,Return to homepage,,,,
-[12]Test Buyer successfully place order for platform sale item,"Order Payment, Order Data & Ops","Shopee app
+[12]Test Buyer successfully place order for platform sale item,"Order Payment, Order Data & Ops","Marketplace app
 Region=ID/TW 
 Success to place order",IOS/ANDROID/PC,Me-To Pay,"1.Redirect to To Pay
 2.Able to see order from just now ",,,,
@@ -2309,7 +2309,7 @@ Enter Order admin → Orders → Orders",PC,"After Entering Order ID or other in
 ,,,,Click Order ID,Redirect to Order Details Page,,,,
 ,,,,Click Coding Monkey,success,,,,
 ,,,,Query order_unit_migration_toggle information ,Value is 2,,,,
-[12]Test Seller to check the cancellation order,Order Data & Ops,"[Shopee App > SC]: ID & BR
+[12]Test Seller to check the cancellation order,Order Data & Ops,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Cancellation",IOS/ANDROID/PC,Click Cancellation,"1. load order list page successfully
@@ -2318,7 +2318,7 @@ Login Seller Center → My Orders → Cancellation",IOS/ANDROID/PC,Click Cancell
 2.Able to view the order cancelled just now",,,,
 ,,,,Click Check Details,"1.Enter Order Details Page
 2. Page information Display Correct ",,,,
-[13]Test Buyer pdp and able to place order for membership gift,"PDP, Cart","Shopee app
+[13]Test Buyer pdp and able to place order for membership gift,"PDP, Cart","Marketplace app
 Region=ID/TW 
 1.membership gift
 
@@ -2353,7 +2353,7 @@ Region=ID/TW
 ,,,,Click Place Order,"1.redirect to OSP
 2.Payment in pending status",,,,
 ,,,,Click Home button,Return to homepage,,,,
-[13]Test Buyer change ,"Order Data & Ops, Order Payment","Shopee app
+[13]Test Buyer change ,"Order Data & Ops, Order Payment","Marketplace app
 Region=ID/TW 
 success to place order",IOS/ANDROID/PC,Me-To Pay,"1.Redirect to To Pay
 2.Able to see order from just now ",,,,
@@ -2383,7 +2383,7 @@ success to place order",IOS/ANDROID/PC,Me-To Pay,"1.Redirect to To Pay
 ,,,,Click Order ID,Redirect to Order Details Page,,,,
 ,,,,Click Coding Monkey,success,,,,
 ,,,,Query order_unit_migration_toggle information ,Value is zero,,,,
-[13]Test Buyer able to place order for membership gift,Order Data & Ops,"[Shopee App > SC]: ID & TW
+[13]Test Buyer able to place order for membership gift,Order Data & Ops,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Cancellation",IOS/ANDROID/PC,Click Cancellation,"1. load order list page successfully

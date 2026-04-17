@@ -9,7 +9,7 @@ In this doc, we will introduce system accounts as a lightweight solution to push
 
 System Accounts are special "group chat members". They live inside a particular group chat to push unidirectional messages inside it but cannot receive messages from other group chat members.
 
-If bidirectional communication is required, you may leverage on the bot capability instead. See more at [Quickly Build a Bot](https://open.seatalk.io/docs/bot/quick_start).
+If bidirectional communication is required, you may leverage on the bot capability instead. See more at [Quickly Build a Bot](https://docs.internal-chat.example/docs/bot/quick_start).
 
 ### Characteristics of System Accounts
 
@@ -173,7 +173,7 @@ You can mention specific users in messages:
 {
   "tag": "text",
   "text": {
-    "text": "Hello <mention-tag target=\"seatalk://user?email=user@example.com\"/>, please check this!"
+    "text": "Hello <mention-tag target=\"team-chat://user?email=user@example.com\"/>, please check this!"
   }
 }
 ```

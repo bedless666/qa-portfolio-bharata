@@ -57,7 +57,7 @@ Membuat **professional QA portfolio** dengan:
 - `01-Work-Projects/RN Live Regression/RNRegressionNotifierV2.gs`
 - `01-Work-Projects/RN Live Regression/RNRegressionPICReminderV2.gs`
 - `01-Work-Projects/.../JIRA Board Optimization...html`
-- `05-Documentation/System Account Docs/SeaTalk_System_Account_Guide.md`
+- `05-Documentation/System Account Docs/Team_Chat_System_Account_Guide.md`
 
 **Action:**
 ```
@@ -133,11 +133,11 @@ Baca PROJECT-PROGRESS.md
 ## 🎓 Strategy Recap
 
 ### Sanitization Strategy (PENTING!)
-✅ **BOLEH disebutkan:**
-- Company names (Shopee, GoPay) - public info
-- Public features (Release Notes, Flash Sale, Bills & Pulsa)
-- Tech stack (Apps Script, Postman, Seatalk)
-- Impact metrics (30% reduction, etc.)
+✅ **BOLEH disebutkan (untuk publik):**
+- Jenis industri secara umum (mis. e-commerce / fintech) tanpa nama merek internal
+- Fitur produk level pengguna akhir yang sudah publik (tanpa detail bisnis sensitif)
+- Tech stack generik (Apps Script, Postman, team chat integrations)
+- Impact metrics (30% reduction, dll.) tanpa angka bisnis rahasia
 
 ❌ **HARUS di-hide:**
 - Business logic details (pricing rules, promo algorithms)
@@ -147,10 +147,10 @@ Baca PROJECT-PROGRESS.md
 - Sensitive code (business rules dalam if-else)
 
 ### Naming Strategy
-- **CV/LinkedIn:** Use real company names (Shopee, GoPay)
-- **GitHub Portfolio:** Anonymize or use generic terms
-- **README:** Focus on problem-solving, not company details
-- **Disclaimer:** Add "anonymized per company policy"
+- **CV/LinkedIn:** Nama perusahaan sesuai kebutuhan pribadi & kebijakan employer
+- **GitHub Portfolio publik:** Anonimkan employer, proyek internal, host/API internal
+- **README:** Fokus problem-solving dan pola QA, bukan detail perusahaan
+- **Disclaimer:** Tambahkan bahwa contoh sudah disanitasi sesuai kebijakan
 
 ---
 

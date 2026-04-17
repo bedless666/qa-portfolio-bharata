@@ -135,7 +135,7 @@ function handleApiProxy(req, res) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ 
           error: error.message,
-          details: 'Failed to reach target API. Check your network connection and ensure you are on Shopee WiFi.'
+          details: 'Failed to reach target API. Check your network connection and ensure you are on Marketplace WiFi.'
         }));
       });
 

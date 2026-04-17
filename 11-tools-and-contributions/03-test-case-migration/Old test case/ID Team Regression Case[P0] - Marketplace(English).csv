@@ -161,7 +161,7 @@ non-login user: Enter guest cart page",Ni Komang Ega,,,,,Buyer,N/A
 2.Payment is in pending status",Ni Komang Ega,,,,,Buyer,N/A
 ,,,Click My Purchases button,"1.Redirect to My Purchases Page
 2.Stop at To Ship tab",Ni Komang Ega,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → To Ship → To Process",Click To Ship,"1. load order list page successfully
@@ -172,7 +172,7 @@ Login seller Center → My Orders → To Ship → To Process",Click To Ship,"1. 
 ,,,Select I Will Arrange Drop-Off，and click Confirm,"1.Popup displayDrop-off Detail
 2.After a while, tracking number is displayed",Ni Komang Ega,,,,,Buyer,Seller
 ,,,Click Print Waybill,Successfully Redirect to the next Page,Ni Komang Ega,,,,,Buyer,Seller
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login [Seller App] → My Orders → To Ship → Processed",Click Processed,Successfully change tab,Ni Komang Ega,,,,,Buyer,Seller
@@ -188,7 +188,7 @@ Login [Seller App] → My Orders → To Ship → Processed",Click Processed,Succ
 ,,,Click Update Fulfilment Status，Change Status to Successful,success,Ni Komang Ega,,,,,Buyer,N/A
 ,,,"Check Order Detail , Click Operator Action Tab ",Should show Download Invoice,,,,,,,
 ,,,Click Download Invoice Button,Should download invoice successfully,,,,,,,
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login [Seller App] → My Orders → Shipping",Click Shipping,"1. load order list page successfully
@@ -221,7 +221,7 @@ Login [Seller App] → My Orders → Shipping",Click Shipping,"1. load order lis
 ,,,Click Buy Again,"1.success 
 2.Redirect to cart Page
 3.The same item is pre-selected in the cart page ",Ni Komang Ega,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Completed",In search box，search Order ID(Actually is the Order SN),Able to search successfully,Ni Komang Ega,,,,,Buyer,Seller
@@ -262,7 +262,7 @@ Original Price
 Platform Voucher Discount
 Shop Voucher Discount
 Estimated Price
-2.Platform Voucher Discount is from applicable best global shopee discount voucher
+2.Platform Voucher Discount is from applicable best global marketplace discount voucher
 3.Shop Voucher Discount is from applicable best discount shop voucher",Otniel Titus,,,,,Promotion,Buyer
 ,,,Click View More under PWG,"1.Redirect to PWG landing page
 2.The main items and free gifts can be displayed correctly
@@ -347,14 +347,14 @@ Estimated Price
 4.manually select discount voucher
 5.Click OK","1.Display voucher drawer
 2.Apply voucher successfully
-3.Success [TH/MY can just apply one of fsv and shopee voucher]
-4.Success [TH/MY can just apply one of fsv and shopee voucher]
+3.Success [TH/MY can just apply one of fsv and marketplace voucher]
+4.Success [TH/MY can just apply one of fsv and marketplace voucher]
 5.Back to cart page，applly discount voucher and fsv successfully",Otniel Titus,,,,,Promotion,Buyer
 ,,,redeem coin,success,Otniel Titus,,,,,Promotion,Buyer
 ,,,"1.Check Textfield in coin component
 2.Click ""?"" in coin component 
 3.Click Read More in popup
-4.Click ""Return to"" button at the top left of coin details page","1.Redeem m Shopee Coins
+4.Click ""Return to"" button at the top left of coin details page","1.Redeem m Marketplace Coins
 2.Popup display”This is the maximum amount of Coins you can redeem for the current product selection.“
 3.Redirect to coin details page
 4.Return to cart Page",Otniel Titus,,,,,Promotion,Buyer
@@ -383,18 +383,18 @@ Estimated Price
 2.Payment in pending status",Otniel Titus,,,,,Buyer,N/A
 ,,,"Click ""Return to"" button at the top left","1.Redirect to My Purchases Page
 2.Redirect to To Pay tab",Otniel Titus,,,,,Buyer,N/A
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → Unpaid",Click Unpaid,"1. Display Unapid Orders
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",Otniel Titus,,,,,Seller,N/A
 ,,,Click Check Details,"1.Enter Order Details Page
 2. Page information Display Correct ",Otniel Titus,,,,,Seller,N/A
-,,[Buyer] https://shark.test.shopee.io/create-order?type=Tool&subType=41,Enter Region and Order ID information ，Click submit,Submit success,Otniel Titus,,,,,Buyer,N/A
+,,[Buyer] https://api-internal.company.example/create-order?type=Tool&subType=41,Enter Region and Order ID information ，Click submit,Submit success,Otniel Titus,,,,,Buyer,N/A
 ,,Return to client side,Click Me page → To Ship,"1.Enter My Purchases Page
 2.Stop at To Ship Page
 3.Display Paid orders",Otniel Titus,,,,,Buyer,N/A
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → To Ship → To Process",Click To Ship,"1. load order list page successfully
@@ -404,7 +404,7 @@ Login seller Center → My Orders → To Ship → To Process",Click To Ship,"1. 
 ,,,select I Will Arrange Pickup，and click confirm,Display Arrange Shipment,Otniel Titus,,,,,Buyer,Seller
 ,,,Click Confirm,"1.Popup displayPickup Details
 2.Wait a while for tracking number to display",Otniel Titus,,,,,Buyer,Seller
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → To Ship → Processed",Click Processed,Can switch tab successfully,Otniel Titus,,,,,Seller,Buyer
@@ -418,7 +418,7 @@ Login seller Center → My Orders → To Ship → Processed",Click Processed,Can
 ,,,Click Update Fulfilment Status，Change Status To Request Created,success,Otniel Titus,,,,,Buyer,N/A
 ,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,Otniel Titus,,,,,Buyer,N/A
 ,,,Click Update Fulfilment Status，Change Status to Successful,,Otniel Titus,,,,,Buyer,N/A
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Shipping",Click Shipping,"1. load order list page successfully
@@ -462,7 +462,7 @@ test buyer select non-integrated shipping option，seller use ship method to sen
 8.coin earn
 
 9.shipping option: non-Integrated
-10.payment method: ShopeePay",[Buyer],Click product card in shop page,Successfully load PDP Page,Hanif Kusuma,,,,,Buyer,N/A
+10.payment method: MarketplacePay",[Buyer],Click product card in shop page,Successfully load PDP Page,Hanif Kusuma,,,,,Buyer,N/A
 ,,,Check flash sale banner,"1. display upcoming flash sale banner 
 2. display original price ",Hanif Kusuma,,,,,Promotion,Buyer
 ,,,"1.Click flash sale banner
@@ -539,7 +539,7 @@ test buyer select non-integrated shipping option，seller use ship method to sen
 ,,,redeem coin,success,Hanif Kusuma,,,,,Buyer,Promotion
 ,,,"1.Check textfield under coin component
 2.Click ""?"" under coin component 
-3.Click OK in Pop-up","1.Redeem m Shopee Coins
+3.Click OK in Pop-up","1.Redeem m Marketplace Coins
 2.Popup display”This is the amount of coins available for redemption.“
 3.Return to cart Page",Hanif Kusuma,,,,,Buyer,Promotion
 ,,,Check voucher,already auto apply shop voucher,Hanif Kusuma,,,,,Buyer,Promotion
@@ -547,7 +547,7 @@ test buyer select non-integrated shipping option，seller use ship method to sen
 ,,,Click Check Out,Redirect to OPC Page,Hanif Kusuma,,,,,Buyer,N/A
 ,,,Click Shipping option，select Non-Integrated Logistics,success,Hanif Kusuma,,,,,Buyer,N/A
 ,,,"1.Click Select payment method
-2.select ShopeePay，Click CONFIRM","1.Redirect to Payment Method Page
+2.select MarketplacePay，Click CONFIRM","1.Redirect to Payment Method Page
 2.Return to OPC Page",Hanif Kusuma,,,,,Buyer,N/A
 ,,,"Check OPC Page for 
 1. shop,
@@ -558,7 +558,7 @@ test buyer select non-integrated shipping option，seller use ship method to sen
 ,,,Click Place Order,redirect to OSP,Hanif Kusuma,,,,,Buyer,N/A
 ,,,"Click ""Return to"" button at the top left","1.Redirect to My Purchases Page
 2.Redirect to To Ship tab",Hanif Kusuma,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → To Ship → To Process",Click To Ship,"1. load order list page successfully
@@ -570,7 +570,7 @@ Login seller Center → My Orders → To Ship → To Process",Click To Ship,"1. 
 2.Cam Click Print the Document",Hanif Kusuma,,,,,Buyer,Seller
 ,,,Click Ship,Popup display“Ship # Order ID”,Hanif Kusuma,,,,,Buyer,Seller
 ,,,Enter any Tracking Number，Click Ship,success,Hanif Kusuma,,,,,Buyer,Seller
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → Shipping",Click Shipping,"1. load order list page successfully
@@ -658,7 +658,7 @@ Login seller Center → My Orders → Shipping",Click Shipping,"1. load order li
 ,,,redeem coin,success,Rika Wulandari,,,,,Promotion,Buyer
 ,,,"1.Check textfield in coin component
 2.Click ""?"" in coin component 
-3.Click ""OK"" in Pop-up ","1.Redeem m Shopee Coins
+3.Click ""OK"" in Pop-up ","1.Redeem m Marketplace Coins
 2.Popup display”This is the maximum amount of Coins you can redeem today.“
 3.Return to cart Page",Rika Wulandari,,,,,Promotion,Buyer
 ,,,Check voucher,already auto apply shop voucher and fsv,Rika Wulandari,,,,,Promotion,Buyer
@@ -668,7 +668,7 @@ Login seller Center → My Orders → Shipping",Click Shipping,"1. load order li
 ,,,Check voucher,OPC Page already auto apply shop voucher and fsv,Rika Wulandari,,,,,Promotion,Buyer
 ,,,Click Shop Vouchers,Enter voucher Page,Rika Wulandari,,,,,Promotion,Buyer
 ,,,Manually select another shop voucher，Click OK,success,Rika Wulandari,,,,,Promotion,Buyer
-,,,Click Platform Voucher,Enter Select Shopee Voucher Page,Rika Wulandari,,,,,Promotion,Buyer
+,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,Rika Wulandari,,,,,Promotion,Buyer
 ,,,Manually select another fsv and non-fsv，Click OK,success,Rika Wulandari,,,,,Promotion,Buyer
 ,,,Click shipping option，select Integrated Logistics,success,Rika Wulandari,,,,,Buyer,N/A
 ,,,"1.Click Select payment method
@@ -684,7 +684,7 @@ Login seller Center → My Orders → Shipping",Click Shipping,"1. load order li
 2.Payment status is paid",Rika Wulandari,,,,,Buyer,N/A
 ,,,Click My Purchases button,"1.Redirect to My Purchases Page
 2.Redirect to To Ship tab",Rika Wulandari,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → To Ship → To Process",Click To Ship,"1. load order list page successfully
@@ -703,7 +703,7 @@ Login seller Center → My Orders → To Ship → To Process",Click To Ship,"1. 
 ,,,Click Update Fulfilment Status，Change Status To Request Created,success,Rika Wulandari,,,,,Buyer,N/A
 ,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,Rika Wulandari,,,,,Buyer,N/A
 ,,,Click Update Fulfilment Status，Change Status to Successful,,Rika Wulandari,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → Shipping",Click Shipping,"1. load order list page successfully
@@ -827,10 +827,10 @@ No more tier bundle deal","1.success
 3.3 Redirection Textfield : Not display",,,,,,,
 ,,,Cancel selection of item,success,,,,,,,
 ,,item is in selected (ticked) Status,Check voucher,"already auto apply shop voucher, platform voucher and fsv
-[TH/MY can just apply one of fsv and shopee voucher]",,,,,,,
+[TH/MY can just apply one of fsv and marketplace voucher]",,,,,,,
 ,,,Click Shop Vouchers,Enter voucher Page,,,,,,,
 ,,,Manually select another shop discount voucher，Click OK,success,,,,,,,
-,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,,,,
+,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,,,,,,,
 ,,,Manually select another fsv and coin cashback voucher，Click OK,success,,,,,,,
 ,,,redeem coin,success,,,,,,,
 ,,,Check amount in price component,Information in Discount Detail Page is Correct ,,,,,,,
@@ -838,7 +838,7 @@ No more tier bundle deal","1.success
 ,,,Check voucher,Same with the voucher selected at cart page,,,,,,,
 ,,,Click Shop Vouchers,Enter voucher Page,,,,,,,
 ,,,Manually select another shop discount voucher，Click OK,success,,,,,,,
-,,,Click Platform Voucher,Enter Select Shopee Voucher Page,,,,,,,
+,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,,,,,,,
 ,,,Manually select another fsv and coin cashback voucher，Click OK,success,,,,,,,
 ,,,Click Shipping option，select Non-Integrated Logistics,success,,,,,,,
 ,,,"1.Click Select payment method
@@ -855,7 +855,7 @@ No more tier bundle deal","1.success
 ,,,Click Home button,Return to homepage,,,,,,,
 ,,,Click Me page → To Ship,"1.Enter My Purchases Page
 2.stop at To Receive Page",,,,,,,
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship","1. Click To Ship
@@ -892,7 +892,7 @@ Login Seller Center → My Orders → To Ship","1. Click To Ship
 ,,,Click Update Fulfilment Status，Change Status to Request Created,success,,,,,,,
 ,,,Click Update Fulfilment Status，Change Status to Outbound Successful,success,,,,,,,
 ,,,Click Update Fulfilment Status，Change Status to Successful,success,,,,,,,
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → Shipping",Click Shipping,"1. load order list page successfully
@@ -934,7 +934,7 @@ BE
 ,,,Return to Me Page,success,,,,,,,
 ,,,Me → Return/Refund,"1.Enter My Purchase Page
 2.stop at Return Refund tab",,,,,,,
-,,,Check order Status,"1.Status：Shopee Reviewing
+,,,Check order Status,"1.Status：Marketplace Reviewing
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Return Refund Details button ",,,,,,,
 ,,,order admin-Return & Refund Details set Return Status: PROCESSING,success,,,,,,,
@@ -955,7 +955,7 @@ BE
 2.success
 3.Return to Return/Refund Details Page",,,,,,,
 ,,,Click More Shipping Instructions,Successfully redirected and information displayed is correct,,,,,,,
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → Return/Refund",Click Expand Filter,Expanded filter options,,,,,,,
@@ -983,7 +983,7 @@ Full Refund",,,,,,,
 ,,,"1.Click View on the right of Return Shipping Details
 2.Click ""Return to"" button at the top left","1.Enter Return Shipping Details Page，Display Self Arrange text and Return Address
 2.Return to Return/Refund Details Page",,,,,,,
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund",Enter Return Request ID (also Return SN) then Click Apply,"1. load order list page successfully
@@ -992,7 +992,7 @@ Login Seller Center → My Orders → Return/Refund",Enter Return Request ID (al
 2.Dispute
 3.Return Refund Details",,,,,,,
 ,,,Click order ，Enter Return/Refund Details Page,Display Deliver Address(TW don't display) and Pick Up Address,,,,,,,
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → Return/Refund configure Refund","1.Click Refund
@@ -1001,7 +1001,7 @@ Login seller Center → My Orders → Return/Refund configure Refund","1.Click R
 ,,[Buyer],Client side Click order ，Enter Return/Refund Details Page,Refund approved,,,,,,,
 ,,order admin-Return & Refund Details-Refund Information-Refund ID set Refund Status: REFUND_CREATED → REFUND_VERIFIED → REFUND_PAYOUT → REFUND_PAID,Client side Click order ，Enter Return/Refund Details Page,Display Refund Completed,,,,,,,
 ,,[Buyer],"Check voucher、coin and  amount etc, field returned",All field returned,,,,,,,
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund",Check  order Status,Refund Completed,,,,,,,
@@ -1041,10 +1041,10 @@ No more tier bundle deal","1.success
 3.3 Redirection Textfield : Not display",Bharata Aryaseta,,,,,Promotion,N/A
 ,,,Unselect item,success,Bharata Aryaseta,,,,,Buyer,N/A
 ,,item is in selected (ticked) Status,Check voucher,"already auto apply shop voucher, platform voucher and fsv
-[TH/MY can just apply one of fsv and shopee voucher]",Bharata Aryaseta,,,,,Promotion,Buyer
+[TH/MY can just apply one of fsv and marketplace voucher]",Bharata Aryaseta,,,,,Promotion,Buyer
 ,,,Click Shop Vouchers,Enter voucher Page,Bharata Aryaseta,,,,,Promotion,Buyer
 ,,,Unselect shop voucher，Click OK,success,Bharata Aryaseta,,,,,Promotion,Buyer
-,,,Click Platform Voucher,Enter Select Shopee Voucher Page,Bharata Aryaseta,,,,,Promotion,Buyer
+,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,Bharata Aryaseta,,,,,Promotion,Buyer
 ,,,Unselect platform voucher and fsv,success,Bharata Aryaseta,,,,,Promotion,Buyer
 ,,,redeem coin,cannot redeem,Bharata Aryaseta,,,,,Promotion,Buyer
 ,,,Check price component  amount ,Discount Detail Page information are correct ,Bharata Aryaseta,,,,,Promotion,Buyer
@@ -1052,7 +1052,7 @@ No more tier bundle deal","1.success
 ,,,Check voucher,voucher component is empty,Bharata Aryaseta,,,,,Promotion,Buyer
 ,,,Click Shop Vouchers,Enter voucher Page,Bharata Aryaseta,,,,,Promotion,Buyer
 ,,,Manually select shop voucher，Click OK,success,Bharata Aryaseta,,,,,Promotion,Buyer
-,,,Click Platform Voucher,Enter Select Shopee Voucher Page,Bharata Aryaseta,,,,,Promotion,Buyer
+,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,Bharata Aryaseta,,,,,Promotion,Buyer
 ,,,Manually select fsv and platform voucher，Click OK,success,Bharata Aryaseta,,,,,Promotion,Buyer
 ,,,Check  insurance  information , insurance qty is equal to bundle deal qty,Bharata Aryaseta,,,,,Buyer,N/A
 ,,,Check the box on left of insurance,Select success ,Bharata Aryaseta,,,,,Buyer,N/A
@@ -1082,10 +1082,10 @@ No more tier bundle deal","1.success
 ,,,Click Product,Enter product_snapshot_page,Bharata Aryaseta,,,,,Buyer,N/A
 ,,,"Click ""COPY"" on the right of Order ID",Prompt Copied successfully,Bharata Aryaseta,,,,,Buyer,N/A
 ,,,Click Contact Seller,Enter chat Page,Bharata Aryaseta,,,,,Buyer,N/A
-,,,Click Extend Shopee Guarantee,Popup display“Extend Shopee Guarantee”,Bharata Aryaseta,,,,,Buyer,N/A
-,,,Click OK in “Extend Shopee Guarantee” pop up,"1. Return to Order Details page
-2. Display greyed out Shopee Guarantee Extended",Bharata Aryaseta,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & BR
+,,,Click Extend Marketplace Guarantee,Popup display“Extend Marketplace Guarantee”,Bharata Aryaseta,,,,,Buyer,N/A
+,,,Click OK in “Extend Marketplace Guarantee” pop up,"1. Return to Order Details page
+2. Display greyed out Marketplace Guarantee Extended",Bharata Aryaseta,,,,,Buyer,N/A
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship",Click To Ship,"1. load order list page successfully
@@ -1103,7 +1103,7 @@ Login Seller Center → My Orders → To Ship",Click To Ship,"1. load order list
 ,,,Click order ,Enter Order Details Page,Bharata Aryaseta,,,,,Buyer,N/A
 ,,,Check action buttons,not show return buttion,Bharata Aryaseta,,,,,Buyer,N/A
 ,,Enter Order admin → Orders → Orders,Click Update Fulfilment Status，Change Status to Successful,success,Bharata Aryaseta,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → Shipping",Click Shipping,"1. load order list page successfully
@@ -1124,7 +1124,7 @@ BE
 3.""flow_type"": 2
 4.""integration_type"": 1 (integrated)
 
-DMS portal: https://dms.cs.test.shopee.com.br/portal/info/search",Click Return/Refund on order details pages under Info Search in DMS portal,success,Bharata Aryaseta,,,,,Order Ops,N/A
+DMS portal: https://dms.cs.test.marketplace.com.br/portal/info/search",Click Return/Refund on order details pages under Info Search in DMS portal,success,Bharata Aryaseta,,,,,Order Ops,N/A
 ,,,Click Select Reason,Popup displaySelect Reason,Bharata Aryaseta,,,,,Order Ops,N/A
 ,,,select reason as NOT Counterfeit， and Click Confirm,"1.Return to Request Return/Refund Page
 2.Correct Display  selected Reason",Bharata Aryaseta,,,,,Order Ops,N/A
@@ -1154,7 +1154,7 @@ DMS portal: https://dms.cs.test.shopee.com.br/portal/info/search",Click Return/R
 3.Action button list: {Cancel Request}",,,,,,,
 ,,,Check Order Admin Negotiation status and Reverse Logistics status,"1. Reverse Logistics Status is Ready
 2. Negotiation Status is Pending",,,,,,,
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Return/Refund",Enter Return Request ID (also known as Return SN) then click apply,"1. load order list page successfully
@@ -1191,7 +1191,7 @@ Modify Offer",Bharata Aryaseta,,,,,Order Ops,N/A
 ,,,Click counter,Display Counter Refund Page,Bharata Aryaseta,,,,,Order Ops,N/A
 ,,,Enter  amount ，Click Confirm,Popup displayCounter: Refund of  amount ,Bharata Aryaseta,,,,,Order Ops,N/A
 ,,,Click confirm,Prompt ounter success,Bharata Aryaseta,,,,,Order Ops,N/A
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Return/Refund",Enter Return Request ID (Return SN)ClickApply,"1. load order list page successfully
@@ -1210,7 +1210,7 @@ Counter",Bharata Aryaseta,,,,,Order Ops,N/A
 ,,,"1.Click Continue with return
 2.Click Confirm","1.Popup displayProceed to Return
 2.Display Select Return Method",Bharata Aryaseta,,,,,Order Ops,N/A
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Return/Refund",Enter Return Request ID (Return SN) then click apply,"1. load order list page successfully
@@ -1243,7 +1243,7 @@ Refund",Bharata Aryaseta,,,,,Order Ops,N/A
 3.Display Return Refund Details button ",Bharata Aryaseta,,,,,Order Ops,N/A
 ,,,Click order ，Enter Return/Refund Details Page,"1.Display Validation In Progress
 2.Display due date information at the bottom",Bharata Aryaseta,,,,,Order Ops,N/A
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller cEnter → Return/Refund",Click Refund button in Return List Page,success,Bharata Aryaseta,,,,,Order Ops,N/A
@@ -1260,7 +1260,7 @@ Login Seller cEnter → Return/Refund",Click Refund button in Return List Page,s
 2.for platform voucher > yes
 3.for shop voucher > it depends.
 If the shop voucher applies two items, and u only return 1 item, then this voucher will not be returned; if u return two items, then this voucher will be returned. the principle is that we will only return vouchers when all items that apply voucher's discount are refunded",Bharata Aryaseta,,,,,Order Ops,Promotion
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund",Check  order ,Completed refund,Bharata Aryaseta,,,,,Order Ops,N/A
@@ -1292,7 +1292,7 @@ Login Seller Center → My Orders → Return/Refund",Check  order ,Completed ref
 ,,,Click on Checkbox on shop level,Successfully selected all products under that shop,Mirza Pradana,,,,,Buyer,N/A
 ,,,Change item quanitity to get the previously set promotions (AOD/PWP/PWG etc),success,Mirza Pradana,,,,,Buyer,Promotion
 ,,,Check voucher,"already auto apply shop voucher, platform voucher and fsv
-[TH/MY can just apply one of fsv and shopee voucher]",Mirza Pradana,,,,,Buyer,Promotion
+[TH/MY can just apply one of fsv and marketplace voucher]",Mirza Pradana,,,,,Buyer,Promotion
 ,,,redeem coin,cannot redeem,Mirza Pradana,,,,,Buyer,Promotion
 ,,,Check amount in price component,Information in Discount Detail Page  displayed correctly,Mirza Pradana,,,,,Buyer,Promotion
 ,,,Click Check Out,Redirect to OPC Page,Mirza Pradana,,,,,Buyer,N/A
@@ -1300,7 +1300,7 @@ Login Seller Center → My Orders → Return/Refund",Check  order ,Completed ref
 ,,At OPC Page,Check voucher,Same voucher auto applied in cart page,Mirza Pradana,,,,,Buyer,Promotion
 ,,,Click Shop Vouchers,Enter voucher Page,Mirza Pradana,,,,,Buyer,Promotion
 ,,,Cancel select shop voucher，Click OK,success,Mirza Pradana,,,,,Buyer,Promotion
-,,,Click Platform Voucher,Enter Select Shopee Voucher Page,Mirza Pradana,,,,,Buyer,Promotion
+,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,Mirza Pradana,,,,,Buyer,Promotion
 ,,,Cancel select fsv and platform voucher，Click OK,success,Mirza Pradana,,,,,Buyer,Promotion
 ,,,Check Payment Option,pre select Bank Transfer,Mirza Pradana,,,,,Buyer,Promotion
 ,,,"Check OPC Page for 
@@ -1328,12 +1328,12 @@ Login Seller Center → My Orders → Return/Refund",Check  order ,Completed ref
 ,,,"Click ""COPY"" on the right of Order ID",Prompt Copied successfully,Mirza Pradana,,,,,Buyer,N/A
 ,,,Click Contact Seller,Enter chat Page,Mirza Pradana,,,,,Buyer,N/A
 ,,,"Click ""CHANGE"" on the right of Payment Method",Enter Payment Method Page,Mirza Pradana,,,,,Buyer,N/A
-,,,select new payment method: ShopeePay,select success,Mirza Pradana,,,,,Buyer,N/A
+,,,select new payment method: MarketplacePay,select success,Mirza Pradana,,,,,Buyer,N/A
 ,,,"1.Click CONFIRM
 2. Complete payment","1. Click successfully
 2. Redirect to payment Page
 3.success",Mirza Pradana,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login seller Center → My Orders → To Ship",Click To Ship,"1. load order list page successfully
@@ -1348,7 +1348,7 @@ Login seller Center → My Orders → To Ship",Click To Ship,"1. load order list
 ,,,Click Update Fulfilment Status，Change Status To Request Created,success,Mirza Pradana,,,,,Buyer,N/A
 ,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,Mirza Pradana,,,,,Buyer,N/A
 ,,,Click Update Fulfilment Status，Change Status to Successful,,Mirza Pradana,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Shipping",Click Shipping,"1. load order list page successfully
@@ -1380,8 +1380,8 @@ BE
 2. send text message success
 3. send image message success
 4. send video message success",Mirza Pradana,,,,,Order Ops,Buyer
-,,"[Shopee App > SC]: ID & TW
-[Standalone Seller App]: Other countries",Check Return List Page,"1. Return status is ""In Shopee Review""
+,,"[Marketplace App > SC]: ID & TW
+[Standalone Seller App]: Other countries",Check Return List Page,"1. Return status is ""In Marketplace Review""
 2. Hint text is shown
 3. Action Button list {Refund}",Mirza Pradana,,,,,Order Ops,Buyer
 ,,,Check Return Detail Page,"1. Return status is ""Case Under Review""
@@ -1389,7 +1389,7 @@ BE
 3. Action Button list {Refund}",Mirza Pradana,,,,,Order Ops,Buyer
 ,,,order admin-Return & Refund Details set Return Status: Processing,success,Mirza Pradana,,,,,Order Ops,Buyer
 ,,,Click Offer Partial Refund button in Return List Page,success,Mirza Pradana,,,,,Order Ops,Buyer
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries",Input Refund Amount <= Max refundable then click Submit button,success,Mirza Pradana,,,,,Order Ops,Buyer
 ,,[Buyer] Return Detail Page,Click [Discuss with Seller],"1. navigate to a chat room
 2. send text message success
@@ -1412,7 +1412,7 @@ BE
 3. click [Submit] button and confirm success
 4. buyer RDP shipping proof is same as submitted",Mirza Pradana,,,,,Order Ops,Buyer
 ,,,Check OA reverse logistics status,return logistics is PCKUP_DONE,Mirza Pradana,,,,,Order Ops,Buyer
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Return/Refund",Enter Return Request ID (Return SN) then click apply,"1. load order list page successfully
@@ -1428,7 +1428,7 @@ Cannot click greyed out Dispute",Mirza Pradana,,,,,Order Ops,Seller
 3.Display Return Refund Details button ",Mirza Pradana,,,,,Order Ops,Seller
 ,,,Click order ，Enter Return/Refund Details Page,"1.Display Validation In Progress
 2.Display due date information below",Mirza Pradana,,,,,Order Ops,Seller
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Return/Refund",Enter Return Request ID (Return SN) then click apply,"1. load order list page successfully
@@ -1460,22 +1460,22 @@ Dispute
 2. send text message success
 3. send image message success
 4. send video message success",,,,,,,
-,,DMS portal: https://dms.cs.test.shopee.com.br/dispute/overview,"1. Open DMS portal and switch to Dispute tab
+,,DMS portal: https://dms.cs.test.marketplace.com.br/dispute/overview,"1. Open DMS portal and switch to Dispute tab
 2. Search by RSN and assign the case to yourself
 3. Click [View] button and negivate to Dispute Case Detial page
 4. Click [Judge] and select [Accept Refund Only] 
 5. Fill in the form then click [Confirm]
 6. Check OA return status",return status is ACCEPTED,,,,,,,
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Validate API",Click order ，Enter Return/Refund Details Page,Display Refund approved,Mirza Pradana,,,,,Order Ops,N/A
 ,,Order admin-Return & Refund Details-Refund Information-Refund ID set Refund Status: REFUND_PAID,Click order ，Enter Return/Refund Details Page,Display Refund Completed,Mirza Pradana,,,,,Order Ops,N/A
 ,,Order admin-order details page,Click order ,able to download invoice,Mirza Pradana,,,,,Order Ops,N/A
-,,[Buyer],Check ShopeePay amount,Correcty refunded,Mirza Pradana,,,,,Buyer,N/A
+,,[Buyer],Check MarketplacePay amount,Correcty refunded,Mirza Pradana,,,,,Buyer,N/A
 ,,,Check order completed list,"1. invoice is generated
 2. Can see the invoice with correct value",Mirza Pradana,,,,,Buyer,Order Ops
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund",Check  order ,Completed refund,Mirza Pradana,,,,,Order Ops,Seller
@@ -1490,9 +1490,9 @@ Login Seller Center → My Orders → Return/Refund",Check  order ,Completed ref
 
 6.coin: cannot redeem coin
 
-7.used ShopeePay last time
+7.used MarketplacePay last time
 8.balance is sufficient
-9.payment method: pre select ShopeePay",[Buyer],Enter PDP Page,Successfully load PDP Page,Rizky Ashari,,,,,Buyer,Seller
+9.payment method: pre select MarketplacePay",[Buyer],Enter PDP Page,Successfully load PDP Page,Rizky Ashari,,,,,Buyer,Seller
 ,,,"1.Click Buy Now
 2.Click Return to  button in OPC page ","1.Successfully redirected to OPC Page
 2.Return to PDP Page",Rizky Ashari,,,,,Buyer,Seller
@@ -1504,14 +1504,14 @@ Login Seller Center → My Orders → Return/Refund",Check  order ,Completed ref
 ,,,Check voucher,"1.Have not applied shop voucher
 2.Have not applied platform voucher
 3.auto apply fsv",Rizky Ashari,,,,,Promotion,Buyer
-,,,Click Platform Voucher,Enter Select Shopee Voucher Page,Rizky Ashari,,,,,Promotion,Buyer
+,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,Rizky Ashari,,,,,Promotion,Buyer
 ,,,Manually Click fsv，Click OK,"1,success
 2.Return to cart Page",Rizky Ashari,,,,,Buyer,Promotion
 ,,,redeem coin,cannot redeem,Rizky Ashari,,,,,Promotion,Buyer
 ,,,Check amount in price component,Information in Discount Detail Page displayed correctly,Rizky Ashari,,,,,Buyer,N/A
 ,,,Click Check Out,page load successfully ,Rizky Ashari,,,,,Buyer,N/A
 ,,,Check voucher,voucher information  and cart Page are the same,Rizky Ashari,,,,,Promotion,Buyer
-,,,Check Payment Option,pre select ShopeePay,Rizky Ashari,,,,,Buyer,N/A
+,,,Check Payment Option,pre select MarketplacePay,Rizky Ashari,,,,,Buyer,N/A
 ,,,"Check OPC Page for 
 1. shop,
 2. item,
@@ -1523,7 +1523,7 @@ Login Seller Center → My Orders → Return/Refund",Check  order ,Completed ref
 ,,,Click My Purchases button,"1.Redirect to My Purchases Page
 2.Redirect to To Ship tab",Rizky Ashari,,,,,Buyer,N/A
 ,,,Click the order ,Redirect to Order Details Page,Rizky Ashari,,,,,Buyer,N/A
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship",Click To Ship,"1. load order list page successfully
@@ -1540,7 +1540,7 @@ Login Seller Center → My Orders → To Ship",Click To Ship,"1. load order list
 ,,,Click Update Fulfilment Status，Change Status To Request Created,success,Rizky Ashari,,,,,Buyer,N/A
 ,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,Rizky Ashari,,,,,Buyer,N/A
 ,,,Click Update Fulfilment Status，Change Status to Successful,,Rizky Ashari,,,,,Buyer,N/A
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Shipping",Click Shipping,"1. load order list page successfully
@@ -1577,14 +1577,14 @@ BE
 ,,,add video,success,Rizky Ashari,,,,,Order Ops,N/A
 ,,,Click Submit,"1.Enter Return/Refund Details Page
 2.Display Evidence requested",Rizky Ashari,,,,,Order Ops,N/A
-,,,Click Discuss,Enter Discuss With Shopee Page,Rizky Ashari,,,,,Order Ops,N/A
+,,,Click Discuss,Enter Discuss With Marketplace Page,Rizky Ashari,,,,,Order Ops,N/A
 ,,,Click Upload Evidence,Enter Upload Evidence Page,Rizky Ashari,,,,,Order Ops,N/A
 ,,,Upload Photo/Video， and Click Submit,"1.Return to Return/Refund Details Page
 2.Display Evidence submitted",Rizky Ashari,,,,,Order Ops,N/A
-,,https://cs.test.shopee.co.id/dms/user/manage/account set accept judging,Enter Return/Refund Details Page,Display Refund Completed,Rizky Ashari,,,,,Order Ops,N/A
-,,,Check ShopeePay balance and voucher,Amount successfully refunded to shopee pay,Rizky Ashari,,,,,Order Ops,Promotion
+,,https://cs.test.marketplace.co.id/dms/user/manage/account set accept judging,Enter Return/Refund Details Page,Display Refund Completed,Rizky Ashari,,,,,Order Ops,N/A
+,,,Check MarketplacePay balance and voucher,Amount successfully refunded to marketplace pay,Rizky Ashari,,,,,Order Ops,Promotion
 ,,,Check OA compensation status,Compensation status is Pending Request,,,,,,,
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund",Check  order ,Refund successlly completed,,,,,,,
@@ -1593,7 +1593,7 @@ Login Seller Center → My Orders → Return/Refund",Check  order ,Refund succes
 3. Action Button list {Dispute and Accepted}",,,,,,,
 ,,,Check Return Detail Page,"1. Return status is ""Pending your Review""
 2. Hint text is shown
-3. Action Button list {Accept, Dispute to Shopee}",,,,,,,
+3. Action Button list {Accept, Dispute to Marketplace}",,,,,,,
 ,,,"1. Click [Dispute] button in seller RLP
 2. Select dispute reason as ""Buyer has been refunded wrong amount""
 3. Click [Continue] button
@@ -1607,7 +1607,7 @@ Login Seller Center → My Orders → Return/Refund",Check  order ,Refund succes
 3. Action Button list {Evidence/File History, Withdraw Dispute}",,,,,,,
 ,,,Check OA compensation status,Compensation status is Requested,,,,,,,
 ,,"[CS] Judge the dispute case
-https://cs.test.shopee.co.id/dms/dispute/overview ",search return ID，assign to yourself，Click view,Enter Dispute detail page,,,,,,,
+https://cs.test.marketplace.co.id/dms/dispute/overview ",search return ID，assign to yourself，Click view,Enter Dispute detail page,,,,,,,
 ,,,"1. Execution: Reject Compenstaion Request
 2. Fill in the form and click comfirn",success,,,,,,,
 ,,,Check OA compensation status,Compensation status is Rejected,,,,,,,
@@ -1618,7 +1618,7 @@ https://cs.test.shopee.co.id/dms/dispute/overview ",search return ID，assign to
 2. Select dispute reason as ""Buyer claim is correct, but I have other concerns""
 3. Click [Submit] button",all operations success,,,,,,,
 ,,,Check OA grace period dispute status,Grace period dispute status is PENDIND EVIDENCE,,,,,,,
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund",Check Return List Page,"1. Return status is ""In Dispute""
@@ -1635,7 +1635,7 @@ Login Seller Center → My Orders → Return/Refund",Check Return List Page,"1. 
 ,,,Check Return Detail Page,,,,,,,,
 ,,,Check OA grace period dispute status,Grace period dispute status is REQUESTED,,,,,,,
 ,,"[CS] Judge the dispute case
-https://cs.test.shopee.co.id/dms/dispute/overview ",search return ID，assign to yourself，Click view,Enter Dispute detail page,,,,,,,
+https://cs.test.marketplace.co.id/dms/dispute/overview ",search return ID，assign to yourself，Click view,Enter Dispute detail page,,,,,,,
 ,,,"1. Execution: Approve Compenstaion Request
 2. Fill in the form and click comfirn",success,,,,,,,
 ,,,Check Return List Page,"1. Return status is ""Dispute Approved""
@@ -1687,7 +1687,7 @@ https://cs.test.shopee.co.id/dms/dispute/overview ",search return ID，assign to
 ,,,Click My Purchases button,"1.Redirect to My Purchases Page
 2.Redirect to To Ship tab",Otniel Titus,,,,,Buyer,N/A
 ,,,Click the order,Redirect to Order Details Page,Otniel Titus,,,,,Buyer,Promotion
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship",Click To Ship,"1. load order list page successfully
@@ -1704,7 +1704,7 @@ Login Seller Center → My Orders → To Ship",Click To Ship,"1. load order list
 ,,,Click Update Fulfilment Status，Change Status To Request Created,success,Otniel Titus,,,,,Buyer,N/A
 ,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,Otniel Titus,,,,,Buyer,N/A
 ,,,Click Update Fulfilment Status，Change Status to Successful,,Otniel Titus,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Shipping",Click Shipping,"1. load order list page successfully
@@ -1737,8 +1737,8 @@ BE
 ,,,add video,success,Otniel Titus,,,,,Order Ops,Buyer
 ,,,Click Submit,"1.Enter Return/Refund Details Page
 2.Display Case Under Review
-3.TimelineDisplay Shopee Review-Refund(grey)",Otniel Titus,,,,,Order Ops,Buyer
-,,Enter Admin: https://order-admin.test.shopee.co.id/returns/return_list,search the return order，Enter return details page,"1.Check return Status: RETURN_REQUESTED
+3.TimelineDisplay Marketplace Review-Refund(grey)",Otniel Titus,,,,,Order Ops,Buyer
+,,Enter Admin: https://order-admin.test.marketplace.co.id/returns/return_list,search the return order，Enter return details page,"1.Check return Status: RETURN_REQUESTED
 2.Check Initial Status
 Eligible for Auto Refund: Yes",Otniel Titus,,,,,Order Ops,N/A
 ,,[Buyer],Me → Return/Refund → Check order status,"1.Redirect to Return Refund Page
@@ -1746,53 +1746,53 @@ Eligible for Auto Refund: Yes",Otniel Titus,,,,,Order Ops,N/A
 3. Display return status Case Under Review
 4. Display hint text
 5. Display action button [Cancel Request]",,,,,,,
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
-Login Seller Center → My Orders → Return/Refund → search current return SN","return list page, Check  order Status","1.Request Status=In Shopee Review
+Login Seller Center → My Orders → Return/Refund → search current return SN","return list page, Check  order Status","1.Request Status=In Marketplace Review
 2.Action button list={Refund}",,,,,,,
 ,,"run cronjob - auto_refund_after_return_requested
-https://space.shopee.io/leap/cronjobs/table/#/shopee/shopee-return/return_request?filterGroupTree=true&current=1&pageSize=10&sortBy=start_time&sortDirection=descend ",▶️run cronjob，select corresponding CID to run the cronjob,cronjob run successfully,Otniel Titus,,,,,Order Ops,N/A
-,,Enter Admin: https://order-admin.test.shopee.co.id/returns/return_list,search the return order，Enter return details page,"1.Check return Status: RETURN_ACCEPT
+https://portal.company.example/leap/cronjobs/table/#/marketplace/marketplace-return/return_request?filterGroupTree=true&current=1&pageSize=10&sortBy=start_time&sortDirection=descend ",▶️run cronjob，select corresponding CID to run the cronjob,cronjob run successfully,Otniel Titus,,,,,Order Ops,N/A
+,,Enter Admin: https://order-admin.test.marketplace.co.id/returns/return_list,search the return order，Enter return details page,"1.Check return Status: RETURN_ACCEPT
 2.Check Compensation Status: PENDING_REQUEST",Otniel Titus,,,,,Order Ops,N/A
 ,,,click Refund information-Refund ID link，push Refund Status to REFUND_PAID （Created-Verified-Verified-Paid）,,Otniel Titus,,,,,Order Ops,N/A
 ,,[Buyer],Me → Return/Refund → Check order status,"1.Redirect to Return Refund Page
 2. Able to view the return order
 3.Display Refund Completed
-4.TimelineDisplay Shopee Review-Refund(all highlight)",Otniel Titus,,,,,Order Ops,Buyer
+4.TimelineDisplay Marketplace Review-Refund(all highlight)",Otniel Titus,,,,,Order Ops,Buyer
 ,,,Check SpayLater amount and voucher,Refund successful,Otniel Titus,,,,,Order Ops,Buyer
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund → search current return SN",return list pageCheck  order Status,"1.Request Status=In Seller Review
 2.Action button list={Dispute, Accept}",Otniel Titus,,,,,Order Ops,Seller
 ,,,Click Enter return detail page,"1.Header=Pending Your Review
 2.Hint text contain dispute due date dd-mm-yyyy
-3.Action button list={Accept(orange), Dispute to Shopee}",Otniel Titus,,,,,Order Ops,Seller
-,,,Click Dispute to Shopee,Pop-up Dispute to Shopee appears,Otniel Titus,,,,,Order Ops,Seller
+3.Action button list={Accept(orange), Dispute to Marketplace}",Otniel Titus,,,,,Order Ops,Seller
+,,,Click Dispute to Marketplace,Pop-up Dispute to Marketplace appears,Otniel Titus,,,,,Order Ops,Seller
 ,,,select reason - I have shipped the item(s) and have proof of shipment，Click Continue,Pop-up upload evidence appears,Otniel Titus,,,,,Order Ops,Seller
-,,,"Upload photo & video, and click submit","Pop-up with ""Are you sure you want to raise a dispute to Shopee?"" displayed",Otniel Titus,,,,,Order Ops,Seller
+,,,"Upload photo & video, and click submit","Pop-up with ""Are you sure you want to raise a dispute to Marketplace?"" displayed",Otniel Titus,,,,,Order Ops,Seller
 ,,,Click Confirm,Dispute success,Otniel Titus,,,,,Order Ops,Seller
 ,,,Check return detail pageDisplay ,"header=Case Under Review
 hint text=Case is under review. We aim to provide you with an update in 2 days.
 Action button={Evidence/File History, Withdraw Dispute}",Otniel Titus,,,,,Order Ops,Seller
 ,,"[CS] Judge the dispute case
-https://cs.test.shopee.co.id/dms/dispute/overview ",search return ID，assign to yourself，Click view,Enter Dispute detail page,Otniel Titus,,,,,Order Ops,N/A
+https://cs.test.marketplace.co.id/dms/dispute/overview ",search return ID，assign to yourself，Click view,Enter Dispute detail page,Otniel Titus,,,,,Order Ops,N/A
 ,,,Click SOP-Judge-Judge Action(ALL)-Judge on the right column,success,Otniel Titus,,,,,Order Ops,N/A
 ,,,Execution: Approve Compenstaion Request,success,Otniel Titus,,,,,Order Ops,N/A
 ,,,Judging Reason: select any one,success,Otniel Titus,,,,,Order Ops,N/A
 ,,,Edit Compensation Amount,success,Otniel Titus,,,,,Order Ops,N/A
 ,,,Click Confirm,Judge Successfully,Otniel Titus,,,,,Order Ops,N/A
-,,Enter Admin: https://order-admin.test.shopee.co.id/returns/return_list,search return order，Enter return details page,"1.Check return Status: ACCEPTED
+,,Enter Admin: https://order-admin.test.marketplace.co.id/returns/return_list,search return order，Enter return details page,"1.Check return Status: ACCEPTED
 2.Check Compensation Status: APPROVED
 3.Check Seller Compensation information ，Compensation Amount is equal to the CS portalEnter amount ",Otniel Titus,,,,,Order Ops,N/A
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund → search current return SN",return list pageCheck  order Status,"1.Request Status=Dispute Approve
 2.Action button lis is empty",Otniel Titus,,,,,Order Ops,Buyer
 ,,,Click Enter return detail page,"1.Header=Compensation Approved
-2.Hint text=Shopee has reviewed the case and decided to provide you with a compensation of {compensation amount}. The amount will be credited to your Seller Balance.",Otniel Titus,,,,,Order Ops,Buyer
+2.Hint text=Marketplace has reviewed the case and decided to provide you with a compensation of {compensation amount}. The amount will be credited to your Seller Balance.",Otniel Titus,,,,,Order Ops,Buyer
 ,,,Check refunds and voucher returns,All have been successfully returned,Otniel Titus,,,,,Order Ops,Promotion
 "[10]Test buyer successfully place order welcome package[RN], Seller sent package, refund before receiving package(full refund-full adjustable-Non receip automation)",,,,,,,,,,,
 Test buyer successfully place order welcome package[RN]，seller sent package，refund before receiving package (full refund-full adjustable-Non receipt automation),"1.user: new user
@@ -1800,7 +1800,7 @@ Test buyer successfully place order welcome package[RN]，seller sent package，
 2.welcome package
 
 3.shop voucher: no voucher
-4.platform voucher: has voucher，but voucher can only be used with ShopeePay
+4.platform voucher: has voucher，but voucher can only be used with MarketplacePay
 5.fsv: have fsv
 
 6.coin: cannot redeem coin
@@ -1808,7 +1808,7 @@ Test buyer successfully place order welcome package[RN]，seller sent package，
 7.payment method:
 [ID/SG/PH]seabank
 [other country]any payment method
-8.Buyer unable to use Shopeepay due to various reason such as balanace not enough or buyer being blacklisted....
+8.Buyer unable to use Marketplacepay due to various reason such as balanace not enough or buyer being blacklisted....
 
 9.Non-receipt Automation(NRA) logic doc",[Buyer],Enter PDP Page,Successfully load PDP Page,Mirza Pradana,,,,,Buyer,Promotion
 ,,,Check item banner and price,"1.dispaly welcome package banner
@@ -1826,8 +1826,8 @@ Test buyer successfully place order welcome package[RN]，seller sent package，
 ,,item is in selected (ticked) Status,Check voucher,"1.Have not applied shop voucher
 2.auto apply platform voucher
 3.auto apply fsv
-[TH/MY can just apply one of fsv and shopee voucher]",Mirza Pradana,,,,,Promotion,Buyer
-,,,Click Platform Voucher,Enter Select Shopee Voucher Page,Mirza Pradana,,,,,Promotion,Buyer
+[TH/MY can just apply one of fsv and marketplace voucher]",Mirza Pradana,,,,,Promotion,Buyer
+,,,Click Platform Voucher,Enter Select Marketplace Voucher Page,Mirza Pradana,,,,,Promotion,Buyer
 ,,,Manually Click fsv，Click OK,"1,success
 2.Return to cart Page",Mirza Pradana,,,,,Promotion,Buyer
 ,,,redeem coin,cannot redeem,Mirza Pradana,,,,,Promotion,Buyer
@@ -1862,7 +1862,7 @@ Test buyer successfully place order welcome package[RN]，seller sent package，
 2.Completed payment","1. Click successful
 2. Redirect to payment Page
 3.success",Mirza Pradana,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship",Click To Ship,"1. load order list page successfully
@@ -1879,9 +1879,9 @@ Login Seller Center → My Orders → To Ship",Click To Ship,"1. load order list
 ,,,Click Update Fulfilment Status，Change Status To Request Created,success,Mirza Pradana,,,,,Buyer,N/A
 ,,,Click Update Fulfilment Status，Change Status Outbound Successful,success,Mirza Pradana,,,,,Buyer,N/A
 ,,,open coding monkey from OFG page，record rts_status,success,Mirza Pradana,,,,,Buyer,N/A
-,,,compare with shopee config cEnter → non_receipt_automation_config  → region → phase_{x}_config,rts_status_threshold = rts_status,Mirza Pradana,,,,,Buyer,N/A
+,,,compare with marketplace config cEnter → non_receipt_automation_config  → region → phase_{x}_config,rts_status_threshold = rts_status,Mirza Pradana,,,,,Buyer,N/A
 ,,,Call Api to update order Delivey_time & expected_receive_time < now,call api successfully,Mirza Pradana,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Shipping",Click Shipping,"1. load order list page successfully
@@ -1899,8 +1899,8 @@ BE
 3.now>expected_delivery_date
 4.order logicstic_status=2(in-transit)
 5.Refund Amount<Item Value Threshold
-6.(After NRA phase 3)Order logistic channel should set as included in admin: https://order-admin.test.shopee.co.id/return/non_receipt_automation/same_day_delivery_3pl_config 
-7.Compare with shopee config cEnter-non_receipt_automation_config: region → phase_{x}_config → rts_status_threshold = rts_status",In order details page under To Receive tab，Click Return/Refund,Enter How can we help Page，guide to refund,Mirza Pradana,,,,,Order Ops,N/A
+6.(After NRA phase 3)Order logistic channel should set as included in admin: https://order-admin.test.marketplace.co.id/return/non_receipt_automation/same_day_delivery_3pl_config 
+7.Compare with marketplace config cEnter-non_receipt_automation_config: region → phase_{x}_config → rts_status_threshold = rts_status",In order details page under To Receive tab，Click Return/Refund,Enter How can we help Page，guide to refund,Mirza Pradana,,,,,Order Ops,N/A
 ,,,select I didn't receive some/all of my items,Enter Select Products Page,Mirza Pradana,,,,,Order Ops,N/A
 ,,,select all product ，Click Next,Enter Request Return/Refund Page,Mirza Pradana,,,,,Order Ops,N/A
 ,,,Click Select Reason,Popup displaySelect Reason,Mirza Pradana,,,,,Order Ops,N/A
@@ -1910,15 +1910,15 @@ BE
 ,,,add photo,success,Mirza Pradana,,,,,Order Ops,N/A
 ,,,Click submit,"1.Enter Return/Refund Details Page
 2.Display Refund approved
-3.TimelineDisplay Request Pending-Shopee Review-Refund(All highlight)",Mirza Pradana,,,,,Order Ops,N/A
-,,"[Shopee App > SC]: ID & TW
+3.TimelineDisplay Request Pending-Marketplace Review-Refund(All highlight)",Mirza Pradana,,,,,Order Ops,N/A
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Return/Refund → search current return SN","return list page, Check  order Status","1.Request Status=In Seller Review
 2.Action button list={Dispute, Accept}",Mirza Pradana,,,,,Order Ops,N/A
 ,,,Click Enter return detail page,"1.Header=Pending Your Review
 2.Hint text contain dispute due date dd-mm-yyyy
-3.Action button list={Accept(orange), Dispute to Shopee}",Mirza Pradana,,,,,Order Ops,N/A
+3.Action button list={Accept(orange), Dispute to Marketplace}",Mirza Pradana,,,,,Order Ops,N/A
 [11]Test buyer successcully place an order for upcoming deep discount item，Seller sent package，buyer refund before receiving good(return refund-full adjustable-accelerate refund),,,,,,,,,,,
 Test buyer successcully place an order for upcoming deep discount item，Seller sent package，buyer refund before receiving good(return refund-full adjustable-accelerate refund),"1.shop type: preferred+
 
@@ -1943,7 +1943,7 @@ Test buyer successcully place an order for upcoming deep discount item，Seller 
 ,,item is in selected (ticked) Status,Check voucher,"1.Have not applied shop voucher
 2.auto apply platform voucher
 3.auto apply fsv
-[TH/MY can just apply one of fsv and shopee voucher]",Bharata Aryaseta,,,,,Buyer,Promotion
+[TH/MY can just apply one of fsv and marketplace voucher]",Bharata Aryaseta,,,,,Buyer,Promotion
 ,,,redeem coin,cannot redeem,Bharata Aryaseta,,,,,Buyer,Promotion
 ,,,Check amount in price component,Information in Discount Detail Page displayed correctly,Bharata Aryaseta,,,,,Buyer,Promotion
 ,,,"Click ""Return to"" at the top left of cart Page",Return to PDP Page,Bharata Aryaseta,,,,,Buyer,N/A
@@ -1965,7 +1965,7 @@ Test buyer successcully place an order for upcoming deep discount item，Seller 
 ,,,Click My Purchases button,"1.Redirect to My Purchases Page
 2.Redirect to To Ship tab",Bharata Aryaseta,,,,,Buyer,N/A
 ,,,Click the order,Redirect to Order Details Page,Bharata Aryaseta,,,,,Buyer,Promotion
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship",Click To Ship,"1. load order list page successfully
@@ -2033,11 +2033,11 @@ BE
 2.Return to Return/Refund Details Page",Bharata Aryaseta,,,,,Order Ops,Buyer
 ,,,Check Return/Refund Details Page information Display ,"1.Return In Progress
 2.Seller respond due date dd-mm-yyyy",Bharata Aryaseta,,,,,Order Ops,Buyer
-,,Enter Admin: https://order-admin.test.shopee.co.id/returns/return_list,search the return order，Enter details page,"1.Check return Status: PROCESSING
+,,Enter Admin: https://order-admin.test.marketplace.co.id/returns/return_list,search the return order，Enter details page,"1.Check return Status: PROCESSING
 2.Enter coding monkey，Check eligible_for_accelerated_refund_after_return_pickup_done: true
 3.Check eligible_for_accelerated_refund_after_return_pickup_done_due_time configured",Bharata Aryaseta,,,,,Order Ops,N/A
 ,,"1.now>eligible_for_accelerated_refund_after_return_pickup_done_due_time
-2.Enter https://space.shopee.io/leap/cronjobs/table/#/shopee/shopee-return/return_logistics?filterGroupTree=true&current=1&pageSize=10&sortBy=start_time&sortDirection=descend run cronjob - accelerate_refund_after_pickup_done",▶️run cronjob，select corresponding country(CID),run succeessfully,Bharata Aryaseta,,,,,Order Ops,N/A
+2.Enter https://portal.company.example/leap/cronjobs/table/#/marketplace/marketplace-return/return_logistics?filterGroupTree=true&current=1&pageSize=10&sortBy=start_time&sortDirection=descend run cronjob - accelerate_refund_after_pickup_done",▶️run cronjob，select corresponding country(CID),run succeessfully,Bharata Aryaseta,,,,,Order Ops,N/A
 ,,-,search return order，Enter details page,"1.Check return Status: RETURN_ACCEPT → REFUND_PAID
 2.Check Compensation Status: INITIAL_STAGE",Bharata Aryaseta,,,,,Order Ops,N/A
 ,,,click Refund information-Refund ID link，push Refund Status to REFUND_PAID （Created-Verified-Verified-Paid）,Check return Status: REFUND_PAID,Bharata Aryaseta,,,,,Order Ops,N/A
@@ -2045,7 +2045,7 @@ BE
 2.Able to see order from just now 
 3.Display Refund Completed
 4.TimelineDisplay Return Item-Item Validation-Refund(all highlight)",Bharata Aryaseta,,,,,Order Ops,Buyer
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Return/Refund",Enter Return Request ID (Return SN) then click apply,"1. load order list page successfully
@@ -2122,7 +2122,7 @@ Test Buyer successfully place order for platform sale item,"1.promotion: platfor
 ,,,Click Order ID,Redirect to Order Details Page,Otniel Titus,,,,,Buyer,N/A
 ,,,Click Coding Monkey,success,Otniel Titus,,,,,Buyer,N/A
 ,,,Query order_unit_migration_toggle information ,Value is 2,Otniel Titus,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Cancellation",Click Cancellation,"1. load order list page successfully
@@ -2197,7 +2197,7 @@ Test Buyer able to place order for membership gift,"1.membership gift
 ,,,Click Order ID,Redirect to Order Details Page,Theresia,,,,,Buyer,N/A
 ,,,Click Coding Monkey,success,Theresia,,,,,Buyer,N/A
 ,,,Query order_unit_migration_toggle information ,Value is zero,Theresia,,,,,Buyer,N/A
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → Cancellation",Click Cancellation,"1. load order list page successfully
@@ -2361,7 +2361,7 @@ Successfully place order with platform streaming price products,"1.item in platf
 ,,,Click My Purchases button,"1.Redirect to My Purchases Page
 2.Redirect to To Ship tab",Rizky Ashari,,,,,Buyer,N/A
 ,,,Click the order,Redirect to Order Details Page,Rizky Ashari,,,,,Buyer,N/A
-,,"[Shopee App > SC]: BR & TW
+,,"[Marketplace App > SC]: BR & TW
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship",Click To Ship,"1. load order list page successfully
@@ -2396,13 +2396,13 @@ Scenerio 2:
 ,,,Click My Purchases button,"1.Redirect to My Purchases Page
 2.Redirect to To Ship tab",Herrista Ovilia,,,,,Buyer,N/A
 ,,,Click the order,Redirect to Order Details Page,Herrista Ovilia,,,,,Buyer,Promotion
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → My Orders → To Ship",Click To Ship,"1. load order list page successfully
 2. display order card components successfully including buyer info, item info, total price, order status, logistic channel, action buttons, order ID successfully",Herrista Ovilia,,,,,Buyer,Seller
 ,,,"In search bar, search Buyer Name",Display multiple packages,Herrista Ovilia,,,,,Buyer,Seller
-,,"[Shopee App > SC]: ID & BR
+,,"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 Login Seller Center → Order → Mass Ship",Click Mass Ship,"1.Redirect to Mass Shipment Page
@@ -2661,7 +2661,7 @@ ROS test ticket
 ,,,Click Place Order,"1. success
 2. No need to fill in CPF information ",Ni Komang Ega,,,,,Buyer,N/A
 ,,"precondition: 
-1.Seller have Default Issuer set as Shopee in Seller Center → Shop Information → Invoice Setting
+1.Seller have Default Issuer set as Marketplace in Seller Center → Shop Information → Invoice Setting
 2.Invoice is Issued (Order Paid  →  OFG Ready  →  Seller Click Issue Invoice on seller center)","Enter Order admin → Orders → Orders
 Check Order Information- Reciept info",Should show order receipt info and link,,,,,,,
 ,,,Click Receipt link ,Should redirect to Receipt Operation page,,,,,,,
@@ -2767,7 +2767,7 @@ Check Order Information- Reciept info",Should show order receipt info and link,,
 ,,,Click Coding Monkey,success,Bharata Aryaseta,,,,,Buyer,N/A
 ,,,Check tax information , information Correct ,Bharata Aryaseta,,,,,Buyer,Order Ops
 "[27][BR/TW]Test during refund process, seller arrange shipment",,,,,,,,,,,
-"[Shopee App > SC]: BR
+"[Marketplace App > SC]: BR
 [Standalone Seller App]: Other countries
 
 [TW/BR]Test during refund process, seller arrange shipment",,[Buyer],Enter PDP Page,success,Arvalinno,,,,,Buyer,N/A
@@ -2790,7 +2790,7 @@ Check Order Information- Reciept info",Should show order receipt info and link,,
 2.Payment in ""Paid"" status",Arvalinno,,,,,Buyer,N/A
 ,,,"Click ""My Purchases"" button","1.Redirect to My Purchases Page
 2.Redirect to To Ship tab",Arvalinno,,,,,Buyer,N/A
-,,https://shark.test.shopee.io/create-order?type=Tool&subType=44,Enter Region and Order ID information ，Click execute,Execute success with no error,Arvalinno,,,,,Buyer,N/A
+,,https://api-internal.company.example/create-order?type=Tool&subType=44,Enter Region and Order ID information ，Click execute,Execute success with no error,Arvalinno,,,,,Buyer,N/A
 ,,Return to client side,Click Me page  →  Completed,"1.Enter My Purchases Page
 2.stop at Completed Page
 3.Display order that has just been paid",Arvalinno,,,,,Buyer,N/A
@@ -2812,7 +2812,7 @@ Check Order Information- Reciept info",Should show order receipt info and link,,
 ,,,Click Submit,"1.Enter Return/Refund Details Page
 2.Display Case under review
 3.Under the Case under review section, Display relavant infomation regarding due date ",Arvalinno,,,,,Order Ops,Buyer
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Log in Seller Center → Return/Refund","After Entering Return Request ID (aka Return SN), Click Apply","1. load order list page successfully
@@ -2821,11 +2821,11 @@ Log in Seller Center → Return/Refund","After Entering Return Request ID (aka R
 ,,,Click order ,"1.Enter Return/Refund Details Page, Page information display correctly and Status as ""Case Under Review""",Arvalinno,,,,,Order Ops,Seller
 ,,[Buyer],Me  →  Return/Refund,"1.Enter My Purchase Page
 2.stop at Return Refund tab",Arvalinno,,,,,Order Ops,Buyer
-,,,Check order Status of order just now,"1.Status set as ""Shopee Reviewing""
+,,,Check order Status of order just now,"1.Status set as ""Marketplace Reviewing""
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Return Refund Details button ",Arvalinno,,,,,Order Ops,N/A
 ,,,order admin-Return & Refund Details set as Return Status: PROCESSING,success,Arvalinno,,,,,Order Ops,N/A
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Log in Seller Center → Return/Refund","After Entering Return Request ID (aka Return SN), Click Apply","1. load order list page successfully
@@ -2851,7 +2851,7 @@ Full Refund",Arvalinno,,,,,Order Ops,Seller
 3.1 Prompt shows “(Important) How do I return item”
 3.2 Display relavant info regarding due date below correctly
 3.3 Display relavant info regarding Seller Arrange correctly",Arvalinno,,,,,Order Ops,N/A
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Log in Seller Center → Return/Refund","After Entering Return Request ID (aka Return SN), Click Apply","1. load order list page successfully
@@ -2874,7 +2874,7 @@ Refund",Arvalinno,,,,,Order Ops,Seller
 ,,"In Order admin-Return & Refund Details, set Logistics Status: DELIVERY_DONE",Me  →  Return/Refund  →  Check order Status in order just now,"1.Status: Validation In Progress
 2.Qty, Amount and Order Total etc. information are correct
 3.Display Return Refund Details button ",Arvalinno,,,,,Order Ops,Seller
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Log in Seller Center → Return/Refund","After Entering Return Request ID (aka Return SN), Click Apply","1. load order list page successfully
@@ -2891,14 +2891,14 @@ REFUND_VERIFIED  →
 REFUND_PAYOUT  →  
 REFUND_PAID","In client side, Click order, Enter Return/Refund Details Page",Display Refund Completed,Arvalinno,,,,,Order Ops,N/A
 ,,[Buyer],Check status of refund for voucher、coin and amount.,All refunds processed correctly,Arvalinno,,,,,Order Ops,Buyer
-,,"[Shopee App > SC]: ID & TW
+,,"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 Log in Seller Center → My Orders → Return/Refund",Check order Status,Refund Completed,Arvalinno,,,,,Order Ops,Seller
 ,,,Click Return Refund Details,"1.Enter Return/Refund Details Page, Page information Correct 
 2.Status > Refund Completed",Arvalinno,,,,,Order Ops,Seller
 [28]seller withdraw,,,,,,,,,,,
-"[Shopee App > SC]: ID & TW
+"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 test add bank account","1.User has activated shop
@@ -2913,14 +2913,14 @@ test add bank account","1.User has activated shop
 ,,,"Enter Bank Name and Account Number, 
 and Click ""Check Bank Account""",Redirect to Confirm Bank Infomation Page,Theresia,,,,,Order Ops,N/A
 ,,,Click Done，Complete card bounding to account,success,Theresia,,,,,Order Ops,N/A
-"[Shopee App > SC]: ID & TW
+"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 test balance = 0","1.User has activated shop
 2.already create a Local Seller Wallet
 3.seller wallet linked with bank account
 4.balance = 0",,Click WITHDRAWAL,Popup display “You have no balance to withdraw.”,Theresia,,,,,Order Ops,N/A
-"[Shopee App > SC]: ID & TW
+"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 test withdraw to bank account","1.User has activated shop
@@ -2943,7 +2943,7 @@ and Click Next",Redirect to Withdraw details page,Theresia,,,,,Order Ops,N/A
 ,,"1. BR Region only
 2. Seller connected to valid email account
 3. Only NORMAL withdrawal (NOT PIX)",Check for notification in email inbox,notification of withdrawal is received by seller,Theresia,,,,,Order Ops,N/A
-"[Shopee App > SC]: ID & TW
+"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 test withdraw to bank account","1.User has activated shop
@@ -2961,18 +2961,18 @@ and Click Next",Redirect to Withdraw details page,Theresia,,,,,Order Ops,N/A
 2.Check Balance reduced correctly",Theresia,,,,,Order Ops,N/A
 ,,,Check the withdrawal status on wallet admin,will be move to verified,Theresia,,,,,Order Ops,N/A
 ,,,Check for notification in here,notification of withdrawal is received by seller,Theresia,,,,,Order Ops,N/A
-"[Shopee App > SC]: ID & TW
+"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
-test withdraw to shopeepay[ID]","1.User has activated shop
+test withdraw to marketplacepay[ID]","1.User has activated shop
 2.already create a Local Seller Wallet
-3.balance > 0",,My Finance Page > Click WITHDRAWAL,Shopeepay will be the default selection,Theresia,,,,,Order Ops,N/A
+3.balance > 0",,My Finance Page > Click WITHDRAWAL,Marketplacepay will be the default selection,Theresia,,,,,Order Ops,N/A
 ,,,"Enter Withdrawal Amount where 
 (Lower limit < Withdrawal Amount > Balance)
 and Click Next to withdraw","1.can successfully withdrawl the Money 
 2.the Amount in My Balance will be Reduced accordingly",Theresia,,,,,Order Ops,N/A
 ,,,Check for notification in here,notification of withdrawal is received by seller,Theresia,,,,,Order Ops,N/A
-"[Shopee App > SC]: ID & TW
+"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 test cancel withdraw","1.User has activated shop
@@ -2984,7 +2984,7 @@ test cancel withdraw","1.User has activated shop
 (Lower limit < Withdrawal Amount > Balance)",success,Theresia,,,,,Order Ops,N/A
 ,,,"Click ""Return to"" button at the top left",Popup display “Do you want to cancel this withdrawal?”,Theresia,,,,,Order Ops,N/A
 ,,,Click Confirm,Return to My Finance Page,Theresia,,,,,Order Ops,N/A
-"[Shopee App > SC]: ID & TW
+"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 test withdraw[seller center]","1.already logged in to Seller Center
@@ -2995,7 +2995,7 @@ test withdraw[seller center]","1.already logged in to Seller Center
 ,,,Enter Wrong Password，Click Verify,Popup display “Password invalid. Please re-Enter.”,Theresia,,,,,Order Ops,N/A
 ,,,Enter Correct Password，Click Verify,"1.success
 2.Correct page loaded",Theresia,,,,,Order Ops,N/A
-"[Shopee App > SC]: ID & TW
+"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 test change wallet PIN","1.already logged in to Seller Center
@@ -3005,7 +3005,7 @@ Seller Balance Pin > Click ""Update""
 Input New Pin and Confirmation Pin
 Verify Phone Number > Input ""123456"" > Confirm","1.Show toast: ""Seller Balance Pin updated successfully""
 2.PIN is changed successfully",Theresia,,,,,Order Ops,N/A
-"[Shopee App > SC]: ID & TW
+"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 test auto withdrawal settings","1.already logged in to Seller Center
@@ -3027,7 +3027,7 @@ Auto Withdrawal > Click 'Configure' button
 Choose any bank account, choose any withdrawal frequency, input reserved amount
 Click ""Confirm"" > Input PIN > Confirm","1. Seabank auto withdrawal is toggled on
 2. Redirect to Payment Settings page",Theresia,,,,,Order Ops,N/A
-"[Shopee App > SC]: ID & TW
+"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 test wallet freeze [Wallet Admin V2]","1.has ""Seller Walelt Admin"" permission from SOUP with [block_transaction.read, block_transaction.write, block_transaction.read_pii] access","1.seller wallet not frozen
@@ -3037,7 +3037,7 @@ Upload file with valid user id > Confirm
 Verify that seller wallet is blocked > Click ""Export List"" > Check user id in file","1. uploaded user id wallet is blocked
 2. xlsx file contains uploaded user id
 3. audit log will show up in page",Theresia,,,,,Order Ops,N/A
-"[Shopee App > SC]: ID & TW
+"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 test wallet unfreeze [Wallet Admin V2]","1.has ""Seller Walelt Admin"" permission from SOUP with [block_transaction.read, block_transaction.write, block_transaction.read_pii] access","1.seller wallet is frozen
@@ -3047,7 +3047,7 @@ Upload file with valid user id > Confirm
 Verify that seller wallet is blocked > Click ""Export List"" > Check user id in file","1. uploaded user id is not blocked
 2. xlsx file does not contain uploaded user id
 3. audit log will show up in page",Theresia,,,,,Order Ops,N/A
-"[Shopee App > SC]: ID & TW
+"[Marketplace App > SC]: ID & TW
 [Standalone Seller App]: Other countries
 
 test get withdrawals [Wallet Admin V2]","1.has ""Seller Walelt Admin"" permission from SOUP with [withdrawal_request.read, withdrawal_request
@@ -3062,7 +3062,7 @@ Search withdrawals by Withdrawal Status",1.Show only withdrawals with queried st
 ,,,"Open wallet admin withdrawals page
 Search withdrawals by Bank Account Number",1.Show only withdrawals with queried bank acc number,Theresia,,,,,Order Ops,N/A
 [29]Seller Order list[RN],,,,,,,,,,,
-"[Shopee App > SC]: ID & BR
+"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 test entrance",,,go to My Shop > View Sales History,"1. display ""completed"" tab as default tab
@@ -3070,7 +3070,7 @@ test entrance",,,go to My Shop > View Sales History,"1. display ""completed"" ta
 3. display """"back"""" button
 4. display """"search"""" button
 5. display """"chat"""" button at top right corner""",Mirza Pradana,,,,,Buyer,Seller
-"[Shopee App > SC]: ID & BR
+"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 test My Sales Page tab",,,Check tab,"1. Unpaid
@@ -3080,14 +3080,14 @@ test My Sales Page tab",,,Check tab,"1. Unpaid
 5. Cancellation
 6. Return/Refund
 7. Failed Delivery",Mirza Pradana,,,,,Buyer,Seller
-"[Shopee App > SC]: ID & BR
+"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 test Unpaid",Check Order under Tab ,,Check filter,"1. channel filter (in dropdown - if any)
 2. order fulfillment filter (in dropdown - if any)",Mirza Pradana,,,,,Buyer,Seller
 ,Check Order under Tab,,Check order,show data with order card accordingly,Mirza Pradana,,,,,Buyer,Seller
 ,Check NO Order under Tab,,Check order,"show ""no data found""",Mirza Pradana,,,,,Buyer,Seller
-"[Shopee App > SC]: ID & BR
+"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 test To ship",,,Check display,"1. All
@@ -3098,21 +3098,21 @@ test To ship",,,Check display,"1. All
 2. order fulfillment filter (in dropdown - if any)",Mirza Pradana,,,,,Buyer,Seller
 ,Check Order under Tab,,Check order,show data with order card accordingly,Mirza Pradana,,,,,Buyer,Seller
 ,Check NO Order under Tab,,Check order,"show ""no data found""",Mirza Pradana,,,,,Buyer,Seller
-"[Shopee App > SC]: ID & BR
+"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 test Shipping",Check Order under Tab ,,Check filter,"1. channel filter (in dropdown - if any)
 2. order fulfillment filter (in dropdown - if any)",Mirza Pradana,,,,,Buyer,Seller
 ,Check Order under Tab,,Check order,show data with order card accordingly,Mirza Pradana,,,,,Buyer,Seller
 ,Check NO Order under Tab,,Check order,"show ""no data found""",Mirza Pradana,,,,,Buyer,Seller
-"[Shopee App > SC]: ID & BR
+"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 test Completed",Check Order under Tab ,,Check filter,"1. channel filter (in dropdown - if any)
 2. order fulfillment filter (in dropdown - if any)",Mirza Pradana,,,,,Buyer,Seller
 ,Check Order under Tab,,Check order,show data with order card accordingly,Mirza Pradana,,,,,Buyer,Seller
 ,Check NO Order under Tab,,Check order,"show ""no data found""",Mirza Pradana,,,,,Buyer,Seller
-"[Shopee App > SC]: ID & BR
+"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 test Cancellation",,,Check display,"1. All
@@ -3122,7 +3122,7 @@ test Cancellation",,,Check display,"1. All
 2. order fulfillment filter (in dropdown - if any)",Mirza Pradana,,,,,Buyer,Seller
 ,Check Order under Tab,,Check order,show data with order card accordingly,Mirza Pradana,,,,,Buyer,Seller
 ,Check NO Order under Tab,,Check order,"show ""no data found""",Mirza Pradana,,,,,Buyer,Seller
-"[Shopee App > SC]: ID & BR
+"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 test Return/Refund",,,Check display,"1. All
@@ -3132,7 +3132,7 @@ test Return/Refund",,,Check display,"1. All
 5. Completed",Mirza Pradana,,,,,Order Ops,Seller
 ,Check Order under Tab,,Check order,show data with order card accordingly,Mirza Pradana,,,,,Order Ops,Seller
 ,Check NO Order under Tab,,Check order,"show ""no data found""",Mirza Pradana,,,,,Order Ops,Seller
-"[Shopee App > SC]: ID & BR
+"[Marketplace App > SC]: ID & BR
 [Standalone Seller App]: Other countries
 
 test Failed Delivery",,,Check display,"1. All
@@ -3252,7 +3252,7 @@ test cancel order with voucher,"1.have shop voucher not claimed
 ,,,place order with vouchers,success,Arvalinno,,,,,Promotion,Buyer
 ,,,cancel order,success,Arvalinno,,,,,Promotion,Buyer
 ,,,Check the rollback status of the voucher,Vouchers are returned to users,Arvalinno,,,,,Promotion,Buyer
-test coupon overlay and auto apply logic [TH/MY],user has 1 applicable FSV A and 1 applicable shopee voucher B,in cart page,user enter cart page,can only apply one available voucher at most in voucher platform entrance,Arvalinno,,,,,Promotion,Buyer
+test coupon overlay and auto apply logic [TH/MY],user has 1 applicable FSV A and 1 applicable marketplace voucher B,in cart page,user enter cart page,can only apply one available voucher at most in voucher platform entrance,Arvalinno,,,,,Promotion,Buyer
 ,,,user click platform voucher drawer in cart page,auto select the voucher that auto applied in voucher platform entrance,Arvalinno,,,,,Promotion,Buyer
 ,,,"user manually unselects the voucher that auto selected in cart voucher drawer, click ""OK"" button",no vouchers auto apply in voucher platform entrance,Arvalinno,,,,,Promotion,Buyer
 ,,,user click platform voucher drawer in cart page agian,can only auto select one applicable voucher at most in cart voucher drawer,Arvalinno,,,,,Promotion,Buyer
@@ -3260,34 +3260,34 @@ test coupon overlay and auto apply logic [TH/MY],user has 1 applicable FSV A and
 ,,,user click  platform voucher drawer in OPC page,auto select the voucher that auto applied in voucher platform entrance,Arvalinno,,,,,Promotion,Buyer
 ,,,"user manually unselects the voucher that auto selected in OPC voucher drawer, click ""OK"" button",no vouchers auto apply in voucher platform entrance,Arvalinno,,,,,Promotion,Buyer
 ,,,user click platform voucher drawer in OPC page agian,can only auto select one applicable voucher at most in cart voucher drawer,Arvalinno,,,,,Promotion,Buyer
-test coupon overlay and auto apply logic [except TH/MY],user has 1 applicable FSV A and 1 applicable shopee voucher B,in cart page,user enter cart page,can apply FSV A and Shopee voucher B in voucher platform ,Arvalinno,,,,,Promotion,Buyer
-,,,user click platform voucher drawer in cart page,auto select FSV A and Shopee voucher B in voucher drawer,Arvalinno,,,,,Promotion,Buyer
+test coupon overlay and auto apply logic [except TH/MY],user has 1 applicable FSV A and 1 applicable marketplace voucher B,in cart page,user enter cart page,can apply FSV A and Marketplace voucher B in voucher platform ,Arvalinno,,,,,Promotion,Buyer
+,,,user click platform voucher drawer in cart page,auto select FSV A and Marketplace voucher B in voucher drawer,Arvalinno,,,,,Promotion,Buyer
 ,,,"user manually unselects the voucher that auto selected in cart voucher drawer, click ""OK"" button",no vouchers auto apply in voucher platform entrance,Arvalinno,,,,,Promotion,Buyer
-,,,user click platform voucher drawer in cart page again,auto select FSV A and Shopee voucher B in voucher drawer again,Arvalinno,,,,,Promotion,Buyer
-,,in OPC page,user enter OPC page,can apply FSV A and Shopee voucher B in voucher platform ,Arvalinno,,,,,Promotion,Buyer
-,,,user click platform voucher drawer in OPC page,auto select FSV A and Shopee voucher B in voucher drawer,Arvalinno,,,,,Promotion,Buyer
+,,,user click platform voucher drawer in cart page again,auto select FSV A and Marketplace voucher B in voucher drawer again,Arvalinno,,,,,Promotion,Buyer
+,,in OPC page,user enter OPC page,can apply FSV A and Marketplace voucher B in voucher platform ,Arvalinno,,,,,Promotion,Buyer
+,,,user click platform voucher drawer in OPC page,auto select FSV A and Marketplace voucher B in voucher drawer,Arvalinno,,,,,Promotion,Buyer
 ,,,"user manually unselects the voucher that auto selected in OPC voucher drawer, click ""OK"" button",no vouchers auto apply in voucher platform entrance,Arvalinno,,,,,Promotion,Buyer
-,,,user click platform voucher drawer in OPC page agian,auto select FSV A and Shopee voucher B in voucher drawer again,Arvalinno,,,,,Promotion,Buyer
+,,,user click platform voucher drawer in OPC page agian,auto select FSV A and Marketplace voucher B in voucher drawer again,Arvalinno,,,,,Promotion,Buyer
 [33]test cs download function,,,,,,,,,,,
-Download NEW income report (.xlsx) from seller center ,local seller,,"1. Config feature toggle: sz_income_report_with_item = ON in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys
+Download NEW income report (.xlsx) from seller center ,local seller,,"1. Config feature toggle: sz_income_report_with_item = ON in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys
 2. Download the income report from SC","Toogle ON: new report with item-level info 
 Toggle OFF: old report 
 able to download
 
 *TW should always toggle OFF, since TW didn't opt in the report change)  ",Nickolas Jonathan,,,,,Order Ops,N/A
-Download NEW income report (.xlsx) from order admin ,local seller,,"1. Config feature toggle: sz_income_report_with_item = ON in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys 
+Download NEW income report (.xlsx) from order admin ,local seller,,"1. Config feature toggle: sz_income_report_with_item = ON in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys 
 2. Download the income report from Order admin","Toogle ON: new report with item-level info 
 Toggle OFF: old report 
 able to download
 
 *TW should always toggle OFF, since TW didn't opt in the report change)  ",Nickolas Jonathan,,,,,Order Ops,N/A
-Download NEW income report (.xlsx) from seller center ,CB seller,,"1. Config feature toggle: sz_income_report_with_item = ON in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys 
+Download NEW income report (.xlsx) from seller center ,CB seller,,"1. Config feature toggle: sz_income_report_with_item = ON in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys 
 2. Download the income report from SC","Toogle ON: new report with item-level info 
 Toggle OFF: old report 
 able to download
 
 *TW should always toggle OFF, since TW didn't opt in the report change)  ",Nickolas Jonathan,,,,,Order Ops,N/A
-Download NEW income report (.xlsx) from order admin ,CB seller,,"1. Config feature toggle: sz_income_report_with_item = ON in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys
+Download NEW income report (.xlsx) from order admin ,CB seller,,"1. Config feature toggle: sz_income_report_with_item = ON in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys
 2. Download the income report from Order admin","Toogle ON: new report with item-level info 
 Toggle OFF: old report 
 able to download
@@ -3313,25 +3313,25 @@ Check content of NEW income report (.xlsx) ,local seller,,"1. Check the ""summar
 2. No existing info is missed (except format, nothing changed)",Nickolas Jonathan,,,,,Order Ops,N/A
 ,,,"1. Check the ""adjustment details"" tab","1. The ""Order Payout Released Date"" is added next to ""Linked Order No.""",Nickolas Jonathan,,,,,Order Ops,N/A
 ,,,"1. Check ""service fee details"" tab","if have service fee, will have the tab",Nickolas Jonathan,,,,,Order Ops,N/A
-Download OLD income report (.xlsx) from seller center ,local seller,,"1. Config feature toggle: sz_income_report_with_item = OFF in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys
+Download OLD income report (.xlsx) from seller center ,local seller,,"1. Config feature toggle: sz_income_report_with_item = OFF in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys
 2. Download the income report from SC","Toogle ON: new report with item-level info 
 Toggle OFF: old report 
 able to download
 
 *TW should always toggle OFF, since TW didn't opt in the report change)  ",Nickolas Jonathan,,,,,Order Ops,N/A
-Download OLD income report (.xlsx) from order admin ,local seller,,"1. Config feature toggle: sz_income_report_with_item = OFF in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys
+Download OLD income report (.xlsx) from order admin ,local seller,,"1. Config feature toggle: sz_income_report_with_item = OFF in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys
 2. Download the income report from Order admin","Toogle ON: new report with item-level info 
 Toggle OFF: old report 
 able to download
 
 *TW should always toggle OFF, since TW didn't opt in the report change)  ",Nickolas Jonathan,,,,,Order Ops,N/A
-Download OLD income report (.xlsx) from seller center ,CB seller,,"1. Config feature toggle: sz_income_report_with_item = OFF in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys
+Download OLD income report (.xlsx) from seller center ,CB seller,,"1. Config feature toggle: sz_income_report_with_item = OFF in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys
 2. Download the income report from SC","Toogle ON: new report with item-level info 
 Toggle OFF: old report 
 able to download
 
 *TW should always toggle OFF, since TW didn't opt in the report change)  ",Nickolas Jonathan,,,,,Order Ops,N/A
-Download OLD income report (.xlsx) from order admin ,CB seller,,"1. Config feature toggle: sz_income_report_with_item = OFF in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys
+Download OLD income report (.xlsx) from order admin ,CB seller,,"1. Config feature toggle: sz_income_report_with_item = OFF in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys
 2. Download the income report from Order admin","Toogle ON: new report with item-level info 
 Toggle OFF: old report 
 able to download
@@ -3357,19 +3357,19 @@ Check content of OLD income report (.xlsx) ,local seller,,"1. Check the ""summar
 2. No existing info is missed (except format, nothing changed)",Nickolas Jonathan,,,,,Order Ops,N/A
 ,,,"1. Check the ""adjustment details"" tab","1. The ""Order Payout Released Date"" is added next to ""Linked Order No.""",Nickolas Jonathan,,,,,Order Ops,N/A
 ,,,"1. Check ""service fee details"" tab","if have service fee, will have the tab",Nickolas Jonathan,,,,,Order Ops,N/A
-Download OLD income statement (.pdf) from seller center ,local seller,,"1. Config feature toggle in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys
+Download OLD income statement (.pdf) from seller center ,local seller,,"1. Config feature toggle in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys
 toggle 1: sz_new_income_stmt  = OFF
 2. Download the income statement from SC",able to download income statement,Nickolas Jonathan,,,,,Order Ops,N/A
-Download OLD income statement (.pdf) from order admin ,local seller,,"1. Config feature toggle in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys
+Download OLD income statement (.pdf) from order admin ,local seller,,"1. Config feature toggle in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys
 toggle 1: sz_new_income_stmt  = OFF
 2. Download the income statement from Order admin",able to download income statement,Nickolas Jonathan,,,,,Order Ops,N/A
-Download OLD income statement (.pdf) from seller center ,CB seller,,"1. Config feature toggle in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys 
+Download OLD income statement (.pdf) from seller center ,CB seller,,"1. Config feature toggle in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys 
 toggle 1: sz_new_income_stmt  = OFF
 2. Download the income statement from SC",able to download income statement,Nickolas Jonathan,,,,,Order Ops,N/A
-"Download OLD income statement (.pdf) from order admin , income doments page (https://order-admin.test.shopee.co.id/orders/accounting/income_documents)",CB seller,,"1. Config feature toggle in Seller Operation Platform. https://seller.test.shopee.co.id/admin/misc/feature/shop/keys
+"Download OLD income statement (.pdf) from order admin , income doments page (https://order-admin.test.marketplace.co.id/orders/accounting/income_documents)",CB seller,,"1. Config feature toggle in Seller Operation Platform. https://seller.test.marketplace.co.id/admin/misc/feature/shop/keys
 toggle 1: sz_new_income_stmt  = OFF
 2. Download the income statement from Order admin",able to download income statement,Nickolas Jonathan,,,,,Order Ops,N/A
-"Check content of OLD income statement (.pdf) from order admin , income doments page (https://order-admin.test.shopee.co.id/orders/accounting/income_documents)",local seller,,check the content,"1. The display structure is same as the SC TDP (transaction detail page) display with subtotal and breakdown 
+"Check content of OLD income statement (.pdf) from order admin , income doments page (https://order-admin.test.marketplace.co.id/orders/accounting/income_documents)",local seller,,check the content,"1. The display structure is same as the SC TDP (transaction detail page) display with subtotal and breakdown 
 2. The amount is accurate
 3. All fees applied to the region are displayed. (no missing) 
 4. Any fee NOT applied to your region is NOT displayed. ",Nickolas Jonathan,,,,,Order Ops,N/A
@@ -3377,7 +3377,7 @@ Download NEW income statement with v1 statement (.pdf) from seller center ,local
 toggle 1: sz_new_income_stmt  = ON
 toggle 2: sz_new_income_stmt_version_ctr = ON
 2. Download the income statement from SC",able to download income statement,Nickolas Jonathan,,,,,Order Ops,N/A
-"Download NEW income statement with v1 statement (.pdf) from order admin , income doments page (https://order-admin.test.shopee.co.id/orders/accounting/income_documents)",CB seller,,"1. Config feature toggle in Seller Operation Platform. 
+"Download NEW income statement with v1 statement (.pdf) from order admin , income doments page (https://order-admin.test.marketplace.co.id/orders/accounting/income_documents)",CB seller,,"1. Config feature toggle in Seller Operation Platform. 
 toggle 1: sz_new_income_stmt  = ON
 toggle 2: sz_new_income_stmt_version_ctr = ON
 2. Download the income statement from Order admin",able to download income statement,Nickolas Jonathan,,,,,Order Ops,N/A
@@ -3385,16 +3385,16 @@ Download NEW income statement with v2 statement (.pdf) from seller center ,local
 toggle 1: sz_new_income_stmt = ON
 toggle 2: sz_new_income_stmt_version_ctr  = OFF
 2. Download the income statement from SC",able to download income statement,Nickolas Jonathan,,,,,Order Ops,N/A
-"Download NEW income statement with v2 statement (.pdf) from order admin, income doments page (https://order-admin.test.shopee.co.id/orders/accounting/income_documents)",CB seller,,"1. Config feature toggle in Seller Operation Platform. 
+"Download NEW income statement with v2 statement (.pdf) from order admin, income doments page (https://order-admin.test.marketplace.co.id/orders/accounting/income_documents)",CB seller,,"1. Config feature toggle in Seller Operation Platform. 
 toggle 1: sz_new_income_stmt = ON
 toggle 2: sz_new_income_stmt_version_ctr  = OFF
 2. Download the income statement from Order admin",able to download income statement,Nickolas Jonathan,,,,,Order Ops,N/A
-"Check content of NEW income statement with v1 statement (.pdf) from order admin, income doments page (https://order-admin.test.shopee.co.id/orders/accounting/income_documents)",CB seller,,"(PH)
+"Check content of NEW income statement with v1 statement (.pdf) from order admin, income doments page (https://order-admin.test.marketplace.co.id/orders/accounting/income_documents)",CB seller,,"(PH)
 1. Turn Toggle 1 and 2 ON
 2. Check the details of payout released 
 3. Compare it with the template V1 ","1. The details show subtotal only 
 2. The amount is accurate",Nickolas Jonathan,,,,,Order Ops,N/A
-"Check content of NEW income statement with v2 statement (.pdf) from order admin, income doments page (https://order-admin.test.shopee.co.id/orders/accounting/income_documents)",local seller,,"(SG, MY, TH, TW, VN, BR)
+"Check content of NEW income statement with v2 statement (.pdf) from order admin, income doments page (https://order-admin.test.marketplace.co.id/orders/accounting/income_documents)",local seller,,"(SG, MY, TH, TW, VN, BR)
 1. Turn Toggle 1 ON, Toggle 2 Off
 2. Check the details of payout released 
 3. Compare it with the template V2 ","1. The details show breakdown 
@@ -3411,7 +3411,7 @@ Page Redirection - RN,,,go to seller center  →  click my order  →  search fo
 Page Display - RN,,,check the TDP (transaction detail page) data,"1. The display structure is same as the SC TDP (transaction detail page) display with subtotal and breakdown 
 2. The amount is accurate",Nickolas Jonathan,,,,,Order Ops,N/A
 [34][SG/MY/VN/TW/PH/TH] test invoice,,,,,,,,,,,
-[Seller Invoice - SG] Shopee Invoice,Order eligibility,,"1. Create order with transaction fees, commission fee and service fee
+[Seller Invoice - SG] Marketplace Invoice,Order eligibility,,"1. Create order with transaction fees, commission fee and service fee
 2. Move the order to escrow verified
 3. Run the sync invoice item cron job ",Invoice item db populated,Nickolas Jonathan,,,,,Order Ops,N/A
 ,Invoice generation - Tax invoice,,4. Run the invoice generation cron job,tax invoice generated,Nickolas Jonathan,,,,,Order Ops,N/A
@@ -3432,7 +3432,7 @@ Page Display - RN,,,check the TDP (transaction detail page) data,"1. The display
 ,Invoice generation - Itemised billing,,Verify itemised billing invoice generation,generated succcessfully,Nickolas Jonathan,,,,,Order Ops,N/A
 ,FE Display verification,,"1. Go to seller center > My balances
 2. Verify the tax invoice",Can see the generated tax invoice,Nickolas Jonathan,,,,,Order Ops,N/A
-[Seller Invoice - MY / VN] Shopee Invoice,Order eligibility,,"1. Create order with transaction fees, commission fee and service fee
+[Seller Invoice - MY / VN] Marketplace Invoice,Order eligibility,,"1. Create order with transaction fees, commission fee and service fee
 2. Move the order to escrow verified
 3. Run the sync invoice item cron job",Invoice item db populated,Nickolas Jonathan,,,,,Order Ops,N/A
 ,Invoice generation - Tax invoice,,4. Run the invoice generation cron job,tax invoice generated,Nickolas Jonathan,,,,,Order Ops,N/A
@@ -3493,17 +3493,17 @@ Page Display - RN,,,check the TDP (transaction detail page) data,"1. The display
 ,FE Display verification,,1. Check the Order Admin,Able to download invoice,Nickolas Jonathan,,,,,Order Ops,N/A
 [Buyer Receipt - TW] Normal order,Proxy Receipt,,"1. Create order
 2. Move order status to completed
-3. Move order logistic status to successful",Will generate EVENT_SHOPEE_PROXY_RECEIPT,Nickolas Jonathan,,,,,Order Ops,N/A
+3. Move order logistic status to successful",Will generate EVENT_MARKETPLACE_PROXY_RECEIPT,Nickolas Jonathan,,,,,Order Ops,N/A
 [Buyer Receipt - TW] Returned order,Void receipt,,"1. Create order
 2. Move order status to completed
-3. Move order logistic status to successful",Will generate EVENT_SHOPEE_PROXY_RECEIPT,Nickolas Jonathan,,,,,Order Ops,N/A
+3. Move order logistic status to successful",Will generate EVENT_MARKETPLACE_PROXY_RECEIPT,Nickolas Jonathan,,,,,Order Ops,N/A
 ,,,"1.  Request Return Refund
-2.  Move return/refund to accepted",Will generate EVENT_SHOPEE_VOID_RECEIPT,Nickolas Jonathan,,,,,Order Ops,N/A
+2.  Move return/refund to accepted",Will generate EVENT_MARKETPLACE_VOID_RECEIPT,Nickolas Jonathan,,,,,Order Ops,N/A
 [Buyer Receipt - TW] Returned order out of valid period,Allowance receipt,,"1. Create order
 2. Move order logistics status to successful
 3. Follow steps from here for out of valid period (change issue datetime)
 4. Request for return/refund and approve it
-5. Generate receipt. ",Will generate EVENT_SHOPEE_ALLOWANCE_RECEIPT(25),Nickolas Jonathan,,,,,Order Ops,N/A
+5. Generate receipt. ",Will generate EVENT_MARKETPLACE_ALLOWANCE_RECEIPT(25),Nickolas Jonathan,,,,,Order Ops,N/A
 [Buyer Receipt - TW] Withdrawal Fee,Withdrawal Fee Receipt,,"1.  Create a withdrawal with status COMPLETED today
 2.  Run withdrawalfee cronjob for time today","1.  Cronjob success
 2.  Withdrawal fee receipt data is created

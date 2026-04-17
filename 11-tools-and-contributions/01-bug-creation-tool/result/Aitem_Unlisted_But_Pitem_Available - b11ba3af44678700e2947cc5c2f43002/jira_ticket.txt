@@ -9,12 +9,12 @@ Aitem is unlisted, but Pitem is available and already enabled correct logistic
 - toggles: none
 
 *Impact*
-- user impact summary: Buyers in KH test environment cannot add SIP (Shopee Integrated Platform) A-items to cart even though the P-item (Primary item) is available and properly configured. This blocks the entire SIP cross-border shopping flow for KH market.
+- user impact summary: Buyers in KH test environment cannot add SIP (Marketplace Integrated Platform) A-items to cart even though the P-item (Primary item) is available and properly configured. This blocks the entire SIP cross-border shopping flow for KH market.
 - test impact summary: QA team blocked from testing SIP A-item add-to-cart functionality in KH test environment. Cannot verify cross-border item listing synchronization between P-shop and A-shop.
 - any workaround: Manually list the A-item in the A-shop, but this defeats the purpose of SIP auto-synchronization feature.
 
 *Reproducible Steps*
-1. Login to Shopee KH test environment as buyer (kh.buyer6)
+1. Login to Marketplace KH test environment as buyer (kh.buyer6)
 2. Navigate to a SIP A-item (Item ID: 2303838543, Model ID: 310001393599)
 3. Verify that the P-item is listed and available in the P-shop
 4. Verify that logistics are properly configured for the A-shop
@@ -63,7 +63,7 @@ Aitem is unlisted, but Pitem is available and already enabled correct logistic
 **Issue Type:** Backend Data Inconsistency - SIP Item Status Synchronization Failure
 
 **Technical Details:**
-This is a SIP (Shopee Integrated Platform) cross-border item synchronization issue. In SIP architecture:
+This is a SIP (Marketplace Integrated Platform) cross-border item synchronization issue. In SIP architecture:
 - **P-item (Primary item)**: The original item in the primary shop (P-shop)
 - **A-item (Affiliated item)**: The synchronized copy in the affiliated shop (A-shop) for cross-border selling
 
@@ -216,7 +216,7 @@ The issue is caused by one or more of the following:
 - Timestamp: 2025-11-25 17:01:37 UTC
 
 **SIP Context:**
-- SIP (Shopee Integrated Platform) enables cross-border selling
+- SIP (Marketplace Integrated Platform) enables cross-border selling
 - P-shop: Primary shop where original item is created
 - A-shop: Affiliated shop in target market (KH) where item is synchronized
 - Synchronization should keep A-item status, price, stock, and logistics in sync with P-item

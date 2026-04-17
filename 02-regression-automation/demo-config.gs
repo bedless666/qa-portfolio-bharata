@@ -7,14 +7,14 @@
  */
 
 const CONFIG = {
-  // Seatalk Webhook URLs
-  WEBHOOK_TEST: 'https://openapi.seatalk.io/webhook/group/YOUR_TEST_WEBHOOK_ID',
-  WEBHOOK_PROD: 'https://openapi.seatalk.io/webhook/group/YOUR_PROD_WEBHOOK_ID',
+  // Team Chat Webhook URLs
+  WEBHOOK_TEST: 'https://webhooks.company.example/webhook/group/YOUR_WEBHOOK_GROUP_ID',
+  WEBHOOK_PROD: 'https://webhooks.company.example/webhook/group/YOUR_WEBHOOK_GROUP_ID',
   
   // Active webhook - Change manually to switch between test and prod
   // For TEST: Use WEBHOOK_TEST
   // For PROD: Use WEBHOOK_PROD
-  WEBHOOK_URL: 'https://openapi.seatalk.io/webhook/group/YOUR_ACTIVE_WEBHOOK_ID',  // Currently: PROD
+  WEBHOOK_URL: 'https://webhooks.company.example/webhook/group/YOUR_WEBHOOK_GROUP_ID',  // Currently: PROD
   
   // Google Calendar Settings
   CALENDAR_ID: 'your-calendar-id@group.calendar.google.com',

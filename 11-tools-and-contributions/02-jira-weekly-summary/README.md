@@ -1,6 +1,6 @@
 # JIRA Weekly Summary - Python Implementation
 
-Python-based automation untuk mengirim JIRA Weekly Summary ke SeaTalk.
+Python-based automation untuk mengirim JIRA Weekly Summary ke Team Chat.
 
 ## 📁 Struktur Folder
 
@@ -140,16 +140,16 @@ crontab -e
 
 ```bash
 # All Teams - Setiap Kamis jam 14:00
-0 14 * * 4 /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/jira-weekly-python/run_cronjob.sh
+0 14 * * 4 /path/to/your/workspace/01-Work-Projects/jira-weekly-python/run_cronjob.sh
 
 # Atau dengan full path python:
-0 14 * * 4 cd /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/jira-weekly-python && /usr/bin/python3 jira_weekly.py --mode production
+0 14 * * 4 cd /path/to/your/workspace/01-Work-Projects/jira-weekly-python && /usr/bin/python3 jira_weekly.py --mode production
 
 # Single Team - Buyer setiap Jumat jam 10:00
-0 10 * * 5 cd /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/jira-weekly-python && /usr/bin/python3 jira_weekly.py --team buyer --mode production
+0 10 * * 5 cd /path/to/your/workspace/01-Work-Projects/jira-weekly-python && /usr/bin/python3 jira_weekly.py --team buyer --mode production
 
 # Single Team - Seller setiap Jumat jam 10:00
-0 10 * * 5 cd /Users/bharata.aryaseta/Documents/Docs/Bharata\ Repository/01-Work-Projects/jira-weekly-python && /usr/bin/python3 jira_weekly.py --team seller_fulfillment --mode production
+0 10 * * 5 cd /path/to/your/workspace/01-Work-Projects/jira-weekly-python && /usr/bin/python3 jira_weekly.py --team seller_fulfillment --mode production
 ```
 
 **Cronjob Schedule Examples:**
@@ -240,7 +240,7 @@ chmod +x run_cronjob.sh
 
 **5. Webhook Error**
 - Check webhook ID di config.yaml
-- Verify SeaTalk group access
+- Verify Team Chat group access
 - Check message format (max 1000 chars per element)
 
 ## 🎯 Next Steps
@@ -249,7 +249,7 @@ Untuk menggunakan di production:
 
 **All Teams Mode:**
 1. ✅ Test manual execution: `python3 jira_weekly.py --mode test`
-2. ✅ Verify 2 messages di TEST SeaTalk group
+2. ✅ Verify 2 messages di TEST Team Chat group
 3. ✅ Setup cronjob untuk production
 4. ✅ Monitor logs
 
@@ -259,7 +259,7 @@ Untuk menggunakan di production:
    - `python3 jira_weekly.py --team seller_fulfillment --mode test`
    - `python3 jira_weekly.py --team promotion --mode test`
    - `python3 jira_weekly.py --team order_ops --mode test`
-2. ✅ Verify messages & button links di TEST SeaTalk group
+2. ✅ Verify messages & button links di TEST Team Chat group
 3. ✅ Setup cronjob untuk production (bisa semua teams atau selective)
 4. ✅ Monitor logs untuk pastikan jalan dengan baik
 

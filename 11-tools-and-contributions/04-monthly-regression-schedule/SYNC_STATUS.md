@@ -7,7 +7,7 @@ Last synced: 2024-12-02
 Both versions (Google Apps Script and Local Node.js) are now **100% synced** with identical functionality:
 
 ### Configuration
-- ✅ Webhook URL: `7BTJoSlqSnKFhaYOAnD1Aw`
+- ✅ Webhook URL: `YOUR_PRODUCTION_WEBHOOK_TOKEN`
 - ✅ Spreadsheet ID: `19nAfyhqtf-Evdl78peuoDOvs6SIoo9j0bpgvf1lIYAM`
 - ✅ Sheet Name: `Regression PIC`
 - ✅ Max Description Length: `900 chars`

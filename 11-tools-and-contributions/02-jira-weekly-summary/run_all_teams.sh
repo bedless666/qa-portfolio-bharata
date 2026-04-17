@@ -4,7 +4,7 @@
 # Usage: ./run_all_teams.sh [webhook_id] [mode]
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-WEBHOOK_ID="${1:-7BTJoSlqSnKFhaYOAnD1Aw}"
+WEBHOOK_ID="${1:-YOUR_PRODUCTION_WEBHOOK_TOKEN}"
 MODE="${2:-production}"
 PYTHON_BIN="/usr/bin/python3"
 
@@ -19,10 +19,10 @@ echo "=========================================="
 CONFIG_FILE="$SCRIPT_DIR/config_runtime.yaml"
 
 cat > "$CONFIG_FILE" << 'EOF'
-# JIRA Weekly Summary - Runtime Configuration File
+# JIRA Weekly Summary - Runtime Configuration File (sanitized)
 
 jira:
-  api_url: "https://jira.shopee.io/rest/api/2/search"
+  api_url: "https://jira.company.example/rest/api/2/search"
   pat_token: "YOUR_JIRA_PAT_TOKEN_HERE"
   fields:
     - "key"
@@ -34,42 +34,42 @@ jira:
 
 teams:
   promotion:
-    jira_filter: 148522
+    jira_filter: 100002
     webhook_test: "WEBHOOK_PLACEHOLDER"
     webhook_production: "WEBHOOK_PLACEHOLDER"
     members:
-      - "rika.wulandari@shopee.com"
-      - "bharata.aryaseta@shopee.com"
-      - "kevin.gosalim@shopee.com"
-  
+      - "qa.member14@company.example"
+      - "qa.member15@company.example"
+      - "qa.member13@company.example"
+
   buyer:
-    jira_filter: 149233
+    jira_filter: 100003
     webhook_test: "WEBHOOK_PLACEHOLDER"
     webhook_production: "WEBHOOK_PLACEHOLDER"
     members:
-      - "theresia.theresia@shopee.com"
-      - "herrista.putri@shopee.com"
-      - "anisa.karina@shopee.com"
-  
+      - "qa.member01@company.example"
+      - "qa.member02@company.example"
+      - "qa.member03@company.example"
+
   seller_fulfillment:
-    jira_filter: 149234
+    jira_filter: 100004
     webhook_test: "WEBHOOK_PLACEHOLDER"
     webhook_production: "WEBHOOK_PLACEHOLDER"
     members:
-      - "ivan.jond@shopee.com"
-      - "rizky.ashari@shopee.com"
-      - "hanif.kusuma@shopee.com"
-      - "flavianus.delvin@shopee.com"
-  
+      - "qa.member04@company.example"
+      - "qa.member05@company.example"
+      - "qa.member06@company.example"
+      - "qa.member08@company.example"
+
   order_ops:
-    jira_filter: 147119
+    jira_filter: 100005
     webhook_test: "WEBHOOK_PLACEHOLDER"
     webhook_production: "WEBHOOK_PLACEHOLDER"
     members:
-      - "otavia.novi@shopee.com"
-      - "adelina.nataye@shopee.com"
-      - "katriel.widjaja@shopee.com"
-      - "otniel.hussin@shopee.com"
+      - "qa.member09@company.example"
+      - "qa.member10@company.example"
+      - "qa.member11@company.example"
+      - "qa.member12@company.example"
 EOF
 
 # Replace webhook placeholder with actual webhook ID
@@ -100,4 +100,3 @@ echo ""
 echo "=========================================="
 echo "Summary: $SUCCESS_COUNT succeeded, $FAIL_COUNT failed"
 echo "=========================================="
-

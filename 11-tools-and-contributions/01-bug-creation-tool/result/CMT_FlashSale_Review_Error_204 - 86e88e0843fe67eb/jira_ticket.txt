@@ -5,7 +5,7 @@ CMT Flash Sale Review Page returns error 204 - Session data not found for pendin
 - app / os version: CMT Admin Web Portal / Chrome on macOS
 - env (test, staging, live) and country info: Test environment, KH region (Cambodia)
 - pfb build: n/a
-- account (user / id): bharata.aryaseta@shopee.com
+- account (user / id): qa.engineer@company.example
 - toggles: none
 
 *Impact*
@@ -14,7 +14,7 @@ CMT Flash Sale Review Page returns error 204 - Session data not found for pendin
 - any workaround: None available. The session data appears to be missing or inaccessible from the backend service.
 
 *Reproducible Steps*
-1. Login to CMT Admin portal at https://cmt-admin.test.shopeekh.com
+1. Login to CMT Admin portal at https://cmt-admin.test.marketplacekh.com
 2. Navigate to Campaign Scene → Flash Sale → Sub Campaign → Session → Review
 3. Access the review page with URL parameter: sessionId=170000000005035
 4. Observe the page fails to load with error 204
@@ -59,7 +59,7 @@ The issue is caused by missing or inaccessible session data for Flash Sale sessi
 The API request successfully reaches the backend (HTTP 200), but the business logic returns error code 204 with null data. This indicates:
 
 1. **Permission Check**: The related trace (86e88e0843fe67ebf43e35dde4fdb100) shows successful permission validation:
-   - User: bharata.aryaseta@shopee.com
+   - User: qa.engineer@company.example
    - Permission: `Recruiting.BC.SC.ReviewVoucher.View` ✓
    - Permission: `Recruiting.BC.SC.ReviewVoucher.SensitiveView` ✓
    - Entity check for session 170000000005035 completed successfully
@@ -110,7 +110,7 @@ The API request successfully reaches the backend (HTTP 200), but the business lo
 **Verification Steps:**
 After fix is deployed:
 1. Query the database to confirm session 170000000005035 exists with valid data
-2. Access the review page URL: https://cmt-admin.test.shopeekh.com/campaignScene/flashSale/subCampaign/session/review?sessionId=170000000005035
+2. Access the review page URL: https://cmt-admin.test.marketplacekh.com/campaignScene/flashSale/subCampaign/session/review?sessionId=170000000005035
 3. Verify the pending auto review count API returns success (error: 0)
 4. Confirm session details are displayed correctly
 5. Validate that the review workflow can proceed normally

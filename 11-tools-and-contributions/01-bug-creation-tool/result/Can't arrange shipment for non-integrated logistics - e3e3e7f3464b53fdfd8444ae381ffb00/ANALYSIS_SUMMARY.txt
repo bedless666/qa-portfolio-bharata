@@ -16,7 +16,7 @@ Code: 120510041
 Message: context deadline exceeded
 Service: sellerfulfillment-shipment-staging-id
 Component: shipment initialization (init_processors.forderInitProcessor)
-API Endpoint: POST https://oms.staging.shopee.co.id/api/forder/init
+API Endpoint: POST https://oms.staging.marketplace.co.id/api/forder/init
 Timestamp: 2025-12-19 18:13:25.924 - 18:13:36.284 (10.36 seconds elapsed)
 
 ROOT CAUSE
@@ -33,7 +33,7 @@ The API call made with retry mechanism (retry_times=0) but all attempts failed w
 SERVICE CHAIN
 1. Seller Center UI → Seller clicks "Arrange Shipment" button
 2. POST /api/fulfillment/shipment/v2/init → sellerfulfillment-shipment service
-3. sellerfulfillment-shipment → POST https://oms.staging.shopee.co.id/api/forder/init (OMS service)
+3. sellerfulfillment-shipment → POST https://oms.staging.marketplace.co.id/api/forder/init (OMS service)
 4. **ERROR occurred at OMS service** (reason: API response time >10 seconds, causing context deadline exceeded)
 5. Timeout error propagates back through the chain to user
 
@@ -130,7 +130,7 @@ Timestamp: 2025-12-19 18:13:36.282397
 Service: sellerfulfillment-shipment
 TraceID: e3e3e7f3464b53fdfd8444ae381ffb00:02000037bc12d01a:01000262b6660ffe
 Error: uhttp_client_request_error - context deadline exceeded
-Details: url=https://oms.staging.shopee.co.id/api/forder/init, method=POST, elapsed_millis=10000, status_code=-1
+Details: url=https://oms.staging.marketplace.co.id/api/forder/init, method=POST, elapsed_millis=10000, status_code=-1
 
 Timestamp: 2025-12-19 18:13:36.282337
 Service: sellerfulfillment-shipment

@@ -15,7 +15,7 @@ Sellers in Argentina (AR) region cannot add or manage addresses through CNSC (Ch
 - **Error Message:** "eval sharding expression failed when use region: ar to format region expression, central region: <nil>, regions: [br cl co id mx my ph sg th tw vn]"
 - **Service:** location-userlocation-staging-ar
 - **Component:** Hardy Database Routing, Address Management
-- **Database Cluster:** shopee_account_address_db
+- **Database Cluster:** marketplace_account_address_db
 - **Table:** buyer_address_tab
 - **CRDS ID:** sddl_10007290
 - **Hardy Version:** v0.11.0
@@ -24,7 +24,7 @@ Sellers in Argentina (AR) region cannot add or manage addresses through CNSC (Ch
 ## Root Cause Analysis
 **CONFIRMED ROOT CAUSE:**
 
-The Hardy database routing configuration for the `shopee_account_address_db` cluster does not include AR (Argentina) region in its supported regions list. This is a **Hardy Routing Configuration Error** - a missing region configuration in the database sharding setup.
+The Hardy database routing configuration for the `marketplace_account_address_db` cluster does not include AR (Argentina) region in its supported regions list. This is a **Hardy Routing Configuration Error** - a missing region configuration in the database sharding setup.
 
 **Technical Explanation:**
 When CNSC users try to perform address operations for AR region, Hardy routing evaluates the sharding expression to determine which database shard to use. However, the configuration (CRDS ID: sddl_10007290) only includes these regions:
@@ -52,13 +52,13 @@ The error occurs in this service call chain:
 1. **CNSC User** → Attempts to add address for AR shop (user_id: 8093951849)
 2. **sellerplatform-gatewayacl-staging-cn** → Routes request to AR region service
 3. **location-userlocation-staging-ar** → Calls `account.address.internal_create_private_address_without_pii`
-4. **Hardy Routing** → Evaluates sharding expression for `shopee_account_address_db` cluster
+4. **Hardy Routing** → Evaluates sharding expression for `marketplace_account_address_db` cluster
 5. **Hardy** → **❌ Fails** - AR not found in regions list [br, cl, co, id, mx, my, ph, sg, th, tw, vn]
 6. **Error** → Returns Hardy 3027: "eval sharding expression failed when use region: ar"
 7. **Address Creation** → Fails completely
 
 ### Configuration Issues
-- **Database Cluster:** `shopee_account_address_db`
+- **Database Cluster:** `marketplace_account_address_db`
 - **CRDS ID:** sddl_10007290
 - **Hardy Version:** v0.11.0
 - **Problem:** AR region not included in sharding expression
@@ -113,7 +113,7 @@ The query itself is valid, but Hardy cannot route it because AR is not in the co
 
 ## Action Items
 ### Immediate Actions
-1. **Verify AR region database exists** for shopee_account_address_db cluster
+1. **Verify AR region database exists** for marketplace_account_address_db cluster
 2. **Check if AR region should be supported** in CNSC
 3. **Review Hardy routing configuration** (CRDS ID: sddl_10007290)
 4. **Identify correct database shard** for AR region
@@ -152,7 +152,7 @@ The query itself is valid, but Hardy cannot route it because AR is not in the co
 
 ## Teams to Contact
 **Primary:** @DBA-Team  
-**Reason:** Owns the database sharding configuration and Hardy routing setup. Needs to update CRDS ID sddl_10007290 to include AR region in the shopee_account_address_db cluster configuration.
+**Reason:** Owns the database sharding configuration and Hardy routing setup. Needs to update CRDS ID sddl_10007290 to include AR region in the marketplace_account_address_db cluster configuration.
 
 **Secondary:** @Hardy-Platform-Team  
 **Reason:** Owns the Hardy routing platform. Can help verify the configuration update and ensure proper routing for AR region.
@@ -165,7 +165,7 @@ The query itself is valid, but Hardy cannot route it because AR is not in the co
 
 ## Solution Steps
 1. **@DBA-Team**: 
-   - Review Hardy routing configuration for shopee_account_address_db (CRDS ID: sddl_10007290)
+   - Review Hardy routing configuration for marketplace_account_address_db (CRDS ID: sddl_10007290)
    - Verify AR region database shard exists
    - Update configuration to include "ar" in regions list: [br, cl, co, id, mx, my, ph, sg, th, tw, vn, **ar**]
    - Deploy updated configuration to staging
@@ -243,7 +243,7 @@ regions: [br cl co id mx my ph sg th tw vn]
 idc: sg90
 shadow: false
 cid: ar
-cluster: shopee_account_address_db
+cluster: marketplace_account_address_db
 sharding_hint: region:ar
 planning_cost: 210
 crds_id: sddl_10007290

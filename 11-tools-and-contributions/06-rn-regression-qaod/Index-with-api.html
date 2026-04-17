@@ -408,7 +408,7 @@
     <div class="container">
         <div class="header">
             <h1>🎯 QAoD Regression Task Generator</h1>
-            <p>Generate chat templates & Auto-create Jira + SeaTalk via API</p>
+            <p>Generate chat templates & Auto-create Jira + Team Chat via API</p>
             <div class="badge" id="envBadge">✨ With Workflow Automation</div>
         </div>
 
@@ -421,7 +421,7 @@
         <!-- SELLER APP SECTION -->
         <div id="seller-section" class="section">
             <div class="info-box">
-                <strong>🚀 New Feature:</strong> Click "Send to API & Create Jira" button to automatically create Jira ticket, SeaTalk message, and thread!
+                <strong>🚀 New Feature:</strong> Click "Send to API & Create Jira" button to automatically create Jira ticket, Team Chat message, and thread!
             </div>
 
             <div class="sub-tabs">
@@ -461,8 +461,8 @@
                                 <label>Test Case Spreadsheet URL <span class="required">*</span></label>
                                 <input type="url" id="s-rn-stg-spreadsheet" placeholder="https://docs.google.com/spreadsheets/d/...">
                                 <div class="link-helper">
-                                    <a href="https://docs.google.com/spreadsheets/d/1KTW9hUwEqiePHyx4xB4R3Xq2IPw7KIow4OVvr2u1oA0/edit?gid=1710049128#gid=1710049128" target="_blank">📋 Template</a>
-                                    <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41Kk7STtvXNAhNTSsR-YuCYADFNMEN9H-oAU_GXz" target="_blank">💬 Check in MP Report</a>
+                                    <a href="https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit?gid=1710049128#gid=1710049128" target="_blank">📋 Template</a>
+                                    <a href="https://chat.company.example/message/REDACTED_THREAD" target="_blank">💬 Check in MP Report</a>
                                 </div>
                             </div>
                         
@@ -474,32 +474,32 @@
                         </div>
                             <div class="form-group">
                                 <label>Seller App Jira Ticket <span class="required">*</span></label>
-                                <input type="url" id="s-rn-stg-seller-jira" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                                <input type="url" id="s-rn-stg-seller-jira" placeholder="https://jira.company.example/browse/TEAMQA-XXXX">
                                 <div class="link-helper">
-                                    <a href="https://jira.shopee.io/issues/?filter=150230" target="_blank">🎫 Recent SPQAA Tickets</a>
+                                    <a href="https://jira.company.example/issues/?filter=FILTER_ID" target="_blank">🎫 Recent TEAMQA Tickets</a>
                                 </div>
                             </div>
                         <div class="form-group">
-                            <label>🎫 Recent SPQAA Tickets</label>
+                            <label>🎫 Recent TEAMQA Tickets</label>
                             <input type="text" id="s-rn-stg-recent-tickets" placeholder="Optional">
                         </div>
                         <div class="form-group">
                             <label>Buyer App Jira Ticket <span class="required">*</span></label>
-                            <input type="url" id="s-rn-stg-buyer-jira" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                            <input type="url" id="s-rn-stg-buyer-jira" placeholder="https://jira.company.example/browse/TEAMQA-XXXX">
                         </div>
                         
-                        <!-- Shopee App -->
-                        <h4>📱 Shopee App</h4>
+                        <!-- Marketplace App -->
+                        <h4>📱 Marketplace App</h4>
                             <div class="form-group">
                                 <label>iOS Version <span class="required">*</span></label>
-                                <input type="text" id="s-rn-stg-shopee-ios" placeholder="e.g., 3.63.44">
+                                <input type="text" id="s-rn-stg-marketplace-ios" placeholder="e.g., 3.63.44">
                                 <div class="link-helper">
-                                    <a href="https://app.sea.com/apps/246" target="_blank">🔗 Check Version</a>
+                                    <a href="@0" target="_blank">🔗 Check Version</a>
                                 </div>
                             </div>
                         <div class="form-group">
                             <label>Android Version <span class="required">*</span></label>
-                            <input type="text" id="s-rn-stg-shopee-android" placeholder="e.g., 3.63.23@regression (36323)">
+                            <input type="text" id="s-rn-stg-marketplace-android" placeholder="e.g., 3.63.23@regression (36323)">
                         </div>
                         <div class="form-group">
                             <label>RN Available Time</label>
@@ -513,7 +513,7 @@
                                 <label>iOS Version (Internal Build) <span class="required">*</span></label>
                                 <input type="text" id="s-rn-stg-seller-ios" placeholder="e.g., 3.47.41">
                                 <div class="link-helper">
-                                    <a href="https://app.sea.com/apps/305" target="_blank">🔗 Check Version</a>
+                                    <a href="@0" target="_blank">🔗 Check Version</a>
                                 </div>
                             </div>
                         <div class="form-group">
@@ -524,7 +524,7 @@
                                 <label>iOS Version (ID Internal Build) <span class="required">*</span></label>
                                 <input type="text" id="s-rn-stg-seller-ios-id" placeholder="e.g., 3.48.1-test-seller-master">
                                 <div class="link-helper">
-                                    <a href="https://app.sea.com/apps/306" target="_blank">🔗 Check Version</a>
+                                    <a href="@0" target="_blank">🔗 Check Version</a>
                                 </div>
                             </div>
                         <div class="form-group">
@@ -535,24 +535,24 @@
                                 <label>Seller App RN Version <span class="required">*</span></label>
                                 <input type="text" id="s-rn-stg-seller-rn-version" placeholder="e.g., rn-v6.60.0">
                                 <div class="link-helper">
-                                    <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41KkGdJ_vXNAhNTJhQttCvhbz-cvu6U9NmT0tLDQ" target="_blank">💬 Check in MKP Group</a>
+                                    <a href="https://chat.company.example/message/REDACTED_THREAD" target="_blank">💬 Check in MKP Group</a>
                                 </div>
                             </div>
                         
-                        <!-- Shopee Lite -->
-                        <h4>🌟 Shopee Lite</h4>
+                        <!-- Marketplace Lite -->
+                        <h4>🌟 Marketplace Lite</h4>
                             <div class="form-group">
                                 <label>App Version</label>
                                 <input type="text" id="s-rn-stg-lite-version" placeholder="e.g., 2.93.48@regression (773)">
                                 <div class="link-helper">
-                                    <a href="https://app.sea.com/apps/196" target="_blank">🔗 Check Version</a>
+                                    <a href="@0" target="_blank">🔗 Check Version</a>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>RN Version</label>
                                 <input type="text" id="s-rn-stg-lite-rn" placeholder="e.g., 5.60.30">
                                 <div class="link-helper">
-                                    <a href="https://confluence.shopee.io/pages/viewpage.action?spaceKey=SPAT&title=%5B2024%5D+Shopee+Lite+RN+Release+Memo" target="_blank">📖 Check in Confluence</a>
+                                    <a href="https://wiki.company.example/pages/viewpage.action?spaceKey=SPAT&title=%5B2024%5D+Marketplace+Lite+RN+Release+Memo" target="_blank">📖 Check in Confluence</a>
                                 </div>
                             </div>
                         
@@ -576,7 +576,7 @@
                             <select id="s-rn-stg-qaod-assignee">
                                 <option value="" disabled selected>Select QAoD Assignee</option>
                             </select>
-                            <small>This person will be the main assignee for SPMR ticket</small>
+                            <small>This person will be the main assignee for PROJ ticket</small>
                         </div>
                         <div class="form-group">
                             <label>Region Focus <span class="required">*</span></label>
@@ -594,7 +594,7 @@
                     </div>
                 </div>
                 <div class="form-group" style="margin-top: 20px;">
-                    <label>Preview Title (SeaTalk):</label>
+                    <label>Preview Title (Team Chat):</label>
                     <div id="s-rn-stg-preview-title" class="preview-box">Title will appear here...</div>
                     <div class="btn-group" style="margin-top: 10px;">
                         <button class="btn btn-secondary" onclick="copyToClipboard('s-rn-stg-preview-title')">📋 Copy Title</button>
@@ -652,7 +652,7 @@
                         </div>
                         <div class="form-group">
                             <label>Android New Build URL <span class="required">*</span></label>
-                            <input type="url" id="s-adhoc-android-new-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="s-adhoc-android-new-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>Android Previous Version <span class="required">*</span></label>
@@ -660,7 +660,7 @@
                         </div>
                         <div class="form-group">
                             <label>Android Previous Build URL <span class="required">*</span></label>
-                            <input type="url" id="s-adhoc-android-prev-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="s-adhoc-android-prev-url" placeholder="https://releases.company.example/...">
                         </div>
                     </div>
                     <div>
@@ -670,7 +670,7 @@
                         </div>
                         <div class="form-group">
                             <label>iOS New Build URL <span class="required">*</span></label>
-                            <input type="url" id="s-adhoc-ios-new-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="s-adhoc-ios-new-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>iOS Previous Version <span class="required">*</span></label>
@@ -678,14 +678,14 @@
                         </div>
                         <div class="form-group">
                             <label>iOS Previous Build URL <span class="required">*</span></label>
-                            <input type="url" id="s-adhoc-ios-prev-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="s-adhoc-ios-prev-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>QAoD Assignee (Main Ticket) <span class="required">*</span></label>
                             <select id="s-adhoc-qaod-assignee">
                                 <option value="" disabled selected>Select QAoD Assignee</option>
                             </select>
-                            <small>This person will be the main assignee for SPMR ticket</small>
+                            <small>This person will be the main assignee for PROJ ticket</small>
                         </div>
                         <div class="form-group">
                             <label>Region-PIC Assignment <span class="required">*</span></label>
@@ -705,7 +705,7 @@ please update your sub task when it finished</textarea>
                     </div>
                 </div>
                 <div class="form-group" style="margin-top: 20px;">
-                    <label>Preview Title (SeaTalk):</label>
+                    <label>Preview Title (Team Chat):</label>
                     <div id="s-adhoc-preview-title" class="preview-box">Title will appear here...</div>
                     <div class="btn-group" style="margin-top: 10px;">
                         <button class="btn btn-secondary" onclick="copyToClipboard('s-adhoc-preview-title')">📋 Copy Title</button>
@@ -767,7 +767,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>Android Latest Build URL <span class="required">*</span></label>
-                            <input type="url" id="s-native-live-android-latest-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="s-native-live-android-latest-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>Android Previous Version <span class="required">*</span></label>
@@ -775,7 +775,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>Android Previous Build URL <span class="required">*</span></label>
-                            <input type="url" id="s-native-live-android-prev-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="s-native-live-android-prev-url" placeholder="https://releases.company.example/...">
                         </div>
                     </div>
                     <div>
@@ -785,7 +785,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>iOS Latest Build URL <span class="required">*</span></label>
-                            <input type="url" id="s-native-live-ios-latest-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="s-native-live-ios-latest-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>iOS Previous Version <span class="required">*</span></label>
@@ -793,7 +793,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>iOS Previous Build URL <span class="required">*</span></label>
-                            <input type="url" id="s-native-live-ios-prev-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="s-native-live-ios-prev-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>RN Version (Optional)</label>
@@ -808,7 +808,7 @@ please update your sub task when it finished</textarea>
                             <select id="s-native-live-qaod-assignee">
                                 <option value="" disabled selected>Select QAoD Assignee</option>
                             </select>
-                            <small>This person will be the main assignee for SPMR ticket</small>
+                            <small>This person will be the main assignee for PROJ ticket</small>
                         </div>
                         <div class="form-group">
                             <label>Region-PIC Assignment <span class="required">*</span></label>
@@ -822,7 +822,7 @@ please update your sub task when it finished</textarea>
                     </div>
                 </div>
                 <div class="form-group" style="margin-top: 20px;">
-                    <label>Preview Title (SeaTalk):</label>
+                    <label>Preview Title (Team Chat):</label>
                     <div id="s-native-live-preview-title" class="preview-box">Title will appear here...</div>
                     <div class="btn-group" style="margin-top: 10px;">
                         <button class="btn btn-secondary" onclick="copyToClipboard('s-native-live-preview-title')">📋 Copy Title</button>
@@ -885,7 +885,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>Android Latest Build URL</label>
-                            <input type="url" id="s-native-hotfix-android-latest-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="s-native-hotfix-android-latest-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>Android Previous Version</label>
@@ -893,7 +893,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>Android Previous Build URL</label>
-                            <input type="url" id="s-native-hotfix-android-prev-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="s-native-hotfix-android-prev-url" placeholder="https://releases.company.example/...">
                         </div>
                     </div>
                     <div>
@@ -904,7 +904,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>iOS Latest Build URL</label>
-                            <input type="url" id="s-native-hotfix-ios-latest-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="s-native-hotfix-ios-latest-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>iOS Previous Version</label>
@@ -912,7 +912,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>iOS Previous Build URL</label>
-                            <input type="url" id="s-native-hotfix-ios-prev-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="s-native-hotfix-ios-prev-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>RN Version (Optional)</label>
@@ -923,7 +923,7 @@ please update your sub task when it finished</textarea>
                             <select id="s-native-hotfix-qaod-assignee">
                                 <option value="" disabled selected>Select QAoD Assignee</option>
                             </select>
-                            <small>This person will be the main assignee for SPMR ticket</small>
+                            <small>This person will be the main assignee for PROJ ticket</small>
                         </div>
                         <div class="form-group">
                             <label>Region-PIC Assignment <span class="required">*</span></label>
@@ -937,7 +937,7 @@ please update your sub task when it finished</textarea>
                     </div>
                 </div>
                 <div class="form-group" style="margin-top: 20px;">
-                    <label>Preview Title (SeaTalk):</label>
+                    <label>Preview Title (Team Chat):</label>
                     <div id="s-native-hotfix-preview-title" class="preview-box">Title will appear here...</div>
                     <div class="btn-group" style="margin-top: 10px;">
                         <button class="btn btn-secondary" onclick="copyToClipboard('s-native-hotfix-preview-title')">📋 Copy Title</button>
@@ -963,7 +963,7 @@ please update your sub task when it finished</textarea>
         <!-- QAOD NATIVE APP SECTION -->
         <div id="native-section" class="section active">
             <div class="info-box">
-                <strong>📱 QAoD Native App:</strong> Templates for Buyer App regression testing with auto Jira + SeaTalk creation.
+                <strong>📱 QAoD Native App:</strong> Templates for Buyer App regression testing with auto Jira + Team Chat creation.
             </div>
 
             <div class="sub-tabs">
@@ -998,7 +998,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>Android Build URL <span class="required">*</span></label>
-                            <input type="url" id="n-prereg-android-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-prereg-android-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>iOS Version <span class="required">*</span></label>
@@ -1006,7 +1006,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>iOS Build URL <span class="required">*</span></label>
-                            <input type="url" id="n-prereg-ios-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-prereg-ios-url" placeholder="https://releases.company.example/...">
                         </div>
                         <h4 style="margin-top: 15px; color: #FF9800;">📦 Prev Build</h4>
                         <div class="form-group">
@@ -1015,7 +1015,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>Android Prev URL <span class="required">*</span></label>
-                            <input type="url" id="n-prereg-prev-android-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-prereg-prev-android-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>iOS Prev Version <span class="required">*</span></label>
@@ -1023,19 +1023,19 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>iOS Prev URL <span class="required">*</span></label>
-                            <input type="url" id="n-prereg-prev-ios-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-prereg-prev-ios-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>Test Case URL <span class="required">*</span></label>
                             <input type="url" id="n-prereg-testcase" placeholder="https://docs.google.com/spreadsheets/d/...">
                         </div>
                         <div class="form-group">
-                            <label>Android SPAPP Ticket <span class="required">*</span></label>
-                            <input type="url" id="n-prereg-android-jira" placeholder="https://jira.shopee.io/browse/SPAPP-XXXXX">
+                            <label>Android MOBILE Ticket <span class="required">*</span></label>
+                            <input type="url" id="n-prereg-android-jira" placeholder="https://jira.company.example/browse/MOBILE-XXXXX">
                         </div>
                         <div class="form-group">
-                            <label>iOS SPAPP Ticket <span class="required">*</span></label>
-                            <input type="url" id="n-prereg-ios-jira" placeholder="https://jira.shopee.io/browse/SPAPP-XXXXX">
+                            <label>iOS MOBILE Ticket <span class="required">*</span></label>
+                            <input type="url" id="n-prereg-ios-jira" placeholder="https://jira.company.example/browse/MOBILE-XXXXX">
                         </div>
                     </div>
                     <div>
@@ -1102,7 +1102,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>Android Build URL <span class="required">*</span></label>
-                            <input type="url" id="n-pl-android-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-pl-android-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>iOS Version <span class="required">*</span></label>
@@ -1110,16 +1110,16 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>iOS Build URL</label>
-                            <input type="url" id="n-pl-ios-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-pl-ios-url" placeholder="https://releases.company.example/...">
                             <small>Leave empty if not ready yet</small>
                         </div>
                         <div class="form-group">
-                            <label>Android SPAPP Ticket <span class="required">*</span></label>
-                            <input type="url" id="n-pl-android-jira" placeholder="https://jira.shopee.io/browse/SPAPP-XXXXX">
+                            <label>Android MOBILE Ticket <span class="required">*</span></label>
+                            <input type="url" id="n-pl-android-jira" placeholder="https://jira.company.example/browse/MOBILE-XXXXX">
                         </div>
                         <div class="form-group">
-                            <label>iOS SPAPP Ticket <span class="required">*</span></label>
-                            <input type="url" id="n-pl-ios-jira" placeholder="https://jira.shopee.io/browse/SPAPP-XXXXX">
+                            <label>iOS MOBILE Ticket <span class="required">*</span></label>
+                            <input type="url" id="n-pl-ios-jira" placeholder="https://jira.company.example/browse/MOBILE-XXXXX">
                         </div>
                     </div>
                     <div>
@@ -1186,7 +1186,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>Android Build URL <span class="required">*</span></label>
-                            <input type="url" id="n-live-android-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-live-android-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>iOS Version <span class="required">*</span></label>
@@ -1194,7 +1194,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>iOS Build URL <span class="required">*</span></label>
-                            <input type="url" id="n-live-ios-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-live-ios-url" placeholder="https://releases.company.example/...">
                         </div>
                         <h4 style="margin-top: 15px; color: #FF9800;">📦 Prev Build</h4>
                         <div class="form-group">
@@ -1203,7 +1203,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>Android Prev URL <span class="required">*</span></label>
-                            <input type="url" id="n-live-prev-android-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-live-prev-android-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>iOS Prev Version <span class="required">*</span></label>
@@ -1211,7 +1211,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>iOS Prev URL <span class="required">*</span></label>
-                            <input type="url" id="n-live-prev-ios-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-live-prev-ios-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>Test Case URL <span class="required">*</span></label>
@@ -1378,7 +1378,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>Android Build URL <span class="required">*</span></label>
-                            <input type="url" id="n-3rd-android-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-3rd-android-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>iOS Version <span class="required">*</span></label>
@@ -1386,7 +1386,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>iOS Build URL <span class="required">*</span></label>
-                            <input type="url" id="n-3rd-ios-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-3rd-ios-url" placeholder="https://releases.company.example/...">
                         </div>
                         <h4 style="margin-top: 15px; color: #FF9800;">📦 Prev Build</h4>
                         <div class="form-group">
@@ -1395,7 +1395,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>Android Prev URL <span class="required">*</span></label>
-                            <input type="url" id="n-3rd-prev-android-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-3rd-prev-android-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>iOS Prev Version <span class="required">*</span></label>
@@ -1403,7 +1403,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>iOS Prev URL <span class="required">*</span></label>
-                            <input type="url" id="n-3rd-prev-ios-url" placeholder="https://app-release.shopee.io/...">
+                            <input type="url" id="n-3rd-prev-ios-url" placeholder="https://releases.company.example/...">
                         </div>
                         <div class="form-group">
                             <label>Test Case URL <span class="required">*</span></label>
@@ -1445,7 +1445,7 @@ please update your sub task when it finished</textarea>
         <!-- RN REGRESSION HELPER SECTION -->
         <div id="rn-section" class="section">
             <div class="info-box">
-                <strong>🚀 RN Regression Helper:</strong> Templates for RN deployment and regression testing with auto Jira + SeaTalk creation.
+                <strong>🚀 RN Regression Helper:</strong> Templates for RN deployment and regression testing with auto Jira + Team Chat creation.
             </div>
 
             <div class="sub-tabs">
@@ -1467,7 +1467,7 @@ please update your sub task when it finished</textarea>
                             <label>RSL Schedule Number <span class="required">*</span></label>
                             <input type="text" id="r-dep-rsl" placeholder="e.g., 9540">
                             <div class="link-helper">
-                                <a href="https://space.shopee.io/release/portal/regression_management/regression_schedule?tab=2" target="_blank">📋 Open Release Portal</a>
+                                <a href="https://portal.company.example/release/portal/regression_management/regression_schedule?tab=2" target="_blank">📋 Open Release Portal</a>
                             </div>
                         </div>
                         <div class="form-group">
@@ -1481,7 +1481,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <label>Thread Link (Optional)</label>
-                            <input type="url" id="r-dep-thread" placeholder="https://link.seatalk.io/message/...">
+                            <input type="url" id="r-dep-thread" placeholder="https://chat.company.example/message/REDACTED_THREAD">
                             <small>Link to MKP Regression Group deployment thread</small>
                         </div>
                     </div>
@@ -1543,38 +1543,38 @@ please update your sub task when it finished</textarea>
                             <label>Test Case Spreadsheet <span class="required">*</span></label>
                             <input type="url" id="r-stg-spreadsheet" placeholder="https://docs.google.com/spreadsheets/d/...">
                             <div class="link-helper">
-                                <a href="https://docs.google.com/spreadsheets/d/1KTW9hUwEqiePHyx4xB4R3Xq2IPw7KIow4OVvr2u1oA0/edit?gid=1710049128#gid=1710049128" target="_blank">📋 Template</a>
-                                <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41Kk7STtvXNAhNTSsR-YuCYADFNMEN9H-oAU_GXz" target="_blank">💬 Check in MP Report</a>
+                                <a href="https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit?gid=1710049128#gid=1710049128" target="_blank">📋 Template</a>
+                                <a href="https://chat.company.example/message/REDACTED_THREAD" target="_blank">💬 Check in MP Report</a>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Seller App Jira <span class="required">*</span></label>
-                            <input type="url" id="r-stg-jira-seller" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                            <input type="url" id="r-stg-jira-seller" placeholder="https://jira.company.example/browse/TEAMQA-XXXX">
                             <div class="link-helper">
-                                <a href="https://jira.shopee.io/issues/?filter=150230" target="_blank">🎫 Recent SPQAA</a>
+                                <a href="https://jira.company.example/issues/?filter=FILTER_ID" target="_blank">🎫 Recent TEAMQA</a>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Buyer App Jira <span class="required">*</span></label>
-                            <input type="url" id="r-stg-jira-buyer" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                            <input type="url" id="r-stg-jira-buyer" placeholder="https://jira.company.example/browse/TEAMQA-XXXX">
                         </div>
 
-                        <!-- 📱 Shopee App -->
-                        <h4>📱 Shopee App</h4>
+                        <!-- 📱 Marketplace App -->
+                        <h4>📱 Marketplace App</h4>
                         <div class="form-group">
                             <label>iOS Version <span class="required">*</span></label>
-                            <input type="text" id="r-stg-shopee-ios" placeholder="e.g., 3.63.44">
+                            <input type="text" id="r-stg-marketplace-ios" placeholder="e.g., 3.63.44">
                             <div class="link-helper">
-                                <a href="https://app.sea.com/apps/246" target="_blank">🔗 Check Version</a>
+                                <a href="@0" target="_blank">🔗 Check Version</a>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Android Version <span class="required">*</span></label>
-                            <input type="text" id="r-stg-shopee-android" placeholder="e.g., 3.63.23@regression (36323)">
+                            <input type="text" id="r-stg-marketplace-android" placeholder="e.g., 3.63.23@regression (36323)">
                         </div>
                         <div class="form-group">
                             <label>RN Available Time</label>
-                            <input type="text" id="r-stg-shopee-rn-time" placeholder="e.g., 11.30 SG Time">
+                            <input type="text" id="r-stg-marketplace-rn-time" placeholder="e.g., 11.30 SG Time">
                         </div>
 
                         <!-- 🏪 Seller App -->
@@ -1583,7 +1583,7 @@ please update your sub task when it finished</textarea>
                             <label>iOS Version (Internal Build) <span class="required">*</span></label>
                             <input type="text" id="r-stg-seller-ios" placeholder="e.g., 3.47.41">
                             <div class="link-helper">
-                                <a href="https://app.sea.com/apps/305" target="_blank">🔗 Check Version</a>
+                                <a href="@0" target="_blank">🔗 Check Version</a>
                             </div>
                         </div>
                         <div class="form-group">
@@ -1594,7 +1594,7 @@ please update your sub task when it finished</textarea>
                             <label>iOS Version (ID Internal Build) <span class="required">*</span></label>
                             <input type="text" id="r-stg-seller-id-ios" placeholder="e.g., 3.48.1-test-seller-master">
                             <div class="link-helper">
-                                <a href="https://app.sea.com/apps/306" target="_blank">🔗 Check Version</a>
+                                <a href="@0" target="_blank">🔗 Check Version</a>
                             </div>
                         </div>
                         <div class="form-group">
@@ -1605,24 +1605,24 @@ please update your sub task when it finished</textarea>
                             <label>Seller App RN Version <span class="required">*</span></label>
                             <input type="text" id="r-stg-seller-rn" placeholder="e.g., rn-v6.60.0">
                             <div class="link-helper">
-                                <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41KkGdJ_vXNAhNTJhQttCvhbz-cvu6U9NmT0tLDQ" target="_blank">💬 Check in MKP Group</a>
+                                <a href="https://chat.company.example/message/REDACTED_THREAD" target="_blank">💬 Check in MKP Group</a>
                             </div>
                         </div>
 
-                        <!-- 🌟 Shopee Lite -->
-                        <h4>🌟 Shopee Lite</h4>
+                        <!-- 🌟 Marketplace Lite -->
+                        <h4>🌟 Marketplace Lite</h4>
                         <div class="form-group">
                             <label>App Version</label>
                             <input type="text" id="r-stg-lite-version" placeholder="e.g., 2.93.48@regression (773)">
                             <div class="link-helper">
-                                <a href="https://app.sea.com/apps/196" target="_blank">🔗 Check Version</a>
+                                <a href="@0" target="_blank">🔗 Check Version</a>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>RN Version</label>
                             <input type="text" id="r-stg-lite-rn" placeholder="e.g., 5.60.30">
                             <div class="link-helper">
-                                <a href="https://confluence.shopee.io/pages/viewpage.action?spaceKey=SPAT&title=%5B2024%5D+Shopee+Lite+RN+Release+Memo" target="_blank">📖 Check in Confluence</a>
+                                <a href="https://wiki.company.example/pages/viewpage.action?spaceKey=SPAT&title=%5B2024%5D+Marketplace+Lite+RN+Release+Memo" target="_blank">📖 Check in Confluence</a>
                             </div>
                         </div>
 
@@ -1685,25 +1685,25 @@ please update your sub task when it finished</textarea>
                             <label>Test Case Spreadsheet <span class="required">*</span></label>
                             <input type="url" id="r-live-spreadsheet" placeholder="https://docs.google.com/spreadsheets/d/...">
                             <div class="link-helper">
-                                <a href="https://docs.google.com/spreadsheets/d/1xcWWD9HbYodGfdtVeDPNrHd3PePdsleTSF3l4F3i-1U/edit?gid=2068996028#gid=2068996028" target="_blank">📋 Duplicate Template</a>
+                                <a href="https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit?gid=2068996028#gid=2068996028" target="_blank">📋 Duplicate Template</a>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Seller App Jira <span class="required">*</span></label>
-                            <input type="url" id="r-live-jira-seller" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                            <input type="url" id="r-live-jira-seller" placeholder="https://jira.company.example/browse/TEAMQA-XXXX">
                             <div class="link-helper">
-                                <a href="https://jira.shopee.io/issues/?filter=150230" target="_blank">🎫 Recent SPQAA</a>
+                                <a href="https://jira.company.example/issues/?filter=FILTER_ID" target="_blank">🎫 Recent TEAMQA</a>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Buyer App Jira <span class="required">*</span></label>
-                            <input type="url" id="r-live-jira-buyer" placeholder="https://jira.shopee.io/browse/SPQAA-XXXX">
+                            <input type="url" id="r-live-jira-buyer" placeholder="https://jira.company.example/browse/TEAMQA-XXXX">
                         </div>
                         <div class="form-group">
                             <label>RN Version <span class="required">*</span></label>
                             <input type="text" id="r-live-rn-version" placeholder="e.g., rn-v6.83.0-rc.2">
                             <div class="link-helper">
-                                <a href="https://link.seatalk.io/message/open?message_id=u7sirumAclg1OkjP41KkS1X6vXNAhNTJhQsRBO6xTT7EV-MdguHG2Am9" target="_blank">💬 Check MKP Group</a>
+                                <a href="https://chat.company.example/message/REDACTED_THREAD" target="_blank">💬 Check MKP Group</a>
                             </div>
                         </div>
                     </div>
@@ -1716,7 +1716,7 @@ please update your sub task when it finished</textarea>
                         </div>
                         <div class="form-group">
                             <div class="link-helper">
-                                <a href="https://docs.google.com/spreadsheets/d/19nAfyhqtf-Evdl78peuoDOvs6SIoo9j0bpgvf1lIYAM/edit?gid=398695652#gid=398695652&range=A24" target="_blank">📋 Check PIC List</a>
+                                <a href="https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit?gid=398695652#gid=398695652&range=A24" target="_blank">📋 Check PIC List</a>
                             </div>
                         </div>
                         <div class="form-group">
@@ -1773,7 +1773,7 @@ please update your sub task when it finished</textarea>
     <script>
         // Configuration
         const API_CONFIG = {
-            targetUrl: 'https://smart.shopee.io/apis/smart/v1/workflow_orchestrator/deployments/invoke',
+            targetUrl: 'https://smart.company.example/apis/smart/v1/workflow_orchestrator/deployments/invoke',
             corsProxyUrl: 'https://corsproxy.io/?',
             localProxyUrl: '/api/proxy',
             // Production SMART Workflow
@@ -1795,22 +1795,22 @@ please update your sub task when it finished</textarea>
         const REGIONS = ["ID", "BR", "TW", "TH", "MY", "PH", "VN", "CL", "MX", "SG", "AR", "BN", "KH", "MM", "LA", "All Region"];
         
         const PIC_LIST = [
-            { name: "Herrista Putri", email: "herrista.putri@shopee.com" },
-            { name: "Theresia Theresia", email: "theresia.theresia@shopee.com" },
-            { name: "Anisa Karina", email: "anisa.karina@shopee.com" },
-            { name: "Otniel Hussin", email: "otniel.hussin@shopee.com" },
-            { name: "Otavia Novi", email: "otavia.novi@shopee.com" },
-            { name: "Adelina Nataye", email: "adelina.nataye@shopee.com" },
-            { name: "Katriel Widjaja", email: "katriel.widjaja@shopee.com" },
-            { name: "Bharata Aryaseta", email: "bharata.aryaseta@shopee.com" },
-            { name: "Rika Wulandari", email: "rika.wulandari@shopee.com" },
-            { name: "Kevin Gosalim", email: "kevin.gosalim@shopee.com" },
-            { name: "Mirza Pradana", email: "mirza.pradana@shopee.com" },
-            { name: "Hanif Kusuma", email: "hanif.kusuma@shopee.com" },
-            { name: "Rizky Ashari", email: "rizky.ashari@shopee.com" },
-            { name: "Ivan Jond", email: "ivan.jond@shopee.com" },
-            { name: "Flavianus Delvin", email: "flavianus.delvin@shopee.com" },
-            { name: "Nickolas Jonathan", email: "nickolas.jonathan@shopee.com" }
+            { name: "Herrista Putri", email: "herrista.putri@company.example" },
+            { name: "Theresia Theresia", email: "theresia.theresia@company.example" },
+            { name: "Anisa Karina", email: "anisa.karina@company.example" },
+            { name: "Otniel Hussin", email: "otniel.hussin@company.example" },
+            { name: "Otavia Novi", email: "otavia.novi@company.example" },
+            { name: "Adelina Nataye", email: "adelina.nataye@company.example" },
+            { name: "Katriel Widjaja", email: "katriel.widjaja@company.example" },
+            { name: "Bharata Aryaseta", email: "qa.engineer@company.example" },
+            { name: "Rika Wulandari", email: "rika.wulandari@company.example" },
+            { name: "Kevin Gosalim", email: "kevin.gosalim@company.example" },
+            { name: "Mirza Pradana", email: "mirza.pradana@company.example" },
+            { name: "Hanif Kusuma", email: "hanif.kusuma@company.example" },
+            { name: "Rizky Ashari", email: "rizky.ashari@company.example" },
+            { name: "Ivan Jond", email: "ivan.jond@company.example" },
+            { name: "Flavianus Delvin", email: "flavianus.delvin@company.example" },
+            { name: "Nickolas Jonathan", email: "nickolas.jonathan@company.example" }
         ];
 
         // Initialize regions and PICs
@@ -2076,14 +2076,14 @@ please update your sub task when it finished</textarea>
             'seller-rn-staging': { title: 'RN Staging Regression', scopes: 'Seller App Regression' },
             'seller-native-live': { title: 'Native Live Regression', scopes: 'Seller App Regression' },
             'seller-native-hotfix': { title: 'Native Hotfix Regression', scopes: 'Seller App Regression' },
-            'native-prereg': { title: 'Pre-Regression', scopes: 'Shopee App Native Regression' },
-            'native-productline': { title: 'Product Line', scopes: 'Shopee App Native Regression' },
-            'native-live': { title: 'Native Live Regression', scopes: 'Shopee App Native Regression' },
-            'native-adhoc': { title: 'Adhoc/Hotfix', scopes: 'Shopee App Native Regression' },
-            'native-thirdparty': { title: '3rd Party Regression', scopes: 'Shopee App Native Regression' },
-            'rn-deployment': { title: 'Deployment Staging', scopes: 'Shopee App RN Regression' },
-            'rn-staging': { title: 'Staging Regression', scopes: 'Shopee App RN Regression' },
-            'rn-live': { title: 'RN Live Regression', scopes: 'Shopee App RN Regression' }
+            'native-prereg': { title: 'Pre-Regression', scopes: 'Marketplace App Native Regression' },
+            'native-productline': { title: 'Product Line', scopes: 'Marketplace App Native Regression' },
+            'native-live': { title: 'Native Live Regression', scopes: 'Marketplace App Native Regression' },
+            'native-adhoc': { title: 'Adhoc/Hotfix', scopes: 'Marketplace App Native Regression' },
+            'native-thirdparty': { title: '3rd Party Regression', scopes: 'Marketplace App Native Regression' },
+            'rn-deployment': { title: 'Deployment Staging', scopes: 'Marketplace App RN Regression' },
+            'rn-staging': { title: 'Staging Regression', scopes: 'Marketplace App RN Regression' },
+            'rn-live': { title: 'RN Live Regression', scopes: 'Marketplace App RN Regression' }
         };
 
         // Quick Fill Date Functions for RN Staging Regression
@@ -2148,7 +2148,7 @@ please update your sub task when it finished</textarea>
                     ? "native_adHoc_<CID>"
                     : "native_adHoc_" + vals.regions.join(",");
 
-                // Title for SeaTalk (clean, no mentions)
+                // Title for Team Chat (clean, no mentions)
                 const titleText = `[Seller][${vals.platform}][${regionStr}] adHoc Regression ${vals.version}
 Deadline : ${deadlineFormatted}`;
 
@@ -2220,9 +2220,9 @@ ${regionPICText}`;
                     recentTickets: document.getElementById('s-rn-stg-recent-tickets').value,
                     buyerJira: document.getElementById('s-rn-stg-buyer-jira').value,
                     
-                    // Shopee App
-                    shopeeIos: document.getElementById('s-rn-stg-shopee-ios').value,
-                    shopeeAndroid: document.getElementById('s-rn-stg-shopee-android').value,
+                    // Marketplace App
+                    marketplaceIos: document.getElementById('s-rn-stg-marketplace-ios').value,
+                    marketplaceAndroid: document.getElementById('s-rn-stg-marketplace-android').value,
                     rnTime: document.getElementById('s-rn-stg-rn-time').value,
                     
                     // Seller App
@@ -2233,7 +2233,7 @@ ${regionPICText}`;
                     sellerRnVersion: document.getElementById('s-rn-stg-seller-rn-version').value,
                     mkpGroup: document.getElementById('s-rn-stg-mkp-group').value,
                     
-                    // Shopee Lite
+                    // Marketplace Lite
                     liteVersion: document.getElementById('s-rn-stg-lite-version').value,
                     liteRn: document.getElementById('s-rn-stg-lite-rn').value,
                     liteConfluence: document.getElementById('s-rn-stg-lite-confluence').value,
@@ -2254,7 +2254,7 @@ ${regionPICText}`;
                 // Validation for required fields
                 if (!vals.version || !vals.date || !vals.spreadsheet || 
                     !vals.sellerJira || !vals.buyerJira ||
-                    !vals.shopeeIos || !vals.shopeeAndroid ||
+                    !vals.marketplaceIos || !vals.marketplaceAndroid ||
                     !vals.sellerIos || !vals.sellerAndroid || !vals.sellerIosId || !vals.sellerAndroidId || !vals.sellerRnVersion ||
                     vals.regions.length === 0 || !vals.qaodAssignee || !allRegionsAssigned) {
                     alert('⚠️ Please fill all required fields including Region-PIC assignment for all selected regions!');
@@ -2282,9 +2282,9 @@ ${dateFormatted}
 h2. How to test:
 Download and install file based on your device:
 
-h3. Shopee App
-* iOS: {{${vals.shopeeIos}}}
-* Android: {{${vals.shopeeAndroid}}}${vals.rnTime ? `\n* RN Available Time: ${vals.rnTime}` : ''}
+h3. Marketplace App
+* iOS: {{${vals.marketplaceIos}}}
+* Android: {{${vals.marketplaceAndroid}}}${vals.rnTime ? `\n* RN Available Time: ${vals.rnTime}` : ''}
 
 h3. Seller App
 * iOS (Internal Build): {{${vals.sellerIos}}}
@@ -2293,7 +2293,7 @@ h3. Seller App
 * Android (ID Internal Build): {{${vals.sellerAndroidId}}}
 * Seller App RN Version: {{${vals.sellerRnVersion}}}${vals.mkpGroup ? `\n* 💬 Check in MKP Group: ${vals.mkpGroup}` : ''}
 
-h3. Shopee Lite${vals.liteVersion || vals.liteRn || vals.liteConfluence ? `
+h3. Marketplace Lite${vals.liteVersion || vals.liteRn || vals.liteConfluence ? `
 * App Version: {{${vals.liteVersion || 'N/A'}}}
 * RN Version: {{${vals.liteRn || 'N/A'}}}${vals.liteConfluence ? `\n* 📖 Check in Confluence: ${vals.liteConfluence}` : ''}` : `
 * N/A`}
@@ -2306,7 +2306,7 @@ h2. Label error:
 
 h2. Jira Tickets:
 * Seller App: ${vals.sellerJira}
-* Buyer App: ${vals.buyerJira}${vals.recentTickets ? `\n* 🎫 Recent SPQAA Tickets: ${vals.recentTickets}` : ''}${vals.mpReport ? `\n* 💬 Check in MP Report: ${vals.mpReport}` : ''}
+* Buyer App: ${vals.buyerJira}${vals.recentTickets ? `\n* 🎫 Recent TEAMQA Tickets: ${vals.recentTickets}` : ''}${vals.mpReport ? `\n* 💬 Check in MP Report: ${vals.mpReport}` : ''}
 
 h2. Important notes:
 * Please link the jira bug ticket with main card ticket for tracking purposes
@@ -2377,7 +2377,7 @@ ${regionPICText}`;
                     ? "native_live_<CID>"
                     : "native_live_" + vals.regions.join(",");
 
-                // Title for SeaTalk (clean, no mentions)
+                // Title for Team Chat (clean, no mentions)
                 const titleText = `[Seller][${vals.platform}][${regionStr}] Live Regression ${vals.version}
 Deadline : ${deadlineFormatted}`;
 
@@ -2498,7 +2498,7 @@ ${regionPICText}`;
                     ? "native_hotfix_<CID>"
                     : "native_hotfix_" + vals.regions.join(",");
 
-                // Title for SeaTalk (clean, no mentions)
+                // Title for Team Chat (clean, no mentions)
                 const titleText = `[Seller][${vals.platform}][${regionStr}] Hotfix ${vals.version}
 Deadline : ${deadlineFormatted}`;
 
@@ -2640,8 +2640,8 @@ h2. Label Bug:
 {{${labelBug}}}
 
 h2. Jira Tickets:
-* Android SPAPP: ${vals.androidJira}
-* iOS SPAPP: ${vals.iosJira}
+* Android MOBILE: ${vals.androidJira}
+* iOS MOBILE: ${vals.iosJira}
 
 h2. Important notes:
 * Please make sure the version is correct
@@ -2734,8 +2734,8 @@ h2. Label Bug:
 {{${labelBug}}}
 
 h2. Jira Tickets:
-* Android SPAPP: ${vals.androidJira}
-* iOS SPAPP: ${vals.iosJira}
+* Android MOBILE: ${vals.androidJira}
+* iOS MOBILE: ${vals.iosJira}
 
 h2. Important notes:
 * Please make sure the version is correct
@@ -3056,7 +3056,7 @@ ${regionPICText}`;
                 }
 
                 const depDate = new Date(vals.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-                const servicesLink = 'https://space.shopee.io/release/portal/regression_management/regression_schedule?tab=2&rsl_schedule=' + vals.rsl;
+                const servicesLink = 'https://portal.company.example/release/portal/regression_management/regression_schedule?tab=2&rsl_schedule=' + vals.rsl;
 
                 const titleText = `[RN] Deployment Staging ${vals.version}
 Deployment: ${depDate} ${vals.time} Jakarta Time`;
@@ -3065,13 +3065,13 @@ Deployment: ${depDate} ${vals.time} Jakarta Time`;
 ${servicesLink}
 
 h2. Guide:
-https://space.shopee.io/release/portal/regression_management/regression_schedule?tab=2
+https://portal.company.example/release/portal/regression_management/regression_schedule?tab=2
 
 h2. Docs:
-https://docs.google.com/spreadsheets/d/1UeaO0XwM0_RLVFPa0nAtkF1yG7-hp7tTnkm2LvyghA4/edit?gid=1498598204#gid=1498598204
+https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit?gid=1498598204#gid=1498598204
 
 h2. Reference Confluence:
-https://confluence.shopee.io/pages/viewpage.action?spaceKey=IMD&title=Staging+and+Live+Deployment+Management+Guide
+https://wiki.company.example/pages/viewpage.action?spaceKey=IMD&title=Staging+and+Live+Deployment+Management+Guide
 
 h2. Testing Schedule:
 ${vals.version}-Staging
@@ -3080,7 +3080,7 @@ h2. Deployment Start:
 ${depDate} ${vals.time} Jakarta Time
 
 h2. Important notes:
-* PLEASE SEE THIS FOR NEW ROLE: https://confluence.shopee.io/display/IMD/Staging+and+Live+Deployment+Management+Guide#heading-OverrideDeployment
+* PLEASE SEE THIS FOR NEW ROLE: https://wiki.company.example/display/IMD/Staging+and+Live+Deployment+Management+Guide#heading-OverrideDeployment
 * Focus only priority P1 + P2
 * Follow-up all status
 
@@ -3110,9 +3110,9 @@ ${vals.thread || 'Check in MKP Regression Group'}`;
                     spreadsheet: document.getElementById('r-stg-spreadsheet').value,
                     jiraSeller: document.getElementById('r-stg-jira-seller').value,
                     jiraBuyer: document.getElementById('r-stg-jira-buyer').value,
-                    shopeeIos: document.getElementById('r-stg-shopee-ios').value,
-                    shopeeAndroid: document.getElementById('r-stg-shopee-android').value,
-                    shopeeRnTime: document.getElementById('r-stg-shopee-rn-time').value,
+                    marketplaceIos: document.getElementById('r-stg-marketplace-ios').value,
+                    marketplaceAndroid: document.getElementById('r-stg-marketplace-android').value,
+                    marketplaceRnTime: document.getElementById('r-stg-marketplace-rn-time').value,
                     sellerIos: document.getElementById('r-stg-seller-ios').value,
                     sellerAndroid: document.getElementById('r-stg-seller-android').value,
                     sellerIdIos: document.getElementById('r-stg-seller-id-ios').value,
@@ -3127,7 +3127,7 @@ ${vals.thread || 'Check in MKP Regression Group'}`;
 
                 if (!vals.version || !vals.date || !vals.spreadsheet || 
                     !vals.jiraSeller || !vals.jiraBuyer || !vals.qaodAssignee ||
-                    !vals.shopeeIos || !vals.shopeeAndroid || 
+                    !vals.marketplaceIos || !vals.marketplaceAndroid || 
                     !vals.sellerIos || !vals.sellerAndroid || 
                     !vals.sellerIdIos || !vals.sellerIdAndroid || !vals.sellerRn) {
                     alert('⚠️ Please fill all required fields!'); return;
@@ -3155,14 +3155,14 @@ h2. Label Bug:
 h2. Jira Tickets:
 * Seller App: ${vals.jiraSeller}
 * Buyer App: ${vals.jiraBuyer}
-Guide: SPQAA most recent created - https://jira.shopee.io/issues/?filter=150230
+Guide: TEAMQA most recent created - https://jira.company.example/issues/?filter=FILTER_ID
 
-h2. Shopee App:
-* iOS Version: ${vals.shopeeIos}
-* Android Version: ${vals.shopeeAndroid}`;
+h2. Marketplace App:
+* iOS Version: ${vals.marketplaceIos}
+* Android Version: ${vals.marketplaceAndroid}`;
 
-                if (vals.shopeeRnTime) {
-                    descText += `\n* RN Available Time: ${vals.shopeeRnTime}`;
+                if (vals.marketplaceRnTime) {
+                    descText += `\n* RN Available Time: ${vals.marketplaceRnTime}`;
                 }
 
                 descText += `\n\nh2. Seller App:
@@ -3173,7 +3173,7 @@ h2. Shopee App:
 * Seller App RN Version: ${vals.sellerRn}`;
 
                 if (vals.liteVersion || vals.liteRn) {
-                    descText += `\n\nh2. Shopee Lite:`;
+                    descText += `\n\nh2. Marketplace Lite:`;
                     if (vals.liteVersion) descText += `\n* App Version: ${vals.liteVersion}`;
                     if (vals.liteRn) descText += `\n* RN Version: ${vals.liteRn}`;
                 }
@@ -3239,7 +3239,7 @@ ${testDate}
 
 h2. Test Case Spreadsheet:
 ${vals.spreadsheet}
-Guide: can duplicate from here - https://docs.google.com/spreadsheets/d/1xcWWD9HbYodGfdtVeDPNrHd3PePdsleTSF3l4F3i-1U/edit?gid=2068996028#gid=2068996028
+Guide: can duplicate from here - https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit?gid=2068996028#gid=2068996028
 
 h2. Label Bug:
 {{${labelBug}}}
@@ -3247,7 +3247,7 @@ h2. Label Bug:
 h2. Jira Tickets:
 * Seller App: ${vals.jiraSeller}
 * Buyer App: ${vals.jiraBuyer}
-Guide: Check Recent JIRA Ticket - https://jira.shopee.io/issues/?filter=150230
+Guide: Check Recent JIRA Ticket - https://jira.company.example/issues/?filter=FILTER_ID
 
 h2. RN Version:
 {{${vals.rnVersion}}}
@@ -3258,7 +3258,7 @@ h2. App Version:
 * Android: latest from Play Store
 
 h2. QR RN:
-https://app.shopee.io/rn-release/version-selection
+https://app.company.example/rn-release/version-selection
 
 h2. Environment:
 Live - ID
@@ -3418,12 +3418,12 @@ Response Details:
 ${JSON.stringify(responseData, null, 2)}
 
 🎉 The workflow will:
-✓ Create SeaTalk message with title
+✓ Create Team Chat message with title
 ✓ Create thread with description
 ✓ Create Jira ticket(s)
 ✓ Assign to selected PICs
 
-Please check SeaTalk and Jira in a few moments!`;
+Please check Team Chat and Jira in a few moments!`;
                 } else {
                     responseBox.className = 'api-response-box error';
                     responseBox.textContent = `⚠️ API Response (Status: ${response.status})

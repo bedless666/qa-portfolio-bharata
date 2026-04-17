@@ -12,7 +12,7 @@ TraceID/Request ID: e3e3e7f34467e6f897fca796ae5a2701
 Summary: Failed to sync item with error Channel logistic whitelist
 Environment: Test
 Region: KH (viewing from CN Seller Operation Platform)
-Account: bharata.aryaseta@shopee.com (Admin User ID: 39671)
+Account: qa.engineer@company.example (Admin User ID: 39671)
 
 Error Response:
 {
